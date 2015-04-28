@@ -69,5 +69,14 @@ get_comm_synchrony <- function(ts_data){
   for(i in 1:transitions){
     obs_gr[i,] <- as.numeric(log(merged_df[i,name_ids1]/merged_df[i,name_ids2]))
   }
-  return(obs_gr)
+  growth_rate_synchrony <- community.sync(obs_gr)
+  
+  obs_gr <- as.data.frame(obs_gr)
+  colnames(obs_gr) <- species_list
+  obs_gr$year <- merged_df$year
+  
+  return(list(stability = stability,
+              pgr_synchrony = growth_rate_synchrony,
+              abund_synchrony = synch_abundance,
+              growth_rates = obs_gr))
 }
