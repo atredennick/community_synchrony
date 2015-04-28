@@ -4,6 +4,7 @@ rm(list=ls(all=TRUE))
 library(communitySynchrony)
 library(plyr)
 library(reshape2)
+library(synchrony)
 
 # Bring in data
 site <- "Kansas"
@@ -32,4 +33,5 @@ ks_data<-ks_data[-tmp,]
 # exclude the records later than 1968, to keep the same random year effect...
 ks_data<-subset(ks_data,year<68)
 
-get_comm_synchrony(ts_data = ks_data)
+out <- get_comm_synchrony(ts_data = ks_data)
+matplot(seq_along(out[,1]), out, type="l")

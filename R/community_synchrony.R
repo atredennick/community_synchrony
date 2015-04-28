@@ -44,5 +44,30 @@ get_comm_synchrony <- function(ts_data){
   stability <- as.data.frame(stability)
   stability$level <- c(species_list, "community")
   stability$num_observations <- c(obs_vector, nrow(ts_sum))
-  return(stability)
+  
+  
+  ##  Calculate synchrony using Loreau and de Mazancourt metric
+  # requires the R package 'synchrony'
+  # Synchrony of abundance
+  ts_mat <- dcast(ts_agg[,c("year", "species", "tot_cover")], 
+                  formula = year~species, value.var="tot_cover")
+  ts_mat <- ts_mat[which(complete.cases(ts_mat)==TRUE),]
+  synch_abundance <- community.sync(ts_mat[2:(num_spp+1)]) #Loreau and de Mazancourt 2008 (Am Nat)
+  
+  # caclulate observed growth rates
+  # create lagged data frame to only get observed yearly transitions
+  lag_df <- ts_mat
+  lag_df$lagyear <- lag_df$year+1
+  colnames(lag_df)[2:(num_spp+1)] <- paste(colnames(lag_df)[2:(num_spp+1)],"_t0", sep="") 
+  # merge the lag df with observed
+  rm_col <- which(colnames(lag_df)=="year")
+  merged_df <- merge(ts_mat, lag_df[,-rm_col], by.x = "year", by.y="lagyear")
+  transitions <- nrow(merged_df)
+  obs_gr <- matrix(nrow=transitions, ncol=num_spp)
+  name_ids1 <- which(colnames(merged_df) %in% spp_list)
+  name_ids2 <- which(colnames(merged_df) %in% paste(spp_list, "_t0", sep=""))
+  for(i in 1:transitions){
+    obs_gr[i,] <- as.numeric(log(merged_df[i,name_ids1]/merged_df[i,name_ids2]))
+  }
+  return(obs_gr)
 }
