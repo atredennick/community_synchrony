@@ -1,0 +1,33 @@
+## Clear the workspace
+rm(list=ls(all=TRUE))
+
+library(communitySynchrony)
+
+# Bring in data
+site <- "Kansas"
+spp_list <- c("BOCU","BOHI","SCSC")
+num_spp <- length(spp_list)
+ks_data <- data.frame(quad=NA, year=NA, totCover=NA, species=NA)
+for(dospp in 1:num_spp){ #loop through species to read in data
+  spp_now <- spp_list[dospp]
+  quad_file <- paste("../Data/", site,"/",spp_now,"/quadratCover.csv",sep="")
+  spp_data <- read.csv(quad_file)
+  spp_data$species <- spp_now
+  ks_data <- rbind(ks_data, spp_data)
+} #end species looping for raw data
+ks_data <- ks_data[2:nrow(ks_data),] #remove first NA row
+
+# now exclude some quadrats (from Chengjin's work)
+tmp1<-which(ks_data$quad_data=="q25" & (ks_data$year<35 | ks_data$year>62))
+tmp2<-which(ks_data$quad_data=="q27")
+tmp3<-which(ks_data$quad=="q28")
+tmp4<-which(ks_data$quad=="q30")
+tmp5<-which(ks_data$quad=="q31" & (ks_data$year<35 | ks_data$year>39))
+tmp6<-which(ks_data$quad=="q32" & (ks_data$year<35 | ks_data$year>41))
+tmp<-c(tmp1,tmp2,tmp3,tmp4,tmp5,tmp6)
+ks_data<-ks_data[-tmp,]
+
+# exclude the records later than 1968, to keep the same random year effect...
+ks_data<-subset(ks_data,year<68)
+
+get_comm_synchrony(ts_data = ks_data)

@@ -1,9 +1,9 @@
-Package: community_synchrony
+Package: communitySynchrony
 Type: Package
-Title: What the package does (short line)
-Version: 1.0
+Title: Calculates syunchrony and stability metrics from time series data
+Version: 0.1
 Date: 2015-04-28
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
+Author: Andrew Tredennick
+Maintainer: Andrew Tredennick <atredenn@gmail.com>
 Description: More about what it does (maybe more than one line)
-License: What license is it under?
+License: MIT
