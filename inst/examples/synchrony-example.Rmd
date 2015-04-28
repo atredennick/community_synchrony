@@ -7,6 +7,7 @@ library(communitySynchrony)
 library(plyr)
 library(reshape2)
 library(synchrony)
+library(ggplot2)
 ```
 
 ### Bring in data
@@ -46,4 +47,13 @@ ks_data<-subset(ks_data,year<68)
 out <- get_comm_synchrony(ts_data = ks_data)
 str(out)
 names(out)
+```
+
+### Plot per capita growth rates
+```{r plotit, echo=TRUE, include=TRUE}
+pgr_data <- out$growth_rates
+pgr_melt <- melt(pgr_data, id.vars = "year")
+ggplot(pgr_melt, aes(x=(year+1900), y=value, color=variable))+
+  geom_line()+
+  geom_point()
 ```
