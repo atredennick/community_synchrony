@@ -1,12 +1,17 @@
-## Clear the workspace
-rm(list=ls(all=TRUE))
+# Checking `get_community_synchrony`
+A quick check to make sure the function is working as expected.
 
+The `get_community_synchrony` function requires several other packages...
+```{r load_libs, echo=TRUE}
 library(communitySynchrony)
 library(plyr)
 library(reshape2)
 library(synchrony)
+```
 
-# Bring in data
+### Bring in data
+I'm going to use the Kansas data as a test first, then move to the Idaho data.
+```{r get_data, echo=TRUE}
 site <- "Kansas"
 spp_list <- c("BOCU","BOHI","SCSC")
 num_spp <- length(spp_list)
@@ -19,8 +24,10 @@ for(dospp in 1:num_spp){ #loop through species to read in data
   ks_data <- rbind(ks_data, spp_data)
 } #end species looping for raw data
 ks_data <- ks_data[2:nrow(ks_data),] #remove first NA row
+```
 
-# now exclude some quadrats (from Chengjin's work)
+Chengjin identified several quad-years that need to be removed due to dominance of BOCU.
+```{r remove_plots, echo=TRUE}
 tmp1<-which(ks_data$quad_data=="q25" & (ks_data$year<35 | ks_data$year>62))
 tmp2<-which(ks_data$quad_data=="q27")
 tmp3<-which(ks_data$quad=="q28")
@@ -32,6 +39,11 @@ ks_data<-ks_data[-tmp,]
 
 # exclude the records later than 1968, to keep the same random year effect...
 ks_data<-subset(ks_data,year<68)
+```
 
+### Run the function
+```{r run_it, echo=TRUE}
 out <- get_comm_synchrony(ts_data = ks_data)
-matplot(seq_along(out[,1]), out, type="l")
+str(out)
+names(out)
+```
