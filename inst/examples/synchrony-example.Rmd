@@ -57,3 +57,40 @@ ggplot(pgr_melt, aes(x=(year+1900), y=value, color=variable))+
   geom_line()+
   geom_point()
 ```
+
+### Try with Idaho
+```{r idaho_try, echo=TRUE}
+site <- "Idaho"
+spp_list <- sort(c("PSSP","HECO","POSE","ARTR"))
+num_spp <- length(spp_list)
+id_data <- data.frame(quad=NA, year=NA, totCover=NA, species=NA)
+for(dospp in 1:num_spp){ #loop through species to read in data
+  spp_now <- spp_list[dospp]
+  quad_file <- paste("../../data/", site,"/",spp_now,"/quadratCover.csv",sep="")
+  spp_data <- read.csv(quad_file)
+  spp_data$species <- spp_now
+  id_data <- rbind(id_data, spp_data)
+} #end species looping for raw data
+id_data <- id_data[2:nrow(id_data),] #remove first NA row
+id_data <- subset(id_data, species!="ARTR") #take out the shrub
+
+out <- get_comm_synchrony(ts_data = id_data)
+str(out)
+names(out)
+```
+
+### Plot Idaho per capita growth rates
+```{r plotit_idaho, echo=TRUE, include=TRUE}
+pgr_data <- out$growth_rates
+pgr_melt <- melt(pgr_data, id.vars = "year")
+ggplot(pgr_melt, aes(x=(year+1900), y=value, color=variable))+
+  geom_line()+
+  geom_point()
+```
+
+### Plot Idaho percent cover through time
+```{r perc_cover, echo=TRUE, include=TRUE}
+ggplot(out$percent_cover, aes(x=(year+1900), y=tot_cover, color=species))+
+  geom_line()+
+  geom_point()
+```
