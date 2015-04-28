@@ -78,5 +78,6 @@ get_comm_synchrony <- function(ts_data){
   return(list(stability = stability,
               pgr_synchrony = growth_rate_synchrony,
               abund_synchrony = synch_abundance,
-              growth_rates = obs_gr))
+              growth_rates = obs_gr,
+              percent_cover = ts_agg))
 }
