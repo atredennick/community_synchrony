@@ -1,4 +1,4 @@
-##  Function that runs all synchrony metrics given a dataset. The input
+##  Functions that run all synchrony metrics given a dataset. The input
 ##    are the genet-level time series for a specific site. If quad-years
 ##    need to be removed, this should be done before feeding the data
 ##    to this function.
@@ -11,3 +11,38 @@
 ##  Email:        atredenn@gmail.com
 ##  Last update:  4.28.2015
 
+#' Calculate synchrony and stability from genet-level time series
+#' 
+#' @param ts_data Time series dataframe of genet sizes. 'Bad' quad-years should already be removed.
+#' @return A list of data frames for synchrony and stability metrics for the community.
+
+get_comm_synchrony <- function(ts_data){
+  ## aggregate the quadrat-level data for average observed cover
+  # divide totCover by 100 to convert from m2 to percent cover in 1m2 plot
+  ts_agg <- ddply(ts_data, .(year, species), summarise,
+                  tot_cover = mean(totCover/100),
+                  num_obs = length(totCover))
+  ts_agg <- subset(ts_agg, num_obs>1) # ignore years where only 1 quadrat is observed
+  
+  ## Calculate stability
+  # population stability (mean/sd)
+  species_list <- unique(ts_agg$species)
+  num_spp <- length(species_list)
+  stability <- numeric(num_spp+1)
+  obs_vector <- numeric(num_spp)
+  for(do_species in species_list){ # loop through species for population stability
+    tmp <- subset(ts_agg, species==do_species)
+    stability[i] <- mean(tmp$tot_cover)/sd(tmp$tot_cover)
+    obs_vector[i] <- nrow(tmp)
+  } # end species looping for population stability
+  
+  # community stability (mean/sd of summed cover)
+  # calculate total cover from the species-level data for each quadrat
+  ts_sum <- ddply(ts_agg, .(year), summarise,
+                  all_cover = sum(tot_cover))
+  stability[num_spp+1] <- mean(ts_sum$all_cover)/sd(ts_sum$all_cover)
+  stability <- as.data.frame(stability)
+  stability$level <- c(species_list, "community")
+  stability$num_observations <- c(obs_vector, nrow(ts_sum))
+  return(stability)
+}
