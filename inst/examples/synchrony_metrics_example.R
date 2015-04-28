@@ -2,6 +2,8 @@
 rm(list=ls(all=TRUE))
 
 library(communitySynchrony)
+library(plyr)
+library(reshape2)
 
 # Bring in data
 site <- "Kansas"
@@ -10,7 +12,7 @@ num_spp <- length(spp_list)
 ks_data <- data.frame(quad=NA, year=NA, totCover=NA, species=NA)
 for(dospp in 1:num_spp){ #loop through species to read in data
   spp_now <- spp_list[dospp]
-  quad_file <- paste("../Data/", site,"/",spp_now,"/quadratCover.csv",sep="")
+  quad_file <- paste("../../data/", site,"/",spp_now,"/quadratCover.csv",sep="")
   spp_data <- read.csv(quad_file)
   spp_data$species <- spp_now
   ks_data <- rbind(ks_data, spp_data)
