@@ -30,8 +30,8 @@ get_comm_synchrony <- function(ts_data){
   num_spp <- length(species_list)
   stability <- numeric(num_spp+1)
   obs_vector <- numeric(num_spp)
-  for(do_species in species_list){ # loop through species for population stability
-    tmp <- subset(ts_agg, species==do_species)
+  for(i in 1:num_spp){ # loop through species for population stability
+    tmp <- subset(ts_agg, species==species_list[i])
     stability[i] <- mean(tmp$tot_cover)/sd(tmp$tot_cover)
     obs_vector[i] <- nrow(tmp)
   } # end species looping for population stability
