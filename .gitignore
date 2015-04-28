@@ -4,3 +4,4 @@ packrat/lib*/
 *.HTML
 *.pdf
 *.PDF
+.Rhistory
