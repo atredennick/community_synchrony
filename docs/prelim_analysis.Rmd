@@ -32,9 +32,10 @@ library(plyr)
 library(reshape2)
 library(synchrony)
 library(ggplot2)
+library(xtable)
 ```
 
-```{r get_synchs, echo=TRUE, include=TRUE}
+```{r get_synchs, echo=FALSE, include=TRUE}
 site <- "Kansas"
 spp_list <- c("BOCU","BOHI","SCSC")
 num_spp <- length(spp_list)
@@ -83,3 +84,42 @@ So, $\text{E}(\phi_{r})$ = `r exp_synch` and $\phi_{r}$ = `r obs_synch`. Which m
 
 Here are the results for both Kansas and Idaho:
 
+```{r idaho_synch, echo=FALSE, include=TRUE}
+site <- "Idaho"
+spp_list <- sort(c("PSSP","HECO","POSE","ARTR"))
+num_spp <- length(spp_list)
+id_data <- data.frame(quad=NA, year=NA, totCover=NA, species=NA)
+for(dospp in 1:num_spp){ #loop through species to read in data
+  spp_now <- spp_list[dospp]
+  quad_file <- paste("../data/", site,"/",spp_now,"/quadratCover.csv",sep="")
+  spp_data <- read.csv(quad_file)
+  spp_data$species <- spp_now
+  id_data <- rbind(id_data, spp_data)
+} #end species looping for raw data
+id_data <- id_data[2:nrow(id_data),] #remove first NA row
+id_data <- subset(id_data, species!="ARTR") #take out the shrub
+
+out_id <- get_comm_synchrony(ts_data = id_data)
+out_ks <- out
+```
+
+```{r synchrony_table, echo=FALSE, include=TRUE, results='asis'}
+get_table_metrics <- function(output){
+  tmp <- output
+  exp_tmp <- round(tmp$pgr_expected_synch_ind_flucts, 2)
+  obs_tmp <- round(as.numeric(tmp$pgr_synchrony[1]), 2)
+  demo_tmp <- exp_tmp - obs_tmp
+  return(c(obs_tmp, exp_tmp, demo_tmp))
+}
+
+table_data <- as.data.frame(rbind(get_table_metrics(out_ks),
+                                  get_table_metrics(out_id)))
+table_data$Site <-c("Kansas", "Idaho")
+table_data <- table_data[,c("Site", "V1", "V2", "V3")]
+colnames(table_data) <- c("Site",
+                          "$\\phi_{r}$", 
+                          "$\\text{E}(\\phi_{r})$", 
+                          "$\\text{E}(\\sigma_{d})$")
+print(xtable(table_data), include.rownames = F, 
+      sanitize.colnames.function = identity)
+```

@@ -64,8 +64,8 @@ get_comm_synchrony <- function(ts_data){
   merged_df <- merge(ts_mat, lag_df[,-rm_col], by.x = "year", by.y="lagyear")
   transitions <- nrow(merged_df)
   obs_gr <- matrix(nrow=transitions, ncol=num_spp)
-  name_ids1 <- which(colnames(merged_df) %in% spp_list)
-  name_ids2 <- which(colnames(merged_df) %in% paste(spp_list, "_t0", sep=""))
+  name_ids1 <- which(colnames(merged_df) %in% species_list)
+  name_ids2 <- which(colnames(merged_df) %in% paste(species_list, "_t0", sep=""))
   for(i in 1:transitions){
     obs_gr[i,] <- as.numeric(log(merged_df[i,name_ids1]/merged_df[i,name_ids2]))
   }
