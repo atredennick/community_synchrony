@@ -1,0 +1,18 @@
+---
+output: pdf_document
+---
+# Preliminary community synchrony analysis
+
+A couple comments from Claire:
+
+1. In the absence of environmental stochasticity, species fluctuations are not necessarily independent. 
+For example in a zero sum game with ecologically equivalent species (Hubbell's neutral model), species fluctuate randomly but they are not independent since the sum is constrained. If there are only two species their fluctuations are necessarily negatively correlated, because the increase in one species must be compensated by a decrease in the other. In a non-neutral model where species have stable equilibrium abundance there are also non independent fluctuations due to species interactions. In competitive communities fluctuations would most of the time have negative correlations overall, but sometimes they can be positive overall.
+
+2. I'm not entirely clear here: null with respect to what? Species interactions, demographic stochasticity and environmental stochasticity can all affect synchrony?
+
+3. Could you show the absolute values, either with three bars per plot, or with a black line that is not at zero but at its unperturbed synchrony value? OK, I see the absolute values in table 1, the differences between sites are quite large compared to the effects of demographic and environmental stochasticities - but it should still be visible. Does this suggest that environmental and demographic stochasticities are minor explanatory variables for community synchrony? What is, then? Diversity?
+
+4. In principle, could the signs of the effects of demographic stochasticity and environmental stochasticity be predicted? For demographic stochasticity, see comment by table 1. For environmental stochasticity: could you quantify the synchrony of species responses to the environment from the synchrony of the intercepts?
+
+5. We could compute the synchrony expected under independent fluctuations: $\sum_{i=1}^{N}{\sigma_{i}^2} / (\sum_{i=1}^{N}{\sigma_{i}})^2$. We could expect demographic stochasticity to tend towards this value: the sign of the effect of demographic stochasticity should be expected synchrony under independent fluctuations - observed synchrony; removal should be the opposite - does that work?
+
