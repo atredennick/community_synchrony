@@ -1,6 +1,9 @@
 ---
-output: pdf_document
+output:
+  pdf_document:
+    fig_caption: yes
 ---
+
 # Preliminary community synchrony analysis
 
 A couple comments from Claire:
@@ -33,9 +36,11 @@ library(reshape2)
 library(synchrony)
 library(ggplot2)
 library(xtable)
+library(gridExtra)
+library(RColorBrewer)
 ```
 
-```{r get_synchs, echo=FALSE, include=TRUE}
+```{r get_all_data, echo=FALSE}
 site <- "Kansas"
 spp_list <- c("BOCU","BOHI","SCSC")
 num_spp <- length(spp_list)
@@ -61,6 +66,67 @@ ks_data<-ks_data[-tmp,]
 # exclude the records later than 1968, to keep the same random year effect...
 ks_data<-subset(ks_data,year<68)
 
+
+site <- "Idaho"
+spp_list <- sort(c("PSSP","HECO","POSE","ARTR"))
+num_spp <- length(spp_list)
+id_data <- data.frame(quad=NA, year=NA, totCover=NA, species=NA)
+for(dospp in 1:num_spp){ #loop through species to read in data
+  spp_now <- spp_list[dospp]
+  quad_file <- paste("../data/", site,"/",spp_now,"/quadratCover.csv",sep="")
+  spp_data <- read.csv(quad_file)
+  spp_data$species <- spp_now
+  id_data <- rbind(id_data, spp_data)
+} #end species looping for raw data
+id_data <- id_data[2:nrow(id_data),] #remove first NA row
+id_data <- subset(id_data, species!="ARTR") #take out the shrub
+
+
+site <- "Montana"
+spp_list <- sort(c("BOGR","HECO","PASM","POSE"))
+num_spp <- length(spp_list)
+mt_data <- data.frame(quad=NA, year=NA, totCover=NA, species=NA)
+for(dospp in 1:num_spp){ #loop through species to read in data
+  spp_now <- spp_list[dospp]
+  quad_file <- paste("../data/", site,"/",spp_now,"/quadratCover.csv",sep="")
+  spp_data <- read.csv(quad_file)
+  spp_data$species <- spp_now
+  mt_data <- rbind(mt_data, spp_data)
+} #end species looping for raw data
+mt_data <- mt_data[2:nrow(mt_data),] #remove first NA row
+
+
+
+site <- "NewMexico"
+spp_list <- sort(c("BOER","SPFL"))
+num_spp <- length(spp_list)
+nm_data <- data.frame(quad=NA, year=NA, totCover=NA, species=NA)
+for(dospp in 1:num_spp){ #loop through species to read in data
+  spp_now <- spp_list[dospp]
+  quad_file <- paste("../data/", site,"/",spp_now,"/quadratCover.csv",sep="")
+  spp_data <- read.csv(quad_file)
+  spp_data$species <- spp_now
+  nm_data <- rbind(nm_data, spp_data)
+} #end species looping for raw data
+nm_data <- nm_data[2:nrow(nm_data),] #remove first NA row
+
+
+
+site <- "Arizona"
+spp_list <- sort(c("BOER","BORO"))
+num_spp <- length(spp_list)
+az_data <- data.frame(quad=NA, year=NA, totCover=NA, species=NA)
+for(dospp in 1:num_spp){ #loop through species to read in data
+  spp_now <- spp_list[dospp]
+  quad_file <- paste("../data/", site,"/",spp_now,"/quadratCover.csv",sep="")
+  spp_data <- read.csv(quad_file)
+  spp_data$species <- spp_now
+  az_data <- rbind(az_data, spp_data)
+} #end species looping for raw data
+az_data <- az_data[2:nrow(az_data),] #remove first NA row
+```
+
+```{r get_synchs, echo=FALSE, include=TRUE}
 out <- get_comm_synchrony(ts_data = ks_data)
 obs_synch <- round(as.numeric(out$pgr_synchrony[1]), 2)
 exp_synch <- round(out$pgr_expected_synch_ind_flucts, 2)
@@ -84,23 +150,12 @@ So, $\text{E}(\phi_{r})$ = `r exp_synch` and $\phi_{r}$ = `r obs_synch`. Which m
 
 Here are the results for both Kansas and Idaho:
 
-```{r idaho_synch, echo=FALSE, include=TRUE}
-site <- "Idaho"
-spp_list <- sort(c("PSSP","HECO","POSE","ARTR"))
-num_spp <- length(spp_list)
-id_data <- data.frame(quad=NA, year=NA, totCover=NA, species=NA)
-for(dospp in 1:num_spp){ #loop through species to read in data
-  spp_now <- spp_list[dospp]
-  quad_file <- paste("../data/", site,"/",spp_now,"/quadratCover.csv",sep="")
-  spp_data <- read.csv(quad_file)
-  spp_data$species <- spp_now
-  id_data <- rbind(id_data, spp_data)
-} #end species looping for raw data
-id_data <- id_data[2:nrow(id_data),] #remove first NA row
-id_data <- subset(id_data, species!="ARTR") #take out the shrub
-
-out_id <- get_comm_synchrony(ts_data = id_data)
+```{r get_all_synch, echo=FALSE, include=TRUE}
 out_ks <- out
+out_id <- get_comm_synchrony(ts_data = id_data)
+out_mt <- get_comm_synchrony(ts_data = mt_data)
+out_nm <- get_comm_synchrony(ts_data = nm_data)
+out_az <- get_comm_synchrony(ts_data = az_data)
 ```
 
 ```{r synchrony_table, echo=FALSE, include=TRUE, results='asis'}
@@ -113,13 +168,70 @@ get_table_metrics <- function(output){
 }
 
 table_data <- as.data.frame(rbind(get_table_metrics(out_ks),
-                                  get_table_metrics(out_id)))
-table_data$Site <-c("Kansas", "Idaho")
+                                  get_table_metrics(out_id),
+                                  get_table_metrics(out_mt),
+                                  get_table_metrics(out_nm),
+                                  get_table_metrics(out_az)))
+table_data$Site <- c("Kansas", "Idaho", "Montana", "New Mexico", "Arizona")
 table_data <- table_data[,c("Site", "V1", "V2", "V3")]
+table_data$spp <- c(length(unique(ks_data$species)),
+                    length(unique(id_data$species)),
+                    length(unique(mt_data$species)),
+                    length(unique(nm_data$species)),
+                    length(unique(az_data$species)))
 colnames(table_data) <- c("Site",
                           "$\\phi_{r}$", 
                           "$\\text{E}(\\phi_{r})$", 
-                          "$\\text{E}(\\sigma_{d})$")
-print(xtable(table_data), include.rownames = F, 
+                          "$\\text{E}(\\sigma_{d})$",
+                          "Species richness")
+
+synch_cap <- "Observed and expected synchrony among species' per capita growth rates and expected effect of demographic stochasticity on observed synchrony. Species richness values reflect the number of species analyzed from the community, not the actual richness."
+print(xtable(table_data, caption = synch_cap),
+      caption.placement="top",
+      include.rownames = F, 
       sanitize.colnames.function = identity)
+```
+
+```{r time_series_fig, echo=FALSE, include=TRUE, fig.height=7, fig.cap="Observed time series of mean percent cover (averaged over quadrats for each year) and per capita growth rates for each species at each site."}
+out_ks$percent_cover$site <- "Kansas"
+out_id$percent_cover$site <- "Idaho"
+out_mt$percent_cover$site <- "Montana"
+out_nm$percent_cover$site <- "New Mexico"
+out_az$percent_cover$site <- "Arizona"
+cover_data <- rbind(out_ks$percent_cover, out_id$percent_cover,
+                    out_mt$percent_cover, out_nm$percent_cover, 
+                    out_az$percent_cover)
+
+out_ks$growth_rates$site <- "Kansas"
+out_id$growth_rates$site <- "Idaho"
+out_mt$growth_rates$site <- "Montana"
+out_nm$growth_rates$site <- "New Mexico"
+out_az$growth_rates$site <- "Arizona"
+pgr_data <- rbind(out_ks$growth_rates, out_id$growth_rates,
+                  out_mt$growth_rates, out_nm$growth_rates, 
+                  out_az$growth_rates)
+all_spp <- unique(pgr_data$species)
+color_match <- data.frame(species = all_spp,
+                          color = brewer.pal(11,"Paired"))
+pgr_data <- merge(pgr_data, color_match, by = "species")
+cover_data <- merge(cover_data, color_match, by="species")
+
+cover_plot <- ggplot(data=cover_data, aes(x=(year+1900), y=tot_cover, color=color))+
+                geom_line()+
+                geom_point()+
+                facet_grid(site~., scales = "free_y")+
+                guides(color=FALSE)+
+                ylab("Mean Percent Cover")+
+                xlab("Year")+
+                scale_color_manual(values = brewer.pal(11,"Paired"))
+
+pgr_plot <- ggplot(data=pgr_data, aes(x=(year+1900), y=pgr, color=color))+
+              geom_line()+
+              geom_point()+
+              facet_grid(site~., scales = "free_y")+
+              guides(color=FALSE)+
+              ylab("Per Capita Growth Rate")+
+              xlab("Year")+
+              scale_color_manual(values = brewer.pal(11,"Paired"))
+full_plot <- grid.arrange(cover_plot, pgr_plot, ncol=2)
 ```
