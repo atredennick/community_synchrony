@@ -14,5 +14,72 @@ For example in a zero sum game with ecologically equivalent species (Hubbell's n
 
 4. In principle, could the signs of the effects of demographic stochasticity and environmental stochasticity be predicted? For demographic stochasticity, see comment by table 1. For environmental stochasticity: could you quantify the synchrony of species responses to the environment from the synchrony of the intercepts?
 
-5. We could compute the synchrony expected under independent fluctuations: $\sum_{i=1}^{N}{\sigma_{i}^2} / (\sum_{i=1}^{N}{\sigma_{i}})^2$. We could expect demographic stochasticity to tend towards this value: the sign of the effect of demographic stochasticity should be expected synchrony under independent fluctuations - observed synchrony; removal should be the opposite - does that work?
+5. We could compute the synchrony expected under independent fluctuations: 
+$$\text{E}(\phi_{r}) = \frac{ \sum_{i=1}^{N}{\sigma_{i}^2} } { \left(\sum_{i=1}^{N}{\sigma_{i}} \right)^2 }.$$
+We could expect demographic stochasticity to tend towards this value: the sign of the effect of demographic stochasticity should be $\text{E}(\phi_{r}) - \phi_{r}$, where $\phi_{r}$ is the observed synchrony of per capita growth rates; removal should be the opposite - does that work?
+
+
+## Calculate expected and observed sychrony
+Under the assumption of independent fluctuations in species' per capit growth rates, we can calculate expected synchrony as:
+
+$$\text{E}(\phi_{r}) = \frac{ \sum_{i=1}^{N}{\sigma_{i}^2} } { \left(\sum_{i=1}^{N}{\sigma_{i}} \right)^2 }$$
+
+where $\sigma_{i}$ is the standard deviation of species $i$'s per capita growth rate through time. 
+
+```{r load_libs, echo=FALSE, message=FALSE}
+library(communitySynchrony)
+library(plyr)
+library(reshape2)
+library(synchrony)
+library(ggplot2)
+```
+
+```{r get_synchs, echo=TRUE, include=TRUE}
+site <- "Kansas"
+spp_list <- c("BOCU","BOHI","SCSC")
+num_spp <- length(spp_list)
+ks_data <- data.frame(quad=NA, year=NA, totCover=NA, species=NA)
+for(dospp in 1:num_spp){ #loop through species to read in data
+  spp_now <- spp_list[dospp]
+  quad_file <- paste("../data/", site,"/",spp_now,"/quadratCover.csv",sep="")
+  spp_data <- read.csv(quad_file)
+  spp_data$species <- spp_now
+  ks_data <- rbind(ks_data, spp_data)
+} #end species looping for raw data
+ks_data <- ks_data[2:nrow(ks_data),] #remove first NA row
+
+tmp1<-which(ks_data$quad_data=="q25" & (ks_data$year<35 | ks_data$year>62))
+tmp2<-which(ks_data$quad_data=="q27")
+tmp3<-which(ks_data$quad=="q28")
+tmp4<-which(ks_data$quad=="q30")
+tmp5<-which(ks_data$quad=="q31" & (ks_data$year<35 | ks_data$year>39))
+tmp6<-which(ks_data$quad=="q32" & (ks_data$year<35 | ks_data$year>41))
+tmp<-c(tmp1,tmp2,tmp3,tmp4,tmp5,tmp6)
+ks_data<-ks_data[-tmp,]
+
+# exclude the records later than 1968, to keep the same random year effect...
+ks_data<-subset(ks_data,year<68)
+
+out <- get_comm_synchrony(ts_data = ks_data)
+obs_synch <- round(as.numeric(out$pgr_synchrony[1]), 2)
+exp_synch <- round(out$pgr_expected_synch_ind_flucts, 2)
+exp_demo_effect <- exp_synch - obs_synch
+print(out$pgr_synchrony)
+print(out$pgr_expected_synch_ind_flucts)
+```
+
+```{r sign_text, echo=FALSE}
+if(sign(exp_demo_effect)==-1){
+  sign_text <- "decrease"
+  remove_text <- "increase"
+}
+if(sign(exp_demo_effect)==1){
+ sign_text <- "increase"
+ remove_text <- "decrease" 
+}
+```
+
+So, $\text{E}(\phi_{r})$ = `r exp_synch` and $\phi_{r}$ = `r obs_synch`. Which means the expected effect of demographic stochasticity [$\text{E}(\sigma_{d}) = \text{E}(\phi_{r}) - \phi_{r}$] is `r exp_demo_effect`. So, based on the sign of $\text{E}(\sigma_{d})$ we expect demographic stochasticity to `r sign_text` synchrony among species' per capita growth rates. Thus, removing demographic stochasticity should `r remove_text` synchrony in our population model simulations.
+
+Here are the results for both Kansas and Idaho:
 
