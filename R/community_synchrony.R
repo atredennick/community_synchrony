@@ -87,6 +87,9 @@ get_comm_synchrony <- function(ts_data){
   
   
   ##  Output
+  obs_gr <- melt(obs_gr, id.vars = "year")
+  obs_gr <- obs_gr[with(obs_gr, order(year)), ]
+  colnames(obs_gr) <- c("year","species","pgr")
   return(list(stability = stability,
               pgr_synchrony = growth_rate_synchrony,
               pgr_expected_synch_ind_flucts = expected_synchrony_ind_flucts,
