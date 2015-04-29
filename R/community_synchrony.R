@@ -75,8 +75,22 @@ get_comm_synchrony <- function(ts_data){
   colnames(obs_gr) <- species_list
   obs_gr$year <- merged_df$year
   
+  
+  ##  Expected synchrony under independent fluctuations
+  sum(sigma_i^2) / (sum(sigma_i))^2
+  sigma <- numeric(num_spp)
+  sigma_sqr <- numeric(num_spp)
+  for(i in 1:num_spp){
+    sigma[i] <- sd[obs_gr[,i]]
+    sigma_sqr[i] <- (sd[obs_gr[,i]])^2
+  }
+  expected_synchrony_ind_flucts <- (sum(sigma_sqrs)) / ((sum(sigma))^2)
+  
+  
+  ##  Output
   return(list(stability = stability,
               pgr_synchrony = growth_rate_synchrony,
+              pgr_expected_synch_ind_flucts = expected_synchrony_ind_flucts,
               abund_synchrony = synch_abundance,
               growth_rates = obs_gr,
               percent_cover = ts_agg))
