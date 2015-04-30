@@ -8,24 +8,27 @@
 #'        ending with "/" (character).
 #' @param alphas The alpha values for each species at the site, in alphabetical
 #'               order by species.
+#' @param vital_rate Vital rate of interest. "growth" or "survival" 
 #' @return List of crowding matrices, one list entry per species.
 
-estimate_crowding <- function(site, data_path, alphas){
+estimate_crowding <- function(site, data_path, alphas, vital_rate){
   path_to_files <- paste(data_path, site, "/", sep="")
   species_list <- sort(list.files(path_to_files))
   num_species <- length(species_list)
   alpha.effect <- alphas
   all_crowding <- list()
   
+  if(vital_rate=="growth")
+    filename <- "/growDnoNA.csv"
+  if(vital_rate=="survival")
+    filename <- "/survD.csv"
+  
   #From here on, originally written by Peter Adler (so email him with your problems :))
+  print("This may take a bit, but I'm working...I promise.")
   for(spp in 1:length(species_list)){
     doSpp=species_list[spp]
-    growDfile=paste(path_to_files,doSpp,"/growDnoNA.csv",sep="")
-    growD=read.csv(growDfile)
-    D <- growD  #subset(growD,allEdge==0)
-    D$logarea.t0 <- log(D$area.t0)
-    D$logarea.t1 <- log(D$area.t1)
-    D$quad <- as.character(D$quad)
+    Dfile=paste(path_to_files,doSpp,filename,sep="")
+    D=read.csv(Dfile)
     
     # remove outliers (large plants that obviously do not turn into tiny plants) for ARTR only
 #     if(doSpp=="ARTR"){
@@ -52,6 +55,7 @@ estimate_crowding <- function(site, data_path, alphas){
     
     distD=distD[,c("quad","year","trackID","area","nbSpp","x","y")]
     W=matrix(NA,dim(D)[1],length(species_list))
+
     for(i in 1:dim(D)[1]){
       tmpD=subset(distD,year==D$year[i] & quad==D$quad[i])
       focal=which(tmpD$trackID==D$trackID[i] & tmpD$nbSpp==doSpp)
@@ -74,5 +78,6 @@ estimate_crowding <- function(site, data_path, alphas){
     
     all_crowding[[spp]] <- W
   } # end species loop
+  names(all_crowding) <- species_list
   return(all_crowding)
 }

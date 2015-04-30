@@ -1,0 +1,29 @@
+##  Script to call crowding functions and save results
+
+# Change this if directory structure is different
+path_to_data <- "../data/"
+
+site_list <- list.files("../data/")
+removes <- c(grep("*.csv", site_list),
+             grep("Climate", site_list))
+site_list <- site_list[-removes]
+
+growth_alphas <- read.csv(paste(path_to_data, "alpha_list_growth.csv", sep=""))
+survival_alphas <- read.csv(paste(path_to_data, "alpha_list_survival.csv", sep=""))
+
+# Loop through sites and get crowding for growth and survival
+#   save each output in the respective data folder
+for(do_site in site_list){
+  tmp_alpha_grow <- subset(growth_alphas, Site==do_site)$Alpha
+  tmp_alpha_surv <- subset(survival_alphas, Site==do_site)$Alpha
+  
+  tmp_crowd_grow <- estimate_crowding(site = do_site, 
+                                      data_path = path_to_data,
+                                      alphas = tmp_alpha_grow,
+                                      vital_rate = "growth")
+  
+  tmp_crowd_surv <- estimate_crowding(site = do_site, 
+                                      data_path = path_to_data,
+                                      alphas = tmp_alpha_surv,
+                                      vital_rate = "survival")
+}
