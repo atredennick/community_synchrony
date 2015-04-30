@@ -1,4 +1,5 @@
 ##  Script to call crowding functions and save results
+library(communitySynchrony)
 
 # Change this if directory structure is different
 path_to_data <- "../data/"
