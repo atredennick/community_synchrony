@@ -13,7 +13,8 @@ site_list <- site_list[-removes]
 growth_alphas <- read.csv(paste(path_to_data, "alpha_list_growth.csv", sep=""))
 survival_alphas <- read.csv(paste(path_to_data, "alpha_list_survival.csv", sep=""))
 
-crowd_list <- list()
+grow_list <- list()
+surv_list <- list()
 
 # Loop through sites and get crowding for growth and survival
 #   save each output in the respective data folder
