@@ -29,6 +29,7 @@ estimate_crowding <- function(site, data_path, alphas, vital_rate){
     doSpp=species_list[spp]
     Dfile=paste(path_to_files,doSpp,filename,sep="")
     D=read.csv(Dfile)
+    D$quad <- as.character(D$quad)
     
     # remove outliers (large plants that obviously do not turn into tiny plants) for ARTR only
 #     if(doSpp=="ARTR"){
