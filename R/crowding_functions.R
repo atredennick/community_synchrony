@@ -11,5 +11,7 @@
 
 estimate_crowding <- function(site, data_path, alphas){
   species_list <- sort(list.files(data_path))
+  num_species <- length(species_list)
   alpha.effect <- alphas
+  all_crowding <- list()
 }
