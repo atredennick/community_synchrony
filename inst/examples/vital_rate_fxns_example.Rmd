@@ -2,6 +2,8 @@
 ```{r libs}
 library(communitySynchrony)
 library(INLA)
+library(reshape2)
+library(ggplot2)
 ```
 
 ### Format data
@@ -81,4 +83,27 @@ for(spp in sppList){
                            crowd_mat = all_crowding[[spp]])
   growth_params[[spp]] <- tmp
 }
+```
+
+### Plot yearly intercepts and slopes
+```{r plots}
+intercepts <- matrix(ncol=length(sppList), nrow=nrow(growth_params[[1]]))
+slopes <- matrix(ncol=length(sppList), nrow=nrow(growth_params[[1]]))
+i <- 1
+for(spp in sppList){
+  intercepts[,i] <- growth_params[[spp]]$Intercept.yr
+  slopes[,i] <- growth_params[[spp]]$logarea.t0.yr
+  i <- i+1
+}
+colnames(intercepts) <- sppList
+colnames(slopes) <- sppList
+intm <- melt(intercepts)
+slopem <- melt(slopes)
+intm$variable <- "intercept"
+slopem$variable <- "slope"
+combo <- rbind(intm, slopem)
+ggplot(subset(combo, Var2!="ARTR"), aes(x=Var1, y=value, color=Var2))+
+  geom_line()+
+  geom_point()+
+  facet_grid(variable~., scales="free_y")
 ```
