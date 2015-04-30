@@ -1,0 +1,84 @@
+# Test of INLA regression fitting functions
+```{r libs}
+library(communitySynchrony)
+library(INLA)
+```
+
+### Format data
+```{r get_data}
+sppList=sort(c("PSSP","HECO","POSE","ARTR"))
+alpha.effect=c(0.014,0.017,0.026,0.018) # for spp in alphabetical order
+
+# Set up list for storage
+all_dataframes <- list()
+all_crowding <- list()
+for(spp in 1:length(sppList)){
+  doSpp=sppList[spp]
+  growDfile=paste("../../data/Idaho/",doSpp,"/growDnoNA.csv",sep="")
+  growD=read.csv(growDfile)
+  D <- growD  #subset(growD,allEdge==0)
+  D$logarea.t0 <- log(D$area.t0)
+  D$logarea.t1 <- log(D$area.t1)
+  D$quad <- as.character(D$quad)
+
+  # remove outliers (large plants that obviously do not turn into tiny plants) for ARTR only
+  if(doSpp=="ARTR"){
+    tmp=which(D$quad=="Q23" & D$year==45 & D$trackID==67)
+    tmp=c(tmp,which(D$quad=="Q12" & D$year==55 & D$trackID==25))
+    tmp=c(tmp,which(D$quad=="Q26" & D$year==45 & D$trackID==73))
+    D=D[-tmp,]
+  }else{
+    D=D
+  }
+
+  # calculate crowding 
+  for(i in 1:length(sppList)){
+    distDfile=paste("../../data/Idaho/",sppList[i],"/",sppList[i],"_genet_xy.csv",sep="")
+    if(i==1){
+      distD=read.csv(distDfile)
+      distD$nbSpp=sppList[i]  
+    }else{
+      tmp=read.csv(distDfile)
+      tmp$nbSpp=sppList[i] 
+      distD=rbind(distD,tmp)
+    }
+  }
+  
+  distD=distD[,c("quad","year","trackID","area","nbSpp","x","y")]
+  W=matrix(NA,dim(D)[1],length(sppList))
+  for(i in 1:dim(D)[1]){
+    tmpD=subset(distD,year==D$year[i] & quad==D$quad[i])
+    focal=which(tmpD$trackID==D$trackID[i] & tmpD$nbSpp==doSpp)
+    xx=tmpD$x[focal] ; yy=tmpD$y[focal]
+    tmpD$distance=sqrt((xx-tmpD$x)^2+(yy-tmpD$y)^2)
+    tmpD=subset(tmpD,distance>0)
+    if(dim(tmpD)[1]>0){
+      for(k in 1:length(sppList)){
+        sppI=which(tmpD$nbSpp==sppList[k])
+        if(length(sppI)>0){
+          W[i,k]=sum(exp(-1*alpha.effect[k]*tmpD$distance[sppI]^2)*tmpD$area[sppI])         
+        }else{
+          W[i,k]=0
+        }
+      }
+    }else{
+      W[i,]=0
+    }   
+  }
+  
+  all_crowding[[spp]] <- W
+  all_dataframes[[spp]] <- D
+}
+names(all_crowding) <- sppList
+names(all_dataframes) <- sppList
+```
+
+### Call regression function for growth
+```{r call_growth_fxn}
+growth_params <- list()
+for(spp in sppList){
+  tmp <- get_growth_params(dataframe = all_dataframes[[spp]],
+                           crowd_mat = all_crowding[[spp]])
+  growth_params[[spp]] <- tmp
+}
+```
