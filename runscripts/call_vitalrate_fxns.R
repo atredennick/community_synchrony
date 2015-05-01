@@ -19,6 +19,9 @@ crowd_surv <- readRDS(paste(path_to_data, "Crowding/crowd_survival_list.RDS", se
 grow_alphas <- read.csv(paste(path_to_data, "alpha_list_growth.csv", sep=""))
 surv_alphas <- read.csv(paste(path_to_data, "alpha_list_survival.csv", sep=""))
 
+####
+#### GROWTH -------------------------------------------------------------------
+####
 # Loop through sites and then species
 growth_params_biglist <- list()
 for(do_site in site_list){
@@ -67,4 +70,57 @@ for(do_site in site_list){
 
 # Save the big parameter list
 saveRDS(growth_params_biglist, "../results/growth_params_list.RDS")
+
+
+
+####
+#### SURVIVAL -----------------------------------------------------------------
+####
+# Loop through sites and then species
+surv_params_biglist <- list()
+for(do_site in site_list){
+  species_list <- list.files(paste(path_to_data, do_site, "/", sep=""))
+  alpha_now <- subset(surv_alphas, Site==do_site)
+  alpha_now <- as.numeric(alpha_now$Alpha)
+  
+  surv_params <- list()
+  for(do_species in species_list){
+    survDfile <- paste(path_to_data, do_site, "/", do_species,"/survD.csv",sep="")
+    survD <- read.csv(survDfile)
+    #TODO -- check with Peter about this allEdge subset
+    D <- survD  #subset(growD,allEdge==0)
+    D$logarea <- log(D$area)
+    D$quad <- as.character(D$quad)
+    
+    # Add group info for each site individually, as needed
+    if(do_site=="Arizona")
+      D$Group=as.factor(substr(D$quad,1,1))
+    if(do_site=="Kansas")
+      D$Group=as.numeric(D$Group)-1
+    if(do_site=="Montana")
+      D$Group=as.factor(substr(D$quad,1,1)) 
+    if(do_site=="NewMexico")
+      D$Group=as.factor(substr(D$quad,1,1))
+    
+    # Get the years right for Kansas
+    if(do_site=="Kansas")
+      D <- subset(D, year<68)
+    
+    # Get correct crowding matrix
+    crowd_surv_now <- crowd_surv[[do_site]][[do_species]]
+    
+    # Run through the function
+    tmp <- get_survival_params(dataframe = D,
+                               crowd_mat = crowd_surv_now,
+                               alpha = alpha_now)
+    
+    # Save in temporary list
+    surv_params[[do_species]] <- tmp
+  } #end species loop
+  # Save to the big list
+  surv_params_biglist[[do_site]] <- surv_params
+} #end site loop
+
+# Save the big parameter list
+saveRDS(surv_params_biglist, "../results/surv_params_list.RDS")
 
