@@ -41,6 +41,14 @@ for(do_site in site_list){
       D$Group=as.factor(substr(D$quad,1,1))
     if(do_site=="Kansas")
       D$Group=as.numeric(D$Group)-1
+    if(do_site=="Montana")
+      D$Group=as.factor(substr(D$quad,1,1)) 
+    if(do_site=="NewMexico")
+      D$Group=as.factor(substr(D$quad,1,1))
+    
+    # Get the years right for Kansas
+    if(do_site=="Kansas")
+      D <- subset(D, year<68)
     
     # Get correct crowding matrix
     crowd_growth_now <- crowd_growth[[do_site]][[do_species]]
