@@ -65,3 +65,6 @@ for(do_site in site_list){
   growth_params_biglist[[do_site]] <- growth_params
 } #end site loop
 
+# Save the big parameter list
+saveRDS(growth_params_biglist, "../results/growth_params_list.RDS")
+
