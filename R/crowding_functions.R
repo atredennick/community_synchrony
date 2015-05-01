@@ -30,6 +30,8 @@ estimate_crowding <- function(site, data_path, alphas, vital_rate){
     Dfile=paste(path_to_files,doSpp,filename,sep="")
     D=read.csv(Dfile)
     D$quad <- as.character(D$quad)
+    if(site=="Kansas")
+      D <- subset(D, year<68)
     
     # remove outliers (large plants that obviously do not turn into tiny plants) for ARTR only
 #     if(doSpp=="ARTR"){
