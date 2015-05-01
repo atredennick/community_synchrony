@@ -85,8 +85,7 @@ get_growth_params <- function(dataframe, crowd_mat, alpha){
 
 get_survival_params <- function(dataframe, crowd_mat, alpha){
   D <- dataframe
-  D$logarea.t0 <- log(D$area.t0)
-  D$logarea.t1 <- log(D$area.t1)
+  D$logarea <- log(D$area)
   D$quad <- as.character(D$quad)
   
   crowd = crowd_mat 
@@ -113,7 +112,8 @@ get_survival_params <- function(dataframe, crowd_mat, alpha){
   #random year and group effects
   params <- as.data.frame(outINLA$summary.random$yearID[,1:2])
   params <- cbind(params, outINLA$summary.random$year[,2])
-  params <- cbind(params, c(outINLA$summary.random$GroupID[,2],rep(NA,nrow(params)-6)))
+  ngroups <- length(outINLA$summary.random$GroupID[,2])
+  params <- cbind(params, c(outINLA$summary.random$GroupID[,2],rep(NA,nrow(params)-ngroups)))
   names(params) <- c("Year", "Intercept.yr", "logarea.yr", "Group")
  
   #fixed effects
@@ -122,7 +122,7 @@ get_survival_params <- function(dataframe, crowd_mat, alpha){
   colnames(tmp)=rownames(fixed)
   tmp[1,]=fixed[,1]
   params=cbind(params,tmp)
-  params$alpha=NA; params$alpha[1:length(sppList)]=alpha.effect
+  params$alpha=NA; params$alpha[1:length(alpha)]=alpha
   colnames(params)[5] <- "Intercept"
   
   return(params)
