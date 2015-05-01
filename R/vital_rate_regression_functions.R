@@ -8,9 +8,10 @@
 #' @param crowd_mat Matrix of crowding indices for each observation. Matrix
 #'                  dimensions are nrow = number of observations,
 #'                  ncol = number of species.
+#' @param alphas Vector of length(species) of vital rate specific alpha values.
 #' @return Dataframe with named regression coefficients.
 
-get_growth_params <- function(dataframe, crowd_mat){
+get_growth_params <- function(dataframe, crowd_mat, alpha){
   D <- dataframe
   D$logarea.t0 <- log(D$area.t0)
   D$logarea.t1 <- log(D$area.t1)
@@ -58,7 +59,7 @@ get_growth_params <- function(dataframe, crowd_mat){
   tmp[1,]=fixed[,1]
   params=cbind(params,tmp)
   colnames(params)[6] <- "Intercept"
-  params$alpha=NA; params$alpha[1:length(sppList)]=alpha.effect
+  params$alpha=NA; params$alpha[1:length(alpha)]=alpha
   #variance 
   params$sigma.a=NA; params$sigma.a[1]=coef(outVar)[1] 
   params$sigma.b=NA; params$sigma.b[1]=coef(outVar)[2]
