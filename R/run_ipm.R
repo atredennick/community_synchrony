@@ -14,8 +14,8 @@
 #' @param Gpars Recruitment regression parameters for focal site and species.
 #' @param demographic_stochasticity TRUE/FALSE flag for including demographic stoachasticity or not.
 
-run_ipm <- function(A=10000, tlimit=2500, burn.in=500, sppList,
-                    Nyrs, constant=FALSE, bigM, maxSize,
+run_ipm <- function(A=10000, tlimit=2500, burn_in=500, spp_list,
+                    Nyrs, constant=FALSE, iter_matrix_dims, max_size,
                     Rpars, Spars, Gpars, demographic_stochasticity=FALSE){
   library(IPMdoit)
   library(boot)
