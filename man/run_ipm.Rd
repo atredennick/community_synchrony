@@ -5,7 +5,8 @@
 \title{Run multi-species Integral Projection Model}
 \usage{
 run_ipm(A = 10000, tlimit = 2500, burn.in = 500, sppList, Nyrs,
-  constant = FALSE, bigM, maxSize, Rpars, Spars, Gpars)
+  constant = FALSE, bigM, maxSize, Rpars, Spars, Gpars,
+  demographic_stochasticity = FALSE)
 }
 \arguments{
 \item{A}{Area of quadrat (cm X cm).}
@@ -21,6 +22,8 @@ run_ipm(A = 10000, tlimit = 2500, burn.in = 500, sppList, Nyrs,
 \item{Spars}{Survival regression parameters for focal site and species.}
 
 \item{Gpars}{Recruitment regression parameters for focal site and species.}
+
+\item{demographic_stochasticity}{TRUE/FALSE flag for including demographic stoachasticity or not.}
 
 \item{burn_in}{Number of years to discard before calculating things.}
 
