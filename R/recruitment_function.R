@@ -80,7 +80,7 @@ recruit_mcmc <- function(dataframe, n_adapt=5000, n_update=10000,
   params <- c("intcpt.yr","intcpt.mu","intcpt.tau","intcpt.gr",
               "g.tau","dd","theta","u","lambda") 
   
-  modelFile <- "recruitJAGS.R"
+  modelFile <- "../runscripts/recruitJAGS.R"
   
   n.Adapt <- n_adapt
   n.Up <- n_update

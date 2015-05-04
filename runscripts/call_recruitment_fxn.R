@@ -11,116 +11,37 @@ removes <- c(grep("*.csv", site_list),
              grep("Crowding", site_list))
 site_list <- site_list[-removes]
 
-# Load all crowding data list
-crowd_growth <- readRDS(paste(path_to_data, "Crowding/crowd_grow_list.RDS", sep=""))
-crowd_surv <- readRDS(paste(path_to_data, "Crowding/crowd_survival_list.RDS", sep=""))
-
-# Load all alphas
-grow_alphas <- read.csv(paste(path_to_data, "alpha_list_growth.csv", sep=""))
-surv_alphas <- read.csv(paste(path_to_data, "alpha_list_survival.csv", sep=""))
-
-####
-#### GROWTH -------------------------------------------------------------------
-####
-# Loop through sites and then species
-growth_params_biglist <- list()
 for(do_site in site_list){
   species_list <- list.files(paste(path_to_data, do_site, "/", sep=""))
-  alpha_now <- subset(grow_alphas, Site==do_site)
-  alpha_now <- as.numeric(alpha_now$Alpha)
   
-  growth_params <- list()
+  i <- 1 #counter
   for(do_species in species_list){
-    growDfile <- paste(path_to_data, do_site, "/", do_species,"/growDnoNA.csv",sep="")
-    growD <- read.csv(growDfile)
-    #TODO -- check with Peter about this allEdge subset
-    D <- growD  #subset(growD,allEdge==0)
-    D$logarea.t0 <- log(D$area.t0)
-    D$logarea.t1 <- log(D$area.t1)
-    D$quad <- as.character(D$quad)
+    tmpfile <- paste(path_to_data, do_site, "/", do_species,"/recArea.csv",sep="")
+    tmpD <- read.csv(tmpfile)
     
     # Add group info for each site individually, as needed
     if(do_site=="Arizona")
-      D$Group=as.factor(substr(D$quad,1,1))
+      tmpD$Group=as.factor(substr(tmpD$quad,1,1))
     if(do_site=="Kansas")
-      D$Group=as.numeric(D$Group)-1
+      tmpD$Group=as.numeric(tmpD$Group)-1
     if(do_site=="Montana")
-      D$Group=as.factor(substr(D$quad,1,1)) 
+      tmpD$Group=as.factor(substr(tmpD$quad,1,1)) 
     if(do_site=="NewMexico")
-      D$Group=as.factor(substr(D$quad,1,1))
-    
-    # Get the years right for Kansas
-    if(do_site=="Kansas")
-      D <- subset(D, year<68)
-    
-    # Get correct crowding matrix
-    crowd_growth_now <- crowd_growth[[do_site]][[do_species]]
-    
-    # Run through the function
-    tmp <- get_growth_params(dataframe = D,
-                             crowd_mat = crowd_growth_now,
-                             alpha = alpha_now)
-    
-    # Save in temporary list
-    growth_params[[do_species]] <- tmp
-  } #end species loop
-  # Save to the big list
-  growth_params_biglist[[do_site]] <- growth_params
-} #end site loop
-
-# Save the big parameter list
-saveRDS(growth_params_biglist, "../results/growth_params_list.RDS")
-
-
-
-####
-#### SURVIVAL -----------------------------------------------------------------
-####
-# Loop through sites and then species
-surv_params_biglist <- list()
-for(do_site in site_list){
-  species_list <- list.files(paste(path_to_data, do_site, "/", sep=""))
-  alpha_now <- subset(surv_alphas, Site==do_site)
-  alpha_now <- as.numeric(alpha_now$Alpha)
+      tmpD$Group=as.factor(substr(tmpD$quad,1,1))
+   
+    tmpD$Group <- as.factor(tmpD$Group)
+    tmpD <- tmpD[,c("quad","year","NRquad","totParea","Group")]
+    names(tmpD)[3] <- paste("R.",species_list[i],sep="")
+    names(tmpD)[4] <- paste("cov.",species_list[i],sep="")
+    if(i==1){
+      D=tmpD
+    }else{
+      D=merge(D,tmpD,all=T)
+    }
+    i <- i+1
+  } # end species loop
+  D[is.na(D)] <- 0  # replace missing values
   
-  surv_params <- list()
-  for(do_species in species_list){
-    survDfile <- paste(path_to_data, do_site, "/", do_species,"/survD.csv",sep="")
-    survD <- read.csv(survDfile)
-    #TODO -- check with Peter about this allEdge subset
-    D <- survD  #subset(growD,allEdge==0)
-    D$logarea <- log(D$area)
-    D$quad <- as.character(D$quad)
-    
-    # Add group info for each site individually, as needed
-    if(do_site=="Arizona")
-      D$Group=as.factor(substr(D$quad,1,1))
-    if(do_site=="Kansas")
-      D$Group=as.numeric(D$Group)-1
-    if(do_site=="Montana")
-      D$Group=as.factor(substr(D$quad,1,1)) 
-    if(do_site=="NewMexico")
-      D$Group=as.factor(substr(D$quad,1,1))
-    
-    # Get the years right for Kansas
-    if(do_site=="Kansas")
-      D <- subset(D, year<68)
-    
-    # Get correct crowding matrix
-    crowd_surv_now <- crowd_surv[[do_site]][[do_species]]
-    
-    # Run through the function
-    tmp <- get_survival_params(dataframe = D,
-                               crowd_mat = crowd_surv_now,
-                               alpha = alpha_now)
-    
-    # Save in temporary list
-    surv_params[[do_species]] <- tmp
-  } #end species loop
-  # Save to the big list
-  surv_params_biglist[[do_site]] <- surv_params
-} #end site loop
-
-# Save the big parameter list
-saveRDS(surv_params_biglist, "../results/surv_params_list.RDS")
+  
+} # end site loop
 
