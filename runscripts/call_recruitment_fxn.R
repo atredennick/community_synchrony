@@ -43,9 +43,10 @@ for(do_site in site_list){
   } # end species loop
   D[is.na(D)] <- 0  # replace missing values
   
-  recruit_params <- recruit_mcmc(dataframe = D, n_adapt = 1000, n_update = 1000,
-                                 n_samples = 1000, n_thin = 10, 
-                                 sppList = species_list)
+  recruit_params <- recruit_mcmc(dataframe = D, sppList = species_list)
   recruit_params_site_list[[do_site]] <- recruit_params
 } # end site loop
+
+# Save the output
+saveRDS(recruit_params_site_list, "../results/recruit_parameters.RDS")
 
