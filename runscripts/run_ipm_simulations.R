@@ -9,6 +9,7 @@ sim_names <- c("ENVDEMO", "ENV", "DEMO")
 
 Gpars_all <- readRDS("../results/growth_params_list.RDS")
 Spars_all <- readRDS("../results/surv_params_list.RDS")
+Rpars_all <- readRDS("../results/recruit_parameters.RDS")
 
 site_list <- names(Gpars_all)
 
