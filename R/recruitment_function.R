@@ -23,20 +23,20 @@ recruit_mcmc <- function(dataframe, n_adapt=5000, n_update=10000,
   parents2=as.matrix(D[,c(paste("Gcov.",sppList,sep=""))])/100
   
   # Loop through species to get local and group parents by species
-  num_species <- ncol(parents)
+  num_species <- length(sppList)
   tmp_list <- list()
   for(i in 1:num_species){
     tmpL <- which(parents1[,i]==0) # local
-    tmpG <- which(parentsw[,i]==0) # group
+    tmpG <- which(parents2[,i]==0) # group
     tmp <- intersect(tmpL, tmpG)
     tmp_list[[i]] <- tmp
   } # end species loop
   if(num_species == 2)
-    tmp <- unique(c(tmp[[1]],tmp[[2]]))
+    tmp <- unique(c(tmp_list[[1]],tmp_list[[2]]))
   if(num_species == 3)
-    tmp <- unique(c(tmp[[1]],tmp[[2]],tmp[[3]]))
+    tmp <- unique(c(tmp_list[[1]],tmp_list[[2]],tmp_list[[3]]))
   if(num_species == 4)
-    tmp <- unique(c(tmp[[1]],tmp[[2]],tmp[[3]],tmp[[4]]))
+    tmp <- unique(c(tmp_list[[1]],tmp_list[[2]],tmp_list[[3]],tmp_list[[4]]))
   
   if(length(tmp)>0){
     parents1 <- parents1[-tmp,] ##remove them
@@ -84,7 +84,7 @@ recruit_mcmc <- function(dataframe, n_adapt=5000, n_update=10000,
   
   n.Adapt <- n_adapt
   n.Up <- n_update
-  n.Samp <- n_sample
+  n.Samp <- n_samples
   n.Thin <- n_thin
   
   jm <- jags.model(modelFile, data=dataJ, n.chains=length(inits),
@@ -92,7 +92,7 @@ recruit_mcmc <- function(dataframe, n_adapt=5000, n_update=10000,
   update(jm, n.iter=n.Up)
   out <- coda.samples(jm, variable.names=params, n.iter=n.Samp, n.thin=n.Thin)
 
-  zmStat <- summary(zm)$stat
+  zmStat <- summary(out)$stat
   return(zmStat)
 } # end function
   

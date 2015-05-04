@@ -11,6 +11,7 @@ removes <- c(grep("*.csv", site_list),
              grep("Crowding", site_list))
 site_list <- site_list[-removes]
 
+recruit_params_site_list <- list()
 for(do_site in site_list){
   species_list <- list.files(paste(path_to_data, do_site, "/", sep=""))
   
@@ -42,6 +43,9 @@ for(do_site in site_list){
   } # end species loop
   D[is.na(D)] <- 0  # replace missing values
   
-  
+  recruit_params <- recruit_mcmc(dataframe = D, n_adapt = 1000, n_update = 1000,
+                                 n_samples = 1000, n_thin = 10, 
+                                 sppList = species_list)
+  recruit_params_site_list[[do_site]] <- recruit_params
 } # end site loop
 
