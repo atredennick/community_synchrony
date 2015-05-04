@@ -7,7 +7,7 @@
 #' @param n_samples Number of samples to collect from MCMC after update phase (default = 20000).
 #' @param n_thin Number of iterations by which to thin the samples (default = 50).
 #' @param sppList Character vector of species code names for the site.
-#' @return Dataframe with named regression coefficients.
+#' @return Matrix of statistical results by fitted parameter.
 
 recruit_mcmc <- function(dataframe, n_adapt=5000, n_update=10000, 
                          n_samples=20000, n_thin=50, sppList){
@@ -91,29 +91,9 @@ recruit_mcmc <- function(dataframe, n_adapt=5000, n_update=10000,
                    inits = inits, n.adapt = n.Adapt)
   update(jm, n.iter=n.Up)
   out <- coda.samples(jm, variable.names=params, n.iter=n.Samp, n.thin=n.Thin)
-  
-  
-  tmp=grep("lambda",row.names(out$summary))
-  A=row.names(out$summary)[tmp]
-  B=out$summary[tmp,1]
-  lambda=matrix(NA,dim(y)[1],Nspp)
-  C=paste(A,"<-",B,sep="")
-  eval(parse(n=length(A),text=C))
-  lambda[is.na(lambda)]=0
-  par(mfrow=c(2,2))
-  for(i in 1:Nspp){
-    plot(y[,i],lambda[,i],xlab="Obs",ylab="Pred",main=sppList[i])
-  }
-  par(mfrow=c(2,2))
-  for(i in 1:Nspp){
-    plot(parents1[,i],lambda[,i],xlab="Parents",ylab="Pred",main=sppList[i])
-  }
-  
-  write.table(out$summary,outfile,row.names=T,sep=",")
-  tmp=paste("DIC",out$DIC,sep=",")
-  write.table(tmp,outfile,col.names=F,row.names=F,append=T)
-  
-  
+
+  zmStat <- summary(zm)$stat
+  return(zmStat)
 } # end function
   
 
