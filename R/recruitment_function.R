@@ -6,13 +6,11 @@
 #' @param n_update Number of iterations for update phase of MCMC (default = 10000).
 #' @param n_samples Number of samples to collect from MCMC after update phase (default = 20000).
 #' @param n_thin Number of iterations by which to thin the samples (default = 50).
-#' @param n_chains Number of MCMC chains to sample (default = 3).
 #' @param sppList Character vector of species code names for the site.
 #' @return Dataframe with named regression coefficients.
 
 recruit_mcmc <- function(dataframe, n_adapt=5000, n_update=10000, 
-                         n_samples=20000, n_thin=50, n_chains=3,
-                         sppList){
+                         n_samples=20000, n_thin=50, sppList){
   D <- dataframe
   # Calculate mean cover by group and year
   tmpD <- D[,c("quad","year","Group",paste("cov.",sppList,sep=""))]
@@ -33,9 +31,89 @@ recruit_mcmc <- function(dataframe, n_adapt=5000, n_update=10000,
     tmp <- intersect(tmpL, tmpG)
     tmp_list[[i]] <- tmp
   } # end species loop
+  if(num_species == 2)
+    tmp <- unique(c(tmp[[1]],tmp[[2]]))
+  if(num_species == 3)
+    tmp <- unique(c(tmp[[1]],tmp[[2]],tmp[[3]]))
+  if(num_species == 4)
+    tmp <- unique(c(tmp[[1]],tmp[[2]],tmp[[3]],tmp[[4]]))
+  
+  if(length(tmp)>0){
+    parents1 <- parents1[-tmp,] ##remove them
+    parents2 <- parents2[-tmp,] ##remove them
+    y <- as.matrix(D[,c(paste("R.",sppList,sep=""))])[-tmp,] ##remove them  
+    year <- as.numeric(as.factor(D$year))[-tmp] ##remove them
+    Nyrs <- length(unique(D$year))
+    N <- dim(D)[1]-length(tmp) ##reduce
+    Nspp <- length(sppList)
+    Group <- as.numeric(as.factor(D$Group))[-tmp] ##remove them ##first turn it as FACTOR, then to NUMERIC
+    Ngroups <- length(unique(Group))
+  } else {
+    y <- as.matrix(D[,c(paste("R.",sppList,sep=""))])
+    year <- as.numeric(as.factor(D$year))
+    Nyrs <- length(unique(D$year))
+    N <- dim(D)[1]
+    Nspp <- length(sppList)
+    Group <- as.numeric(as.factor(D$Group)) ##first turn it as FACTOR, then to NUMERIC
+    Ngroups <- length(unique(Group))
+  }
+  
+  # fit as negative binomial with random effects in JAGS
+  library(coda)
+  library(rjags)
+  dataJ = list(N = N, y=y, parents1=parents1, parents2=parents2, 
+               year=year, Nyrs=Nyrs, Nspp=Nspp, Ngroups=Ngroups, Group=Group)
+  inits <- NULL
+  inits[[1]] <- list(intcpt.yr=matrix(1,Nyrs,Nspp),intcpt.mu=rep(1,Nspp),
+                     intcpt.tau=rep(1,Nspp),
+                     intcpt.gr=matrix(1,Ngroups,Nspp),g.tau=rep(1,Nspp),
+                     dd=matrix(-1,Nspp,Nspp),theta=rep(1,Nspp)) 
+  inits[[2]] <- list(intcpt.yr=matrix(0,Nyrs,Nspp),intcpt.mu=rep(0,Nspp),
+                     intcpt.tau=rep(10,Nspp),
+                     intcpt.gr=matrix(0,Ngroups,Nspp),g.tau=rep(0.1,Nspp),
+                     dd=matrix(-0.5,Nspp,Nspp),theta=rep(2,Nspp))
+  inits[[3]] <- list(intcpt.yr=matrix(0.5,Nyrs,Nspp),intcpt.mu=rep(0.5,Nspp),
+                     intcpt.tau=rep(5,Nspp),
+                     intcpt.gr=matrix(0.5,Ngroups,Nspp),g.tau=rep(0.2,Nspp),
+                     dd=matrix(-0.3,Nspp,Nspp),theta=rep(4,Nspp)) 
+  
+  params <- c("intcpt.yr","intcpt.mu","intcpt.tau","intcpt.gr",
+              "g.tau","dd","theta","u","lambda") 
+  
+  modelFile <- "recruitJAGS.R"
+  
+  n.Adapt <- n_adapt
+  n.Up <- n_update
+  n.Samp <- n_sample
+  n.Thin <- n_thin
+  
+  jm <- jags.model(modelFile, data=dataJ, n.chains=length(inits),
+                   inits = inits, n.adapt = n.Adapt)
+  update(jm, n.iter=n.Up)
+  out <- coda.samples(jm, variable.names=params, n.iter=n.Samp, n.thin=n.Thin)
   
   
-  tmp <- unique(c(tmp1,tmp2))
+  tmp=grep("lambda",row.names(out$summary))
+  A=row.names(out$summary)[tmp]
+  B=out$summary[tmp,1]
+  lambda=matrix(NA,dim(y)[1],Nspp)
+  C=paste(A,"<-",B,sep="")
+  eval(parse(n=length(A),text=C))
+  lambda[is.na(lambda)]=0
+  par(mfrow=c(2,2))
+  for(i in 1:Nspp){
+    plot(y[,i],lambda[,i],xlab="Obs",ylab="Pred",main=sppList[i])
+  }
+  par(mfrow=c(2,2))
+  for(i in 1:Nspp){
+    plot(parents1[,i],lambda[,i],xlab="Parents",ylab="Pred",main=sppList[i])
+  }
+  
+  write.table(out$summary,outfile,row.names=T,sep=",")
+  tmp=paste("DIC",out$DIC,sep=",")
+  write.table(tmp,outfile,col.names=F,row.names=F,append=T)
+  
+  
 } # end function
   
 
