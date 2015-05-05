@@ -100,7 +100,8 @@ format_survival_params <- function(do_site, species_list, Nyrs, Sdata_species){
 format_recruitment_params <- function(do_site, species_list, Nyrs,
                                       Rdata_species, path_to_site_data){
   Nspp <- length(species_list)
-  Ngrp <- length(which(!is.na(Rdata_species[[1]]$Group)))
+  grouprows <- grep("*gr",rownames(Rdata_species))
+  Ngrp <- length(grouprows)/Nspp
   Rpars <- list(intcpt.mu=rep(0,Nspp),intcpt.yr=matrix(0,Nyrs,Nspp),
                 intcpt.tau=rep(100,Nspp),
                 intcpt.gr=matrix(NA,Ngrp,Nspp),g.tau=rep(NA,Nspp),
@@ -109,11 +110,12 @@ format_recruitment_params <- function(do_site, species_list, Nyrs,
                 recSizes=list(1))
   
   # subset out non-essential parameters
-  tmp <- c(grep("lambda",row.names(Rdata)),grep("deviance",row.names(Rdata)),
-           grep("DIC",row.names(Rdata)))   #group stuff?
-  Rdata <- Rdata[-tmp,]
-  tmp <- paste("Rpars$",row.names(Rdata),"<-",Rdata[,1],sep="")
-  eval(parse(n=dim(Rdata)[1],text=tmp))
+  tmp <- c(grep("lambda",row.names(Rdata_species)),
+           grep("deviance",row.names(Rdata_species)),
+           grep("DIC",row.names(Rdata_species)))   #group stuff?
+  Rdata_species <- Rdata_species[-tmp,]
+  tmp <- paste("Rpars$",row.names(Rdata_species),"<-",Rdata_species[,1],sep="")
+  eval(parse(n=dim(Rdata_species)[1],text=tmp))
   
   for(i in 1:Nspp){
     infile <- paste(path_to_site_data,"/",species_list[i],"/recSize.csv",sep="")

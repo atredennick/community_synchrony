@@ -29,13 +29,13 @@ for(do_site in site_list){
   Nyrs <- nrow(Gpars_tmp[[1]])
   
   #Import and format parameters
-  site_path <- paste("../data", do_site, "/", sep="")
+  site_path <- paste("../data/", do_site, sep="")
   Gpars <- format_growth_params(do_site = do_site, species_list = spp_list, 
-                                Nyrs = Nyrs, Gdata = Gpars_tmp)
+                                Nyrs = Nyrs, Gdata_species = Gpars_tmp)
   Spars <- format_survival_params(do_site = do_site, species_list = spp_list, 
-                                  Nyrs = Nyrs, Sdata = Spars_tmp)
+                                  Nyrs = Nyrs, Sdata_species = Spars_tmp)
   Rpars <- format_recruitment_params(do_site = do_site, species_list = spp_list, 
-                                     Nyrs = Nyrs, Rdata = Rpars_tmp,
+                                     Nyrs = Nyrs, Rdata_species = Rpars_tmp,
                                      path_to_site_data = site_path)
   
   # Set iteration matrix dimensions and max genet sizes by site
@@ -64,12 +64,12 @@ for(do_site in site_list){
   for(i in 1:length(sim_names)){
     do_env_stoch <- do_env_stoch_vec[i]
     do_demo_stoch <- do_demo_stoch_vec[i]
-    
-    cover_sims <- run_ipm(A=10000, tlimit=2500, burn_in=500, spp_list=spp_list,
+    n_spp <- Nspp
+    cover_sims <- run_ipm(A=10000, tlimit=500, burn_in=100, spp_list=spp_list,
                           Nyrs=Nyrs, constant=do_env_stoch,
                           iter_matrix_dims=iter_matrix_dims, max_size=max_size,
                           Rpars=Rpars, Spars=Spars, Gpars=Gpars,
-                          demogrpahic_stochasticity=do_demo_stoch)
+                          demographic_stochasticity=do_demo_stoch)
     stoch_results[[sim_names[i]]] <- cover_sims
   } # end stochasticity loop
   output_list[[do_site]] <- stoch_results
