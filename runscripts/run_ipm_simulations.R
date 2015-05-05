@@ -3,7 +3,7 @@
 rm(list=ls(all=TRUE))
 library(communitySynchrony)
 
-do_env_stoch_vec <- c(TRUE,TRUE,FALSE)
+do_env_const_vec <- c(FALSE,FALSE,TRUE)
 do_demo_stoch_vec <- c(TRUE,FALSE,TRUE)
 sim_names <- c("ENVDEMO", "ENV", "DEMO")
 
@@ -14,16 +14,18 @@ Rpars_all <- readRDS("../results/recruit_parameters.RDS")
 site_list <- names(Gpars_all)
 
 output_list <- list()
+
 for(do_site in site_list){
   Gpars_tmp <- Gpars_all[[do_site]]
   Spars_tmp <- Spars_all[[do_site]]
   Rpars_tmp <- Rpars_all[[do_site]]
   
-  if(do_site=="Idaho"){
-    Gpars_tmp <- Gpars_tmp[[-which(names(Gpars_tmp)=="ARTR")]]
-    Spars_tmp <- Spars_tmp[[-which(names(Spars_tmp)=="ARTR")]]
-    Rpars_tmp <- Rpars_tmp[[-which(names(Rpars_tmp)=="ARTR")]]
-  }
+#   if(do_site=="Idaho"){
+#     id <- which(names(Gpars_tmp)=="ARTR")
+#     Gpars_tmp <- Gpars_tmp[-id]
+#     Spars_tmp <- Spars_tmp[-id] 
+# #     Rpars_tmp <- Rpars_tmp[[id]] <- NULL
+#   }
   
   spp_list <- names(Gpars_tmp)
   Nyrs <- nrow(Gpars_tmp[[1]])
@@ -45,8 +47,8 @@ for(do_site in site_list){
     max_size <- c(170,40)
   }
   if(do_site=="Idaho"){
-    iter_matrix_dims <- c(75,50,50)
-    max_size <- c(202,260,225)
+    iter_matrix_dims <- c(50,75,50,50)
+    max_size <- c(3000,202,260,225)
   }
   if(do_site=="Kansas"){
     iter_matrix_dims <- c(75,50,75)
@@ -62,15 +64,28 @@ for(do_site in site_list){
   }
   
   for(stoch in 1:length(sim_names)){
-    do_env_stoch <- do_env_stoch_vec[stoch]
+    do_env_const <- do_env_const_vec[stoch]
     do_demo_stoch <- do_demo_stoch_vec[stoch]
     n_spp <- Nspp <- length(spp_list)
-    cover_sims <- run_ipm(A=10000, tlimit=500, burn_in=100, spp_list=spp_list,
-                          Nyrs=Nyrs, constant=do_env_stoch,
-                          iter_matrix_dims=iter_matrix_dims, max_size=max_size,
-                          Rpars=Rpars, Spars=Spars, Gpars=Gpars,
-                          demographic_stochasticity=do_demo_stoch)
-    stoch_results[[sim_names[stoch]]] <- cover_sims
+    A=10000
+    tlimit=500
+    burn_in=100
+    spp_list=spp_list
+    Nyrs=Nyrs; constant=do_env_const
+    iter_matrix_dims=iter_matrix_dims; max_size=max_size
+    Rpars=Rpars; Spars=Spars; Gpars=Gpars
+    demographic_stochasticity=do_demo_stoch
+    
+    source("run_ipm_source.R")
+    
+#     cover_sims <- run_ipm(A=10000, tlimit=500, burn_in=100, spp_list=spp_list,
+#                           Nyrs=Nyrs, constant=do_env_stoch,
+#                           iter_matrix_dims=iter_matrix_dims, max_size=max_size,
+#                           Rpars=Rpars, Spars=Spars, Gpars=Gpars,
+#                           demographic_stochasticity=do_demo_stoch)
+    
+    colnames(covSave) <- spp_list
+    stoch_results[[sim_names[stoch]]] <- covSave
   } # end stochasticity loop
   output_list[[do_site]] <- stoch_results
 } # end site loop
