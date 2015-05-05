@@ -235,3 +235,18 @@ pgr_plot <- ggplot(data=pgr_data, aes(x=(year+1900), y=pgr, color=color))+
               scale_color_manual(values = brewer.pal(11,"Paired"))
 full_plot <- grid.arrange(cover_plot, pgr_plot, ncol=2)
 ```
+
+
+# Methods
+## Integral projection models (IPM)
+We built an environmentally and demographically stochastic integral projection model (IPM), where either environmental or demographic stochasticity can be turned off. Our IPM follows the specification of Chu and Adler (2015) where the population of species __j__ is a density function $n(u_{j},t)$ giving the density of sized-__u__ genets at time __t__. Genet size is on the natural log scale, so that $n(u_{j},t)du$ is the number of genets whose area (on the arithmetic scale) is between $e^{u_{j}}$ and $e^{u_{j}+du}$. So, the density function for any size __v__ at time $t+1$ is
+
+$$
+n(v_{j},t+1) = \int_{L_{j}}^{U_{j}} k_{j}(v_{j},u_{j},\bold{w_{j}}(u_{j}))n(u_{j},t)
+$$
+
+
+
+
+
+
