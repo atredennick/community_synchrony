@@ -61,16 +61,16 @@ for(do_site in site_list){
     max_size <- c(600,1300)
   }
   
-  for(i in 1:length(sim_names)){
-    do_env_stoch <- do_env_stoch_vec[i]
-    do_demo_stoch <- do_demo_stoch_vec[i]
-    n_spp <- Nspp
+  for(stoch in 1:length(sim_names)){
+    do_env_stoch <- do_env_stoch_vec[stoch]
+    do_demo_stoch <- do_demo_stoch_vec[stoch]
+    n_spp <- Nspp <- length(spp_list)
     cover_sims <- run_ipm(A=10000, tlimit=500, burn_in=100, spp_list=spp_list,
                           Nyrs=Nyrs, constant=do_env_stoch,
                           iter_matrix_dims=iter_matrix_dims, max_size=max_size,
                           Rpars=Rpars, Spars=Spars, Gpars=Gpars,
                           demographic_stochasticity=do_demo_stoch)
-    stoch_results[[sim_names[i]]] <- cover_sims
+    stoch_results[[sim_names[stoch]]] <- cover_sims
   } # end stochasticity loop
   output_list[[do_site]] <- stoch_results
 } # end site loop

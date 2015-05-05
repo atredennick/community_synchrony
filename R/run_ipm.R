@@ -17,6 +17,7 @@
 run_ipm <- function(A=10000, tlimit=2500, burn_in=500, spp_list,
                     Nyrs, constant=FALSE, iter_matrix_dims, max_size,
                     Rpars, Spars, Gpars, demographic_stochasticity=FALSE){
+  NoOverlap_Inter <- FALSE
   library(IPMdoit)
   library(boot)
   library(mvtnorm)
@@ -31,7 +32,7 @@ run_ipm <- function(A=10000, tlimit=2500, burn_in=500, spp_list,
   }
   
   # Build initial vectors and matrices
-  n_spp <- length(spp_list)
+  Nspp <- n_spp <- length(spp_list)
   inits <- make_inits_ipm(n_spp = n_spp, 
                           iter_matrix_dims = iter_matrix_dims, 
                           max_size = max_size)
@@ -48,7 +49,7 @@ run_ipm <- function(A=10000, tlimit=2500, burn_in=500, spp_list,
   
   # set up matrix to record cover
   covSave <- matrix(NA,tlimit,n_spp)
-  covSave[1,] <- sum_cover(inits$v,nt,inits$h,A)
+  covSave[1,] <- sum_cover(inits$v,nt,inits$h,A=A)
   
   # set up list to store size distributions
   sizeSave <- list(NULL)
@@ -74,7 +75,7 @@ run_ipm <- function(A=10000, tlimit=2500, burn_in=500, spp_list,
     #get recruits per area
     cover <- covSave[t-1,]
     N <- Nsave[t-1,]
-    recs_per_area <- get_rpa(Rpars,cover,doYear)
+    recs_per_area <- get_rpa(Rpars,cover,doYear,A)
     
     #calculate size-specific crowding
     alphaG <- Gpars$alpha 

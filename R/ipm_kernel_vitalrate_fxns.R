@@ -43,7 +43,7 @@ S <- function(u,W,Spars,doYear,doSpp){
 #' @param cover Current time step cover in m^2. Length is num_species.
 #' @param doYear Numeric scalar for current simulation year.
 
-get_rpa=function(Rpars,cover,doYear){
+get_rpa=function(Rpars,cover,doYear,A){
   # cover is in m^2 per m^2; convert to % scale:
   cover2=cover*100
   # calculate recruits
