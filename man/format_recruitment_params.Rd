@@ -4,7 +4,8 @@
 \alias{format_recruitment_params}
 \title{Import and format recruitment parameters for IPM}
 \usage{
-format_recruitment_params(do_site, species_list, Nyrs, Rdata, path_to_site_data)
+format_recruitment_params(do_site, species_list, Nyrs, Rdata_species,
+  path_to_site_data)
 }
 \arguments{
 \item{do_site}{Focal site (character scalar).}
@@ -13,7 +14,7 @@ format_recruitment_params(do_site, species_list, Nyrs, Rdata, path_to_site_data)
 
 \item{Nyrs}{Number of random effects years.}
 
-\item{Rdata}{Recruitment parameters matrix from regression output.}
+\item{Rdata_species}{Recruitment parameters matrix from regression output.}
 
 \item{path_to_site_data}{Directory path to site-specific data folder.}
 }

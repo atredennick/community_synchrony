@@ -4,7 +4,7 @@
 \alias{format_growth_params}
 \title{Import and format growth parameters for IPM}
 \usage{
-format_growth_params(do_site, species_list, Nyrs, Gdata)
+format_growth_params(do_site, species_list, Nyrs, Gdata_species)
 }
 \arguments{
 \item{do_site}{Focal site (character scalar).}
@@ -13,7 +13,7 @@ format_growth_params(do_site, species_list, Nyrs, Gdata)
 
 \item{Nyrs}{Number of random effects years.}
 
-\item{Gdata}{Growth parameters matrix from regression output.}
+\item{Gdata_species}{Growth parameters matrix from regression output.}
 }
 \description{
 Import and format growth parameters for IPM

@@ -28,9 +28,15 @@ for(do_site in site_list){
   spp_list <- names(Gpars_tmp)
   Nyrs <- nrow(Gpars_tmp[[1]])
   
-  ######
-  ##TODO: insert import params functions (Gpar, Spars, Rpars)
-  ######
+  #Import and format parameters
+  site_path <- paste("../data", do_site, "/", sep="")
+  Gpars <- format_growth_params(do_site = do_site, species_list = spp_list, 
+                                Nyrs = Nyrs, Gdata = Gpars_tmp)
+  Spars <- format_survival_params(do_site = do_site, species_list = spp_list, 
+                                  Nyrs = Nyrs, Sdata = Spars_tmp)
+  Rpars <- format_recruitment_params(do_site = do_site, species_list = spp_list, 
+                                     Nyrs = Nyrs, Rdata = Rpars_tmp,
+                                     path_to_site_data = site_path)
   
   # Set iteration matrix dimensions and max genet sizes by site
   # these are all taken from Chu and Adler 2015 (Ecological Monographs)

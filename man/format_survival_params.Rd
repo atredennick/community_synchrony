@@ -4,7 +4,7 @@
 \alias{format_survival_params}
 \title{Import and format survival parameters for IPM}
 \usage{
-format_survival_params(do_site, species_list, Nyrs, Sdata)
+format_survival_params(do_site, species_list, Nyrs, Sdata_species)
 }
 \arguments{
 \item{do_site}{Focal site (character scalar).}
@@ -13,7 +13,7 @@ format_survival_params(do_site, species_list, Nyrs, Sdata)
 
 \item{Nyrs}{Number of random effects years.}
 
-\item{Sdata}{Survival parameters matrix from regression output.}
+\item{Sdata_species}{Survival parameters matrix from regression output.}
 }
 \description{
 Import and format survival parameters for IPM
