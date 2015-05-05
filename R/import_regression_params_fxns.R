@@ -84,8 +84,6 @@ format_survival_params <- function(do_site, species_list, Nyrs, Sdata){
 
 
 
-
-
 #' Import and format recruitment parameters for IPM
 #' 
 #' @author Andrew Tredennick
