@@ -28,6 +28,10 @@ for(do_site in site_list){
   spp_list <- names(Gpars_tmp)
   Nyrs <- nrow(Gpars_tmp[[1]])
   
+  ######
+  ##TODO: insert import params functions (Gpar, Spars, Rpars)
+  ######
+  
   # Set iteration matrix dimensions and max genet sizes by site
   # these are all taken from Chu and Adler 2015 (Ecological Monographs)
   if(do_site=="Arizona"){
