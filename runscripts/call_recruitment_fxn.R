@@ -29,7 +29,11 @@ for(do_site in site_list){
       tmpD$Group=as.factor(substr(tmpD$quad,1,1)) 
     if(do_site=="NewMexico")
       tmpD$Group=as.factor(substr(tmpD$quad,1,1))
-   
+    
+    # Get the years right for Kansas
+    if(do_site=="Kansas")
+      tmpD <- subset(tmpD, year<68)
+    
     tmpD$Group <- as.factor(tmpD$Group)
     tmpD <- tmpD[,c("quad","year","NRquad","totParea","Group")]
     names(tmpD)[3] <- paste("R.",species_list[i],sep="")

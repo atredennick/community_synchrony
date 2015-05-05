@@ -8,7 +8,7 @@ NoOverlap_Inter=FALSE
   tlimit=tlimit
   burn_in=burn_in
   spp_list=spp_list
-  Nyrs=Nyrs; constant=do_env_stoch
+  Nyrs=Nyrs; constant=do_env_const
   iter_matrix_dims=iter_matrix_dims; max_size=max_size
   Rpars=Rpars; Spars=Spars; Gpars=Gpars
   demographic_stochasticity=do_demo_stoch

@@ -63,13 +63,15 @@ for(do_site in site_list){
     max_size <- c(600,1300)
   }
   
+  stoch_results <- list()
+  print(paste("Doing", do_site))
   for(stoch in 1:length(sim_names)){
     do_env_const <- do_env_const_vec[stoch]
     do_demo_stoch <- do_demo_stoch_vec[stoch]
     n_spp <- Nspp <- length(spp_list)
     A=10000
-    tlimit=500
-    burn_in=100
+    tlimit=50
+    burn_in=10
     spp_list=spp_list
     Nyrs=Nyrs; constant=do_env_const
     iter_matrix_dims=iter_matrix_dims; max_size=max_size
@@ -91,5 +93,5 @@ for(do_site in site_list){
 } # end site loop
 
 # Save the output
-saveRDS(output_list, "../results/ipm_simulation_lists.RDS")
+# saveRDS(output_list, "../results/ipm_simulation_lists.RDS")
 
