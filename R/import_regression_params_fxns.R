@@ -83,3 +83,42 @@ format_survival_params <- function(do_site, species_list, Nyrs, Sdata){
 } # end of function
 
 
+
+
+
+#' Import and format recruitment parameters for IPM
+#' 
+#' @author Andrew Tredennick
+#' @param do_site Focal site (character scalar).
+#' @param species_list Character vector of four letter species' codes.
+#' @param Nyrs Number of random effects years.
+#' @param Rdata Recruitment parameters matrix from regression output.
+#' @param path_to_site_data Directory path to site-specific data folder.
+
+format_recruitment_params <- function(do_site, species_list, Nyrs,
+                                      Rdata, path_to_site_data){
+  Nspp <- length(species_list)
+  Rpars <- list(intcpt.mu=rep(0,Nspp),intcpt.yr=matrix(0,Nyrs,Nspp),
+                intcpt.tau=rep(100,Nspp),
+                intcpt.gr=matrix(NA,6,Nspp),g.tau=rep(NA,Nspp),
+                dd=matrix(NA,Nspp,Nspp),theta=rep(NA,Nspp),
+                sizeMean=rep(NA,Nspp),sizeVar=rep(NA,Nspp),
+                recSizes=list(1))
+  
+  # subset out non-essential parameters
+  tmp <- c(grep("lambda",row.names(Rdata)),grep("deviance",row.names(Rdata)),
+           grep("DIC",row.names(Rdata)))   #group stuff?
+  Rdata <- Rdata[-tmp,]
+  tmp <- paste("Rpars$",row.names(Rdata),"<-",Rdata[,1],sep="")
+  eval(parse(n=dim(Rdata)[1],text=tmp))
+  
+  for(i in 1:Nspp){
+    infile <- paste(path_to_site_data,"/",species_list[i],"/recSize.csv",sep="")
+    recSize <- read.csv(infile)
+    Rpars$sizeMean[i] <- mean(log(recSize$area))
+    Rpars$sizeVar[i] <- var(log(recSize$area))
+    #Rpars$recSizes[[i]]=recSize$area
+  }
+  return(Rpars)
+} # end function
+
