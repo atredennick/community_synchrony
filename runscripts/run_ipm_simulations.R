@@ -21,10 +21,31 @@ for(do_site in site_list){
   Rpars_tmp <- Rpars_all[[do_site]]
   
 #   if(do_site=="Idaho"){
+#     spp_list <- names(Gpars_tmp)
+#     Rp <- as.data.frame(Rpars_tmp)
+#     Rp$species <- c(rep(spp_list, each=4),
+#                     rep(spp_list, each=1),
+#                     rep(spp_list, each=6),
+#                     rep(spp_list, each=1),
+#                     rep(spp_list, each=1),
+#                     rep(spp_list, each=22),
+#                     rep(spp_list, each=412),
+#                     rep(spp_list, each=1),
+#                     rep(spp_list, each=1))
+#     Rp <- subset(Rp, species!="ARTR")
+#     colid <- which(colnames(Rp)=="species")
+#     Rp <- Rp[,-colid]
+#     Rp$species <- c(rep(c("ARTR", "fine", "fine", "fine"), 3),
+#                     rep("fine", (nrow(Rp)-12)))
+#     Rp <- subset(Rp, species=="fine")
+#     colid <- which(colnames(Rp)=="species")
+#     Rpars_tmp <- as.matrix(Rp[,-colid])
+#   }
+#   
+#   if(do_site=="Idaho"){
 #     id <- which(names(Gpars_tmp)=="ARTR")
 #     Gpars_tmp <- Gpars_tmp[-id]
 #     Spars_tmp <- Spars_tmp[-id] 
-# #     Rpars_tmp <- Rpars_tmp[[id]] <- NULL
 #   }
   
   spp_list <- names(Gpars_tmp)
@@ -70,8 +91,8 @@ for(do_site in site_list){
     do_demo_stoch <- do_demo_stoch_vec[stoch]
     n_spp <- Nspp <- length(spp_list)
     A=10000
-    tlimit=50
-    burn_in=10
+    tlimit=2500
+    burn_in=500
     spp_list=spp_list
     Nyrs=Nyrs; constant=do_env_const
     iter_matrix_dims=iter_matrix_dims; max_size=max_size
@@ -93,5 +114,5 @@ for(do_site in site_list){
 } # end site loop
 
 # Save the output
-# saveRDS(output_list, "../results/ipm_simulation_lists.RDS")
+saveRDS(output_list, "../results/ipm_simulation_lists.RDS")
 

@@ -34,6 +34,8 @@ NoOverlap_Inter=FALSE
   
   # loop through species really quick to set low initial densities
   for(i in 1:n_spp) nt[[i]][]=0.001
+  if(do_site=="Idaho")
+    nt[[1]][] <- 0
   new.nt <- nt #set initial density vector to be fed into IPM
   
   # set up matrix to record cover
