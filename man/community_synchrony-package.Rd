@@ -3,12 +3,12 @@
 \alias{community_synchrony}
 \docType{package}
 \title{
-What the package does (short line)
-~~ package title ~~
+Runs IPMs and other analysis for project on species synchrony in natural communities.
 }
 \description{
-More about what it does (maybe more than one line)
-~~ A concise (1-5 lines) description of the package ~~
+The package contains functions to calculate community synchrony metrics
+and to link vital rate regressions to the IPMdoit package for 
+simulation tests.
 }
 \details{
 \tabular{ll}{
@@ -16,25 +16,25 @@ Package: \tab community_synchrony\cr
 Type: \tab Package\cr
 Version: \tab 1.0\cr
 Date: \tab 2015-04-28\cr
-License: \tab What license is it under?\cr
+License: \tab MIT\cr
 }
-~~ An overview of how to use the package, including the most important functions ~~
+
 }
 \author{
-Who wrote it
+Andrew Tredennick
 
-Maintainer: Who to complain to <yourfault@somewhere.net>
-~~ The author and/or maintainer of the package ~~
+Maintainer: Andrew Tredennick <atredenn@gmail.com>
+
 }
 \references{
-~~ Literature or other references for background information ~~
+Chu and Adler 2015, Ecological Monographs
+Loreau and de Mazancourt 2008, The American Naturalist
 }
-~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R documentation directory ~~
+
 \keyword{ package }
 \seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
+
 }
 \examples{
-~~ simple examples of the most important functions ~~
+
 }
