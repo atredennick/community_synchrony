@@ -25,14 +25,38 @@ for(do_site in site_list){
       tmpD$Group=as.factor(substr(tmpD$quad,1,1))
     if(do_site=="Kansas")
       tmpD$Group=as.numeric(tmpD$Group)-1
-    if(do_site=="Montana")
+    if(do_site=="Montana"){
+      ##then we moved some specific points:
+      tmp2<-which(tmpD$quad=="A12" & tmpD$year==44)
+      tmp3<-which(tmpD$quad=="B1"  & tmpD$year==44)
+      tmp41<-which(tmpD$quad=="E4" & tmpD$year==33) 
+      tmp42<-which(tmpD$quad=="E4" & tmpD$year==34) 
+      tmp43<-which(tmpD$quad=="E4" & tmpD$year==43)
+      tmp44<-which(tmpD$quad=="E4" & tmpD$year==44)
       tmpD$Group=as.factor(substr(tmpD$quad,1,1)) 
+    }
     if(do_site=="NewMexico")
       tmpD$Group=as.factor(substr(tmpD$quad,1,1))
     
     # Get the years right for Kansas
-    if(do_site=="Kansas")
+    if(do_site=="Kansas"){
       tmpD <- subset(tmpD, year<68)
+      ##to remove some points:
+      #for q25
+      tmp1<-which(tmpD$quad=="q25")
+      #for q27
+      tmp2<-which(tmpD$quad=="q27")
+      #for q28
+      tmp3<-which(tmpD$quad=="q28")
+      #for q30
+      tmp4<-which(tmpD$quad=="q30")
+      #for q31
+      tmp5<-which(tmpD$quad=="q31" & (tmpD$year<35 | tmpD$year>39))
+      #for q32
+      tmp6<-which(tmpD$quad=="q32" & (tmpD$year<35 | tmpD$year>41))
+      tmp<-c(tmp1,tmp2,tmp3,tmp4,tmp5,tmp6)
+      tmpD<-tmpD[-tmp,]
+    }
     
     tmpD$Group <- as.factor(tmpD$Group)
     tmpD <- tmpD[,c("quad","year","NRquad","totParea","Group")]
