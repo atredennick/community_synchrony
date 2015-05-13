@@ -44,15 +44,39 @@ for(do_site in site_list){
       D$Group=as.factor(substr(D$quad,1,1))
     if(do_site=="Kansas")
       D$Group=as.numeric(D$Group)-1
-    if(do_site=="Montana")
+    if(do_site=="Montana"){
+      ##then we moved some specific points:
+      tmp2<-which(D$quad=="A12" & D$year==44)
+      tmp3<-which(D$quad=="B1"  & D$year==44)
+      tmp41<-which(D$quad=="E4" & D$year==33) 
+      tmp42<-which(D$quad=="E4" & D$year==34) 
+      tmp43<-which(D$quad=="E4" & D$year==43)
+      tmp44<-which(D$quad=="E4" & D$year==44)
       D$Group=as.factor(substr(D$quad,1,1)) 
+    }
     if(do_site=="NewMexico")
       D$Group=as.factor(substr(D$quad,1,1))
     
     # Get the years right for Kansas
-    if(do_site=="Kansas")
+    if(do_site=="Kansas"){
       D <- subset(D, year<68)
-    
+      ##to remove some points:
+      #for q25
+      tmp1<-which(D$quad=="q25")
+      #for q27
+      tmp2<-which(D$quad=="q27")
+      #for q28
+      tmp3<-which(D$quad=="q28")
+      #for q30
+      tmp4<-which(D$quad=="q30")
+      #for q31
+      tmp5<-which(D$quad=="q31" & (D$year<35 | D$year>39))
+      #for q32
+      tmp6<-which(D$quad=="q32" & (D$year<35 | D$year>41))
+      tmp<-c(tmp1,tmp2,tmp3,tmp4,tmp5,tmp6)
+      D<-D[-tmp,]
+    }
+      
     # Get correct crowding matrix
     crowd_growth_now <- crowd_growth[[do_site]][[do_species]]
     
@@ -97,14 +121,38 @@ for(do_site in site_list){
       D$Group=as.factor(substr(D$quad,1,1))
     if(do_site=="Kansas")
       D$Group=as.numeric(D$Group)-1
-    if(do_site=="Montana")
+    if(do_site=="Montana"){
+      ##then we moved some specific points:
+      tmp2<-which(D$quad=="A12" & D$year==44)
+      tmp3<-which(D$quad=="B1"  & D$year==44)
+      tmp41<-which(D$quad=="E4" & D$year==33) 
+      tmp42<-which(D$quad=="E4" & D$year==34) 
+      tmp43<-which(D$quad=="E4" & D$year==43)
+      tmp44<-which(D$quad=="E4" & D$year==44)
       D$Group=as.factor(substr(D$quad,1,1)) 
+    }
     if(do_site=="NewMexico")
       D$Group=as.factor(substr(D$quad,1,1))
     
     # Get the years right for Kansas
-    if(do_site=="Kansas")
+    if(do_site=="Kansas"){
       D <- subset(D, year<68)
+      ##to remove some points:
+      #for q25
+      tmp1<-which(D$quad=="q25")
+      #for q27
+      tmp2<-which(D$quad=="q27")
+      #for q28
+      tmp3<-which(D$quad=="q28")
+      #for q30
+      tmp4<-which(D$quad=="q30")
+      #for q31
+      tmp5<-which(D$quad=="q31" & (D$year<35 | D$year>39))
+      #for q32
+      tmp6<-which(D$quad=="q32" & (D$year<35 | D$year>41))
+      tmp<-c(tmp1,tmp2,tmp3,tmp4,tmp5,tmp6)
+      D<-D[-tmp,]
+    }
     
     # Get correct crowding matrix
     crowd_surv_now <- crowd_surv[[do_site]][[do_species]]
