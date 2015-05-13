@@ -30,18 +30,44 @@ estimate_crowding <- function(site, data_path, alphas, vital_rate){
     Dfile=paste(path_to_files,doSpp,filename,sep="")
     D=read.csv(Dfile)
     D$quad <- as.character(D$quad)
-    if(site=="Kansas")
-      D <- subset(D, year<68)
     
-    # remove outliers (large plants that obviously do not turn into tiny plants) for ARTR only
-#     if(doSpp=="ARTR"){
-#       tmp=which(D$quad=="Q23" & D$year==45 & D$trackID==67)
-#       tmp=c(tmp,which(D$quad=="Q12" & D$year==55 & D$trackID==25))
-#       tmp=c(tmp,which(D$quad=="Q26" & D$year==45 & D$trackID==73))
-#       D=D[-tmp,]
-#     }else{
-#       D=D
-#     }
+    # Add group info for each site individually, as needed
+    if(do_site=="Arizona")
+      D$Group=as.factor(substr(D$quad,1,1))
+    if(do_site=="Kansas")
+      D$Group=as.numeric(D$Group)-1
+    if(do_site=="Montana"){
+      ##then we moved some specific points:
+      tmp2<-which(D$quad=="A12" & D$year==44)
+      tmp3<-which(D$quad=="B1"  & D$year==44)
+      tmp41<-which(D$quad=="E4" & D$year==33) 
+      tmp42<-which(D$quad=="E4" & D$year==34) 
+      tmp43<-which(D$quad=="E4" & D$year==43)
+      tmp44<-which(D$quad=="E4" & D$year==44)
+      D$Group=as.factor(substr(D$quad,1,1)) 
+    }
+    if(do_site=="NewMexico")
+      D$Group=as.factor(substr(D$quad,1,1))
+    
+    # Get the years right for Kansas
+    if(do_site=="Kansas"){
+      D <- subset(D, year<68)
+      ##to remove some points:
+      #for q25
+      tmp1<-which(D$quad=="q25")
+      #for q27
+      tmp2<-which(D$quad=="q27")
+      #for q28
+      tmp3<-which(D$quad=="q28")
+      #for q30
+      tmp4<-which(D$quad=="q30")
+      #for q31
+      tmp5<-which(D$quad=="q31" & (D$year<35 | D$year>39))
+      #for q32
+      tmp6<-which(D$quad=="q32" & (D$year<35 | D$year>41))
+      tmp<-c(tmp1,tmp2,tmp3,tmp4,tmp5,tmp6)
+      D<-D[-tmp,]
+    }
     
     # calculate crowding 
     for(i in 1:length(species_list)){
