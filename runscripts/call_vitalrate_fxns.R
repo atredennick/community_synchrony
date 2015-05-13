@@ -79,6 +79,8 @@ for(do_site in site_list){
       
     # Get correct crowding matrix
     crowd_growth_now <- crowd_growth[[do_site]][[do_species]]
+    tmpmerge <- merge(D, crowd_growth_now, by.x="X", by.y="xID")
+    crowd_growth_now <- as.matrix(tmpmerge[,c("V1","V2")])
     
     # Run through the function
     tmp <- get_growth_params(dataframe = D,
