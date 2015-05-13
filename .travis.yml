@@ -1,0 +1,30 @@
+# Sample .travis.yml for R projects
+
+language: r
+warnings_are_errors: true
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
+r_apt_packages:
+  - testthat
+  - knitr
+  - reshape2
+  - ggplot2
+  - plyr
+  - mvtnorm
+  - boot
+  - msm
+  - statmod
+  - gridExtra
+
+r_github_packages:
+  - jimhester/covr
+  - atredennick/IPMdoit
+
+after_success:
+  - Rscript -e 'library(covr); coveralls()'
+
+sudo: required
