@@ -1,0 +1,416 @@
+\documentclass[12pt,]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+\setlength{\droptitle}{-2em}
+  \title{}
+  \pretitle{\vspace{\droptitle}}
+  \posttitle{}
+  \author{}
+  \preauthor{}\postauthor{}
+  \date{}
+  \predate{}\postdate{}
+
+
+
+
+\begin{document}
+
+\maketitle
+
+
+\section{Preliminary community synchrony
+analysis}\label{preliminary-community-synchrony-analysis}
+
+A couple comments from Claire:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  In the absence of environmental stochasticity, species fluctuations
+  are not necessarily independent. For example in a zero sum game with
+  ecologically equivalent species (Hubbell's neutral model), species
+  fluctuate randomly but they are not independent since the sum is
+  constrained. If there are only two species their fluctuations are
+  necessarily negatively correlated, because the increase in one species
+  must be compensated by a decrease in the other. In a non-neutral model
+  where species have stable equilibrium abundance there are also non
+  independent fluctuations due to species interactions. In competitive
+  communities fluctuations would most of the time have negative
+  correlations overall, but sometimes they can be positive overall.
+\item
+  I'm not entirely clear here: null with respect to what? Species
+  interactions, demographic stochasticity and environmental
+  stochasticity can all affect synchrony?
+\item
+  Could you show the absolute values, either with three bars per plot,
+  or with a black line that is not at zero but at its unperturbed
+  synchrony value? OK, I see the absolute values in table 1, the
+  differences between sites are quite large compared to the effects of
+  demographic and environmental stochasticities - but it should still be
+  visible. Does this suggest that environmental and demographic
+  stochasticities are minor explanatory variables for community
+  synchrony? What is, then? Diversity?
+\item
+  In principle, could the signs of the effects of demographic
+  stochasticity and environmental stochasticity be predicted? For
+  demographic stochasticity, see comment by table 1. For environmental
+  stochasticity: could you quantify the synchrony of species responses
+  to the environment from the synchrony of the intercepts?
+\item
+  We could compute the synchrony expected under independent
+  fluctuations:
+  \[\text{E}(\phi_{r}) = \frac{ \sum_{i=1}^{N}{\sigma_{i}^2} } { \left(\sum_{i=1}^{N}{\sigma_{i}} \right)^2 }.\]
+  We could expect demographic stochasticity to tend towards this value:
+  the sign of the effect of demographic stochasticity should be
+  \(\text{E}(\phi_{r}) - \phi_{r}\), where \(\phi_{r}\) is the observed
+  synchrony of per capita growth rates; removal should be the opposite -
+  does that work?
+\end{enumerate}
+
+\subsection{Calculate expected and observed
+sychrony}\label{calculate-expected-and-observed-sychrony}
+
+Under the assumption of independent fluctuations in species' per capit
+growth rates, we can calculate expected synchrony as:
+
+\[\text{E}(\phi_{r}) = \frac{ \sum_{i=1}^{N}{\sigma_{i}^2} } { \left(\sum_{i=1}^{N}{\sigma_{i}} \right)^2 }\]
+
+where \(\sigma_{i}\) is the standard deviation of species \(i\)'s per
+capita growth rate through time.
+
+\begin{verbatim}
+## Warning: package 'synchrony' was built under R version 3.1.2
+\end{verbatim}
+
+\begin{verbatim}
+## Community synchrony: 0.543
+## Mean pairwise correlation: 0.319
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 0.3369
+\end{verbatim}
+
+So, \(\text{E}(\phi_{r})\) = 0.34 and \(\phi_{r}\) = 0.54. Which means
+the expected effect of demographic stochasticity
+{[}\(\text{E}(\sigma_{d}) = \text{E}(\phi_{r}) - \phi_{r}\){]} is -0.2.
+So, based on the sign of \(\text{E}(\sigma_{d})\) we expect demographic
+stochasticity to decrease synchrony among species' per capita growth
+rates. Thus, removing demographic stochasticity should increase
+synchrony in our population model simulations.
+
+Here are the results for both Kansas and Idaho:
+
+\% latex table generated in R 3.1.0 by xtable 1.7-3 package \% Wed May
+13 14:53:49 2015
+
+\begin{table}[ht]
+\centering
+\caption{Observed and expected synchrony among species' per capita growth rates and expected effect of demographic stochasticity on observed synchrony. Species richness values reflect the number of species analyzed from the community, not the actual richness.} 
+\begin{tabular}{lrrrr}
+  \hline
+Site & $\phi_{r}$ & $\text{E}(\phi_{r})$ & $\text{E}(\sigma_{d})$ & Species richness \\ 
+  \hline
+Kansas & 0.54 & 0.34 & -0.20 &   3 \\ 
+  Idaho & 0.63 & 0.35 & -0.28 &   3 \\ 
+  Montana & 0.53 & 0.27 & -0.26 &   4 \\ 
+  New Mexico & 0.86 & 0.51 & -0.35 &   2 \\ 
+  Arizona & 0.89 & 0.52 & -0.37 &   2 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{prelim_analysis_files/figure-latex/time_series_fig.pdf}
+\caption{Observed time series of mean percent cover (averaged over
+quadrats for each year) and per capita growth rates for each species at
+each site.}
+\end{figure}
+
+\section{Methods}\label{methods}
+
+\subsection{Study sites and species}\label{study-sites-and-species}
+
+We use the exact same data as presented in Chu and Adler (2015). From
+their paper:
+
+\begin{quote}
+Many range experiment stations in the western U.S. began mapping
+permanent quadrats in the early 20th century, and continued annual
+censuses for decades. Here we focus on five long-term data sets (Fig.
+1), four of which have been distributed publicly (Adler et al. 2007b,
+Zachmann et al. 2010, Anderson et al. 2011, 2012). At each study site,
+all individual plants within each 1-m2 quadrat were identified and
+mapped annually using a pantograph (Hill 1920; Fig. 2). Mapped polygons
+represent basal cover for grasses and canopy cover for shrubs (Fig. 2).
+\end{quote}
+
+\begin{quote}
+To fit our population models, we needed to study species common enough
+to provide a large sample size (i.e.~the most common species at each
+site). In order to describe species interactions, we needed to select
+species that co-occurred together across many years. Thus, our analysis
+focused on the niche differences and average fitness differences of the
+most common, co-occurring species at each site, which implies that the
+average fitness differences among species could be relatively small. To
+select these species, we first identified species that occurred in at
+least 20\% of years. Then we used Nonmetric Multidimensional Scaling
+(NMDS) to identify quadrats with a similar composition of these
+candidate species. Based on the degree of aggregation of quadrats on the
+NMDS plot, we selected quadrats and species for our full analysis. We
+also confirmed these selections with local personnel from each study
+site. Below we further describe each study site and our criteria for
+quadrat and species selections.
+\end{quote}
+
+\begin{quote}
+\emph{Sonoran desert, Arizona}
+\end{quote}
+
+\begin{quote}
+The Sonoran desert data set comes from 178 permanent quadrats located on
+semi-desert grasslands at the Santa Rita Experimental Range (31º50' N,
+110º53' W; elevation 1150 meters), Arizona (Anderson et al. 2012). Mean
+annual precipitation was 450 mm with the monthly variation from 5 mm
+(May) to 107 mm (July), and mean annual temperature was 16 °C with the
+monthly variation from 8 °C (January) to 26 °C (July) during the
+sampling period. These quadrats were mapped annually from 1915 to 1933
+in most cases. The dominant flora varies across the broad range of soils
+and topography that occur within the semi-desert grasslands. For our
+present analysis, we chose 32 quadrats dominated by black grama
+Bouteloua eriopoda (BOER) and Bouteloua rothrockii (BORO).
+\end{quote}
+
+\begin{quote}
+\emph{Sagebrush steppe, Idaho}
+\end{quote}
+
+\begin{quote}
+The sagebrush data set comes from the U.S. Sheep Experiment Station,
+currently a US Department of Agriculture Agricultural Research Service
+field station, located 9.6 km north of Dubois, Idaho (44.2°N, 112.1°W;
+elevation 1500 meters). 26 quadrats were established between 1926 and
+1932 (Zachmann et al. 2010). During the period of sampling (1926 --
+1957), mean annual precipitation was 270 mm with the monthly variation
+from 16 mm (March) to 42 mm (June), and mean annual temperature was 6 °C
+with the monthly variation from -8 °C (January) to 21 °C (July). The
+vegetation is dominated by the shrub, Artemisia tripartita (ARTR), and
+the C3 perennial bunchgrasses Pseudoroegneria spicata (PSSP),
+Hesperostipa comata (HECO), and Poa secunda (POSE).
+\end{quote}
+
+\begin{quote}
+\emph{Southern mixed prairie, Kansas}
+\end{quote}
+
+\begin{quote}
+The southern mixed prairie data set represents the pioneering work of
+Albertson and colleagues (Albertson and Tomanek 1965), who established
+51 permanent quadrats inside and outside livestock exclosures near Hays,
+Kansas (38.8°N, 99.3°W; elevation 650 meters). The mean annual
+precipitation was 580 mm with the monthly variation from 10 mm (January)
+to 103 mm (June), and mean annual temperature was 12 °C with the monthly
+variation from -2.0 °C (January) to 27 °C (July). These quadrats were
+mapped from 1932 to 1972 at the end of each growing season (Adler et al.
+2007b). Variation in soil depth and texture creates distinct plant
+communities. Many of the quadrats were located on shortgrass communities
+dominated by Bouteloua gracilis and Buchloë dactyloides. We had
+difficulty working with these species, which can be hard to distinguish
+in the field in the absence of inflorescences, and were often mapped
+inconsistently. Therefore, we focused on 7 quadrats dominated by
+Bouteloua curtipendula (BOCU), Bouteloua hirsuta (BOHI), and
+Schizachyrium scoparium (SCSC).
+\end{quote}
+
+\begin{quote}
+\emph{Northern mixed prairie, Montana}
+\end{quote}
+
+\begin{quote}
+The northern mixed prairie data set comes from the Fort Keogh Livestock
+and Range Research Laboratory, another USDA Agricultural Research
+Service field station. The study site is located on alluvial plains near
+the Tongue River (46o19'N, 105o48'W; elevation 720 meters). Mean annual
+precipitation was 343 mm with the monthly variation from 7 mm (February)
+to 74 mm (June), and mean annual temperature was 8 °C with the monthly
+variation from -7 °C (January) to 25 °C (July). 44 quadrats, distributed
+across six pastures assigned to one of three grazing intensities, were
+mapped annually (with some exceptions) from 1932 through 1945 (Anderson
+et al. 2011). Our analysis includes 19 quadrats in which Bouteloua
+gracilis (BOGR), Hesperostipa comata (HECO), Pascopyrum smithii (PASM),
+and Poa secunda (POSE) were prevalent.
+\end{quote}
+
+\begin{quote}
+\emph{Chihuahuan desert, New Mexico}
+\end{quote}
+
+\begin{quote}
+The last data set consists of 76 permanent quadrats located in
+Chihuahuan desert plant communities at the Jornada Experimental Range
+(32.62°N, 106.67°W; elevation 1260 meters), New Mexico. Mean annual
+precipitation was 264 mm with the monthly variation from 6 mm (April) to
+48 mm (August), and mean annual temperature was 14 °C with the monthly
+variation from 4 °C (January) to 26 °C (July). Quadrats were established
+from 1915-1920 and mapping was conducted annually until the 1960's (it
+continues on roughly 5 yr intervals to the present). Due to the changes
+in mapping frequency in the 1960's, and the effects of a severe drought
+in the 1950's that triggered a conversion of many quadrats from
+grassland to shrubland, we analyzed data for the period from 1915 to
+1950. We selected 48 quadrats in which both Bouteloua eriopoda (BOER)
+and Sporobolus flexuosus (SPFL) were common (Anderson et al. in
+preparation).
+\end{quote}
+
+\subsection{Analytical approach}\label{analytical-approach}
+
+While the observational data allows to directly calculate species
+synchrony within the community, it is impossible to isolate the
+contributions of demographic and environmental stochasticity on species
+synchrony based on the data alone. So we now turn to a empirically-based
+modeling approach where we can turn demographic and environmental
+stochasticity on/off. To our knowledge, Integral Projection Models
+(IPMs) are the only tools available that allow us to isolate sources of
+stochasticity. For example, individual-based models require demographic
+stochasticity, making it impossible to isolate the effect of
+environmental stochasticity alone.
+
+We describe our approach in three steps. First, we describe the
+statistical models for three vitale rates: survival, growth, and
+recruitment. Second, we describe the IPM construction in detail. Third,
+we describe the IPM simulations we conducted to answer our questions.
+
+\subsection{Statistical models for survival, growth, and
+recruitment}\label{statistical-models-for-survival-growth-and-recruitment}
+
+\subsubsection{Survival and growth}\label{survival-and-growth}
+
+We modeled survival probability and growht on individual genets as a
+function of genet size, the crowding experienced by the focal genet from
+both hetero and conspecific genets in its neighborhood (described
+below), temporal varation among years, and spatial variation among
+quadrat groups. Groups are sets of quadrats located in close proximity
+within a pasture or grazing exclosure).
+
+We follow the approach of Chu and Adler (2015) to estimate crowding,
+assuming that the crowding experienced by a focal genet depends on
+distance to each neighbor genet and the neighbor's size, \emph{u}:
+
+\[
+w_{ijm,t} = \sum_k e^{-\delta_{jm}d_{ijkm,t}^{2}}u_{km,t}.
+\]
+
+In the above, \(w_{ijm,t}\) is the crowding that genet \emph{i} of
+species \emph{j} in year \emph{t} experiences from neighbors of species
+\emph{m}. The spatial scale over which species \emph{m} neighbors exert
+influence on any genet of species \emph{j} is determined by
+\(\delta_{jm}\). The function is applied for all \emph{k} genets of
+species \emph{m} that neighbor the focal genet at time \emph{t}, and
+\(d_{ijkm,t}\) is the distance between genet \emph{i} in species
+\emph{j} and genet \emph{k} in species \emph{m}. When \(k=m\), the
+effect is intraspecific crowding.
+
+\subsection{Integral projection models
+(IPM)}\label{integral-projection-models-ipm}
+
+We built an environmentally and demographically stochastic integral
+projection model (IPM), where either environmental or demographic
+stochasticity can be turned off. Our IPM follows the specification of
+Chu and Adler (2015) where the population of species \emph{j} is a
+density function \(n(u_{j},t)\) giving the density of sized-\emph{u}
+genets at time \emph{t}. Genet size is on the natural log scale, so that
+\(n(u_{j},t)du\) is the number of genets whose area (on the arithmetic
+scale) is between \(e^{u_{j}}\) and \(e^{u_{j}+du}\). So, the density
+function for any size \emph{v} at time \(t+1\) is
+
+\[
+n(v_{j},t+1) = \int_{L_{j}}^{U_{j}} k_{j}(v_{j},u_{j},\bar{\bold{w_{j}}}(u_{j}))n(u_{j},t)
+\]
+
+where \(k_{j}(v_{j},u_{j},\bar{\bold{w_{j}}})\) is the population kernal
+that describes all possible transitions from size \(u\) to \(v\) and
+\(\bar{\bold{w_{j}}}\) is a vector of estimates of average crowding
+experienced from all other species by a genet of size \(u_j\) and
+species \(j\). The integral is evaluated over all possible sizes between
+predefined lower (\emph{L}) and upper (\emph{U}) size limits that extend
+beyond the range of observed genet sizes.
+
+The population kernal is defined as the joint contributions of survival
+(\emph{S}), growth (\emph{G}), and recruitment (\emph{R}):
+
+\[
+k_{j}(v_{j},u_{j},\bar{\bold{w_{j}}}) = S_j(u_j, \bar{\bold{w_{j}}}(u_{j}))G_j(v_{j},u_{j},\bar{\bold{w_{j}}}(u_{j})) + R_j(v_{j},u_{j},\bar{\bold{w_{j}}}),
+\]
+
+which, said plainly, means we are calculating growth (\emph{G}) for
+individuals that survive (\emph{S}) from time \emph{t} to \emph{t+1} and
+adding in newly recruited (\emph{R}) individuals of an average sized
+one-year-old genet for the focal species. Our stastical model for
+recruitment (\emph{R}, described below) returns the number of new
+recruit produced per quadrat. Following previous work, we assume that
+fecundity increases linearly with size
+(\(R_j(v_{j},u_{j},\bar{\bold{w_{j}}}) = e^{u_j}R_j(v_{j},\bar{\bold{w_{j}}})\))
+to incorporate the recruitment function in the spatially-implicit IPM.
+
+\end{document}

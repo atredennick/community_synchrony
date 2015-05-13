@@ -5,3 +5,4 @@ packrat/lib*/
 *.pdf
 *.PDF
 .Rhistory
+.tex

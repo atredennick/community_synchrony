@@ -1,7 +1,10 @@
 ---
 output:
   pdf_document:
-    fig_caption: yes
+    fig_caption: true
+    keep_tex: true
+fontsize: 12pt
+geometry: margin=1in
 ---
 
 # Preliminary community synchrony analysis
@@ -271,7 +274,18 @@ While the observational data allows to directly calculate species synchrony with
 
 We describe our approach in three steps. First, we describe the statistical models for three vitale rates: survival, growth, and recruitment. Second, we describe the IPM construction in detail. Third, we describe the IPM simulations we conducted to answer our questions.
 
-## Statistical models for vital rates
+## Statistical models for survival, growth, and recruitment
+### Survival and growth
+We modeled survival probability and growht on individual genets as a function of genet size, the crowding experienced by the focal genet from both hetero and conspecific genets in its neighborhood (described below), temporal varation among years, and spatial variation among quadrat groups. Groups are sets of quadrats located in close proximity within a pasture or grazing exclosure).
+
+We follow the approach of Chu and Adler (2015) to estimate crowding, assuming that the crowding experienced by a focal genet depends on distance to each neighbor genet and the neighbor's size, _u_:
+
+$$
+w_{ijm,t} = \sum_k e^{-\delta_{jm}d_{ijkm,t}^{2}}u_{km,t}.
+$$
+
+In the above, $w_{ijm,t}$ is the crowding that genet _i_ of species _j_ in year _t_ experiences from neighbors of species _m_. The spatial scale over which species _m_ neighbors exert influence on any genet of species _j_ is determined by $\delta_{jm}$. The function is applied for all _k_ genets of species _m_ that neighbor the focal genet at time _t_, and $d_{ijkm,t}$ is the distance between genet _i_ in species _j_ and genet _k_ in species _m_. When $k=m$, the effect is intraspecific crowding. We use regression-specific (survival and growth) $\delta$ values estimated by Chu and Adler (2015).
+
 
 ## Integral projection models (IPM)
 We built an environmentally and demographically stochastic integral projection model (IPM), where either environmental or demographic stochasticity can be turned off. Our IPM follows the specification of Chu and Adler (2015) where the population of species _j_ is a density function $n(u_{j},t)$ giving the density of sized-_u_ genets at time _t_. Genet size is on the natural log scale, so that $n(u_{j},t)du$ is the number of genets whose area (on the arithmetic scale) is between $e^{u_{j}}$ and $e^{u_{j}+du}$. So, the density function for any size _v_ at time $t+1$ is
