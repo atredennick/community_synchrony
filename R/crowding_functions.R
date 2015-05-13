@@ -105,6 +105,8 @@ estimate_crowding <- function(site, data_path, alphas, vital_rate){
       }   
     }
     
+    W <- as.data.frame(W)
+    W$xID <- D$X
     all_crowding[[spp]] <- W
   } # end species loop
   names(all_crowding) <- species_list
