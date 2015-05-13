@@ -238,15 +238,57 @@ full_plot <- grid.arrange(cover_plot, pgr_plot, ncol=2)
 
 
 # Methods
+## Study sites and species
+We use the exact same data as presented in Chu and Adler (2015). From their paper:
+
+>Many range experiment stations in the western U.S. began mapping permanent quadrats in the early 20th century, and continued annual censuses for decades. Here we focus on five long-term data sets (Fig. 1), four of which have been distributed publicly (Adler et al. 2007b, Zachmann et al. 2010, Anderson et al. 2011, 2012). At each study site, all individual plants within each 1-m2 quadrat were identified and mapped annually using a pantograph (Hill 1920; Fig. 2). Mapped polygons represent basal cover for grasses and canopy cover for shrubs (Fig. 2). 
+
+>To fit our population models, we needed to study species common enough to provide a large sample size (i.e. the most common species at each site). In order to describe species interactions, we needed to select species that co-occurred together across many years. Thus, our analysis focused on the niche differences and average fitness differences of the most common, co-occurring species at each site, which implies that the average fitness differences among species could be relatively small. To select these species, we first identified species that occurred in at least 20% of years. Then we used Nonmetric Multidimensional Scaling (NMDS) to identify quadrats with a similar composition of these candidate species. Based on the degree of aggregation of quadrats on the NMDS plot, we selected quadrats and species for our full analysis. We also confirmed these selections with local personnel from each study site. Below we further describe each study site and our criteria for quadrat and species selections.
+
+>_Sonoran desert, Arizona_
+
+>The Sonoran desert data set comes from 178 permanent quadrats located on semi-desert grasslands at the Santa Rita Experimental Range (31º50’ N, 110º53’ W; elevation 1150 meters), Arizona (Anderson et al. 2012). Mean annual precipitation was 450 mm with the monthly variation from 5 mm (May) to 107 mm (July), and mean annual temperature was 16 °C with the monthly variation from 8 °C (January) to 26 °C (July) during the sampling period. These quadrats were mapped annually from 1915 to 1933 in most cases. The dominant flora varies across the broad range of soils and topography that occur within the semi-desert grasslands. For our present analysis, we chose 32 quadrats dominated by black grama Bouteloua eriopoda (BOER) and Bouteloua rothrockii (BORO). 
+
+>_Sagebrush steppe, Idaho_
+
+>The sagebrush data set comes from the U.S. Sheep Experiment Station, currently a US Department of Agriculture Agricultural Research Service field station, located 9.6 km north of Dubois, Idaho (44.2°N, 112.1°W; elevation 1500 meters). 26 quadrats were established between 1926 and 1932 (Zachmann et al. 2010). During the period of sampling (1926 – 1957), mean annual precipitation was 270 mm with the monthly variation from 16 mm (March) to 42 mm (June), and mean annual temperature was 6 °C with the monthly variation from -8 °C (January) to 21 °C (July). The vegetation is dominated by the shrub, Artemisia tripartita (ARTR), and the C3 perennial bunchgrasses Pseudoroegneria spicata (PSSP), Hesperostipa comata (HECO), and Poa secunda (POSE).
+
+>_Southern mixed prairie, Kansas_
+
+>The southern mixed prairie data set represents the pioneering work of Albertson and colleagues (Albertson and Tomanek 1965), who established 51 permanent quadrats inside and outside livestock exclosures near Hays, Kansas (38.8°N, 99.3°W; elevation 650 meters). The mean annual precipitation was 580 mm with the monthly variation from 10 mm (January) to 103 mm (June), and mean annual temperature was 12 °C with the monthly variation from -2.0 °C (January) to 27 °C (July). These quadrats were mapped from 1932 to 1972 at the end of each growing season (Adler et al. 2007b). Variation in soil depth and texture creates distinct plant communities. Many of the quadrats were located on shortgrass communities dominated by Bouteloua gracilis and Buchloë dactyloides. We had difficulty working with these species, which can be hard to distinguish in the field in the absence of inflorescences, and were often mapped inconsistently. Therefore, we focused on 7 quadrats dominated by Bouteloua curtipendula (BOCU), Bouteloua hirsuta (BOHI), and Schizachyrium scoparium (SCSC). 
+
+>_Northern mixed prairie, Montana_
+
+>The northern mixed prairie data set comes from the Fort Keogh Livestock and Range Research Laboratory, another USDA Agricultural Research Service field station. The study site is located on alluvial plains near the Tongue River (46o19’N, 105o48’W; elevation 720 meters). Mean annual precipitation was 343 mm with the monthly variation from 7 mm (February) to 74 mm (June), and mean annual temperature was 8 °C with the monthly variation from -7 °C (January) to 25 °C (July). 44 quadrats, distributed across six pastures assigned to one of three grazing intensities, were mapped annually (with some exceptions) from 1932 through 1945 (Anderson et al. 2011). Our analysis includes 19 quadrats in which Bouteloua gracilis (BOGR), Hesperostipa comata (HECO), Pascopyrum smithii (PASM), and Poa secunda (POSE) were prevalent.
+
+>_Chihuahuan desert, New Mexico_
+
+>The last data set consists of 76 permanent quadrats located in Chihuahuan desert plant communities at the Jornada Experimental Range (32.62°N, 106.67°W; elevation 1260 meters), New Mexico. Mean annual precipitation was 264 mm with the monthly variation from 6 mm (April) to 48 mm (August), and mean annual temperature was 14 °C with the monthly variation from 4 °C (January) to 26 °C (July). Quadrats were established from 1915-1920 and mapping was conducted annually until the 1960’s (it continues on roughly 5 yr intervals to the present). Due to the changes in mapping frequency in the 1960’s, and the effects of a severe drought in the 1950’s that triggered a conversion of many quadrats from grassland to shrubland, we analyzed data for the period from 1915 to 1950. We selected 48 quadrats in which both Bouteloua eriopoda (BOER) and Sporobolus flexuosus (SPFL) were common (Anderson et al. in preparation). 
+
+
+## Analytical approach
+While the observational data allows to directly calculate species synchrony within the community, it is impossible to isolate the contributions of demographic and environmental stochasticity on species synchrony based on the data alone. So we now turn to a empirically-based modeling approach where we can turn demographic and environmental stochasticity on/off. To our knowledge, Integral Projection Models (IPMs) are the only tools available that allow us to isolate sources of stochasticity. For example, individual-based models require demographic stochasticity, making it impossible to isolate the effect of environmental stochasticity alone.
+
+We describe our approach in three steps. First, we describe the statistical models for three vitale rates: survival, growth, and recruitment. Second, we describe the IPM construction in detail. Third, we describe the IPM simulations we conducted to answer our questions.
+
+## Statistical models for vital rates
+
 ## Integral projection models (IPM)
-We built an environmentally and demographically stochastic integral projection model (IPM), where either environmental or demographic stochasticity can be turned off. Our IPM follows the specification of Chu and Adler (2015) where the population of species __j__ is a density function $n(u_{j},t)$ giving the density of sized-__u__ genets at time __t__. Genet size is on the natural log scale, so that $n(u_{j},t)du$ is the number of genets whose area (on the arithmetic scale) is between $e^{u_{j}}$ and $e^{u_{j}+du}$. So, the density function for any size __v__ at time $t+1$ is
+We built an environmentally and demographically stochastic integral projection model (IPM), where either environmental or demographic stochasticity can be turned off. Our IPM follows the specification of Chu and Adler (2015) where the population of species _j_ is a density function $n(u_{j},t)$ giving the density of sized-_u_ genets at time _t_. Genet size is on the natural log scale, so that $n(u_{j},t)du$ is the number of genets whose area (on the arithmetic scale) is between $e^{u_{j}}$ and $e^{u_{j}+du}$. So, the density function for any size _v_ at time $t+1$ is
 
 $$
-n(v_{j},t+1) = \int_{L_{j}}^{U_{j}} k_{j}(v_{j},u_{j},\bold{w_{j}}(u_{j}))n(u_{j},t)
+n(v_{j},t+1) = \int_{L_{j}}^{U_{j}} k_{j}(v_{j},u_{j},\bar{\bold{w_{j}}}(u_{j}))n(u_{j},t)
 $$
 
+where $k_{j}(v_{j},u_{j},\bar{\bold{w_{j}}})$ is the population kernal that describes all possible transitions from size $u$ to $v$ and $\bar{\bold{w_{j}}}$ is a vector of estimates of average crowding experienced from all other species by a genet of size $u_j$ and species $j$. The integral is evaluated over all possible sizes between predefined lower (_L_) and upper (_U_) size limits that extend beyond the range of observed genet sizes.
 
+The population kernal is defined as the joint contributions of survival (_S_), growth (_G_), and recruitment (_R_):
 
+$$
+k_{j}(v_{j},u_{j},\bar{\bold{w_{j}}}) = S_j(u_j, \bar{\bold{w_{j}}}(u_{j}))G_j(v_{j},u_{j},\bar{\bold{w_{j}}}(u_{j})) + R_j(v_{j},u_{j},\bar{\bold{w_{j}}}),
+$$
+
+which, said plainly, means we are calculating growth (_G_) for individuals that survive (_S_) from time _t_ to _t+1_ and adding in newly recruited (_R_) individuals of an average sized one-year-old genet for the focal species. Our stastical model for recruitment (_R_, described below) returns the number of new recruit produced per quadrat. Following previous work, we assume that fecundity increases linearly with size ($R_j(v_{j},u_{j},\bar{\bold{w_{j}}}) = e^{u_j}R_j(v_{j},\bar{\bold{w_{j}}})$) to incorporate the recruitment function in the spatially-implicit IPM.
 
 
 
