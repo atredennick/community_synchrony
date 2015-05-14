@@ -21,8 +21,10 @@ for(do_site in site_list){
     tmpD <- read.csv(tmpfile)
     
     # Add group info for each site individually, as needed
-    if(do_site=="Arizona")
+    if(do_site=="Arizona"){
       tmpD$Group=as.factor(substr(tmpD$quad,1,1))
+      tmpD=subset(tmpD,year>=17)
+    }
     if(do_site=="Kansas")
       tmpD$Group=as.numeric(tmpD$Group)-1
     if(do_site=="Montana"){

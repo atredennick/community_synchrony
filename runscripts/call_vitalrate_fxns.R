@@ -40,8 +40,10 @@ for(do_site in site_list){
     D$quad <- as.character(D$quad)
     
     # Add group info for each site individually, as needed
-    if(do_site=="Arizona")
+    if(do_site=="Arizona"){
       D$Group=as.factor(substr(D$quad,1,1))
+      D=subset(D,year>=17)
+    }
     if(do_site=="Kansas")
       D$Group=as.numeric(D$Group)-1
     if(do_site=="Montana"){
@@ -119,8 +121,10 @@ for(do_site in site_list){
     D$quad <- as.character(D$quad)
     
     # Add group info for each site individually, as needed
-    if(do_site=="Arizona")
+    if(do_site=="Arizona"){
       D$Group=as.factor(substr(D$quad,1,1))
+      D=subset(D,year>=17)
+    }
     if(do_site=="Kansas")
       D$Group=as.numeric(D$Group)-1
     if(do_site=="Montana"){
