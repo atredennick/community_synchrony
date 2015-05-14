@@ -16,10 +16,11 @@ ggplot(mlist, aes(x=Var1, y=(value*100), color=Var2))+
   geom_line()+
   facet_grid(L1~L2, scale="free")
 ```
+
 Hmm... looks like something is wrong with a Kansas species. Also need to compare these results to the one's from Idaho-only script in Diversity-Stability repo.
 
 ## Run through synchrony library
 ```{r get_synchs}
-library(communitySynchrony)
-get_comm_synchrony(ts_data = subset(mlist, L2=="ENVDEMO" & L1=="Arizona"))
+# library(communitySynchrony)
+# get_comm_synchrony(ts_data = subset(mlist, L2=="ENVDEMO" & L1=="Arizona"))
 ```
