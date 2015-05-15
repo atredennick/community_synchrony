@@ -100,7 +100,7 @@ for(do_site in site_list){
     demographic_stochasticity=do_demo_stoch
     
     source("run_ipm_source.R")
-    
+
 #     cover_sims <- run_ipm(A=10000, tlimit=500, burn_in=100, spp_list=spp_list,
 #                           Nyrs=Nyrs, constant=do_env_stoch,
 #                           iter_matrix_dims=iter_matrix_dims, max_size=max_size,

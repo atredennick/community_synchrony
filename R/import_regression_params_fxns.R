@@ -26,7 +26,7 @@ format_growth_params <- function(do_site, species_list, Nyrs, Gdata_species){
     tmp=which(names(Gdata)=="logarea.t0.yr")
     if(length(tmp)>0) Gpars$slope.yr[,i]=Gdata[,tmp]
     # get competition coefficients
-    tmp=paste("crowd",1:length(species_list),sep="")
+    tmp=paste("crowdV",1:length(species_list),sep="")
     tmp=which(is.element(names(Gdata),tmp))
     if(length(tmp)>0) Gpars$nb[i,]=as.numeric(Gdata[1,tmp])
     
@@ -76,7 +76,7 @@ format_survival_params <- function(do_site, species_list, Nyrs, Sdata_species){
       Spars$slope.yr[,i] <- Sdata[,tmp]
     
     # get competition coefficients
-    tmp <- paste("crowd",1:length(species_list),sep="")
+    tmp <- paste("crowdV",1:length(species_list),sep="")
     tmp <- which(is.element(names(Sdata),tmp))
     if(length(tmp)>0)
       Spars$nb[i,] <- as.numeric(Sdata[1,tmp])
@@ -124,6 +124,7 @@ format_recruitment_params <- function(do_site, species_list, Nyrs,
     Rpars$sizeVar[i] <- var(log(recSize$area))
     #Rpars$recSizes[[i]]=recSize$area
   }
+  Rpars$dd=t(Rpars$dd) # c[i,j] = effect of j on i
   return(Rpars)
 } # end function
 
