@@ -6,6 +6,7 @@ output: html_document
 library(plyr)
 library(reshape2)
 library(ggplot2)
+library(synchrony)
 output_list <- readRDS("../../results/ipm_simulation_lists.RDS")
 mlist <- melt(output_list)
 ```
@@ -21,6 +22,9 @@ Hmm... looks like something is wrong with a Kansas species. Also need to compare
 
 ## Run through synchrony library
 ```{r get_synchs}
-# library(communitySynchrony)
-# get_comm_synchrony(ts_data = subset(mlist, L2=="ENVDEMO" & L1=="Arizona"))
+library(communitySynchrony)
+colnames(mlist)[1:3] <- c("year", "species", "cover")
+ts_data <- subset(mlist, L2=="ENVDEMO" & L1=="Arizona")[1:3]
+test1 <- get_ipm_synchrony(ts_data = ts_data)
+str(test1)
 ```

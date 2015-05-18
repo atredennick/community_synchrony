@@ -97,3 +97,83 @@ get_comm_synchrony <- function(ts_data){
               growth_rates = obs_gr,
               percent_cover = ts_agg))
 }
+
+
+
+
+#' Calculate synchrony and stability from IPM time series
+#' 
+#' @param ts_data A melted dataframe of IPM cover values with three columns: year, species, cover.
+#' @return A list of data frames for synchrony and stability metrics for the community.
+get_ipm_synchrony <- function(ts_data){
+  species_list <- unique(ts_data$species)
+  num_spp <- length(species_list)
+  
+  ## Calculate stability
+  # population stability (mean/sd)
+  stability <- numeric(num_spp+1)
+  obs_vector <- numeric(num_spp)
+  for(i in 1:num_spp){ # loop through species for population stability
+    tmp <- subset(ts_data, species==species_list[i])
+    stability[i] <- mean(tmp$cover)/sd(tmp$cover)
+    obs_vector[i] <- nrow(tmp)
+  } # end species looping for population stability
+
+  # community stability (mean/sd of summed cover)
+  # calculate total cover from the species-level data for each quadrat
+  ts_sum <- ddply(ts_data, .(year), summarise,
+                  all_cover = sum(cover))
+  stability[num_spp+1] <- mean(ts_sum$all_cover)/sd(ts_sum$all_cover)
+  stability <- as.data.frame(stability)
+  stability$level <- c(species_list, "community")
+  stability$num_observations <- c(obs_vector, nrow(ts_sum))
+
+  ##  Calculate synchrony using Loreau and de Mazancourt metric
+  # requires the R package 'synchrony'
+  # Synchrony of abundance
+  ts_mat <- dcast(ts_data, formula = year~species, value.var="cover")
+  ts_mat <- ts_mat[which(complete.cases(ts_mat)==TRUE),]
+  synch_abundance <- community.sync(ts_mat[2:(num_spp+1)]) #Loreau and de Mazancourt 2008 (Am Nat)
+  
+  # caclulate observed growth rates
+  # create lagged data frame to only get observed yearly transitions
+  lag_df <- ts_mat
+  lag_df$lagyear <- lag_df$year+1
+  colnames(lag_df)[2:(num_spp+1)] <- paste(colnames(lag_df)[2:(num_spp+1)],"_t0", sep="") 
+  # merge the lag df with observed
+  rm_col <- which(colnames(lag_df)=="year")
+  merged_df <- merge(ts_mat, lag_df[,-rm_col], by.x = "year", by.y="lagyear")
+  transitions <- nrow(merged_df)
+  obs_gr <- matrix(nrow=transitions, ncol=num_spp)
+  name_ids1 <- which(colnames(merged_df) %in% species_list)
+  name_ids2 <- which(colnames(merged_df) %in% paste(species_list, "_t0", sep=""))
+  for(i in 1:transitions){
+    obs_gr[i,] <- as.numeric(log(merged_df[i,name_ids1]/merged_df[i,name_ids2]))
+  }
+  growth_rate_synchrony <- community.sync(obs_gr)
+  
+  obs_gr <- as.data.frame(obs_gr)
+  colnames(obs_gr) <- species_list
+  obs_gr$year <- merged_df$year
+  
+  
+  ##  Expected synchrony under independent fluctuations
+  sigma <- numeric(num_spp)
+  sigma_sqr <- numeric(num_spp)
+  for(i in 1:num_spp){
+    sigma[i] <- sd(obs_gr[,i])
+    sigma_sqr[i] <- (sd(obs_gr[,i]))^2
+  }
+  expected_synchrony_ind_flucts <- (sum(sigma_sqr)) / ((sum(sigma))^2)
+  
+  
+  ##  Output
+  obs_gr <- melt(obs_gr, id.vars = "year")
+  obs_gr <- obs_gr[with(obs_gr, order(year)), ]
+  colnames(obs_gr) <- c("year","species","pgr")
+  return(list(stability = stability,
+              pgr_synchrony = growth_rate_synchrony,
+              pgr_expected_synch_ind_flucts = expected_synchrony_ind_flucts,
+              abund_synchrony = synch_abundance,
+              growth_rates = obs_gr))
+}
