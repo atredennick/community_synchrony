@@ -34,7 +34,7 @@ get_growth_params <- function(dataframe, crowd_mat, alpha){
                   family=c("gaussian"), verbose=FALSE,
                   control.predictor = list(link = 1),
                   control.compute=list(dic=T,mlik=T),
-                  control.inla = list(h = 1e-6))
+                  control.inla = list(h = 1e-10))
   
   # Fit variance
   x <- outINLA$summary.fitted.values$mean #fitted values from INLA
@@ -105,7 +105,7 @@ get_survival_params <- function(dataframe, crowd_mat, alpha){
                   family=c("binomial"), verbose=FALSE,
                   control.compute=list(dic=T,mlik=T),
                   control.predictor = list(link = 1),
-                  control.inla = list(h = 1e-6),
+                  control.inla = list(h = 1e-10),
                   Ntrials=rep(1,nrow(D)))
   
   #Collect parameters
