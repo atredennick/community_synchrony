@@ -18,8 +18,6 @@ ggplot(mlist, aes(x=Var1, y=(value*100), color=Var2))+
   facet_grid(L1~L2, scale="free")
 ```
 
-Hmm... looks like something is wrong with a Kansas species. Also need to compare these results to the one's from Idaho-only script in Diversity-Stability repo.
-
 ## Run through synchrony library
 ```{r get_synchs}
 library(communitySynchrony)
@@ -28,3 +26,39 @@ ts_data <- subset(mlist, L2=="ENVDEMO" & L1=="Arizona")[1:3]
 test1 <- get_ipm_synchrony(ts_data = ts_data)
 str(test1)
 ```
+
+## Plot results of simulation scenarios
+```{r results_plot}
+colnames(mlist)[1:3] <- c("year", "species", "cover")
+mlist <- subset(mlist, year>500)
+sites <- unique(mlist$L1)
+sims <- unique(mlist$L2)
+pgr_list <- list()
+for(dosite in sites){
+  tmp_data <- subset(mlist, L1==dosite)
+  if(dosite=="Idaho"){
+    tmp_data <- subset(tmp_data, species!="ARTR")
+  }
+  within_site_list <- list()
+  for(dosim in sims){
+    tmpsim <- subset(tmp_data, L2==dosim)[c("year", "species", "cover")]
+    tmpsynch <- get_ipm_synchrony(tmpsim)
+    tmp_pgr_synch <- as.numeric(tmpsynch$pgr_synchrony["obs"])
+    within_site_list[[dosim]] <- tmp_pgr_synch
+  }
+  pgr_list[[dosite]] <- within_site_list
+}
+pgr_synch <- melt(pgr_list) 
+
+ggplot(pgr_synch, aes(x=L2, y=value, fill=L2))+
+  geom_bar(stat="identity", position=position_dodge(0.9), color="grey")+
+  facet_wrap("L1")+
+  scale_fill_manual(values = c("grey45", "steelblue", "slateblue4"))+
+  guides(fill=FALSE)+
+  scale_y_continuous(limits=c(0,1))+
+  xlab("Source of stochasticity")+
+  ylab("Species synchrony")
+
+```
+
+So all sites except Montana show an increase in species synchrony when environmental variation is included in the model. This is probably because they are all perennial grass species in semi-arid grasslands that respond similarly to environmental conditions.
