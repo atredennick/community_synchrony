@@ -62,3 +62,17 @@ ggplot(pgr_synch, aes(x=L2, y=value, fill=L2))+
 ```
 
 So all sites except Montana show an increase in species synchrony when environmental variation is included in the model. This is probably because they are all perennial grass species in semi-arid grasslands that respond similarly to environmental conditions.
+
+
+## Comparison with niche differecnes
+```{r niches}
+niche_diff <- data.frame(site=sites,
+                         ND = c(0.58, 0.59, 0.66, 0.69, 0.68))
+pgr_subs <- subset(pgr_synch, L2!="ENVDEMO")
+pgr_cast <- dcast(pgr_subs, L1~L2, value.var = "value")
+synch_diff <- ddply(pgr_cast, .(L1), summarise,
+                    value = ENV-DEMO)
+niche_synch <- merge(niche_diff, synch_diff, by.x="site", by.y="L1")
+ggplot(niche_synch, aes(x=ND, y=value))+
+  geom_point(size=5)
+```
