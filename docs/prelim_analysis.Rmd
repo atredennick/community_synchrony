@@ -6,31 +6,134 @@ output:
 fontsize: 12pt
 geometry: margin=1in
 ---
+# Drivers of species synchrony in real communities
+*Andrew Tredennick, Peter Adler, Claire de Mazancourt, Michele Loreau, and Stephen Ellner*
 
-# Preliminary community synchrony analysis
+Quick summary
+-------------
+1. __Question__. How (a)synchronous are species population dynamics in natural communities, and what determines the degree of synchrony among species? Of particular interest to us, do species' responses to environmental fluction increase or decrease population synchrony?
 
-A couple comments from Claire:
+2. __Data__. Five longterm demographic datasets from semi-arid North American grasslands. All species coexist stabley, yet are similar -- they are all perennial grasses.
 
-1. In the absence of environmental stochasticity, species fluctuations are not necessarily independent. 
-For example in a zero sum game with ecologically equivalent species (Hubbell's neutral model), species fluctuate randomly but they are not independent since the sum is constrained. If there are only two species their fluctuations are necessarily negatively correlated, because the increase in one species must be compensated by a decrease in the other. In a non-neutral model where species have stable equilibrium abundance there are also non independent fluctuations due to species interactions. In competitive communities fluctuations would most of the time have negative correlations overall, but sometimes they can be positive overall.
+3. __Analysis__. (a) Calculate community synchrony from the observed time series using an established metric, and compare this to expectation from theory. (b) Use IPMs with environmental or demographic stochasticity turned on/off to quantify the relative contribution of each to community synchrony.
 
-2. I'm not entirely clear here: null with respect to what? Species interactions, demographic stochasticity and environmental stochasticity can all affect synchrony?
+4. __Initial conclusions__. Species' responses to environmental fluctuations tend to synchronize population dynamics: at four of the five sites removing environmental fluctuations decreased community synchrony. However, even with environmental fluctuations present, populations were not completely synchronized. This implies that niche differences among these species remain strong even as they respond similarly to environmental conditions.
 
-3. Could you show the absolute values, either with three bars per plot, or with a black line that is not at zero but at its unperturbed synchrony value? OK, I see the absolute values in table 1, the differences between sites are quite large compared to the effects of demographic and environmental stochasticities - but it should still be visible. Does this suggest that environmental and demographic stochasticities are minor explanatory variables for community synchrony? What is, then? Diversity?
+Introduction
+------------
+Asynchrony in population dynamics among co-occuring plant species stabilizes ecosystem-level properties like annual biomass production (Hector et al. 2010, Loreau and de Mazancourt 2013, de Mazancourt et al. 2013, Hautier et al. 2014). Species-specific responses to environmental conditions, in particular, can stabilize ecosystem properties even as environmental forcings fluctuate through time. Such asynchrony of species dynamics in response to the environment has the potential to buffer ecosystems subjected to an increasingly variable climate. Thus, the extent to which natural communities exhibit asynchronous dynamics determines, in part, their ability to cope with interannual climate extremes that are projected to become more common.
 
-4. In principle, could the signs of the effects of demographic stochasticity and environmental stochasticity be predicted? For demographic stochasticity, see comment by table 1. For environmental stochasticity: could you quantify the synchrony of species responses to the environment from the synchrony of the intercepts?
+Theory suggests that community synchrony is driven by a combination of internal and external forces. Internal to the community, demographic stochasticity can induce asynchronous dynamics when species tend to fluctuate independently in a constant environment (Loreau and de Mazancourt 2008). However, species live in non-constant environments that act as strong external drivers of community dynamics. Environmental variability can induce asynchronous dynamics when species' responses to environmental conditions are temporally uncorrelated. When species respond similarly to environmental conditions, community dynamics become more synchronized (Gonzalez and Loreau 2009, Loreau and de Mazancourt 2008).
 
-5. We could compute the synchrony expected under independent fluctuations: 
-$$\text{E}(\phi_{r}) = \frac{ \sum_{i=1}^{N}{\sigma_{i}^2} } { \left(\sum_{i=1}^{N}{\sigma_{i}} \right)^2 }.$$
-We could expect demographic stochasticity to tend towards this value: the sign of the effect of demographic stochasticity should be $\text{E}(\phi_{r}) - \phi_{r}$, where $\phi_{r}$ is the observed synchrony of per capita growth rates; removal should be the opposite - does that work?
+It is impossible to draw inference on the relative contribution of demographic and environmental stochasticity on synchrony based on empirical estimates alone, so our analysis involves two steps.  First, we will use longterm datasets from five North American grasslands (Fig. 1; Chu and Adler 2015) to calculate community synchrony. Second, we will fit multispecies population models to the data for dominant species to evaluate the relative contribution of species' environmental responses and demographic stochasticity to community synchrony. Sparse data on sub-dominant species constrained model fitting to dominant species that account for ##% - ##% of local plant abundance at their respective sites. Our focus is on temporal trends of per capita growth rates becuase these best reflect the short-term responses of populations to environmental conditions that fluctuate on annual time scales (Loreau and de Mazancourt 2008).
 
 
-## Calculate expected and observed sychrony
-Under the assumption of independent fluctuations in species' per capit growth rates, we can calculate expected synchrony as:
+What is expected by theory?[^devel]
+---------------------------
+[^devel]: Note that this is still in development...so some of it may be wrong.
 
-$$\text{E}(\phi_{r}) = \frac{ \sum_{i=1}^{N}{\sigma_{i}^2} } { \left(\sum_{i=1}^{N}{\sigma_{i}} \right)^2 }$$
+Loreau and de Mazancourt (2008) derived a statistic to measure community-wide synchrony of per capita population growth rates:
 
-where $\sigma_{i}$ is the standard deviation of species $i$'s per capita growth rate through time. 
+
+\begin{equation}
+\phi_r = \frac{\sigma^{2}_{T}}{(\sum_{i}\sigma_{r_{i}})^{2}}
+\end{equation}
+
+
+where $\sigma_{r_{i}}$ is the temporal variance of species *i*'s per capita population growth rate ($r_i$) and $\sigma^{2}_{T}$ is the temporal variance of the aggregate community-level growth rate. The statistic is bounded at 0 and 1, where 0 indicates perfect asynchrony and 1 indicates perfect synchrony. When applied to a neutral model where species have perfect niche overlap but have independent demographic and environmental fluctuations through time,  expected synchrony ($\phi_r$) is defined as:
+
+\begin{equation}
+\phi_r = \frac{\sigma^{2}_{c} + \sigma^{2}_{e} + \sigma^{2}_{d}/(SN)}{[(1/S)(\sum_{i}\sqrt{\sigma^{2}_{c} + \sigma^{2}_{e} + \sigma^{2}_{d}/(N)})]^2}
+\end{equation}
+
+where $\sigma^{2}_{c}$ is the temporal variance of per capita population growth rates due to regulation of community size (density-dependence), $\sigma^{2}_{e}$ is environmental variance, and $\sigma^{2}_{d}$ is demographic variance. *S* is the species richness of the focal community and *N* is the harmonic temporal mean of either the entire community (no subscript in numerator) or species *i* (with subscript in denominator). 
+
+Loreau and de Mazancourt show that when demographic stochasticity is weak relative to community regulation and environmental forcing ($\sigma^{2}_{c}+\sigma^{2}_{e} >> \sigma^{2}_{d}/N_i$), $\phi_r \approx 1$ meaning species are expected to fluctuate synchronously. At the other limit, where environmental forcing and community regulation are strong relative to demographic stochasticity ($\sigma^{2}_{c}+\sigma^{2}_{e} << \sigma^{2}_{d}/N_i$), species are expected to fluctuate independently, and $\phi_r \approx 1/S$ or:
+
+\begin{equation}
+\phi_{r} = \frac{ \sum_{i=1}^{N}{\sigma_{i}^2} } { \left(\sum_{i=1}^{N}{\sigma_{i}} \right)^2 }.
+\end{equation}
+
+Based on the above theory, we expect synchrony in a community where only demographic stochasticity is operating on top of independent fluctuations to be $1/S$. 
+
+Data and Methods
+----------------
+## Study sites and species
+We use the exact same data as presented in Chu and Adler (2015). From their paper:
+
+>Many range experiment stations in the western U.S. began mapping permanent quadrats in the early 20th century, and continued annual censuses for decades. Here we focus on five long-term data sets (Fig. 1), four of which have been distributed publicly (Adler et al. 2007b, Zachmann et al. 2010, Anderson et al. 2011, 2012). At each study site, all individual plants within each 1-m2 quadrat were identified and mapped annually using a pantograph (Hill 1920; Fig. 2). Mapped polygons represent basal cover for grasses and canopy cover for shrubs (Fig. 2). 
+
+>To fit our population models, we needed to study species common enough to provide a large sample size (i.e. the most common species at each site). In order to describe species interactions, we needed to select species that co-occurred together across many years. Thus, our analysis focused on the niche differences and average fitness differences of the most common, co-occurring species at each site, which implies that the average fitness differences among species could be relatively small. To select these species, we first identified species that occurred in at least 20% of years. Then we used Nonmetric Multidimensional Scaling (NMDS) to identify quadrats with a similar composition of these candidate species. Based on the degree of aggregation of quadrats on the NMDS plot, we selected quadrats and species for our full analysis. We also confirmed these selections with local personnel from each study site. Below we further describe each study site and our criteria for quadrat and species selections.
+
+>_Sonoran desert, Arizona_
+
+>The Sonoran desert data set comes from 178 permanent quadrats located on semi-desert grasslands at the Santa Rita Experimental Range (31º50’ N, 110º53’ W; elevation 1150 meters), Arizona (Anderson et al. 2012). Mean annual precipitation was 450 mm with the monthly variation from 5 mm (May) to 107 mm (July), and mean annual temperature was 16 °C with the monthly variation from 8 °C (January) to 26 °C (July) during the sampling period. These quadrats were mapped annually from 1915 to 1933 in most cases. The dominant flora varies across the broad range of soils and topography that occur within the semi-desert grasslands. For our present analysis, we chose 32 quadrats dominated by black grama Bouteloua eriopoda (BOER) and Bouteloua rothrockii (BORO). 
+
+>_Sagebrush steppe, Idaho_
+
+>The sagebrush data set comes from the U.S. Sheep Experiment Station, currently a US Department of Agriculture Agricultural Research Service field station, located 9.6 km north of Dubois, Idaho (44.2°N, 112.1°W; elevation 1500 meters). 26 quadrats were established between 1926 and 1932 (Zachmann et al. 2010). During the period of sampling (1926 – 1957), mean annual precipitation was 270 mm with the monthly variation from 16 mm (March) to 42 mm (June), and mean annual temperature was 6 °C with the monthly variation from -8 °C (January) to 21 °C (July). The vegetation is dominated by the shrub, Artemisia tripartita (ARTR), and the C3 perennial bunchgrasses Pseudoroegneria spicata (PSSP), Hesperostipa comata (HECO), and Poa secunda (POSE).
+
+>_Southern mixed prairie, Kansas_
+
+>The southern mixed prairie data set represents the pioneering work of Albertson and colleagues (Albertson and Tomanek 1965), who established 51 permanent quadrats inside and outside livestock exclosures near Hays, Kansas (38.8°N, 99.3°W; elevation 650 meters). The mean annual precipitation was 580 mm with the monthly variation from 10 mm (January) to 103 mm (June), and mean annual temperature was 12 °C with the monthly variation from -2.0 °C (January) to 27 °C (July). These quadrats were mapped from 1932 to 1972 at the end of each growing season (Adler et al. 2007b). Variation in soil depth and texture creates distinct plant communities. Many of the quadrats were located on shortgrass communities dominated by Bouteloua gracilis and Buchloë dactyloides. We had difficulty working with these species, which can be hard to distinguish in the field in the absence of inflorescences, and were often mapped inconsistently. Therefore, we focused on 7 quadrats dominated by Bouteloua curtipendula (BOCU), Bouteloua hirsuta (BOHI), and Schizachyrium scoparium (SCSC). 
+
+>_Northern mixed prairie, Montana_
+
+>The northern mixed prairie data set comes from the Fort Keogh Livestock and Range Research Laboratory, another USDA Agricultural Research Service field station. The study site is located on alluvial plains near the Tongue River (46o19’N, 105o48’W; elevation 720 meters). Mean annual precipitation was 343 mm with the monthly variation from 7 mm (February) to 74 mm (June), and mean annual temperature was 8 °C with the monthly variation from -7 °C (January) to 25 °C (July). 44 quadrats, distributed across six pastures assigned to one of three grazing intensities, were mapped annually (with some exceptions) from 1932 through 1945 (Anderson et al. 2011). Our analysis includes 19 quadrats in which Bouteloua gracilis (BOGR), Hesperostipa comata (HECO), Pascopyrum smithii (PASM), and Poa secunda (POSE) were prevalent.
+
+>_Chihuahuan desert, New Mexico_
+
+>The last data set consists of 76 permanent quadrats located in Chihuahuan desert plant communities at the Jornada Experimental Range (32.62°N, 106.67°W; elevation 1260 meters), New Mexico. Mean annual precipitation was 264 mm with the monthly variation from 6 mm (April) to 48 mm (August), and mean annual temperature was 14 °C with the monthly variation from 4 °C (January) to 26 °C (July). Quadrats were established from 1915-1920 and mapping was conducted annually until the 1960’s (it continues on roughly 5 yr intervals to the present). Due to the changes in mapping frequency in the 1960’s, and the effects of a severe drought in the 1950’s that triggered a conversion of many quadrats from grassland to shrubland, we analyzed data for the period from 1915 to 1950. We selected 48 quadrats in which both Bouteloua eriopoda (BOER) and Sporobolus flexuosus (SPFL) were common (Anderson et al. in preparation). 
+
+
+## Analytical approach
+While the observational data allows us to directly calculate species synchrony within the community, it is impossible to isolate the contributions of demographic and environmental stochasticity on species synchrony based on the data alone. So we now turn to a empirically-based modeling approach where we can turn demographic and environmental stochasticity on/off. To our knowledge, Integral Projection Models (IPMs) are the only tools available that allow us to isolate sources of stochasticity. For example, individual-based models require demographic stochasticity, making it impossible to isolate the effect of environmental stochasticity alone.
+
+We describe our approach in three steps. First, we describe the statistical models for three vitale rates: survival, growth, and recruitment. Second, we describe the IPM construction in detail. Third, we describe the IPM simulations we conducted to answer our questions. 
+
+## Statistical models for survival, growth, and recruitment
+### Survival and growth
+We modeled survival probability and growht on individual genets as a function of genet size, the crowding experienced by the focal genet from both heterospecific and conspecific genets in its neighborhood (described below), temporal varation among years, and spatial variation among quadrat groups. Groups are sets of quadrats located in close proximity within a pasture or grazing exclosure).
+
+We follow the approach of Chu and Adler (2015) to estimate crowding, assuming that the crowding experienced by a focal genet depends on distance to each neighbor genet and the neighbor's size, _u_:
+
+\begin{equation}
+w_{ijm,t} = \sum_k e^{-\delta_{jm}d_{ijkm,t}^{2}}u_{km,t}.
+\end{equation}
+
+In the above, $w_{ijm,t}$ is the crowding that genet _i_ of species _j_ in year _t_ experiences from neighbors of species _m_. The spatial scale over which species _m_ neighbors exert influence on any genet of species _j_ is determined by $\delta_{jm}$. The function is applied for all _k_ genets of species _m_ that neighbor the focal genet at time _t_, and $d_{ijkm,t}$ is the distance between genet _i_ in species _j_ and genet _k_ in species _m_. When $k=m$, the effect is intraspecific crowding. We use regression-specific (survival and growth) $\delta$ values estimated by Chu and Adler (2015).
+
+### Recruitment
+We model recruitment as a function of plot-level cover, temporal varation among years, and spatial variation among quadrat groups. 
+
+
+## Integral projection models (IPM)
+### Model structure
+We built an environmentally and demographically stochastic integral projection model (IPM), where either environmental or demographic stochasticity can be turned off. Our IPM follows the specification of Chu and Adler (2015) where the population of species _j_ is a density function $n(u_{j},t)$ giving the density of sized-_u_ genets at time _t_. Genet size is on the natural log scale, so that $n(u_{j},t)du$ is the number of genets whose area (on the arithmetic scale) is between $e^{u_{j}}$ and $e^{u_{j}+du}$. So, the density function for any size _v_ at time $t+1$ is
+
+\begin{equation}
+n(v_{j},t+1) = \int_{L_{j}}^{U_{j}} k_{j}(v_{j},u_{j},\bar{\bold{w_{j}}}(u_{j}))n(u_{j},t)
+\end{equation}
+
+where $k_{j}(v_{j},u_{j},\bar{\bold{w_{j}}})$ is the population kernal that describes all possible transitions from size $u$ to $v$ and $\bar{\bold{w_{j}}}$ is a vector of estimates of average crowding experienced from all other species by a genet of size $u_j$ and species $j$. The integral is evaluated over all possible sizes between predefined lower (_L_) and upper (_U_) size limits that extend beyond the range of observed genet sizes.
+
+The population kernal is defined as the joint contributions of survival (_S_), growth (_G_), and recruitment (_R_):
+
+\begin{equation}
+k_{j}(v_{j},u_{j},\bar{\bold{w_{j}}}) = S_j(u_j, \bar{\bold{w_{j}}}(u_{j}))G_j(v_{j},u_{j},\bar{\bold{w_{j}}}(u_{j})) + R_j(v_{j},u_{j},\bar{\bold{w_{j}}}),
+\end{equation}
+
+which, said plainly, means we are calculating growth (_G_) for individuals that survive (_S_) from time _t_ to _t+1_ and adding in newly recruited (_R_) individuals of an average sized one-year-old genet for the focal species. Our stastical model for recruitment (_R_, described below) returns the number of new recruit produced per quadrat. Following previous work, we assume that fecundity increases linearly with size ($R_j(v_{j},u_{j},\bar{\bold{w_{j}}}) = e^{u_j}R_j(v_{j},\bar{\bold{w_{j}}})$) to incorporate the recruitment function in the spatially-implicit IPM.
+
+### Model simulations
+Our interest is in the (de)synchronizing effects of either demographic or environmental stochasticity. To look at these effects, we run three types of model simulations: (1) demographic stochasticity only, (2) environmental stochasticity only, and (3) both. Environmental stochasticity is implemented by drawing random year effects for the vital rate regressions. We can model a constant environment by simply using vital rate regressions with mean coefficient values. To include demographic stochasticity we treat survival as a binomial process and recruitment as a poisson process in the IPM[^stoch]. See Figure 2 for example model runs.
+
+[^stoch]: This is the crux of the matter here, we need to implement the Poisson approximation at the iteration matrix stage.
+
+Results
+-------
+## Observed and expected synchrony
+Our first task was to calculate the observed and expected community synchrony at each of our study sites. Observed synchrony ($\phi_r$) is calculate using equation 1 and expected synchrony ($\text{E}(\phi_r)$) is simply $1/S$ or equation 3. Expected synchrony under indpendent fluctuations is lower than the observed synchrony at every site (Table 1). This implies that demographic stochasticity is weak relative to community regulation and environmental forcing ($\sigma^{2}_{c}+\sigma^{2}_{e} >> \sigma^{2}_{d}/N_i$). Thus, some combination of density-dependence (species interactions) and environmental forcing are synchronizing population dynamics. To isolate those effects, we turn to our simulation results from the IPMs.
 
 ```{r load_libs, echo=FALSE, message=FALSE}
 library(communitySynchrony)
@@ -129,39 +232,15 @@ for(dospp in 1:num_spp){ #loop through species to read in data
 az_data <- az_data[2:nrow(az_data),] #remove first NA row
 ```
 
-```{r get_synchs, echo=FALSE, include=TRUE}
-out <- get_comm_synchrony(ts_data = ks_data)
-obs_synch <- round(as.numeric(out$pgr_synchrony[1]), 2)
-exp_synch <- round(out$pgr_expected_synch_ind_flucts, 2)
-exp_demo_effect <- exp_synch - obs_synch
-print(out$pgr_synchrony)
-print(out$pgr_expected_synch_ind_flucts)
-```
-
-```{r sign_text, echo=FALSE}
-if(sign(exp_demo_effect)==-1){
-  sign_text <- "decrease"
-  remove_text <- "increase"
-}
-if(sign(exp_demo_effect)==1){
- sign_text <- "increase"
- remove_text <- "decrease" 
-}
-```
-
-So, $\text{E}(\phi_{r})$ = `r exp_synch` and $\phi_{r}$ = `r obs_synch`. Which means the expected effect of demographic stochasticity [$\text{E}(\sigma_{d}) = \text{E}(\phi_{r}) - \phi_{r}$] is `r exp_demo_effect`. So, based on the sign of $\text{E}(\sigma_{d})$ we expect demographic stochasticity to `r sign_text` synchrony among species' per capita growth rates. Thus, removing demographic stochasticity should `r remove_text` synchrony in our population model simulations.
-
-Here are the results for both Kansas and Idaho:
-
 ```{r get_all_synch, echo=FALSE, include=TRUE}
-out_ks <- out
+out_ks <- get_comm_synchrony(ts_data = ks_data)
 out_id <- get_comm_synchrony(ts_data = id_data)
 out_mt <- get_comm_synchrony(ts_data = mt_data)
 out_nm <- get_comm_synchrony(ts_data = nm_data)
 out_az <- get_comm_synchrony(ts_data = az_data)
 ```
 
-```{r synchrony_table, echo=FALSE, include=TRUE, results='asis'}
+```{r synchrony_table, echo=FALSE, include=TRUE, results='asis', message=FALSE}
 get_table_metrics <- function(output){
   tmp <- output
   exp_tmp <- round(tmp$pgr_expected_synch_ind_flucts, 2)
@@ -192,117 +271,121 @@ synch_cap <- "Observed and expected synchrony among species' per capita growth r
 print(xtable(table_data, caption = synch_cap),
       caption.placement="top",
       include.rownames = F, 
-      sanitize.colnames.function = identity)
+      sanitize.colnames.function = identity,
+      comment=FALSE)
 ```
 
 ```{r time_series_fig, echo=FALSE, include=TRUE, fig.height=7, fig.cap="Observed time series of mean percent cover (averaged over quadrats for each year) and per capita growth rates for each species at each site."}
-out_ks$percent_cover$site <- "Kansas"
-out_id$percent_cover$site <- "Idaho"
-out_mt$percent_cover$site <- "Montana"
-out_nm$percent_cover$site <- "New Mexico"
-out_az$percent_cover$site <- "Arizona"
-cover_data <- rbind(out_ks$percent_cover, out_id$percent_cover,
-                    out_mt$percent_cover, out_nm$percent_cover, 
-                    out_az$percent_cover)
+# out_ks$percent_cover$site <- "Kansas"
+# out_id$percent_cover$site <- "Idaho"
+# out_mt$percent_cover$site <- "Montana"
+# out_nm$percent_cover$site <- "New Mexico"
+# out_az$percent_cover$site <- "Arizona"
+# cover_data <- rbind(out_ks$percent_cover, out_id$percent_cover,
+#                     out_mt$percent_cover, out_nm$percent_cover, 
+#                     out_az$percent_cover)
+# 
+# out_ks$growth_rates$site <- "Kansas"
+# out_id$growth_rates$site <- "Idaho"
+# out_mt$growth_rates$site <- "Montana"
+# out_nm$growth_rates$site <- "New Mexico"
+# out_az$growth_rates$site <- "Arizona"
+# pgr_data <- rbind(out_ks$growth_rates, out_id$growth_rates,
+#                   out_mt$growth_rates, out_nm$growth_rates, 
+#                   out_az$growth_rates)
+# all_spp <- unique(pgr_data$species)
+# color_match <- data.frame(species = all_spp,
+#                           color = brewer.pal(11,"Paired"))
+# pgr_data <- merge(pgr_data, color_match, by = "species")
+# cover_data <- merge(cover_data, color_match, by="species")
+# 
+# cover_plot <- ggplot(data=cover_data, aes(x=(year+1900), y=tot_cover, color=color))+
+#                 geom_line()+
+#                 geom_point()+
+#                 facet_grid(site~., scales = "free_y")+
+#                 guides(color=FALSE)+
+#                 ylab("Mean Percent Cover")+
+#                 xlab("Year")+
+#                 scale_color_manual(values = brewer.pal(11,"Paired"))
+# 
+# pgr_plot <- ggplot(data=pgr_data, aes(x=(year+1900), y=pgr, color=color))+
+#               geom_line()+
+#               geom_point()+
+#               facet_grid(site~., scales = "free_y")+
+#               guides(color=FALSE)+
+#               ylab("Per Capita Growth Rate")+
+#               xlab("Year")+
+#               scale_color_manual(values = brewer.pal(11,"Paired"))
+# full_plot <- grid.arrange(cover_plot, pgr_plot, ncol=2)
+```
 
-out_ks$growth_rates$site <- "Kansas"
-out_id$growth_rates$site <- "Idaho"
-out_mt$growth_rates$site <- "Montana"
-out_nm$growth_rates$site <- "New Mexico"
-out_az$growth_rates$site <- "Arizona"
-pgr_data <- rbind(out_ks$growth_rates, out_id$growth_rates,
-                  out_mt$growth_rates, out_nm$growth_rates, 
-                  out_az$growth_rates)
-all_spp <- unique(pgr_data$species)
-color_match <- data.frame(species = all_spp,
-                          color = brewer.pal(11,"Paired"))
-pgr_data <- merge(pgr_data, color_match, by = "species")
-cover_data <- merge(cover_data, color_match, by="species")
+## Effect of removing demographic and environmental stochasticity
+At four of our five study areas, the presence of environmental stochasticity via random year effects on vital rate regressions increased community synchrony of per capita population growth rates (Figure 1). Only at the Montana site (Northern Mixed Prairie) did incorporating species' responses to environmental conditions decrease community synchrony. However, even with similar responses to environmental conditions, community synchrony did not reach 1 at any of the sites. Thus, there remains sufficiently strong temporal niche differences to drive the community away from perfect sychrony. 
 
-cover_plot <- ggplot(data=cover_data, aes(x=(year+1900), y=tot_cover, color=color))+
-                geom_line()+
-                geom_point()+
-                facet_grid(site~., scales = "free_y")+
-                guides(color=FALSE)+
-                ylab("Mean Percent Cover")+
-                xlab("Year")+
-                scale_color_manual(values = brewer.pal(11,"Paired"))
+*NOTE: we have not dealt with species interactions yet...*
 
-pgr_plot <- ggplot(data=pgr_data, aes(x=(year+1900), y=pgr, color=color))+
-              geom_line()+
-              geom_point()+
-              facet_grid(site~., scales = "free_y")+
-              guides(color=FALSE)+
-              ylab("Per Capita Growth Rate")+
-              xlab("Year")+
-              scale_color_manual(values = brewer.pal(11,"Paired"))
-full_plot <- grid.arrange(cover_plot, pgr_plot, ncol=2)
+```{r read_data, echo=FALSE}
+output_list <- readRDS("../results/ipm_simulation_lists.RDS")
+mlist <- melt(output_list)
+```
+
+```{r get_synchs, echo=FALSE, fig.cap="Results from IPM simulations with difference sources of stochasticity present/absent at each site. DEMO = demographic stochasticity only; ENV = environmental stochasticity only; ENVDEMO = both demograhpic and environmental stochasticity.", fig.width=6}
+colnames(mlist)[1:3] <- c("year", "species", "cover")
+mlist <- subset(mlist, year>500)
+sites <- unique(mlist$L1)
+sims <- unique(mlist$L2)
+pgr_list <- list()
+for(dosite in sites){
+  tmp_data <- subset(mlist, L1==dosite)
+  if(dosite=="Idaho"){
+    tmp_data <- subset(tmp_data, species!="ARTR")
+  }
+  within_site_list <- list()
+  for(dosim in sims){
+    tmpsim <- subset(tmp_data, L2==dosim)[c("year", "species", "cover")]
+    tmpsynch <- get_ipm_synchrony(tmpsim)
+    tmp_pgr_synch <- as.numeric(tmpsynch$pgr_synchrony["obs"])
+    within_site_list[[dosim]] <- tmp_pgr_synch
+  }
+  pgr_list[[dosite]] <- within_site_list
+}
+pgr_synch <- melt(pgr_list) 
+
+ggplot(pgr_synch, aes(x=L2, y=value, fill=L2))+
+  geom_bar(stat="identity", position=position_dodge(0.9), color="grey")+
+  facet_wrap("L1", scales="free_x")+
+  scale_fill_manual(values = c("grey45", "steelblue", "slateblue4"))+
+  guides(fill=FALSE)+
+  scale_y_continuous(limits=c(0,1))+
+  xlab("Source of stochasticity")+
+  ylab("Species synchrony")
+
 ```
 
 
-# Methods
-## Study sites and species
-We use the exact same data as presented in Chu and Adler (2015). From their paper:
+```{r niches, echo=FALSE}
+# niche_diff <- data.frame(site=sites,
+#                          ND = c(0.58, 0.59, 0.66, 0.69, 0.68))
+# pgr_subs <- subset(pgr_synch, L2!="ENVDEMO")
+# pgr_cast <- dcast(pgr_subs, L1~L2, value.var = "value")
+# synch_diff <- ddply(pgr_cast, .(L1), summarise,
+#                     value = ENV-DEMO)
+# niche_synch <- merge(niche_diff, synch_diff, by.x="site", by.y="L1")
+# ggplot(niche_synch, aes(x=ND, y=value))+
+#   geom_point(size=5)+
+#   ylab("Community synchrony")
+```
 
->Many range experiment stations in the western U.S. began mapping permanent quadrats in the early 20th century, and continued annual censuses for decades. Here we focus on five long-term data sets (Fig. 1), four of which have been distributed publicly (Adler et al. 2007b, Zachmann et al. 2010, Anderson et al. 2011, 2012). At each study site, all individual plants within each 1-m2 quadrat were identified and mapped annually using a pantograph (Hill 1920; Fig. 2). Mapped polygons represent basal cover for grasses and canopy cover for shrubs (Fig. 2). 
+Theory predicts that demographic stochasticty is the only force that, in isolation, can desynchronize population dynamics. However, theory also predicts that demographic stochasticity is likely unable to counteract the synchronizing effect of environmental forces. Our results support this prediction in the cases where environmental stochasticity is a synchronizing force (compare ENV and ENVDEMO bars in Figure 1).
 
->To fit our population models, we needed to study species common enough to provide a large sample size (i.e. the most common species at each site). In order to describe species interactions, we needed to select species that co-occurred together across many years. Thus, our analysis focused on the niche differences and average fitness differences of the most common, co-occurring species at each site, which implies that the average fitness differences among species could be relatively small. To select these species, we first identified species that occurred in at least 20% of years. Then we used Nonmetric Multidimensional Scaling (NMDS) to identify quadrats with a similar composition of these candidate species. Based on the degree of aggregation of quadrats on the NMDS plot, we selected quadrats and species for our full analysis. We also confirmed these selections with local personnel from each study site. Below we further describe each study site and our criteria for quadrat and species selections.
+\newpage
 
->_Sonoran desert, Arizona_
-
->The Sonoran desert data set comes from 178 permanent quadrats located on semi-desert grasslands at the Santa Rita Experimental Range (31º50’ N, 110º53’ W; elevation 1150 meters), Arizona (Anderson et al. 2012). Mean annual precipitation was 450 mm with the monthly variation from 5 mm (May) to 107 mm (July), and mean annual temperature was 16 °C with the monthly variation from 8 °C (January) to 26 °C (July) during the sampling period. These quadrats were mapped annually from 1915 to 1933 in most cases. The dominant flora varies across the broad range of soils and topography that occur within the semi-desert grasslands. For our present analysis, we chose 32 quadrats dominated by black grama Bouteloua eriopoda (BOER) and Bouteloua rothrockii (BORO). 
-
->_Sagebrush steppe, Idaho_
-
->The sagebrush data set comes from the U.S. Sheep Experiment Station, currently a US Department of Agriculture Agricultural Research Service field station, located 9.6 km north of Dubois, Idaho (44.2°N, 112.1°W; elevation 1500 meters). 26 quadrats were established between 1926 and 1932 (Zachmann et al. 2010). During the period of sampling (1926 – 1957), mean annual precipitation was 270 mm with the monthly variation from 16 mm (March) to 42 mm (June), and mean annual temperature was 6 °C with the monthly variation from -8 °C (January) to 21 °C (July). The vegetation is dominated by the shrub, Artemisia tripartita (ARTR), and the C3 perennial bunchgrasses Pseudoroegneria spicata (PSSP), Hesperostipa comata (HECO), and Poa secunda (POSE).
-
->_Southern mixed prairie, Kansas_
-
->The southern mixed prairie data set represents the pioneering work of Albertson and colleagues (Albertson and Tomanek 1965), who established 51 permanent quadrats inside and outside livestock exclosures near Hays, Kansas (38.8°N, 99.3°W; elevation 650 meters). The mean annual precipitation was 580 mm with the monthly variation from 10 mm (January) to 103 mm (June), and mean annual temperature was 12 °C with the monthly variation from -2.0 °C (January) to 27 °C (July). These quadrats were mapped from 1932 to 1972 at the end of each growing season (Adler et al. 2007b). Variation in soil depth and texture creates distinct plant communities. Many of the quadrats were located on shortgrass communities dominated by Bouteloua gracilis and Buchloë dactyloides. We had difficulty working with these species, which can be hard to distinguish in the field in the absence of inflorescences, and were often mapped inconsistently. Therefore, we focused on 7 quadrats dominated by Bouteloua curtipendula (BOCU), Bouteloua hirsuta (BOHI), and Schizachyrium scoparium (SCSC). 
-
->_Northern mixed prairie, Montana_
-
->The northern mixed prairie data set comes from the Fort Keogh Livestock and Range Research Laboratory, another USDA Agricultural Research Service field station. The study site is located on alluvial plains near the Tongue River (46o19’N, 105o48’W; elevation 720 meters). Mean annual precipitation was 343 mm with the monthly variation from 7 mm (February) to 74 mm (June), and mean annual temperature was 8 °C with the monthly variation from -7 °C (January) to 25 °C (July). 44 quadrats, distributed across six pastures assigned to one of three grazing intensities, were mapped annually (with some exceptions) from 1932 through 1945 (Anderson et al. 2011). Our analysis includes 19 quadrats in which Bouteloua gracilis (BOGR), Hesperostipa comata (HECO), Pascopyrum smithii (PASM), and Poa secunda (POSE) were prevalent.
-
->_Chihuahuan desert, New Mexico_
-
->The last data set consists of 76 permanent quadrats located in Chihuahuan desert plant communities at the Jornada Experimental Range (32.62°N, 106.67°W; elevation 1260 meters), New Mexico. Mean annual precipitation was 264 mm with the monthly variation from 6 mm (April) to 48 mm (August), and mean annual temperature was 14 °C with the monthly variation from 4 °C (January) to 26 °C (July). Quadrats were established from 1915-1920 and mapping was conducted annually until the 1960’s (it continues on roughly 5 yr intervals to the present). Due to the changes in mapping frequency in the 1960’s, and the effects of a severe drought in the 1950’s that triggered a conversion of many quadrats from grassland to shrubland, we analyzed data for the period from 1915 to 1950. We selected 48 quadrats in which both Bouteloua eriopoda (BOER) and Sporobolus flexuosus (SPFL) were common (Anderson et al. in preparation). 
-
-
-## Analytical approach
-While the observational data allows to directly calculate species synchrony within the community, it is impossible to isolate the contributions of demographic and environmental stochasticity on species synchrony based on the data alone. So we now turn to a empirically-based modeling approach where we can turn demographic and environmental stochasticity on/off. To our knowledge, Integral Projection Models (IPMs) are the only tools available that allow us to isolate sources of stochasticity. For example, individual-based models require demographic stochasticity, making it impossible to isolate the effect of environmental stochasticity alone.
-
-We describe our approach in three steps. First, we describe the statistical models for three vitale rates: survival, growth, and recruitment. Second, we describe the IPM construction in detail. Third, we describe the IPM simulations we conducted to answer our questions.
-
-## Statistical models for survival, growth, and recruitment
-### Survival and growth
-We modeled survival probability and growht on individual genets as a function of genet size, the crowding experienced by the focal genet from both hetero and conspecific genets in its neighborhood (described below), temporal varation among years, and spatial variation among quadrat groups. Groups are sets of quadrats located in close proximity within a pasture or grazing exclosure).
-
-We follow the approach of Chu and Adler (2015) to estimate crowding, assuming that the crowding experienced by a focal genet depends on distance to each neighbor genet and the neighbor's size, _u_:
-
-$$
-w_{ijm,t} = \sum_k e^{-\delta_{jm}d_{ijkm,t}^{2}}u_{km,t}.
-$$
-
-In the above, $w_{ijm,t}$ is the crowding that genet _i_ of species _j_ in year _t_ experiences from neighbors of species _m_. The spatial scale over which species _m_ neighbors exert influence on any genet of species _j_ is determined by $\delta_{jm}$. The function is applied for all _k_ genets of species _m_ that neighbor the focal genet at time _t_, and $d_{ijkm,t}$ is the distance between genet _i_ in species _j_ and genet _k_ in species _m_. When $k=m$, the effect is intraspecific crowding. We use regression-specific (survival and growth) $\delta$ values estimated by Chu and Adler (2015).
-
-
-## Integral projection models (IPM)
-We built an environmentally and demographically stochastic integral projection model (IPM), where either environmental or demographic stochasticity can be turned off. Our IPM follows the specification of Chu and Adler (2015) where the population of species _j_ is a density function $n(u_{j},t)$ giving the density of sized-_u_ genets at time _t_. Genet size is on the natural log scale, so that $n(u_{j},t)du$ is the number of genets whose area (on the arithmetic scale) is between $e^{u_{j}}$ and $e^{u_{j}+du}$. So, the density function for any size _v_ at time $t+1$ is
-
-$$
-n(v_{j},t+1) = \int_{L_{j}}^{U_{j}} k_{j}(v_{j},u_{j},\bar{\bold{w_{j}}}(u_{j}))n(u_{j},t)
-$$
-
-where $k_{j}(v_{j},u_{j},\bar{\bold{w_{j}}})$ is the population kernal that describes all possible transitions from size $u$ to $v$ and $\bar{\bold{w_{j}}}$ is a vector of estimates of average crowding experienced from all other species by a genet of size $u_j$ and species $j$. The integral is evaluated over all possible sizes between predefined lower (_L_) and upper (_U_) size limits that extend beyond the range of observed genet sizes.
-
-The population kernal is defined as the joint contributions of survival (_S_), growth (_G_), and recruitment (_R_):
-
-$$
-k_{j}(v_{j},u_{j},\bar{\bold{w_{j}}}) = S_j(u_j, \bar{\bold{w_{j}}}(u_{j}))G_j(v_{j},u_{j},\bar{\bold{w_{j}}}(u_{j})) + R_j(v_{j},u_{j},\bar{\bold{w_{j}}}),
-$$
-
-which, said plainly, means we are calculating growth (_G_) for individuals that survive (_S_) from time _t_ to _t+1_ and adding in newly recruited (_R_) individuals of an average sized one-year-old genet for the focal species. Our stastical model for recruitment (_R_, described below) returns the number of new recruit produced per quadrat. Following previous work, we assume that fecundity increases linearly with size ($R_j(v_{j},u_{j},\bar{\bold{w_{j}}}) = e^{u_j}R_j(v_{j},\bar{\bold{w_{j}}})$) to incorporate the recruitment function in the spatially-implicit IPM.
-
+Additional Figures
+------------------
+```{r time_series, echo=FALSE, fig.cap="Example time series from the simulations."}
+ggplot(mlist, aes(x=year, y=(cover*100), color=species))+
+  geom_line()+
+  facet_grid(L1~L2, scale="free")
+```
 
 
