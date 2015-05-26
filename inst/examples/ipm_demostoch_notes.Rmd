@@ -1,0 +1,62 @@
+---
+output: pdf_document
+---
+
+Example code for estimating covariance between size-classes. Based on equation 10.2.5 in Steve's book:
+
+$$
+Cov[n_{i}(t+1)n_{j}(t+1)] = -h^{2} \sum_{k} n_{k}(t)P(z_{i},z{k})P(z_{j},z{k})
+$$
+
+where, in our case (*I think*), $P()$ is the survival$\times$growth kernal. 
+
+Here is the proposed code:
+
+```{r covcode, eval=FALSE}
+####
+##  Define a function that returns P(z_{i},z{k})*P(z_{j},z{k}) for all i,j combos
+####
+# X is one column (k) of the survivalXgrowth kernal
+# pop_vector is the population vector whose elements are actual numbers of individuals
+get_cov <- function(X, pop_vector){
+  pairs <- expand.grid(X, X)
+  pairs$tag <- pairs[,1] - pairs[,2]
+  pairs$multi <- pairs[,1]*pairs[,2]*pop_vector
+  return(pairs$multi)
+}  
+
+####
+##  Apply the function over each column
+####
+test <- apply(K.matrix, MARGIN = 2, FUN = "get_cov", 
+              pop_vector=(nt[[doSpp]]*h[doSpp]))
+
+####
+##  Create a tag for identifying the focal i
+####
+mat_dim <- sqrt(dim(test)[1])
+test <- as.data.frame(test)
+test$tag <- rep(c(1:mat_dim), each=mat_dim)
+
+####
+##  Loop over each i and calculate the covariance with each j (vectorized)
+####
+cov_str <- matrix(ncol=mat_dim, nrow=mat_dim)
+for(do_i in 1:mat_dim){
+  tmp <- subset(test, tag==do_i) #subset out the focal i
+  rmtmp <- which(colnames(tmp)=="tag") #get rid of id column
+  # Sum over k columns
+  cov_str[do_i,] <- (-h[doSpp]^2) * apply(tmp[,-rmtmp], MARGIN = 2, FUN = "sum")
+}
+
+####
+##  Make the matrix positive definite by setting i=j diagonals to 1
+####
+diag(cov_str) <- 1
+
+####
+##  Feed into Poisson random vector generator...
+####
+```
+
+This should result in a matrix the same dimensions as $P()$ where each $i,j$ column is the appropriate covariance.
