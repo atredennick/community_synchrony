@@ -60,3 +60,38 @@ diag(cov_str) <- 1
 ```
 
 This should result in a matrix the same dimensions as $P()$ where each $i,j$ column is the appropriate covariance.
+
+### Generate correlated Poisson vector
+From Yahav and Shmueli (2007; http://arxiv.org/pdf/0710.5670.pdf), here is a proposal for generating the poisson random vector with the covariance matrix.
+
+```{r poisson, echo=TRUE, eval=TRUE}
+####
+##  Define function
+####
+# Generate a p-dimensional Poisson
+# p = the dimension of the distribution
+# samples = the number of observations
+# R = correlation matrix p X p
+# lambda = rate vector p X 1
+library(MASS)
+GenerateMultivariatePoisson<-function(pD, samples, R, lambda){
+  normal_mu=rep(0, pD)
+  normal = mvrnorm(samples, normal_mu, R)
+  pois = normal
+  p=pnorm(normal)
+  for (s in 1:pD){pois[s]=qpois(p[s], lambda[s])}
+  return(pois)
+}
+
+####
+##  Example
+####
+pD = 2
+samples = 1
+R = matrix(data = c(1,0.1,
+                    0.8,1), ncol=2, nrow=2)
+lambda = c(0.8, 0.3)
+GenerateMultivariatePoisson(pD = pD, samples = samples, R = R, lambda = lambda)
+
+
+```
