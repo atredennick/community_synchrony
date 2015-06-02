@@ -92,6 +92,71 @@ R = matrix(data = c(1,0.1,
                     0.8,1), ncol=2, nrow=2)
 lambda = c(0.8, 0.3)
 GenerateMultivariatePoisson(pD = pD, samples = samples, R = R, lambda = lambda)
-
-
 ```
+
+### Example
+```{r example, echo=TRUE, eval=FALSE}
+####
+##  Define multivariate Poisson functions
+####
+# Function to get all possible pairs for a column of the iteration matrix
+get_pairs <- function(X, pop_vector){
+  pairs <- expand.grid(X, X)
+  pairs$multi <- pairs[,1]*pairs[,2]*pop_vector
+  return(pairs$multi)
+} 
+
+# Apply the 'get_pairs' function across all columns of the iteration matrix
+# and calculate equation 10.2.5
+get_cov <- function(K){
+  test <- apply(K, MARGIN = 2, FUN = "get_pairs", 
+                pop_vector=(nt[[doSpp]]))
+  mat_dim <- sqrt(dim(test)[1])
+  test <- as.data.frame(test)
+  test$tag <- rep(c(1:mat_dim), each=mat_dim)
+  cov_str <- matrix(ncol=mat_dim, nrow=mat_dim)
+  for(do_i in 1:mat_dim){
+    tmp <- subset(test, tag==do_i) #subset out the focal i
+    rmtmp <- which(colnames(tmp)=="tag") #get rid of id column
+    # Sum over k columns
+    cov_str[do_i,] <- (-h[doSpp]^2) * apply(tmp[,-rmtmp], MARGIN = 2, FUN = "sum")
+  }
+  diag(cov_str) <- 1
+  return(cov_str)
+}
+
+# Get a correlated Poisson vector based on the covariance and population vector
+GenerateMultivariatePoisson<-function(pD, samples, R, lambda){
+  normal_mu=rep(0, pD)
+  normal = mvrnorm(samples, normal_mu, R)
+  pois = normal
+  p=pnorm(normal)
+  for (s in 1:pD){pois[s]=qpois(p[s], lambda[s])}
+  return(pois)
+}
+
+####
+##  Run the model... (there would be more code here, obviously)
+####
+# IPM code above here...
+# Leading to looping over species...
+# And projecting the population from nt -> new.nt
+for(doSpp in 1:Nspp){  
+    if(cover[doSpp]>0){    
+      # make kernels and project
+      K.matrix=make.K.matrix(v[[doSpp]],WmatG[[doSpp]],WmatS[[doSpp]],
+                             Rpars,rpa,Gpars,Spars,doYear,doSpp)  
+      covmat <- get_cov(K=K.matrix)
+      new.nt[[doSpp]] <- GenerateMultivariatePoisson(pD = length(nt[[doSpp]]),
+                                  samples = 1,
+                                  R = covmat,
+                                  lambda = K.matrix%*%nt[[doSpp]])
+      sizeSave[[doSpp]][,i]=new.nt[[doSpp]]/sum(new.nt[[doSpp]])  
+    }    
+  } # next species
+```
+
+And this seems to work. Not only do we not get extinctions, but synchrony of population growth ratee is 0.33, which is exactly as expected by theory: 1/S = 1/3 = 0.33.
+
+![Example IPM simulation for Idaho (ARTR set to 0) with demographic stochasticity only.](idaho_demographic_stoch.pdf)
+
