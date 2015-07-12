@@ -1,0 +1,111 @@
+---
+layout: 12pt
+header-includes:
+   - \usepackage{lineno}
+   - \linenumbers
+   - \usepackage{setspace}
+   - \doublespacing
+##bibliography: ~/Dropbox/Bibliography/MicroMeso.bib
+##csl: components/ecology.csl
+
+## rmarkdown render options
+output:
+  pdf_document:
+    fig_caption: true
+    keep_tex: true
+fontsize: 12pt
+geometry: margin=1in
+---
+
+Drivers of species synchrony in real communities
+================================================
+### Andrew T. Tredennick, Claire de Mazancourt, Michel Loreau, Stephen P. Ellner, and Peter B. Adler
+
+*Andrew T. Tredennick, Department of Wildland Resources and the Ecology Center, Utah State University, Logan, Utah*
+
+*Claire de Mazancourt, Centre for Biodiversity Theory and Modelling, Experimental Ecology Station, CNRS, 09200 Moulis, France*
+
+*Michel Loreau, Centre for Biodiversity Theory and Modelling, Experimental Ecology Station, CNRS, 09200 Moulis, France*
+
+*Stephen P. Ellber, Department of Ecology and Evolutionary Biology, Cornell University, Ithaca, New York*
+
+*Peter B. Adler, Department of Wildland Resources and the Ecology Center, Utah State University, Logan, Utah*
+
+```{r libraris, include=FALSE}
+library(ggplot2)
+library(plyr)
+library(gridExtra)
+library(reshape2)
+library(xtable)
+library(ggmcmc)
+```
+
+```{r caching, include=FALSE}
+library("methods")
+library("knitr")
+basename <- "manuscript"
+opts_chunk$set(fig.path = paste("components/figure/", basename, "-", sep=""),
+               cache.path = paste("components/cache/", basename, "/", sep=""))
+opts_chunk$set(cache = 2)
+opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, 
+               comment = NA, verbose = TRUE, echo=FALSE)
+
+# PDF-based figures
+opts_chunk$set(dev='pdf')
+```
+
+
+```{r plot-options, message=FALSE, warning=FALSE, include=FALSE, echo=FALSE}
+cbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", 
+               "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+opts_chunk$set(dev='pdf', dev.args=c(version="1.3"))
+
+```
+
+Abstract
+--------
+Compensatory dynamics among species is the leading hypothesis for why species richness tends to confer temporal stability via population asynchrony. Theory predicts three processes that can lead to compensatory dynamics: interspecific interactions, species specific response to environmental conditions, and demographic stochasticity. These processes can interact, making it difficult to isolate their relative contributions. Analyses of biodiversity-ecosystem function experiments have shed some light on this subject, but no attempts have been made to examine these processes in natural communities. Here, we provide the first analysis of the drivers of compensatory dynamics in natural systems. We use empirically driven integral projection models to simulate communities of competing perennial grasses from five semi-arid grassland in the western United States. Using the models, we can turn off/on species competition, environmental fluctuations, and demographic stochasticity. We ran a suite of simulations to estimate the contribution of each process to species synchrony. In these natural communities, we find...
+
+Introduction
+------------
+More biologically diverse ecosystems tend to be more stable through time. There is broad experimental evidence for this proposition and theory -- whether mechanistic, phenomenonological, or statistical -- predicts this trend as well. What remains uncertain are the ultimate mechanisms the lead more diverse ecosystems or communities to be more stable through time. A leading hypothesis is that compensatory dynamics among species stabilizes community biomass through asynchronous population fluctuations. However, compensatory dynamics, if observed, are the result of several interacting processes that are difficult to dissect. 
+
+Compensatory dynamics occur when increases in the abundance or biomass of one species are counteracted by decreases in another, or *vice versa*. This can stabilize community biomass by maintaining a relatively unvarying sum of species abundance or biomass through time. Early theory based on species competition for shared resources predicts compensatory dynamics as a result of interspecific interactions: if two species are competing for the same limited and limiting resource, an increase in abundance of one species must be met by a decrease in abundance of the competing species. The equality of amplitude in fluctuations depends on how limited each species is to the shared resource. 
+
+Another, non-mutually exclusive, school of thought is that compensatory dynamics result from species specific responses to environmental conditions that vary through time. In this case, species need not directly interact to have asynchronous fluctuations through time. For example, different species may have non-identical growth responses to temperature that result in asynchronous fluctuations as the mean annual temperature varies through time.
+
+Lastly, demographic stochasticity alone can lead to independent species fluctuations in neutral communities. Clearly all three mechanisms can be at play simultaneously, and the challenge is to isolate their individual and interacting effects. Significant progress on this front has been made in recent years thanks to sophisticated analyses of biodiversity-ecosystem function experiments. But these analyses suffer from several limitations. First, it is unclear how readily results from BEF experiments apply to natural communities, where the breadth of diversity-stability trends is much greater. Second, for terrestrial plants, very few experiments have run longer than ten years. This severely limits our ability to detect non-transient processes and long-term process like demographic stochasticity. Third, it is impossible to directly estimate the strength interspecific interactions. Any measure of interspecific interactions from BEF experiments are coarse measures of the difference between species biomass in monoculture versus polyculture that conflate inter and intraspecific competition.
+
+Here, we provide a new analysis of demographic data from five grasslands to overcome some of the aforementioned limitations, and to test theory on species synchrony in natural communtities. We use an empirically based modeling approach to quantify the effect of species specific responses to the environment, interspecific interactions, and demographic stochasticity on compensatory dynamics.
+
+Methods
+-------
+### Simulations
+1. Demographic stochasticity, environmental fluctuations, competition
+2. Demographic stochasticity, environmental fluctuations, no competition
+3. Demographic stochasticity, no environmental fluctuations, competition
+4. No demographic stochasticity, environmental fluctuations, competition
+5. Demographic stochasticity, no environmental fluctuations, no competition
+6. No demographic stochasticity, environmental fluctuations, no competition
+7. No demographic stochasticity, no environmental fluctuations, competition
+
+Results
+-------
+Fig. 1. multi-panel regression plots: x-axis = synchrony of #1, y-axis = synchrony of each scenario. Only five points, since five sites, but still enough for a correlation.
+
+Fig. 2. CV of cover versus species synchrony in monoculture (no competition)
+
+Tables
+------
+```{r table1, echo=FALSE, results='asis', message=FALSE, comment=NA}
+site_data <- data.frame(Site = c("Arizona", "Idaho", "Kansas", "Montana", "New Mexico"),
+                        Biome = c("Sonoran desert", "Sagebrush steppe", 
+                                  "Southern mixed prairie", "Northern mixed prairie",
+                                  "Chihuahuan desert"),
+                        Species_Rich = as.character(c(2,3,3,2,4)),
+                        Years = as.character(c(19,32,41,23,36)))
+colnames(site_data) <- c("Site", "Biome", "No. of Species", "No. of Time Points")
+print(xtable(site_data, caption = "Site descriptions."),type="latex", comment=FALSE, include.rownames=FALSE, caption.placement="top")
+```
+
