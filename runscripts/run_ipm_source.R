@@ -12,12 +12,31 @@ NoOverlap_Inter=FALSE
   iter_matrix_dims=iter_matrix_dims; max_size=max_size
   Rpars=Rpars; Spars=Spars; Gpars=Gpars
   demographic_stochasticity=do_demo_stoch
+  spp_interact = spp_interact
 
   # Turn off random year effects if constant==TRUE
   if(constant==TRUE){
     Rpars$intcpt.yr=matrix(Rpars$intcpt.mu,Nyrs,Nspp,byrow=T)
     Gpars$intcpt.yr[]=0;Gpars$slope.yr[]=0
     Spars$intcpt.yr[]=0;Spars$slope.yr[]=0    
+  }
+
+  # Turn off competition if spp_interact==FALSE
+  if(spp_interact==FALSE){
+    rnbtmp <- Rpars$dd
+    rnbtmp[] <- 0
+    diag(rnbtmp) <- diag(Rpars$dd)
+    Rpars$dd <- rnbtmp
+    
+    gnbtmp <- Gpars$nb
+    gnbtmp[] <- 0
+    diag(gnbtmp) <- diag(Gpars$nb)
+    Gpars$nb <- gnbtmp
+    
+    snbtmp <- Spars$nb
+    snbtmp[] <- 0
+    diag(snbtmp) <- diag(Spars$nb)
+    Spars$nb <- snbtmp    
   }
   
   # Build initial vectors and matrices
