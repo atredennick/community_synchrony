@@ -275,7 +275,7 @@ for(iSim in 1:totSims){
         outxy=rbind(outxy,tmp)
       }
     }
-    
+    print(tt)
   } # next tt
 } # next iSim
 
@@ -288,4 +288,5 @@ for(i in 6:7){
   lines(density(output[,i]), col=myCol[c], lwd=2)
 }
 
-community.sync(output[,4:7])
+community.sync(output[501:2500,4:7])
+saveRDS(output, "../results/idaho_ibm_demogstoch_only.RDS")

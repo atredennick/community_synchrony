@@ -3,7 +3,8 @@ NoOverlap_Inter=FALSE
   library(boot)
   library(mvtnorm)
   library(msm)
-  library(statmod)
+  library(statmod) 
+  library(MASS)
   A=A
   tlimit=tlimit
   burn_in=burn_in
@@ -52,7 +53,7 @@ NoOverlap_Inter=FALSE
   nt <- inits$v
   
   # loop through species really quick to set low initial densities
-  for(i in 1:n_spp) nt[[i]][]=0.001
+  for(i in 1:n_spp) nt[[i]][]=0.1
   if(do_site=="Idaho")
     nt[[1]][] <- 0
   new.nt <- nt #set initial density vector to be fed into IPM
@@ -104,13 +105,19 @@ NoOverlap_Inter=FALSE
     for(doSpp in 1:n_spp){  
       if(cover[doSpp]>0){    
         # Make kernels and project
+        popv=nt[[doSpp]]
+        h=inits$h[[doSpp]]
         K_matrix=make_K_matrix(inits$v[[doSpp]],crowd_list$WmatG[[doSpp]],
                                crowd_list$WmatS[[doSpp]],
                                Rpars,recs_per_area,Gpars,Spars,
-                               doYear,doSpp,inits$h,
-                               demo_stoch=demographic_stochasticity) 
-        
-        new.nt[[doSpp]]=K_matrix%*%nt[[doSpp]] 
+                               doYear,doSpp,h=inits$h[[doSpp]],
+                               demo_stoch=demographic_stochasticity,popv=nt[[doSpp]]) 
+        if(demographic_stochasticity==FALSE){
+          new.nt[[doSpp]]=K_matrix%*%nt[[doSpp]]  
+        }
+        if(demographic_stochasticity==TRUE){
+          new.nt[[doSpp]]=K_matrix[[1]]+K_matrix[[2]]  
+        }
         sizeSave[[doSpp]][,t]=new.nt[[doSpp]]/sum(new.nt[[doSpp]])  
       }    
     } # next species
