@@ -53,7 +53,7 @@ NoOverlap_Inter=FALSE
   nt <- inits$v
   
   # loop through species really quick to set low initial densities
-  for(i in 1:n_spp) nt[[i]][]=1
+  for(i in 1:n_spp) nt[[i]][]=0.1
   if(do_site=="Idaho")
     nt[[1]][] <- 0
   new.nt <- nt #set initial density vector to be fed into IPM
@@ -107,16 +107,24 @@ NoOverlap_Inter=FALSE
         # Make kernels and project
         popv=nt[[doSpp]]
         h=inits$h[[doSpp]]
-        K_matrix=make_K_matrix(inits$v[[doSpp]],crowd_list$WmatG[[doSpp]],
-                               crowd_list$WmatS[[doSpp]],
-                               Rpars,recs_per_area,Gpars,Spars,
-                               doYear,doSpp,h=inits$h[[doSpp]],
-                               demo_stoch=demographic_stochasticity,popv=nt[[doSpp]]) 
         if(demographic_stochasticity==FALSE){
+          K_matrix=make_K_matrix(inits$v[[doSpp]],crowd_list$WmatG[[doSpp]],
+                                 crowd_list$WmatS[[doSpp]],
+                                 Rpars,recs_per_area,Gpars,Spars,
+                                 doYear,doSpp,h=inits$h[[doSpp]]) 
           new.nt[[doSpp]]=K_matrix%*%nt[[doSpp]]  
         }
         if(demographic_stochasticity==TRUE){
-          new.nt[[doSpp]]=K_matrix[[1]]+K_matrix[[2]]  
+          P.matrix <- make.P.matrix(inits$v[[doSpp]],crowd_list$WmatG[[doSpp]],
+                                    crowd_list$WmatS[[doSpp]],Gpars,Spars,doYear,doSpp)  
+          R.matrix <- make.R.matrix(inits$v[[doSpp]],Rpars,recs_per_area,doYear,doSpp)  
+          covmat <- get_cov(K=P.matrix*inits$h[[doSpp]])
+          pCont <- GenerateMultivariatePoisson(pD = length(nt[[doSpp]]),
+                                               samples = 1,
+                                               R = covmat,
+                                               lambda = inits$h[[doSpp]]*P.matrix%*%nt[[doSpp]])
+          rCont <- rpois(length(nt[[doSpp]]),inits$h[[doSpp]]*R.matrix%*%nt[[doSpp]])
+          new.nt[[doSpp]] <- pCont+rCont
         }
         sizeSave[[doSpp]][,t]=new.nt[[doSpp]]/sum(new.nt[[doSpp]])  
       }    

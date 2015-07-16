@@ -107,5 +107,5 @@ for(do_site in site_list){
 } # end site loop
 
 # Save the output
-saveRDS(covSave, "../results/idaho_ipm_demogstoch_only.RDS")
+saveRDS(covSave, "../results/idaho_ipm_demogstoch_only_fromPACKAGE.RDS")
 
