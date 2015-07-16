@@ -21,11 +21,17 @@ Comparing IPM with approximate demographic stochasticity to IBM
 ===============================================================
 
 Our approach to incorporating demographic stochasticity in integral projection models (IPMs) is new, and thus requires testing.
-Individually-based models (IBMs) inherently include demographic stochasticity (e.g., "coin flips" for survival of a genet from a Bernouli trial).
+Individually-based models (IBMs) inherently include demographic stochasticity (e.g., "coin flips" for survival of a genet from a Bernoulli trial).
 IBMs, then, provide the baseline against which to compare an IPM with our approximation to demogrpahic stochasticity.
 If the two models produce similar equilibrium cover and species synchrony, then we can conclude our approximation is valid.
 Here we use the Idaho dataset as a test case, and simulate communities from the IPM with demographic stochastisticy and the IBM.
 We ignore temporal variation due to random year effects to isolate variation from demographic stochasticity alone. 
+
+Figure 1 compares the distribution of percent cover over 2,000 iterations (after a 500 iteration burn in) for each species from the IBM and the IPM with approximate demographic stochasticity.
+There are some small differences, but overall the approximation leads to similar long term population dynamics when compared to the IBM.
+The IPM and IBM also show similar interannual dynamics, as signified by the very similar synchrony metrics (Table 1). 
+Moreover, species synchrony from models where only demographic stochasticity is acting matches theoretical expectations:  theory predicts synchrony = 1/*S* (where *S* is species richness) when demographic stochasticity is much stronger than the effects of environmental stochasticity and species interactions.
+Indeed, the IPM produces synchrony = 0.3 (1/3 with 3 species) when we exclude random year effects (species interactions are present, but not influential due to small competition coefficients).
 
 ```{r figs, echo=FALSE, message=FALSE, warning=FALSE, fig.height=2.5, fig.cap="Density estimates of equilibrium cover from 2,000 iterations from each model."}
 library(ggplot2)
