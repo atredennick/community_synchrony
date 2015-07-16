@@ -69,7 +69,7 @@ for(do_site in site_list){
     max_size <- c(170,40)
   }
   if(do_site=="Idaho"){
-    iter_matrix_dims <- c(50,75,50,50)
+    iter_matrix_dims <- c(50,75,50,75)
     max_size <- c(3000,202,260,225)
   }
   if(do_site=="Kansas"){

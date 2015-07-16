@@ -1,0 +1,114 @@
+---
+layout: 12pt
+header-includes:
+   - \usepackage{lineno}
+   - \linenumbers
+   - \usepackage{setspace}
+   - \doublespacing
+   - \usepackage{todonotes}
+
+## rmarkdown render options
+output:
+  pdf_document:
+    fig_caption: true
+    keep_tex: true
+fontsize: 12pt
+geometry: margin=1in
+
+---
+
+Comparing IPM with approximate demographic stochasticity to IBM
+===============================================================
+
+Our approach to incorporating demographic stochasticity in integral projection models (IPMs) is new, and thus requires testing.
+Individually-based models (IBMs) inherently include demographic stochasticity (e.g., "coin flips" for survival of a genet from a Bernouli trial).
+IBMs, then, provide the baseline against which to compare an IPM with our approximation to demogrpahic stochasticity.
+If the two models produce similar equilibrium cover and species synchrony, then we can conclude our approximation is valid.
+Here we use the Idaho dataset as a test case, and simulate communities from the IPM with demographic stochastisticy and the IBM.
+We ignore temporal variation due to random year effects to isolate variation from demographic stochasticity alone. 
+
+```{r figs, echo=FALSE, message=FALSE, warning=FALSE, fig.height=2.5, fig.cap="Density estimates of equilibrium cover from 2,000 iterations from each model."}
+library(ggplot2)
+library(plyr)
+library(reshape2)
+ipm_outs <- readRDS("../../results/idaho_ipm_demogstoch_only.RDS")
+ibm_outs <- readRDS("../../results/idaho_ibm_demogstoch_only.RDS")
+ipm_outs <- as.data.frame(ipm_outs[501:2500,2:4])
+ibm_outs <- as.data.frame(ibm_outs[501:2500,5:7])
+ipm_outs$model <- "IPM"
+ibm_outs$model <- "IBM"
+ipm_outs$timestep <- c(1:2000)
+ibm_outs$timestep <- c(1:2000)
+colnames(ipm_outs) <- c("HECO", "POSE", "PSSP", "model", "timestep")
+colnames(ibm_outs) <- c("HECO", "POSE", "PSSP", "model", "timestep")
+outs <- rbind(ipm_outs, ibm_outs)
+
+outd <- melt(outs, id.vars = c("model", "timestep"))
+
+ggplot(outd)+
+  geom_line(stat="density", aes(x=value*100, color=model))+
+  facet_wrap("variable", scales="free")+
+  scale_color_manual(values=c("black", "purple"))+
+  xlab("equilibrium cover (%)")+
+  theme_bw()
+```
+
+```{r synch_calcs, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+library(synchrony)
+library(xtable)
+ipm_outs <- readRDS("../../results/idaho_ipm_demogstoch_only.RDS")
+ibm_outs <- readRDS("../../results/idaho_ibm_demogstoch_only.RDS")
+ipm_mat <- ipm_outs[501:2500, 2:4]
+ibm_mat <- ibm_outs[501:2500, 5:7]
+
+####
+####  Synchrony of population size (cover)
+####
+ipm_synch <- as.numeric(unlist(community.sync(ipm_mat)[1]))
+ibm_synch <- as.numeric(unlist(community.sync(ibm_mat)[1]))
+
+####
+####  Synchrony of population growth rates
+####
+sppList <- c("HECO", "POSE", "PSSP")
+cov_d <- as.data.frame(ipm_mat)
+colnames(cov_d) <- sppList
+cov_d$year <- c(1:nrow(cov_d))
+lag_d <- cov_d
+lag_d$lagYear <- lag_d$year+1
+colnames(lag_d)[1:3] <- paste(sppList,".t0", sep="")
+lag_d <- lag_d[,-4]
+all_d <- merge(cov_d, lag_d, by.x = "year", by.y="lagYear")
+transitions <- nrow(all_d)
+obs_gr <- matrix(nrow=transitions, ncol=length(sppList))
+for(i in 1:transitions){
+  obs_gr[i,] <- as.numeric(log(all_d[i,2:4]/all_d[i,5:7]))
+}
+ipm_gr_synch <- as.numeric(unlist(community.sync(obs_gr[,1:3])[1]))
+
+sppList <- c("HECO", "POSE", "PSSP")
+cov_d <- as.data.frame(ibm_mat)
+colnames(cov_d) <- sppList
+cov_d$year <- c(1:nrow(cov_d))
+lag_d <- cov_d
+lag_d$lagYear <- lag_d$year+1
+colnames(lag_d)[1:3] <- paste(sppList,".t0", sep="")
+lag_d <- lag_d[,-4]
+all_d <- merge(cov_d, lag_d, by.x = "year", by.y="lagYear")
+transitions <- nrow(all_d)
+obs_gr <- matrix(nrow=transitions, ncol=length(sppList))
+for(i in 1:transitions){
+  obs_gr[i,] <- as.numeric(log(all_d[i,2:4]/all_d[i,5:7]))
+}
+ibm_gr_synch <- as.numeric(unlist(community.sync(obs_gr[,1:3])[1]))
+
+
+####
+####  Make table
+####
+table_data <- data.frame(Model = c("IPM", "IBM"),
+                         Cover_Synch = c(round(ipm_synch,2), round(ibm_synch,2)),
+                         PGR_Synch = c(round(ipm_gr_synch,2), round(ibm_gr_synch,2)))
+colnames(table_data) <- c("Model", "Cover Sychrony", "Growth Rate Synchrony")
+print(xtable(table_data, caption = "Species synchrony of percent cover and per capita growth rates."), type="latex", comment=FALSE, include.rownames=FALSE, caption.placement="top")
+```
