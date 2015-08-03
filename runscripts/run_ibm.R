@@ -22,6 +22,20 @@ library(mvtnorm)
 library(msm)
 
 
+make.P.values <- function(v,u,muWG,muWS, #state variables
+                          Gpars,Spars,doYear,doSpp){  #growth arguments
+  S(u,muWS,Spars,doYear,doSpp)*G(v,u,muWG,Gpars,doYear,doSpp) 
+}
+
+make.P.matrix <- function(v,muWG,muWS,Gpars,Spars,doYear,doSpp) {
+  muWG=expandW(v,v,muWG)
+  muWS=expandW(v,v,muWS)
+  
+  P.matrix=outer(v,v,make.P.values,muWG,muWS,Gpars,Spars,doYear,doSpp)
+  return(h[dospps]*P.matrix)
+} 
+
+
 ####
 ####  Set some global variables for the simulation
 ####
@@ -29,11 +43,11 @@ totSims=1
 totT=150     # time steps of simulation
 burn.in=50  # time steps to discard before calculating cover values
 L=100       # dimension of square quadrat (cm)
-expand=1    # 1 = 1x1 m^2, 2 = 2x2m^2, etc
+expand=2    # 1 = 1x1 m^2, 2 = 2x2m^2, etc
 init.cover=c(0,1,1,1)   # in % cover
 # maxSize=c(8000,500,500,500)
 maxSize=c(3000,202,260,225) 
-minSize=0.25
+minSize=0.2
 iter_matrix_dims <- c(50,75,50,75)
 do_site="Idaho"
 Nyrs=22
@@ -284,8 +298,10 @@ for(iSim in 1:totSims){
       # boundary points b and mesh points y. Note: b chops up the size interval (L-U) into bigM-equal-sized portions.
       bins <- Low+c(0:iter_matrix_dims[dospps])*(Up-Low)/iter_matrix_dims[dospps]
 #       bins <- seq(from = minSize, to = maxSize[dospps], length.out = iter_matrix_dims[dospps])
+      v <- 0.5*(bins[1:iter_matrix_dims[dospps]]+bins[2:(iter_matrix_dims[dospps]+1)])
+      h <- bins[2]-bins[1]  
       all.bins <- c(1:iter_matrix_dims[dospps])
-      tmp.cut <- cut(log(tmp.plants[,2]), breaks = bins, labels = FALSE)
+      tmp.cut <- cut(log(tmp.plants[,2]), breaks = v, labels = FALSE)
       out.nt[[dospps-1]][tt,which(all.bins%in%tmp.cut==TRUE)] <- table(tmp.cut)
     }
     
@@ -321,6 +337,13 @@ for(i in 6:7){
 ####
 ####  Calculate covariance of population vector
 ####
-out <- cor(out.nt[[2]][51:totT,]) #covariance of entire matrix
-dim(out)
-diag(out) <- NA
+# Save out.nt for IPM estimates
+
+saveRDS(out.nt, "../results/nt_popvec_ibm.RDS")
+out.cov <- list()
+for(i in 1:3){
+  out <- cor(out.nt[[i]][51:totT,]) #covariance of entire matrix
+  diag(out) <- 1
+  out.cov[[i]] <- out
+}
+saveRDS(out.cov, "../results/ibm_covmat.RDS")
