@@ -26,18 +26,27 @@ library(msm)
 ####  Set some global variables for the simulation
 ####
 totSims=1
-totT=2500     # time steps of simulation
+totT=150     # time steps of simulation
 burn.in=50  # time steps to discard before calculating cover values
 L=100       # dimension of square quadrat (cm)
-expand=2    # 1 = 1x1 m^2, 2 = 2x2m^2, etc
+expand=1    # 1 = 1x1 m^2, 2 = 2x2m^2, etc
 init.cover=c(0,1,1,1)   # in % cover
-maxSize=c(8000,500,500,500)
+# maxSize=c(8000,500,500,500)
+maxSize=c(3000,202,260,225) 
 minSize=0.25
+iter_matrix_dims <- c(50,75,50,75)
 do_site="Idaho"
 Nyrs=22
 myCol=c("black","darkgreen","blue","red")
 doGroup=NA  # NA for spatial avg., values 1-6 for a specific group
 constant=T        
+
+out.nt <- list()
+out.nt[[1]] <- matrix(0,nrow=totT,ncol=iter_matrix_dims[2])
+out.nt[[2]] <- matrix(0,nrow=totT,ncol=iter_matrix_dims[3])
+out.nt[[3]] <- matrix(0,nrow=totT,ncol=iter_matrix_dims[4])
+
+
 
 ####
 ####  Read in regression parameters, subset for Idaho
@@ -256,6 +265,7 @@ for(iSim in 1:totSims){
     nextplants=nextplants[nextplants[,2]>0,]    # remove dead plants 
     nextplants=rbind(nextplants,newplants)     # add recruits
     
+    
     # output cover and density
     A[]=0; N[]=0
     tmp=aggregate(nextplants[,2],by=list(nextplants[,1]),FUN=sum)
@@ -264,7 +274,24 @@ for(iSim in 1:totSims){
     N[tmp[,1]]=tmp[,2]/(expand^2)
     
     lastID=max(nextplants[,5])
-    plants=nextplants
+    
+    # Calculate population vector a la IPM nt
+    spps <- c(2,3,4)
+    for(dospps in spps){
+      tmp.plants <- nextplants[which(nextplants[,1]==dospps),]
+      Low=log(0.2)
+      Up=log(maxSize[dospps])*1.1     
+      # boundary points b and mesh points y. Note: b chops up the size interval (L-U) into bigM-equal-sized portions.
+      bins <- Low+c(0:iter_matrix_dims[dospps])*(Up-Low)/iter_matrix_dims[dospps]
+#       bins <- seq(from = minSize, to = maxSize[dospps], length.out = iter_matrix_dims[dospps])
+      all.bins <- c(1:iter_matrix_dims[dospps])
+      tmp.cut <- cut(log(tmp.plants[,2]), breaks = bins, labels = FALSE)
+      out.nt[[dospps-1]][tt,which(all.bins%in%tmp.cut==TRUE)] <- table(tmp.cut)
+    }
+    
+    if(tt<burn.in) plants=nextplants
+    if(tt>=burn.in) plants=plants
+    
     if(is.matrix(plants)==F) plants=matrix(plants,nrow=1,ncol=length(plants))
     output=rbind(output,c(iSim,tt,doYr,A,N)) 
     
@@ -288,5 +315,12 @@ for(i in 6:7){
   lines(density(output[,i]), col=myCol[c], lwd=2)
 }
 
-community.sync(output[501:2500,4:7])
-saveRDS(output, "../results/idaho_ibm_demogstoch_only.RDS")
+# community.sync(output[(burn.in+1):totT,5:7])
+# saveRDS(output, "../results/idaho_ibm_demogstoch_only.RDS")
+
+####
+####  Calculate covariance of population vector
+####
+out <- cor(out.nt[[2]][51:totT,]) #covariance of entire matrix
+dim(out)
+diag(out) <- NA

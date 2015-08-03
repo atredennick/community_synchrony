@@ -13,7 +13,7 @@ Spars_all <- readRDS("../results/surv_params_list.RDS")
 Rpars_all <- readRDS("../results/recruit_parameters.RDS")
 
 # site_list <- names(Gpars_all)
-site_list <- "Idaho"
+site_list <- "Montana"
 output_list <- list()
 
 for(do_site in site_list){
@@ -92,7 +92,7 @@ for(do_site in site_list){
     do_demo_stoch <- do_demo_stoch_vec[stoch]
     n_spp <- Nspp <- length(spp_list)
     A=10000
-    tlimit=2500
+    tlimit=500
     burn_in=500
     spp_list=spp_list
     Nyrs=Nyrs; constant=do_env_const
@@ -107,5 +107,5 @@ for(do_site in site_list){
 } # end site loop
 
 # Save the output
-saveRDS(covSave, "../results/idaho_ipm_demogstoch_only_fromPACKAGE.RDS")
+# saveRDS(covSave, "../results/idaho_ipm_demogstoch_only_fromPACKAGE.RDS")
 
