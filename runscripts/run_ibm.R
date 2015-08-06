@@ -39,7 +39,7 @@ make.P.matrix <- function(v,muWG,muWS,Gpars,Spars,doYear,doSpp) {
 ####
 ####  Set some global variables for the simulation
 ####
-totSims=1
+totSims=100
 totT=150     # time steps of simulation
 burn.in=50  # time steps to discard before calculating cover values
 L=100       # dimension of square quadrat (cm)
@@ -56,9 +56,9 @@ doGroup=NA  # NA for spatial avg., values 1-6 for a specific group
 constant=T        
 
 out.nt <- list()
-out.nt[[1]] <- matrix(0,nrow=totT,ncol=iter_matrix_dims[2])
-out.nt[[2]] <- matrix(0,nrow=totT,ncol=iter_matrix_dims[3])
-out.nt[[3]] <- matrix(0,nrow=totT,ncol=iter_matrix_dims[4])
+out.nt[[1]] <- array(0,c(totT,iter_matrix_dims[2], totSims))
+out.nt[[2]] <- array(0,c(totT,iter_matrix_dims[3], totSims))
+out.nt[[3]] <- array(0,c(totT,iter_matrix_dims[4], totSims))
 
 
 
@@ -200,55 +200,56 @@ getCrowding=function(plants,alpha,distMat){
 ####
 outxy=matrix(NA,0,7)
 colnames(outxy)=c("run","t","spp","size","x","y","id")
-output=matrix(NA,0,3+2*Nspp)
-colnames(output)=c("run","time","yrParams",paste("Cov.",sppList,sep=""),
-                   paste("N.",sppList,sep=""))  
-for(iSim in 1:totSims){ 
-  # INITIALIZE by drawing from observed sizes until target cover reached
-  spp=NULL ; size=NULL
-  for(iSpp in 1:Nspp){
-    if(init.cover[iSpp]>0){
-      n.init=round(init.cover[iSpp]*L/mean(size.init[[iSpp]])*expand^2)    
-      target=init.cover[iSpp]*L*expand^2
-      lower=target-0.1*target
-      upper=target+0.1*target
-      success=F
-      while(success==F){
-        sizeTry=sample(size.init[[iSpp]],n.init)
-        if(sum(sizeTry)>lower & sum(sizeTry)<upper) success=T
-      }
-      size=c(size,sizeTry)
-      spp=c(spp,rep(iSpp,length(sizeTry)))
+# output=matrix(NA,0,3+2*Nspp)
+# colnames(output)=c("run","time","yrParams",paste("Cov.",sppList,sep=""),
+#                    paste("N.",sppList,sep=""))  
+
+# INITIALIZE by drawing from observed sizes until target cover reached
+spp=NULL ; size=NULL
+for(iSpp in 1:Nspp){
+  if(init.cover[iSpp]>0){
+    n.init=round(init.cover[iSpp]*L/mean(size.init[[iSpp]])*expand^2)    
+    target=init.cover[iSpp]*L*expand^2
+    lower=target-0.1*target
+    upper=target+0.1*target
+    success=F
+    while(success==F){
+      sizeTry=sample(size.init[[iSpp]],n.init)
+      if(sum(sizeTry)>lower & sum(sizeTry)<upper) success=T
     }
+    size=c(size,sizeTry)
+    spp=c(spp,rep(iSpp,length(sizeTry)))
   }
-  x=runif(length(size),0,L*expand) ; y=runif(length(size),0,L*expand)
-  id=rep(1:length(size))
-  plants=cbind(spp,size,x,y,id)
-  lastID=max(plants[,5])
-  
-  # vectors for cover and density
-  N=matrix(0,totT,Nspp)
-  N=colSums(matrix(plants[,1],dim(plants)[1],Nspp)==matrix(1:Nspp,dim(plants)[1],Nspp,byrow=T))
-  A=rep(0,Nspp)
-  for(i in 1:Nspp){
-    A[i]=sum(plants[plants[,1]==i,2])/(expand^2*L^2)
-  }
-  new.N=rep(0,Nspp); new.A=rep(0,Nspp)
-  tmp=c(iSim,1,0,A,N)
-  output=rbind(output,tmp)
-  
-  # plot initial conditions
+}
+x=runif(length(size),0,L*expand) ; y=runif(length(size),0,L*expand)
+id=rep(1:length(size))
+plants=cbind(spp,size,x,y,id)
+plantsbig=do.call(rbind, replicate(10, cbind(spp,size,x,y,id), simplify = FALSE))
+lastID=max(plants[,5])
+
+# vectors for cover and density
+N=matrix(0,totT,Nspp)
+N=colSums(matrix(plants[,1],dim(plants)[1],Nspp)==matrix(1:Nspp,dim(plants)[1],Nspp,byrow=T))
+A=rep(0,Nspp)
+for(i in 1:Nspp){
+  A[i]=sum(plants[plants[,1]==i,2])/(expand^2*L^2)
+}
+new.N=rep(0,Nspp); new.A=rep(0,Nspp)
+#   tmp=c(iSim,1,0,A,N)
+#   output=rbind(output,tmp)
+
+# plot initial conditions
 #   pdf("ibm_example.pdf",height=6,width=6)
 #   par(mgp=c(2,0.5,0),tcl=-0.2)
 #   symbols(x = plants[,3], y = plants[,4], circles = sqrt(plants[,2]/pi),fg=myCol[plants[,1]],
 #           xlim=c(0,L*expand),ylim=c(0,L*expand),main ="Time=1",xlab="x",ylab="y",inches=F,lwd=2)
 #   
-  for(tt in 2:(totT)){
-    
-    # draw year effects
-    doYr=sample(1:22,1)
+for(tt in 2:(totT)){
+  # draw year effects
+  doYr=sample(1:22,1)
+  
+  for(iSim in 1:totSims){
     nextplants=plants
-    
     # distance matrix
     distMat=getDist(plants,L,expand)
     
@@ -257,28 +258,25 @@ for(iSim in 1:totSims){
     
     for(ss in 1:Nspp){
       if(N[ss]>0){ # make sure spp ss is not extinct
-        
+        ##First small set
         # growth
         W=getCrowding(plants,Gpars$alpha[ss,],distMat)
         newsizes=grow(Gpars,doSpp=ss,doYear=doYr,sizes=plants[,2],crowding=W)
-        
         if(sum(newsizes==Inf)>0) browser()
         if(is.na(sum(newsizes))) browser()
-        
         # survival
         # uses same W as growth
         live=survive(Spars,doSpp=ss,doYear=doYr,sizes=plants[,2],crowding=W)
-        
         # combine growth and survival
         tmp=which(plants[,1]==ss)  # only alter plants of focal spp        
         nextplants[tmp,2]=newsizes[tmp]*live[tmp]   #update with G and S
+        
         
       } # end if no plants
     } # next ss 
     
     nextplants=nextplants[nextplants[,2]>0,]    # remove dead plants 
     nextplants=rbind(nextplants,newplants)     # add recruits
-    
     
     # output cover and density
     A[]=0; N[]=0
@@ -297,53 +295,59 @@ for(iSim in 1:totSims){
       Up=log(maxSize[dospps])*1.1     
       # boundary points b and mesh points y. Note: b chops up the size interval (L-U) into bigM-equal-sized portions.
       bins <- Low+c(0:iter_matrix_dims[dospps])*(Up-Low)/iter_matrix_dims[dospps]
-#       bins <- seq(from = minSize, to = maxSize[dospps], length.out = iter_matrix_dims[dospps])
+      #   bins <- seq(from = minSize, to = maxSize[dospps], length.out = iter_matrix_dims[dospps])
       v <- 0.5*(bins[1:iter_matrix_dims[dospps]]+bins[2:(iter_matrix_dims[dospps]+1)])
       h <- bins[2]-bins[1]  
       all.bins <- c(1:iter_matrix_dims[dospps])
       tmp.cut <- cut(log(tmp.plants[,2]), breaks = v, labels = FALSE)
-      out.nt[[dospps-1]][tt,which(all.bins%in%tmp.cut==TRUE)] <- table(tmp.cut)
+      out.nt[[dospps-1]][tt,which(all.bins%in%tmp.cut==TRUE),iSim] <- table(tmp.cut)
     }
-    
-    if(tt<burn.in) plants=nextplants
-    if(tt>=burn.in) plants=plants
-    
-    if(is.matrix(plants)==F) plants=matrix(plants,nrow=1,ncol=length(plants))
-    output=rbind(output,c(iSim,tt,doYr,A,N)) 
-    
-    # save xy coordinates for spatial analysis
-    if(tt>burn.in & tt%%10==0){
-      if(sum(plants[,1]==1)>4) {
-        tmp=cbind(rep(iSim,dim(plants)[1]),rep(tt,dim(plants)[1]),plants)
-        outxy=rbind(outxy,tmp)
-      }
-    }
-    print(tt)
-  } # next tt
-} # next iSim
-
-matplot(output[,2], output[,4:7]*100, type="l")
-
-plot(density(output[,5]), ylim=c(0,250), lwd=2)
-c=1
-for(i in 6:7){
-  c <- c+1
-  lines(density(output[,i]), col=myCol[c], lwd=2)
-}
-
-# community.sync(output[(burn.in+1):totT,5:7])
-# saveRDS(output, "../results/idaho_ibm_demogstoch_only.RDS")
+    print(c(iSim,tt))
+  } # next iSim
+  if(tt<burn.in) plants=nextplants
+  if(tt>=burn.in) plants=plants
+  
+  if(is.matrix(plants)==F) plants=matrix(plants,nrow=1,ncol=length(plants))
+  #     output=rbind(output,c(iSim,tt,doYr,A,N)) 
+  
+  # save xy coordinates for spatial analysis
+#   if(tt>burn.in & tt%%10==0){
+#     if(sum(plants[,1]==1)>4) {
+#       tmp=cbind(rep(iSim,dim(plants)[1]),rep(tt,dim(plants)[1]),plants)
+#       outxy=rbind(outxy,tmp)
+#     }
+#   }
+}#next tt
+  
 
 ####
 ####  Calculate covariance of population vector
 ####
-# Save out.nt for IPM estimates
+#Save out.nt for IPM estimates
+# saveRDS(out.nt, "../results/nt_popvec_ibm.RDS")
+# Sum over sims for nt vectors
+library(plyr)
+library(reshape2)
+ntdf <- melt(out.nt)
+colnames(ntdf) <- c("time", "bins", "sims", "genets", "species")
 
-saveRDS(out.nt, "../results/nt_popvec_ibm.RDS")
+ntagg <- ddply(ntdf, .(time, bins, species), summarise,
+               n = sum(genets))
+
 out.cov <- list()
 for(i in 1:3){
-  out <- cor(out.nt[[i]][51:totT,]) #covariance of entire matrix
+  tmpdf <- subset(ntagg, species==i & time>50)
+  cdf <- dcast(tmpdf, time~bins, value.var = "n")
+  out <- cor(cdf) #covariance of entire matrix
   diag(out) <- 1
   out.cov[[i]] <- out
 }
 saveRDS(out.cov, "../results/ibm_covmat.RDS")
+
+save.nt <- list()
+for(i in 1:3){
+  tmpdf <- subset(ntagg, species==i & time==50)
+  cdf <- dcast(tmpdf, time~bins, value.var = "n")
+  save.nt[[i]] <- cdf
+}
+saveRDS(save.nt, "../results/nt_popvec_ibm.RDS")
