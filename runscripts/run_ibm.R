@@ -342,12 +342,25 @@ for(i in 1:3){
   diag(out) <- 1
   out.cov[[i]] <- out
 }
-# saveRDS(out.cov, "../results/ibm_covmat.RDS")
+saveRDS(out.cov, "../results/ibm_covmat.RDS")
 
+spps <- c(2,3,4)
 save.nt <- list()
-for(i in 1:3){
-  tmpdf <- subset(ntagg, species==i & time==50)
-  cdf <- dcast(tmpdf, time~bins, value.var = "n")
-  save.nt[[i]] <- cdf
+save.nt[[1]] <- numeric(iter_matrix_dims[2])
+save.nt[[2]] <- numeric(iter_matrix_dims[3])
+save.nt[[3]] <- numeric(iter_matrix_dims[4])
+for(i in 1:3) save.nt[[i]][] <- 0
+for(dospps in spps){
+  tmp.plants <- plants[which(plants[,1]==dospps),]
+  Low=log(0.2)
+  Up=log(maxSize[dospps])*1.1     
+  # boundary points b and mesh points y. Note: b chops up the size interval (L-U) into bigM-equal-sized portions.
+  bins <- Low+c(0:iter_matrix_dims[dospps])*(Up-Low)/iter_matrix_dims[dospps]
+  #   bins <- seq(from = minSize, to = maxSize[dospps], length.out = iter_matrix_dims[dospps])
+  v <- 0.5*(bins[1:iter_matrix_dims[dospps]]+bins[2:(iter_matrix_dims[dospps]+1)])
+  h <- bins[2]-bins[1]  
+  all.bins <- c(1:iter_matrix_dims[dospps])
+  tmp.cut <- cut(log(tmp.plants[,2]), breaks = v, labels = FALSE)
+  save.nt[[dospps-1]][which(all.bins%in%tmp.cut==TRUE)] <- table(tmp.cut)
 }
-# saveRDS(save.nt, "../results/nt_popvec_ibm.RDS")
+saveRDS(save.nt, "../results/nt_popvec_ibm.RDS")
