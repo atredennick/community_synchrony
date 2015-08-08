@@ -342,7 +342,7 @@ for(i in 1:3){
   diag(out) <- 1
   out.cov[[i]] <- out
 }
-saveRDS(out.cov, "../results/ibm_covmat.RDS")
+# saveRDS(out.cov, "../results/ibm_covmat.RDS")
 
 save.nt <- list()
 for(i in 1:3){
@@ -350,4 +350,4 @@ for(i in 1:3){
   cdf <- dcast(tmpdf, time~bins, value.var = "n")
   save.nt[[i]] <- cdf
 }
-saveRDS(save.nt, "../results/nt_popvec_ibm.RDS")
+# saveRDS(save.nt, "../results/nt_popvec_ibm.RDS")

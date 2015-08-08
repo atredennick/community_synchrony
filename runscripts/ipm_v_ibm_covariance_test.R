@@ -110,9 +110,9 @@ f=function(v,u,Rpars,rpa,doSpp) {
 ####
 nt.save <- readRDS("../results/nt_popvec_ibm.RDS")
 nt <- list()
-nt[[1]] <- nt.save[[2]][50,]
+nt[[1]] <- nt.save[[2]][2:length(nt.save[[2]])]
 nt[[1]][] <- 0
-for(i in 1:length(nt.save)) nt[[i+1]] <- nt.save[[i]][50,]
+for(i in 1:length(nt.save)) nt[[i+1]] <- nt.save[[i]][2:length(nt.save[[i]])]
 
 
 ####
@@ -364,7 +364,7 @@ ibm_covmat <- readRDS("../results/ibm_covmat.RDS")
 for(i in 1:3) ibm_covmat[[i]][which(is.na(ibm_covmat[[i]])==TRUE)] <-0
 
 
-pdf("../results/ipm_ibm_covmatdiffs.pdf")
+# pdf("../results/ipm_ibm_covmatdiffs.pdf")
 par(mfrow=c(1,3))
 for(i in 1:3){
   matdiff <- ibm_covmat[[i]] - covmat[[i+1]]
@@ -377,7 +377,7 @@ for(i in 1:3){
             col=cm.colors(20), tracecol="#303030", trace="none", 
             notecol="black", notecex=0.8, keysize = 1.5, margins=c(5, 5))
 }
-dev.off()
+# dev.off()
 
 
 
