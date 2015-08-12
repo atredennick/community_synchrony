@@ -380,4 +380,4 @@ for(i in 1:3){
 # dev.off()
 
 par(mfrow=c(1,1))
-plot(ibm_covmat[[1]], covmat[[2]],  ylim=c(-0.2,0.2), xlim=c(-0.2,0.2))
+plot(ibm_covmat[[1]], covmat[[2]],  ylim=c(-0.2,0.2), xlim=c(-0.2,0.2), xlab="Truth", ylab="Prediction")
