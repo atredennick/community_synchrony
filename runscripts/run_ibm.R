@@ -363,4 +363,15 @@ for(dospps in spps){
   tmp.cut <- cut(log(tmp.plants[,2]), breaks = v, labels = FALSE)
   save.nt[[dospps-1]][which(all.bins%in%tmp.cut==TRUE)] <- table(tmp.cut)
 }
-saveRDS(save.nt, "../results/nt_popvec_ibm.RDS")
+saveRDS(save.nt, "../results/nt_popvecSMALL_ibm.RDS")
+
+
+##  Get BIG nt vector
+out.ntbig <- list()
+for(i in 1:3){
+  tmpdf <- subset(ntagg, species==i & time==50)
+  cdf <- dcast(tmpdf, time~bins, value.var = "n")
+  out.ntbig[[i]] <- cdf
+}
+saveRDS(out.ntbig, "../results/nt_popvecBIG_ibm.RDS")
+

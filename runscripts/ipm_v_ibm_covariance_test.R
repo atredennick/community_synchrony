@@ -108,11 +108,11 @@ f=function(v,u,Rpars,rpa,doSpp) {
 ####
 ####  Read in IBM population vector list; keep iteration 50 as initial pop vector
 ####
-nt.save <- readRDS("../results/nt_popvec_ibm.RDS")
+nt.save <- readRDS("../results/nt_popvecBIG_ibm.RDS")
 nt <- list()
-nt[[1]] <- nt.save[[2]][1:length(nt.save[[2]])]
+nt[[1]] <- as.numeric(nt.save[[2]][2:length(nt.save[[2]])])
 nt[[1]][] <- 0
-for(i in 1:length(nt.save)) nt[[i+1]] <- nt.save[[i]][1:length(nt.save[[i]])]
+for(i in 1:length(nt.save)) nt[[i+1]] <- as.numeric(nt.save[[i]][2:length(nt.save[[i]])])
 
 
 ####
@@ -379,5 +379,5 @@ for(i in 1:3){
 }
 # dev.off()
 
-
-plot(covmat[[2]], ibm_covmat[[1]], ylim=c(-0.2,0.2), xlim=c(-0.2,0.2))
+par(mfrow=c(1,1))
+plot(ibm_covmat[[1]], covmat[[2]],  ylim=c(-0.2,0.2), xlim=c(-0.2,0.2))
