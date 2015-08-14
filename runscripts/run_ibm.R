@@ -39,7 +39,7 @@ make.P.matrix <- function(v,muWG,muWS,Gpars,Spars,doYear,doSpp) {
 ####
 ####  Set some global variables for the simulation
 ####
-totSims=100
+totSims=30
 totT=150     # time steps of simulation
 burn.in=50  # time steps to discard before calculating cover values
 L=100       # dimension of square quadrat (cm)
@@ -254,8 +254,8 @@ for(tt in 2:(totT)){
     distMat=getDist(plants,L,expand)
     
     # recruitment
-    newplants=recruit(Rpars,sizes=plants[,2],spp=plants[,1],doYear=doYr,lastID=lastID,L,expand)
-    
+#     newplants=recruit(Rpars,sizes=plants[,2],spp=plants[,1],doYear=doYr,lastID=lastID,L,expand)
+    newplants=0
     for(ss in 1:Nspp){
       if(N[ss]>0){ # make sure spp ss is not extinct
         ##First small set
@@ -290,7 +290,12 @@ for(tt in 2:(totT)){
     # Calculate population vector a la IPM nt
     spps <- c(2,3,4)
     for(dospps in spps){
+#       if(length(nextplants[which(nextplants[,1]==dospps),])>1)
       tmp.plants <- nextplants[which(nextplants[,1]==dospps),]
+      if(is.null(dim(tmp.plants))) {
+        tmpmat <- as.matrix(tmp.plants)
+        tmp.plants <- data.frame(spp=tmpmat[1,1],size=tmpmat[2,1],x=tmpmat[3,1],y=tmpmat[4,1],id=tmpmat[5,1])
+      }
       Low=log(0.2)
       Up=log(maxSize[dospps])*1.1     
       # boundary points b and mesh points y. Note: b chops up the size interval (L-U) into bigM-equal-sized portions.

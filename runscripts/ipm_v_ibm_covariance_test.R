@@ -365,18 +365,18 @@ for(i in 1:3) ibm_covmat[[i]][which(is.na(ibm_covmat[[i]])==TRUE)] <-0
 for(i in 1:3) ibm_covmat[[i]] <- ibm_covmat[[i]][2:(nrow(ibm_covmat[[i]])),2:(nrow(ibm_covmat[[i]]))]
 
 # pdf("../results/ipm_ibm_covmatdiffs.pdf")
-par(mfrow=c(1,3))
-for(i in 1:3){
-  matdiff <- ibm_covmat[[i]] - covmat[[i+1]]
-  hist(matdiff, main=sppList[i+1])
-}
-library(gplots)
-for(i in 1:3){
-  matdiff <- ibm_covmat[[i]] - covmat[[i+1]]
-  heatmap.2(matdiff,Rowv=FALSE, Colv=FALSE, dendrogram="none",main=sppList[i+1],
-            col=cm.colors(20), tracecol="#303030", trace="none", 
-            notecol="black", notecex=0.8, keysize = 1.5, margins=c(5, 5))
-}
+# par(mfrow=c(1,3))
+# for(i in 1:3){
+#   matdiff <- ibm_covmat[[i]] - covmat[[i+1]]
+#   hist(matdiff, main=sppList[i+1])
+# }
+# library(gplots)
+# for(i in 1:3){
+#   matdiff <- ibm_covmat[[i]] - covmat[[i+1]]
+#   heatmap.2(matdiff,Rowv=FALSE, Colv=FALSE, dendrogram="none",main=sppList[i+1],
+#             col=cm.colors(20), tracecol="#303030", trace="none", 
+#             notecol="black", notecex=0.8, keysize = 1.5, margins=c(5, 5))
+# }
 # dev.off()
 
 par(mfrow=c(1,1))
