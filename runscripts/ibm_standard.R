@@ -37,7 +37,7 @@ do_site="Idaho"
 Nyrs=22
 myCol=c("black","darkgreen","blue","red")
 doGroup=NA  # NA for spatial avg., values 1-6 for a specific group
-constant=T        
+constant=F     
 
 ####
 ####  Read in regression parameters, subset for Idaho
@@ -60,6 +60,12 @@ Rpars <- format_recruitment_params(do_site = do_site, species_list = spp_list,
                                    Nyrs = Nyrs, Rdata_species = Rpars_all,
                                    path_to_site_data = site_path)
 
+# Turn off random year effects if constant==TRUE
+if(constant==TRUE){
+  Rpars$intcpt.yr=matrix(Rpars$intcpt.mu,Nyrs,Nspp,byrow=T)
+  Gpars$intcpt.yr[]=0;Gpars$slope.yr[]=0
+  Spars$intcpt.yr[]=0;Spars$slope.yr[]=0    
+}
 
 ####
 ####  Vital rate functions
@@ -68,7 +74,7 @@ Rpars <- format_recruitment_params(do_site = do_site, species_list = spp_list,
 grow=function(Gpars,doSpp,doYear,sizes,crowding){
   # crowding and nb are vectors of dim Nspp
   logsizes=log(sizes)
-  mu=Gpars$intcpt[doSpp]+Gpars$slope[doSpp]*logsizes+Gpars$nb[doSpp,]%*%crowding
+  mu=Gpars$intcpt[doSpp]+Gpars$intcpt.yr[doYear,doSpp]+(Gpars$slope[doSpp]+Gpars$slope.yr[doYear,doSpp])*logsizes+Gpars$nb[doSpp,]%*%crowding
   tmp=which(mu<log(minSize)*1.5)         # we will kill vanishingly small plants...below
   mu[tmp]=log(minSize)                   # truncate tiny sizes (they cause problems in sigma2)
   sigma2=Gpars$sigma2.a[doSpp]*exp(Gpars$sigma2.b[doSpp]*mu)
@@ -82,7 +88,7 @@ grow=function(Gpars,doSpp,doYear,sizes,crowding){
 ## Survival
 survive=function(Spars,doSpp,doYear,sizes,crowding){
   logsizes=log(sizes)
-  mu=Spars$intcpt[doSpp]+Spars$slope[doSpp]*logsizes+Spars$nb[doSpp,]%*%crowding
+  mu=Spars$intcpt[doSpp]+Spars$intcpt.yr[doYear,doSpp]+(Spars$slope[doSpp]+Spars$slope.yr[doYear,doSpp])*logsizes+Spars$nb[doSpp,]%*%crowding
   out=inv.logit(mu)
   out=rbinom(length(sizes),1,out)
   out
@@ -102,7 +108,7 @@ recruit=function(Rpars,sizes,spp,doYear,lastID,L,expand){
   # calculate recruits
   lambda=rep(NA,Nspp) # seed production
   for(i in 1:Nspp){
-    lambda[i]=totArea[i]*exp(Rpars$intcpt.mu[i]+totArea%*%Rpars$dd[i,])
+    lambda[i]=totArea[i]*exp(Rpars$intcpt.yr[doYear,i]+totArea%*%Rpars$dd[i,])
   }
   # number of draws from distribution depends on size of landscape
   NN=rnbinom(length(lambda)*expand^2,mu=lambda,size=Rpars$theta)  
@@ -279,8 +285,9 @@ for(iSim in 1:totSims){
   } # next tt
 } # next iSim
 
-par(mfrow=c(2,1))
+par(mfrow=c(3,1))
 matplot(output[,2], output[,4:7]*100, type="l")
+matplot(output[,2], output[,8:11], type="l")
 plot(density(output[,5]), ylim=c(0,250), lwd=2)
 c=1
 for(i in 6:7){
@@ -288,18 +295,14 @@ for(i in 6:7){
   lines(density(output[,i]), col=myCol[c], lwd=2)
 }
 
-##TODO: add catch for extinctions -- remove before calculating synchrony
-synch <- as.numeric(community.sync(output[(burn.in+1):totT,4:7])[1])
-saveRDS(synch, paste0("../results/commsynch_quadsize", expand, ".RDS"))
+
+cov <- output[(burn.in+1):totT,5:7]
+nonextinct <- as.numeric(which(cov[nrow(cov),]!=0))
+synch <- as.numeric(community.sync(cov[,nonextinct])[1])
 
 
-####
-####  Plot results (if wrapped)
-####
-expand <- c(1,2,3,4)
-out.synch <- numeric(length(expand))
-count <- 1
-for(i in expand){
-  out.synch[count] <- readRDS(paste0("../results/commsynch_quadsize", i, ".RDS"))
-  count <- count+1
-}
+abund <- as.data.frame(output[(burn.in+1):totT,9:11])
+abund$synch <- synch
+# saveRDS(ts.abund, paste0("../results/commsynch_quadsize", expand, ".RDS"))
+
+print(paste("Simulated synchrony is", round(synch,2), "with", max(nonextinct), "species surviving."))
