@@ -177,6 +177,7 @@ for(iSim in 1:totSims){
   tmp=c(iSim,1,0,A,N)
   output=rbind(output,tmp)
   
+  pb <- txtProgressBar(min=2, max=totT, char="+", style=3, width=65)
   for(tt in 2:(totT)){
     
     # draw year effects
@@ -232,6 +233,6 @@ for(iSim in 1:totSims){
         outxy=rbind(outxy,tmp)
       }
     }
-  print(c(iSim, tt))
+    setTxtProgressBar(pb, tt)
   } # next tt
 } # next iSim
