@@ -29,7 +29,7 @@ totSims=1
 totT=1000     # time steps of simulation
 burn.in=500  # time steps to discard before calculating cover values
 L=100       # dimension of square quadrat (cm)
-expand=4   # 1 = 1x1 m^2, 2 = 2x2m^2, etc
+expand=1   # 1 = 1x1 m^2, 2 = 2x2m^2, etc
 init.cover=c(0,1,1,1)   # in % cover
 maxSize=c(8000,500,500,500)
 minSize=0.25

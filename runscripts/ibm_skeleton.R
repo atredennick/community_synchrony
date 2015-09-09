@@ -123,7 +123,7 @@ getCrowding=function(plants,alpha,distMat){
     distMat=exp(-1*alpha[plants[,1]]*distMat^2)
     sizeMat=matrix(plants[,2],dim(plants)[1],dim(plants)[1])
     distSize=distMat*sizeMat
-    out=sapply(1:4,function(i,distSize){ 
+    out=sapply(1:Nspp,function(i,distSize){ 
       colSums(matrix(distSize[plants[,1]==i,],sum(plants[,1]==i),NCOL(distSize)),na.rm=T)},
       distSize=distSize)
     out=t(out)
@@ -180,7 +180,7 @@ for(iSim in 1:totSims){
   for(tt in 2:(totT)){
     
     # draw year effects
-    doYr=sample(1:obs_years,1)
+    doYr=sample(1:Nyrs,1)
     nextplants=plants
     
     # distance matrix
