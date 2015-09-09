@@ -28,7 +28,7 @@ totSims <- 1      # number of simulations per site (1 here since using large lan
 totT <- 2500      # time steps of simulation
 burn.in <- 500    # time steps to discard before calculating cover values
 L <- 100          # dimension of square quadrat (cm)
-expand <- 1       # 1 = 1x1 m^2, 2 = 2x2m^2, etc
+expand <- 4       # 1 = 1x1 m^2, 2 = 2x2m^2, etc
 doGroup <- NA     # NA for spatial avg., values for a specific group
 constant <- FALSE # TRUE for constant env.; FALSE for random year effects
 
