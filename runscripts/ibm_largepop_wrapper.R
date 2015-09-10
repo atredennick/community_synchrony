@@ -25,10 +25,10 @@ library(msm)                # for the IBM
 ####  Set up global variables and simulation config ----------------------------
 ####
 totSims <- 1      # number of simulations per site (1 here since using large landscape)
-totT <- 2500      # time steps of simulation
+totT <- 1500      # time steps of simulation
 burn.in <- 500    # time steps to discard before calculating cover values
 L <- 100          # dimension of square quadrat (cm)
-expand <- 1       # 1 = 1x1 m^2, 2 = 2x2m^2, etc
+expand <- 2      # 1 = 1x1 m^2, 2 = 2x2m^2, etc
 doGroup <- NA     # NA for spatial avg., values for a specific group
 constant <- FALSE # TRUE for constant env.; FALSE for random year effects
 
@@ -97,7 +97,7 @@ for(do_site in site_names){
   } # end Kansas do_site
   
   if(do_site == "Montana"){
-    init.cover <- rep(1, times=Nspp) # in percent cover
+    init.cover <- c(0,1,1,1) # in percent cover
     maxSize <- c(2500, 130, 22, 100) # in centimeters
     minSize <- 0.25                  # in centimeters 
   } # end Montana do_site
@@ -113,7 +113,7 @@ for(do_site in site_names){
   ####  Source ibm_skeleton.R
   ####
   source("ibm_skeleton.R")
-
+  matplot(1:totT, output[,4:(3+Nspp)], type="l")
   ##  Make sure nothing went extinct
   cov_cols <- grep("Cov", colnames(output))
   if(0 %in% output[totT,cov_cols]){
