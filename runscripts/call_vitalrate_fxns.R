@@ -44,8 +44,10 @@ for(do_site in site_list){
       D$Group=as.factor(substr(D$quad,1,1))
       D=subset(D,year>=17)
     }
+    
     if(do_site=="Kansas")
       D$Group=as.numeric(D$Group)-1
+    
     if(do_site=="Montana"){
       ##then we moved some specific points:
       tmp2<-which(D$quad=="A12" & D$year==44)
@@ -56,6 +58,7 @@ for(do_site in site_list){
       tmp44<-which(D$quad=="E4" & D$year==44)
       D$Group=as.factor(substr(D$quad,1,1)) 
     }
+    
     if(do_site=="NewMexico")
       D$Group=as.factor(substr(D$quad,1,1))
     
