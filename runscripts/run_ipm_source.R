@@ -107,25 +107,12 @@ NoOverlap_Inter=FALSE
         # Make kernels and project
         popv=nt[[doSpp]]
         h=inits$h[[doSpp]]
-        if(demographic_stochasticity==FALSE){
-          K_matrix=make_K_matrix(inits$v[[doSpp]],crowd_list$WmatG[[doSpp]],
-                                 crowd_list$WmatS[[doSpp]],
-                                 Rpars,recs_per_area,Gpars,Spars,
-                                 doYear,doSpp,h=inits$h[[doSpp]]) 
-          new.nt[[doSpp]]=K_matrix%*%nt[[doSpp]]  
-        }
-        if(demographic_stochasticity==TRUE){
-          P.matrix <- make.P.matrix(inits$v[[doSpp]],crowd_list$WmatG[[doSpp]],
-                                    crowd_list$WmatS[[doSpp]],Gpars,Spars,doYear,doSpp)  
-          R.matrix <- make.R.matrix(inits$v[[doSpp]],Rpars,recs_per_area,doYear,doSpp)  
-          covmat <- get_cov(K=P.matrix*inits$h[[doSpp]])
-          pCont <- GenerateMultivariatePoisson(pD = length(nt[[doSpp]]),
-                                               samples = 1,
-                                               R = covmat,
-                                               lambda = inits$h[[doSpp]]*P.matrix%*%nt[[doSpp]])
-          rCont <- rpois(length(nt[[doSpp]]),inits$h[[doSpp]]*R.matrix%*%nt[[doSpp]])
-          new.nt[[doSpp]] <- pCont+rCont
-        }
+        K_matrix=make_K_matrix(inits$v[[doSpp]],crowd_list$WmatG[[doSpp]],
+                               crowd_list$WmatS[[doSpp]],
+                               Rpars,recs_per_area,Gpars,Spars,
+                               doYear,doSpp,h=inits$h[[doSpp]]) 
+        new.nt[[doSpp]]=K_matrix%*%nt[[doSpp]]  
+      
         sizeSave[[doSpp]][,t]=new.nt[[doSpp]]/sum(new.nt[[doSpp]])  
       }    
     } # next species

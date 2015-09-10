@@ -2,6 +2,8 @@
 
 rm(list=ls(all=TRUE))
 library(communitySynchrony)
+devtools::install_github("atredennick/IPMdoit")
+
 
 do_env_const_vec <- c(FALSE,FALSE,TRUE)
 do_demo_stoch_vec <- c(TRUE,FALSE,TRUE)
