@@ -10,8 +10,8 @@
 rm(list=ls(all=TRUE))
 
 ##  Set the IPM simulation run time and burn in
-tlimit <- 500
-burn_in <- 100
+tlimit <- 2500
+burn_in <- 500
 
 ##  Set up looping vectors for spp interactions
 inter_comp <- c(TRUE,FALSE)
@@ -144,16 +144,16 @@ for(do_site in site_list){
     max_size <- c(600,1300)
   }
   
+  sim_count <- 1
+  site_output <- list()
   for(do_comp in inter_comp){
-    constant <- FALSE
-    spp_interact <- do_comp
-    n_spp <- Nspp <- length(spp_list)
-    A <- 10000 # area of a 1x1 meter plot, in cm
-    spp_list <- spp_list
-    Nyrs <- Nyrs
-    maxSize <- max_size 
-    bigM <- iter_matrix_dims
-    NoOverlap.Inter <- FALSE
+    constant <- FALSE                 # always run with random year effects
+    spp_interact <- do_comp           # T/F for spp interactions
+    n_spp <- Nspp <- length(spp_list) # all possible forms of Nspp
+    A <- 10000                        # area of a 1x1 meter plot, in cm
+    maxSize <- max_size               # redo for IPM source script
+    bigM <- iter_matrix_dims          # redo for IPM source script
+    NoOverlap.Inter <- FALSE          # heterospecifics allowed to overlap
     
     # Turn off random year effects if constant==TRUE
     if(constant==TRUE){
@@ -180,13 +180,23 @@ for(do_site in site_list){
       Spars$nb <- snbtmp    
     } # end interspecific competition if/then
     
-    source("run_ipm_source.R")
-    matplot(covSave, type="l")
-
+    ## Run the IPM from a source script
+    source("run_ipm_source.R") 
+    
+    ##  Formate and save output in list
+    colnames(covSave) <- spp_list
+    site_output[[sim_names[sim_count]]] <- covSave[(burn_in+1):tlimit,]
+    
+    ##  Advance counter
+    sim_count <- sim_count+1
+    
   } # end species interaction loop
+  
+  ##  Save site output to big list
+  output_list[[do_site]] <- site_output
   
 } # end site loop
 
-# Save the output
-# saveRDS(output_list, "../results/ipm_simulation_lists.RDS")
+## Save the output
+saveRDS(output_list, "../results/ipm_comp_nocomp_sims.RDS")
 
