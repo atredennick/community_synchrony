@@ -1,8 +1,10 @@
-##  IPM skeleton to be sourced after set up
-##
+############################################################
+##  IPM skeleton to be sourced after set up.
+##  
 ##  Authors: Andrew Tredennick, Peter Adler, Chengjin Chu
 ##  Email:   atredenn@gmail.com
 ##  Created: 9-11-2015
+############################################################
 
 
 ####
