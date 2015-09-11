@@ -1,15 +1,13 @@
-if(constant==T){
-  Rpars$intcpt.yr=matrix(Rpars$intcpt.mu,Nyrs,Nspp,byrow=T)
-  Gpars$intcpt.yr[]=0; Gpars$slope.yr[]=0
-  Spars$intcpt.yr[]=0; Spars$slope.yr[]=0
-}
+##  IPM skeleton to be sourced after set up
+##
+##  Authors: Andrew Tredennick, Peter Adler, Chengjin Chu
+##  Email:   atredenn@gmail.com
+##  Created: 9-11-2015
 
 
-
-#============================================================================================#
-# (II) Simulation length, Matrix size and initial vectors
-#============================================================================================#
-
+####
+####  Simulation length, Matrix size and initial vectors
+####
 v=v.r=b.r=expv=Cr=WmatG=WmatS=list(Nspp)
 h=r.L=r.U=Ctot=numeric(Nspp)
 for(i in 1:Nspp){
@@ -39,89 +37,11 @@ for(i in 1:Nspp){
 tmp=range(v.r)
 size.range=seq(tmp[1],tmp[2],length=50) # range across all possible sizes
 
-#============================================================================================#
-# (III) Utility functions
-#============================================================================================#
-
-# load the necessary libraries
-library(boot)
-library(mvtnorm)
-library(msm)
-library(statmod)  
-
-## combined kernel
-make.K.values=function(v,u,muWG,muWS, #state variables
-                       Rpars,rpa,Gpars,Spars,doYear,doSpp){  #growth arguments
-  f(v,u,Rpars,rpa,doSpp)+S(u,muWS,Spars,doYear,doSpp)*G(v,u,muWG,Gpars,doYear,doSpp) 
-}
-
-# Function to make iteration matrix based only on mean crowding
-make.K.matrix=function(v,muWG,muWS,Rpars,rpa,Gpars,Spars,doYear,doSpp) {
-  muWG=expandW(v,v,muWG)
-  muWS=expandW(v,v,muWS)
-  
-  K.matrix=outer(v,v,make.K.values,muWG,muWS,Rpars,rpa,Gpars,Spars,doYear,doSpp)
-  return(h[doSpp]*K.matrix)
-}
-
-# Function to format the W matrix for the outer product
-expandW=function(v,u,W){
-  if(dim(W)[1]!=length(u)) stop("Check size of W")
-  Nspp=dim(W)[2]
-  W=as.vector(W)
-  W=matrix(W,length(W),ncol=length(v))
-  W=as.vector(t(W))
-  W=matrix(W,nrow=length(u)*length(v),ncol=Nspp)
-  return(W)
-}
-
-
-
-# Function to calculate size-dependent crowding, assuming no overlap
-wrijG=function(r,i,j){
-  return(2*pi*integrate(function(z) z*exp(-alphaG[i,j]*(z^2))*Cr[[j]](z-r),r,r+r.U[j])$value+
-           pi*Ctot[j]*exp(-alphaG[i,j]*((r+r.U[j])^2))/alphaG[i,j]);   
-}
-WrijG=Vectorize(wrijG,vectorize.args="r")
-
-wrijS=function(r,i,j){
-  return(2*pi*integrate(function(z) z*exp(-alphaS[i,j]*(z^2))*Cr[[j]](z-r),r,r+r.U[j])$value+
-           pi*Ctot[j]*exp(-alphaS[i,j]*((r+r.U[j])^2))/alphaS[i,j]);   
-}
-WrijS=Vectorize(wrijS,vectorize.args="r")
-
-
-
-# Function to sum total cover of each species
-sumCover=function(v,nt,h,A){
-  out=lapply(1:Nspp,function(i,v,nt,h,A) h[i]*sum(nt[[i]]*exp(v[[i]]))/A,v=v,nt=nt,h=h,A=A)
-  return(unlist(out))
-} 
-
-# Function to sum total density of each species
-sumN=function(nt,h){
-  out=lapply(1:Nspp,function(i,nt,h) h[i]*sum(nt[[i]]),nt=nt,h=h)
-  return(unlist(out))
-}
-
-
-#########################################
-# Function to calculate size variance of each species
-varN=function(v,nt,h,Xbar,N){
-  out=lapply(1:Nspp,function(i,v,nt,h,Xbar,N) h[i]*sum(((exp(v[[i]])-Xbar[i])^2)*nt[[i]])/N[i], #the true size 'exp(c[[i]])'
-             v=v,nt=nt,h=h,Xbar=Xbar,N=N)
-  return(unlist(out))
-} 
-
-#============================================================================================#
-# (IV) Calculate the equilibrium areas.
-#============================================================================================# 
 
 ## initial population density vector
 nt=v
-
-
 for(i in 1:Nspp) nt[[i]][]=0.001
+if(do_site=="Idaho") nt[[1]] <- 0
 new.nt=nt
 
 # set up matrix to record cover
@@ -140,6 +60,8 @@ Nsave=matrix(NA,tlimit,Nspp)
 Nsave[1,]=sumN(nt,h)
 
 yrSave=rep(NA,tlimit)
+
+pb <- txtProgressBar(min=2, max=tlimit, char="+", style=3, width=65)
 for (i in 2:(tlimit)){
   
   #draw from observed year effects
@@ -209,7 +131,7 @@ for (i in 2:(tlimit)){
   covSave[i,]=sumCover(v,nt,h,A)  # store the cover as cm^2/cm^2
   Nsave[i,]=sumN(nt,h)
   
-  print(i)
+  setTxtProgressBar(pb, i)
   flush.console()
   
   if(sum(is.na(nt))>0) browser()  

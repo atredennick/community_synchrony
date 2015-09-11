@@ -1,14 +1,100 @@
+############################################################
 ##  Script to run IPM simulations for each site.
+##  
+##  Authors: Andrew Tredennick, Peter Adler, Chengjin Chu
+##  Email:   atredenn@gmail.com
+##  Created: 9-11-2015
+############################################################
 
+##  Clear the workspace
 rm(list=ls(all=TRUE))
+
+##  Set the IPM simulation run time and burn in
+tlimit <- 500
+burn_in <- 100
+
+##  Set up looping vectors for spp interactions
+inter_comp <- c(TRUE,FALSE)
+sim_names <- c("ENVINTER", "ENVNOINTER")
+
+
+####
+####  Load libraries
+####
 library(communitySynchrony)
-# devtools::install_github("atredennick/IPMdoit")
+library(boot)
+library(mvtnorm)
+library(msm)
+library(statmod)  
 
 
-do_env_const_vec <- c(FALSE,FALSE,TRUE)
-do_demo_stoch_vec <- c(TRUE,FALSE,TRUE)
-sim_names <- c("ENVDEMO", "ENV", "DEMO")
+####
+####  IPM subroutines
+####
+## Make combined kernel
+make.K.values=function(v,u,muWG,muWS, #state variables
+                       Rpars,rpa,Gpars,Spars,doYear,doSpp){  #growth arguments
+  f(v,u,Rpars,rpa,doSpp)+S(u,muWS,Spars,doYear,doSpp)*G(v,u,muWG,Gpars,doYear,doSpp) 
+}
 
+## Function to make iteration matrix based only on mean crowding
+make.K.matrix=function(v,muWG,muWS,Rpars,rpa,Gpars,Spars,doYear,doSpp) {
+  muWG=expandW(v,v,muWG)
+  muWS=expandW(v,v,muWS)
+  K.matrix=outer(v,v,make.K.values,muWG,muWS,Rpars,rpa,Gpars,Spars,doYear,doSpp)
+  return(h[doSpp]*K.matrix)
+}
+
+## Function to format the W matrix for the outer product
+expandW=function(v,u,W){
+  if(dim(W)[1]!=length(u)) stop("Check size of W")
+  Nspp=dim(W)[2]
+  W=as.vector(W)
+  W=matrix(W,length(W),ncol=length(v))
+  W=as.vector(t(W))
+  W=matrix(W,nrow=length(u)*length(v),ncol=Nspp)
+  return(W)
+}
+
+## Function to calculate size-dependent crowding, assuming no overlap
+# Growth
+wrijG=function(r,i,j){
+  return(2*pi*integrate(function(z) z*exp(-alphaG[i,j]*(z^2))*Cr[[j]](z-r),r,r+r.U[j])$value+
+           pi*Ctot[j]*exp(-alphaG[i,j]*((r+r.U[j])^2))/alphaG[i,j]);   
+}
+WrijG=Vectorize(wrijG,vectorize.args="r")
+
+#Survival
+wrijS=function(r,i,j){
+  return(2*pi*integrate(function(z) z*exp(-alphaS[i,j]*(z^2))*Cr[[j]](z-r),r,r+r.U[j])$value+
+           pi*Ctot[j]*exp(-alphaS[i,j]*((r+r.U[j])^2))/alphaS[i,j]);   
+}
+WrijS=Vectorize(wrijS,vectorize.args="r")
+
+## Function to sum total cover of each species
+sumCover=function(v,nt,h,A){
+  out=lapply(1:Nspp,function(i,v,nt,h,A) h[i]*sum(nt[[i]]*exp(v[[i]]))/A,v=v,nt=nt,h=h,A=A)
+  return(unlist(out))
+} 
+
+## Function to sum total density of each species
+sumN=function(nt,h){
+  out=lapply(1:Nspp,function(i,nt,h) h[i]*sum(nt[[i]]),nt=nt,h=h)
+  return(unlist(out))
+}
+
+## Function to calculate size variance of each species
+varN=function(v,nt,h,Xbar,N){
+  out=lapply(1:Nspp,function(i,v,nt,h,Xbar,N) h[i]*sum(((exp(v[[i]])-Xbar[i])^2)*nt[[i]])/N[i], #the true size 'exp(c[[i]])'
+             v=v,nt=nt,h=h,Xbar=Xbar,N=N)
+  return(unlist(out))
+} 
+
+
+
+####
+####  Set up simulation parameters
+####
 Gpars_all <- readRDS("../results/growth_params_list.RDS")
 Spars_all <- readRDS("../results/surv_params_list.RDS")
 Rpars_all <- readRDS("../results/recruit_parameters.RDS")
@@ -21,34 +107,6 @@ for(do_site in site_list){
   Gpars_tmp <- Gpars_all[[do_site]]
   Spars_tmp <- Spars_all[[do_site]]
   Rpars_tmp <- Rpars_all[[do_site]]
-  
-#   if(do_site=="Idaho"){
-#     spp_list <- names(Gpars_tmp)
-#     Rp <- as.data.frame(Rpars_tmp)
-#     Rp$species <- c(rep(spp_list, each=4),
-#                     rep(spp_list, each=1),
-#                     rep(spp_list, each=6),
-#                     rep(spp_list, each=1),
-#                     rep(spp_list, each=1),
-#                     rep(spp_list, each=22),
-#                     rep(spp_list, each=412),
-#                     rep(spp_list, each=1),
-#                     rep(spp_list, each=1))
-#     Rp <- subset(Rp, species!="ARTR")
-#     colid <- which(colnames(Rp)=="species")
-#     Rp <- Rp[,-colid]
-#     Rp$species <- c(rep(c("ARTR", "fine", "fine", "fine"), 3),
-#                     rep("fine", (nrow(Rp)-12)))
-#     Rp <- subset(Rp, species=="fine")
-#     colid <- which(colnames(Rp)=="species")
-#     Rpars_tmp <- as.matrix(Rp[,-colid])
-#   }
-#   
-#   if(do_site=="Idaho"){
-#     id <- which(names(Gpars_tmp)=="ARTR")
-#     Gpars_tmp <- Gpars_tmp[-id]
-#     Spars_tmp <- Spars_tmp[-id] 
-#   }
   
   spp_list <- names(Gpars_tmp)
   Nyrs <- nrow(Gpars_tmp[[1]])
@@ -86,35 +144,49 @@ for(do_site in site_list){
     max_size <- c(600,1300)
   }
   
-  stoch_results <- list()
-  print(paste("Doing", do_site))
-  for(stoch in 1:length(sim_names)){
-    constant <- TRUE
+  for(do_comp in inter_comp){
+    constant <- FALSE
+    spp_interact <- do_comp
     n_spp <- Nspp <- length(spp_list)
-    A=10000
-    tlimit=500
-    burn_in=100
-    spp_list=spp_list
-    Nyrs=Nyrs
+    A <- 10000 # area of a 1x1 meter plot, in cm
+    spp_list <- spp_list
+    Nyrs <- Nyrs
     maxSize <- max_size 
-    Rpars=Rpars; Spars=Spars; Gpars=Gpars
     bigM <- iter_matrix_dims
     NoOverlap.Inter <- FALSE
     
-    source("run_ipm_source.R")
-
-#     cover_sims <- run_ipm(A=10000, tlimit=500, burn_in=100, spp_list=spp_list,
-#                           Nyrs=Nyrs, constant=do_env_stoch,
-#                           iter_matrix_dims=iter_matrix_dims, max_size=max_size,
-#                           Rpars=Rpars, Spars=Spars, Gpars=Gpars,
-#                           demographic_stochasticity=do_demo_stoch)
+    # Turn off random year effects if constant==TRUE
+    if(constant==TRUE){
+      Rpars$intcpt.yr=matrix(Rpars$intcpt.mu,Nyrs,Nspp,byrow=T)
+      Gpars$intcpt.yr[]=0;Gpars$slope.yr[]=0
+      Spars$intcpt.yr[]=0;Spars$slope.yr[]=0    
+    } # end constant environment if/then
     
-    colnames(covSave) <- spp_list
-    stoch_results[[sim_names[stoch]]] <- covSave
-  } # end stochasticity loop
-  output_list[[do_site]] <- stoch_results
+    # Turn off competition if spp_interact==FALSE
+    if(spp_interact==FALSE){
+      rnbtmp <- Rpars$dd
+      rnbtmp[] <- 0
+      diag(rnbtmp) <- diag(Rpars$dd)
+      Rpars$dd <- rnbtmp
+      
+      gnbtmp <- Gpars$nb
+      gnbtmp[] <- 0
+      diag(gnbtmp) <- diag(Gpars$nb)
+      Gpars$nb <- gnbtmp
+      
+      snbtmp <- Spars$nb
+      snbtmp[] <- 0
+      diag(snbtmp) <- diag(Spars$nb)
+      Spars$nb <- snbtmp    
+    } # end interspecific competition if/then
+    
+    source("run_ipm_source.R")
+    matplot(covSave, type="l")
+
+  } # end species interaction loop
+  
 } # end site loop
 
 # Save the output
-saveRDS(output_list, "../results/ipm_simulation_lists.RDS")
+# saveRDS(output_list, "../results/ipm_simulation_lists.RDS")
 
