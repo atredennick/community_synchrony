@@ -2,7 +2,7 @@
 
 rm(list=ls(all=TRUE))
 library(communitySynchrony)
-devtools::install_github("atredennick/IPMdoit")
+# devtools::install_github("atredennick/IPMdoit")
 
 
 do_env_const_vec <- c(FALSE,FALSE,TRUE)
@@ -89,17 +89,17 @@ for(do_site in site_list){
   stoch_results <- list()
   print(paste("Doing", do_site))
   for(stoch in 1:length(sim_names)){
-    do_env_const <- do_env_const_vec[stoch]
-    do_demo_stoch <- do_demo_stoch_vec[stoch]
+    constant <- TRUE
     n_spp <- Nspp <- length(spp_list)
     A=10000
-    tlimit=2500
-    burn_in=500
+    tlimit=500
+    burn_in=100
     spp_list=spp_list
-    Nyrs=Nyrs; constant=do_env_const
-    iter_matrix_dims=iter_matrix_dims; max_size=max_size
+    Nyrs=Nyrs
+    maxSize <- max_size 
     Rpars=Rpars; Spars=Spars; Gpars=Gpars
-    demographic_stochasticity=do_demo_stoch
+    bigM <- iter_matrix_dims
+    NoOverlap.Inter <- FALSE
     
     source("run_ipm_source.R")
 
