@@ -1,23 +1,45 @@
 ---
+layout: 12pt
+header-includes:
+   - \usepackage{lineno}
+   - \linenumbers
+   - \usepackage{setspace}
+   - \doublespacing
+   - \usepackage{todonotes}
+   - \usepackage[document]{ragged2e}
+
+## rmarkdown render options
 output:
   pdf_document:
     fig_caption: true
     keep_tex: true
 fontsize: 12pt
 geometry: margin=1in
+
 ---
-# Drivers of species synchrony in real communities
-*Andrew Tredennick, Peter Adler, Claire de Mazancourt, Michele Loreau, and Stephen Ellner*
+# Environmental responses synchronize population \newline dynamics in five semi-arid grasslands
 
-Quick summary
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+
+Andrew T. Tredennick\footnote{Correspondance: atredenn@gmail.com}\textsuperscript{1}, Claire de Mazancourt\textsuperscript{2}, Michel Loreau\textsuperscript{2}, \newline Stephen Ellner\textsuperscript{3}, and Peter B. Adler\textsuperscript{1}
+
+\textit{\small{\textsuperscript{1}Department of Wildland Resources and the Ecology Center, 5230 Old Main Hill, Utah State University, Logan, Utah 84322 USA}}
+
+\textit{\small{\textsuperscript{2}Centre for Biodiversity Theory and Modelling, Experimental Ecology Station, Centre National de la Recherche Scientifique, Moulis, 09200, France}}
+
+\textit{\small{\textsuperscript{3}Department of Ecology and Evolutionary Biology, Cornell University, Ithaca, NY 14853, USA}}
+
+\renewcommand*{\thefootnote}{\arabic{footnote}}
+\setcounter{footnote}{0}
+
+
+
+Abstract
 -------------
-1. __Question__. How (a)synchronous are species population dynamics in natural communities, and what determines the degree of synchrony among species? Of particular interest to us, do species' responses to environmental fluction increase or decrease population synchrony?
+Temporal asynchrony among interacting species is an important mechanism through which species richness can stabilize biomass production through time. Theory 
 
-2. __Data__. Five longterm demographic datasets from semi-arid North American grasslands. All species coexist stabley, yet are similar -- they are all perennial grasses.
-
-3. __Analysis__. (a) Calculate community synchrony from the observed time series using an established metric, and compare this to expectation from theory. (b) Use IPMs with environmental or demographic stochasticity turned on/off to quantify the relative contribution of each to community synchrony.
-
-4. __Initial conclusions__. Species' responses to environmental fluctuations tend to synchronize population dynamics: at four of the five sites removing environmental fluctuations decreased community synchrony. However, even with environmental fluctuations present, populations were not completely synchronized. This implies that niche differences among these species remain strong even as they respond similarly to environmental conditions.
+__Keywords__
+synchrony, compensatory dynamics, environmental stochasticity, demographic stochasticity, stability
 
 Introduction
 ------------
@@ -325,13 +347,12 @@ At four of our five study areas, the presence of environmental stochasticity via
 *NOTE: we have not dealt with species interactions yet...*
 
 ```{r read_data, echo=FALSE}
-output_list <- readRDS("../results/ipm_simulation_lists.RDS")
+output_list <- readRDS("../results/ipm_comp_nocomp_sims.RDS")
 mlist <- melt(output_list)
 ```
 
 ```{r get_synchs, echo=FALSE, fig.cap="Results from IPM simulations with difference sources of stochasticity present/absent at each site. DEMO = demographic stochasticity only; ENV = environmental stochasticity only; ENVDEMO = both demograhpic and environmental stochasticity.", fig.width=6}
 colnames(mlist)[1:3] <- c("year", "species", "cover")
-mlist <- subset(mlist, year>500)
 sites <- unique(mlist$L1)
 sims <- unique(mlist$L2)
 pgr_list <- list()
@@ -349,31 +370,42 @@ for(dosite in sites){
   }
   pgr_list[[dosite]] <- within_site_list
 }
-pgr_synch <- melt(pgr_list) 
+pgr_synch <- melt(pgr_list)
+expected_synch <- table_data[,c(1,3)]
+expected_synch$L2 <- "E(SYNCH)"
+colnames(expected_synch) <- c("L1", "value", "L2")
+expected_synch <- expected_synch[,c("value", "L2", "L1")]
+expected_synch[which(expected_synch[,"L1"]=="New Mexico"),"L1"] <- "NewMexico"
 
-ggplot(pgr_synch, aes(x=L2, y=value, fill=L2))+
-  geom_bar(stat="identity", position=position_dodge(0.9), color="grey")+
-  facet_wrap("L1", scales="free_x")+
-  scale_fill_manual(values = c("grey45", "steelblue", "slateblue4"))+
-  guides(fill=FALSE)+
+pgr_synch <- rbind(pgr_synch, expected_synch)
+
+# ggplot(pgr_synch, aes(x=L2, y=value, fill=L2))+
+#   geom_bar(stat="identity", position=position_dodge(0.9), color="grey")+
+#   facet_wrap("L1", scales="free_x")+
+#   scale_fill_manual(values = c("grey45", "steelblue", "slateblue4"))+
+#   guides(fill=FALSE)+
+#   scale_y_continuous(limits=c(0,1))+
+#   xlab("Source of stochasticity")+
+#   ylab("Species synchrony")
+
+pgrsynch_plot <- ggplot(pgr_synch, aes(x=L2, y=value, color=L1, group=L1))+
+  geom_line()+
+  geom_point(size=5)+
+  scale_color_manual(values = c("grey45", "steelblue", "slateblue4", "darkorange", "purple"),
+                     name = "Site")+
   scale_y_continuous(limits=c(0,1))+
-  xlab("Source of stochasticity")+
-  ylab("Species synchrony")
+  xlab("Simulation")+
+  ylab("Species synchrony")+
+  theme_bw()
 
-```
+
+####
+####  Compare observed and IPM simulated synchrony
+####
+nsites <- length(sites)
 
 
-```{r niches, echo=FALSE}
-# niche_diff <- data.frame(site=sites,
-#                          ND = c(0.58, 0.59, 0.66, 0.69, 0.68))
-# pgr_subs <- subset(pgr_synch, L2!="ENVDEMO")
-# pgr_cast <- dcast(pgr_subs, L1~L2, value.var = "value")
-# synch_diff <- ddply(pgr_cast, .(L1), summarise,
-#                     value = ENV-DEMO)
-# niche_synch <- merge(niche_diff, synch_diff, by.x="site", by.y="L1")
-# ggplot(niche_synch, aes(x=ND, y=value))+
-#   geom_point(size=5)+
-#   ylab("Community synchrony")
+
 ```
 
 Theory predicts that demographic stochasticty is the only force that, in isolation, can desynchronize population dynamics. However, theory also predicts that demographic stochasticity is likely unable to counteract the synchronizing effect of environmental forces. Our results support this prediction in the cases where environmental stochasticity is a synchronizing force (compare ENV and ENVDEMO bars in Figure 1).
