@@ -36,10 +36,9 @@ Andrew T. Tredennick\footnote{Correspondance: atredenn@gmail.com}\textsuperscrip
 
 Abstract
 -------------
-Temporal asynchrony among interacting species is an important mechanism through which species richness can stabilize biomass production through time. Theory 
+Temporal asynchrony among interacting species is an important mechanism through which species richness can stabilize biomass production through time. While asynchrony is a key mechanism linking biodiversity and ecosystem function, empirical support for the prevalance species asynchrony is mixed, and no studies have rigorously disentangled the forces driving species (a)synchrony in nature. Theory identifies three drivers of species synchrony: inter- and intraspecific density dependence sychronize dynamics, demographic stochasticity desynchronize dynamics, and environmental forcing can either synchronize or desynchronize poplation dynamics depending on the correlation of species-specific environmental responses. Here we use stochastic population models fit using long term datasets from five semi-arid grasslands to identify the forces that increase or decrease species synchrony through time. We find that the trophically-similar grass species in our dataset have population dynamics that are synchronized by similar responses to environmental fluctuations. Species interactions tend to be weak, so removing interspecific competition did not reduce synchrony. The effect of demographic stochasticity depended on the spatial scale of our modeling. Though we found that similar responses to environmental fluctuations synchronized species, dynamics were not completly synchronous. We conclude that niche differentiation among species is strong enough to reduce the synchronizing effect of coupled density dependence via competition, but this is countered by the synchronizing effect of similar environmental responses. The next frontier is to identify the specific environmental drivers of species synchrony to inform predictive efforts.  
 
-__Keywords__
-synchrony, compensatory dynamics, environmental stochasticity, demographic stochasticity, stability
+__Keywords__: synchrony, compensatory dynamics, environmental stochasticity, demographic stochasticity, stability
 
 Introduction
 ------------
@@ -157,6 +156,15 @@ Results
 ## Observed and expected synchrony
 Our first task was to calculate the observed and expected community synchrony at each of our study sites. Observed synchrony ($\phi_r$) is calculate using equation 1 and expected synchrony ($\text{E}(\phi_r)$) is simply $1/S$ or equation 3. Expected synchrony under indpendent fluctuations is lower than the observed synchrony at every site (Table 1). This implies that demographic stochasticity is weak relative to community regulation and environmental forcing ($\sigma^{2}_{c}+\sigma^{2}_{e} >> \sigma^{2}_{d}/N_i$). Thus, some combination of density-dependence (species interactions) and environmental forcing are synchronizing population dynamics. To isolate those effects, we turn to our simulation results from the IPMs.
 
+## Effect of removing demographic and environmental stochasticity
+At four of our five study areas, the presence of environmental stochasticity via random year effects on vital rate regressions increased community synchrony of per capita population growth rates (Figure 1). Only at the Montana site (Northern Mixed Prairie) did incorporating species' responses to environmental conditions decrease community synchrony. However, even with similar responses to environmental conditions, community synchrony did not reach 1 at any of the sites. Thus, there remains sufficiently strong temporal niche differences to drive the community away from perfect sychrony. 
+
+Theory predicts that demographic stochasticty is the only force that, in isolation, can desynchronize population dynamics. However, theory also predicts that demographic stochasticity is likely unable to counteract the synchronizing effect of environmental forces. Our results support this prediction in the cases where environmental stochasticity is a synchronizing force (compare ENV and ENVDEMO bars in Figure 1).
+
+\newpage{}
+
+Tables
+------
 ```{r load_libs, echo=FALSE, message=FALSE}
 library(communitySynchrony)
 library(plyr)
@@ -341,17 +349,79 @@ print(xtable(table_data, caption = synch_cap),
 # full_plot <- grid.arrange(cover_plot, pgr_plot, ncol=2)
 ```
 
-## Effect of removing demographic and environmental stochasticity
-At four of our five study areas, the presence of environmental stochasticity via random year effects on vital rate regressions increased community synchrony of per capita population growth rates (Figure 1). Only at the Montana site (Northern Mixed Prairie) did incorporating species' responses to environmental conditions decrease community synchrony. However, even with similar responses to environmental conditions, community synchrony did not reach 1 at any of the sites. Thus, there remains sufficiently strong temporal niche differences to drive the community away from perfect sychrony. 
+\newpage{}
 
-*NOTE: we have not dealt with species interactions yet...*
-
+Figures
+-------
 ```{r read_data, echo=FALSE}
 output_list <- readRDS("../results/ipm_comp_nocomp_sims.RDS")
 mlist <- melt(output_list)
 ```
 
-```{r get_synchs, echo=FALSE, fig.cap="Results from IPM simulations with difference sources of stochasticity present/absent at each site. DEMO = demographic stochasticity only; ENV = environmental stochasticity only; ENVDEMO = both demograhpic and environmental stochasticity.", fig.width=6}
+```{r figure_1, echo=FALSE, fig.cap="Observed (vertical dashed lines) and IPM simulated (solid density curves) synchrony of species per capita growth rates based on changes in percent cover.", fig.width=6, fig.height=3}
+nyrs <- c(max(out_az$stability$num_observations),
+          max(out_id$stability$num_observations),
+          max(out_ks$stability$num_observations),
+          max(out_mt$stability$num_observations),
+          max(out_nm$stability$num_observations))
+
+boots <- 100
+sites <- sort(table_data$Site)
+sites[5] <- "NewMexico"
+synch <- matrix(NA, boots, length(sites))
+
+for(do_site in 1:length(sites)){
+  full_ipm_outs <- subset(mlist, L2=="ENVINTER")
+  site_ipm <- subset(full_ipm_outs, L1==sites[do_site])
+  if(sites[do_site]=="Idaho") site_ipm <- subset(site_ipm, Var2!="ARTR")
+  species_list <- unique(site_ipm$Var2)
+  for(i in 1:boots){
+    begin_year <- sample(x = 1:(max(site_ipm$Var1)-nyrs[do_site]), 1)
+    end_year <- begin_year+nyrs[1]
+    tmp <- subset(site_ipm, Var1 %in% begin_year:end_year)
+    tmp2 <- dcast(tmp, Var1~Var2, value.var = "value")
+
+    # caclulate observed growth rates
+    # create lagged data frame to only get observed yearly transitions
+    lag_df <- tmp2
+    lag_df$lagyear <- lag_df$Var1+1
+    colnames(lag_df)[2:(num_spp+1)] <- paste0(colnames(lag_df)[2:(num_spp+1)],"_t0") 
+    
+    # merge the lag df with observed
+    rm_col <- which(colnames(lag_df)=="Var1")
+    merged_df <- merge(tmp2, lag_df[,-rm_col], by.x = "Var1", by.y="lagyear")
+    transitions <- nrow(merged_df)
+    obs_gr <- matrix(nrow=transitions, ncol=num_spp)
+    name_ids1 <- which(colnames(merged_df) %in% species_list)
+    name_ids2 <- which(colnames(merged_df) %in% paste(species_list, "_t0", sep=""))
+    for(ii in 1:transitions){
+      obs_gr[ii,] <- as.numeric(log(merged_df[ii,name_ids1]/merged_df[ii,name_ids2]))
+    }
+    synch[i,do_site] <- as.numeric(community.sync(obs_gr)[1])
+  }
+}
+
+colnames(synch) <- sites
+synch_df <- melt(synch)
+
+obs_pgr_df <- c(as.numeric(out_az$pgr_synchrony[1]),
+                as.numeric(out_id$pgr_synchrony[1]),
+                as.numeric(out_ks$pgr_synchrony[1]),
+                as.numeric(out_mt$pgr_synchrony[1]),
+                as.numeric(out_nm$pgr_synchrony[1]))
+obs_pgr_df <- data.frame(pgr_synch=obs_pgr_df,
+                         Var2=sites)
+
+ggplot()+
+  geom_line(data=synch_df, aes(x=value, color=Var2), stat="density", adjust=1)+
+  geom_vline(data=obs_pgr_df, aes(xintercept=pgr_synch, color=Var2), linetype=2)+
+  facet_wrap("Var2")+
+  scale_color_manual(values = c("grey45", "steelblue", "slateblue4", "darkorange", "purple"))+
+  guides(color=FALSE)+
+  theme_bw()
+```
+
+```{r figure_2, echo=FALSE, fig.cap="Results from IPM simulations with difference sources of stochasticity present/absent at each site. DEMO = demographic stochasticity only; ENV = environmental stochasticity only; ENVDEMO = both demograhpic and environmental stochasticity.", fig.width=6}
 colnames(mlist)[1:3] <- c("year", "species", "cover")
 sites <- unique(mlist$L1)
 sims <- unique(mlist$L2)
@@ -398,6 +468,7 @@ pgrsynch_plot <- ggplot(pgr_synch, aes(x=L2, y=value, color=L1, group=L1))+
   ylab("Species synchrony")+
   theme_bw()
 
+print(pgrsynch_plot)
 
 ####
 ####  Compare observed and IPM simulated synchrony
@@ -408,13 +479,11 @@ nsites <- length(sites)
 
 ```
 
-Theory predicts that demographic stochasticty is the only force that, in isolation, can desynchronize population dynamics. However, theory also predicts that demographic stochasticity is likely unable to counteract the synchronizing effect of environmental forces. Our results support this prediction in the cases where environmental stochasticity is a synchronizing force (compare ENV and ENVDEMO bars in Figure 1).
-
 \newpage
 
 Additional Figures
 ------------------
-```{r time_series, echo=FALSE, fig.cap="Example time series from the simulations."}
+```{r time_series, eval=FALSE, echo=FALSE, fig.cap="Example time series from the simulations."}
 ggplot(mlist, aes(x=year, y=(cover*100), color=species))+
   geom_line()+
   facet_grid(L1~L2, scale="free")
