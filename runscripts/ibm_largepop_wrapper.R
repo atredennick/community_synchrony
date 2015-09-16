@@ -28,10 +28,11 @@ totSims <- 1      # number of simulations per site (1 here since using large lan
 totT <- 1500      # time steps of simulation
 burn.in <- 500    # time steps to discard before calculating cover values
 L <- 100          # dimension of square quadrat (cm)
-expand <- 2      # 1 = 1x1 m^2, 2 = 2x2m^2, etc
 doGroup <- NA     # NA for spatial avg., values for a specific group
 constant <- FALSE # TRUE for constant env.; FALSE for random year effects
 
+## Looping over different landscape sizes
+expand_vec <- c(1,2,4,6,8) # 1 = 1x1 m^2, 2 = 2x2m^2, etc
 
 
 ####
@@ -112,23 +113,21 @@ for(do_site in site_names){
   ####
   ####  Source ibm_skeleton.R
   ####
-  source("ibm_skeleton.R")
-  matplot(1:totT, output[,4:(3+Nspp)], type="l")
-  ##  Make sure nothing went extinct
-  cov_cols <- grep("Cov", colnames(output))
-  if(0 %in% output[totT,cov_cols]){
-    stop("at least one species went extinct, try a larger landscape")
-  } # end extinction error IF/THEN
-  
-  
-  ####
-  ####  Save site output; raw time series
-  ####
-  saveRDS(output[(burn.in+1):totT, ], paste0("../results/ibm_largepop_", do_site, ".RDS"))
-  
-  print("")
-  print(paste("Done with", do_site))
+  for(expand in expand_vec){
+    source("ibm_skeleton.R")
+    ####
+    ####  Save site output; raw time series
+    ####
+    saveRDS(output[(burn.in+1):totT, ], paste0("../results/ibm_sims/ibm_", do_site, "_expand", expand, ".RDS"))
+    print(paste("Done with", do_site, "expansion", expand))
+  } # end expansion landscape loop
   
 } # end site loop
 
 
+#   matplot(1:totT, output[,4:(3+Nspp)], type="l")
+##  Make sure nothing went extinct
+#   cov_cols <- grep("Cov", colnames(output))
+#   if(0 %in% output[totT,cov_cols]){
+#     stop("at least one species went extinct, try a larger landscape")
+#   } # end extinction error IF/THEN
