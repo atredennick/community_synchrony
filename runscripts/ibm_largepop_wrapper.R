@@ -49,7 +49,6 @@ n_sites <- length(site_names)
 ####
 ####  Start loop over sites ----------------------------------------------------  
 ####
-site_names <- site_names[3:n_sites]
 for(do_site in site_names){
   ##  Get site-specific regression parameters
   Gpars_site <- Gpars_all[[do_site]]
@@ -119,7 +118,7 @@ for(do_site in site_names){
     ####
     ####  Save site output; raw time series
     ####
-    saveRDS(output[(burn.in+1):totT, ], paste0("../results/ibm_sims/ibm_", do_site, "_expand", expand, ".RDS"))
+    saveRDS(output, paste0("../results/ibm_sims/ibm_", do_site, "_expand", expand, ".RDS"))
     print(paste("Done with", do_site, "expansion", expand))
   } # end expansion landscape loop
   
