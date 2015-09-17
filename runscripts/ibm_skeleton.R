@@ -214,6 +214,12 @@ for(iSim in 1:totSims){
     nextplants=nextplants[nextplants[,2]>0,]    # remove dead plants 
     nextplants=rbind(nextplants,newplants)      # add recruits
     
+    if(nrow(nextplants)==0){
+      output <- rbind(output,c(iSim,tt,doYr,rep(0,Nspp),rep(0,Nspp)))
+      break
+    } # end nexplants==0 if/then
+    
+  
     # output cover and density
     A[]=0; N[]=0
     tmp=aggregate(nextplants[,2],by=list(nextplants[,1]),FUN=sum)
@@ -233,6 +239,7 @@ for(iSim in 1:totSims){
         outxy=rbind(outxy,tmp)
       }
     }
+    
     setTxtProgressBar(pb, tt)
   } # next tt
 } # next iSim

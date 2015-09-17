@@ -49,6 +49,7 @@ n_sites <- length(site_names)
 ####
 ####  Start loop over sites ----------------------------------------------------  
 ####
+site_names <- site_names[3:n_sites]
 for(do_site in site_names){
   ##  Get site-specific regression parameters
   Gpars_site <- Gpars_all[[do_site]]
