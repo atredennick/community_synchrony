@@ -45,7 +45,7 @@ Rpars_all <- readRDS("../results/recruit_parameters.RDS")
 site_names <- names(Gpars_all)
 n_sites <- length(site_names)
 
-
+site_names <- "NewMexico"
 ####
 ####  Start loop over sites ----------------------------------------------------  
 ####
