@@ -24,15 +24,15 @@ library(msm)                # for the IBM
 ####
 ####  Set up global variables and simulation config ----------------------------
 ####
-totSims <- 1      # number of simulations per site (1 here since using large landscape)
-totT <- 1500      # time steps of simulation
-burn.in <- 500    # time steps to discard before calculating cover values
+totSims <- 20      # number of simulations per site (1 here since using large landscape)
+totT <- 100      # time steps of simulation
+burn.in <- 25    # time steps to discard before calculating cover values
 L <- 100          # dimension of square quadrat (cm)
 doGroup <- NA     # NA for spatial avg., values for a specific group
 constant <- FALSE # TRUE for constant env.; FALSE for random year effects
 
 ## Looping over different landscape sizes
-expand_vec <- c(1,2,4,6,8) # 1 = 1x1 m^2, 2 = 2x2m^2, etc
+expand_vec <- c(1,2,3,4,5) # 1 = 1x1 m^2, 2 = 2x2m^2, etc
 
 
 ####
@@ -45,7 +45,7 @@ Rpars_all <- readRDS("../results/recruit_parameters.RDS")
 site_names <- names(Gpars_all)
 n_sites <- length(site_names)
 
-site_names <- "NewMexico"
+do_site <- "NewMexico"
 ####
 ####  Start loop over sites ----------------------------------------------------  
 ####
@@ -124,10 +124,21 @@ for(do_site in site_names){
   
 } # end site loop
 
+library(ggplot2)
+output <- as.data.frame(output, row.names = c(1:nrow(output)))
+ggplot(output)+
+  geom_line(aes(x=time, y=Cov.BOER))+
+  geom_line(aes(x=time, y=Cov.SPFL))+
+  facet_wrap("run")
 
-#   matplot(1:totT, output[,4:(3+Nspp)], type="l")
-##  Make sure nothing went extinct
-#   cov_cols <- grep("Cov", colnames(output))
-#   if(0 %in% output[totT,cov_cols]){
-#     stop("at least one species went extinct, try a larger landscape")
-#   } # end extinction error IF/THEN
+### Get non-extinction runs
+"%w/o%" <- function(x, y) x[!x %in% y] # x without y
+cover.columns <- grep("Cov.", colnames(output))
+extinctions <- unique(output[which(output[,4]==0 | output[,5]==0), "run"])
+keeps <- output$run %w/o% extinctions
+coexist <- subset(output, run %in% keeps)
+
+ggplot(coexist)+
+  geom_line(aes(x=time, y=Cov.BOER))+
+  geom_line(aes(x=time, y=Cov.SPFL))+
+  facet_wrap("run")
