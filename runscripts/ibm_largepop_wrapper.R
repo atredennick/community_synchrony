@@ -124,21 +124,21 @@ for(do_site in site_names){
   
 } # end site loop
 
-library(ggplot2)
-output <- as.data.frame(output, row.names = c(1:nrow(output)))
-ggplot(output)+
-  geom_line(aes(x=time, y=Cov.BOER))+
-  geom_line(aes(x=time, y=Cov.SPFL))+
-  facet_wrap("run")
-
-### Get non-extinction runs
-"%w/o%" <- function(x, y) x[!x %in% y] # x without y
-cover.columns <- grep("Cov.", colnames(output))
-extinctions <- unique(output[which(output[,4]==0 | output[,5]==0), "run"])
-keeps <- output$run %w/o% extinctions
-coexist <- subset(output, run %in% keeps)
-
-ggplot(coexist)+
-  geom_line(aes(x=time, y=Cov.BOER))+
-  geom_line(aes(x=time, y=Cov.SPFL))+
-  facet_wrap("run")
+# library(ggplot2)
+# output <- as.data.frame(output, row.names = c(1:nrow(output)))
+# ggplot(output)+
+#   geom_line(aes(x=time, y=Cov.BOER))+
+#   geom_line(aes(x=time, y=Cov.SPFL))+
+#   facet_wrap("run")
+# 
+# ### Get non-extinction runs
+# "%w/o%" <- function(x, y) x[!x %in% y] # x without y
+# cover.columns <- grep("Cov.", colnames(output))
+# extinctions <- unique(output[which(output[,4]==0 | output[,5]==0), "run"])
+# keeps <- output$run %w/o% extinctions
+# coexist <- subset(output, run %in% keeps)
+# 
+# ggplot(coexist)+
+#   geom_line(aes(x=time, y=Cov.BOER))+
+#   geom_line(aes(x=time, y=Cov.SPFL))+
+#   facet_wrap("run")
