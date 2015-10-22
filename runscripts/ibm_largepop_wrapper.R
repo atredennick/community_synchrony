@@ -29,7 +29,7 @@ totT <- 100      # time steps of simulation
 burn.in <- 25    # time steps to discard before calculating cover values
 L <- 100          # dimension of square quadrat (cm)
 doGroup <- NA     # NA for spatial avg., values for a specific group
-constant <- FALSE # TRUE for constant env.; FALSE for random year effects
+constant <- TRUE # TRUE for constant env.; FALSE for random year effects
 
 ## Looping over different landscape sizes
 expand_vec <- c(1,2,3,4,5) # 1 = 1x1 m^2, 2 = 2x2m^2, etc
@@ -43,6 +43,7 @@ Spars_all <- readRDS("../results/surv_params_list.RDS")
 Rpars_all <- readRDS("../results/recruit_parameters.RDS")
 
 site_names <- names(Gpars_all)
+site_names <- c("Arizona", "Idaho", "Kansas")
 n_sites <- length(site_names)
 
 do_site <- "NewMexico"
@@ -118,7 +119,7 @@ for(do_site in site_names){
     ####
     ####  Save site output; raw time series
     ####
-    saveRDS(output, paste0("../results/ibm_sims/ibm_", do_site, "_expand", expand, ".RDS"))
+    saveRDS(output, paste0("../results/ibm_sims/ibm_", do_site, "_constant_expand", expand, ".RDS"))
     print(paste("Done with", do_site, "expansion", expand))
   } # end expansion landscape loop
   
