@@ -36,17 +36,36 @@ Andrew T. Tredennick\footnote{Correspondance: atredenn@gmail.com}\textsuperscrip
 
 Abstract
 -------------
-Temporal asynchrony among interacting species is an important mechanism through which species richness can stabilize biomass production through time. While asynchrony is a key mechanism linking biodiversity and ecosystem function, empirical support for the prevalance species asynchrony is mixed, and no studies have rigorously disentangled the forces driving species (a)synchrony in nature. Theory identifies three drivers of species synchrony: inter- and intraspecific density dependence sychronize dynamics, demographic stochasticity desynchronize dynamics, and environmental forcing can either synchronize or desynchronize poplation dynamics depending on the correlation of species-specific environmental responses. Here we use stochastic population models fit using long term datasets from five semi-arid grasslands to identify the forces that increase or decrease species synchrony through time. We find that the trophically-similar grass species in our dataset have population dynamics that are synchronized by similar responses to environmental fluctuations. Species interactions tend to be weak, so removing interspecific competition did not reduce synchrony. The effect of demographic stochasticity depended on the spatial scale of our modeling. Though we found that similar responses to environmental fluctuations synchronized species, dynamics were not completly synchronous. We conclude that niche differentiation among species is strong enough to reduce the synchronizing effect of coupled density dependence via competition, but this is countered by the synchronizing effect of similar environmental responses. The next frontier is to identify the specific environmental drivers of species synchrony to inform predictive efforts.  
+Temporal asynchrony among interacting species is an important mechanism through which species richness can stabilize biomass production through time. 
+While asynchrony is a key mechanism linking biodiversity and ecosystem function, empirical support for the prevalance species asynchrony is mixed, and no studies have rigorously disentangled the forces driving species (a)synchrony in nature. 
+Theory identifies three drivers of species synchrony: inter- and intraspecific density dependence sychronizes dynamics, demographic stochasticity desynchronizes dynamics, and environmental forcing can either synchronize or desynchronize poplation dynamics depending on the correlation of species-specific environmental responses. 
+Here we use stochastic population models fit using long term datasets from five semi-arid grasslands to identify the forces that increase or decrease species synchrony through time. 
+We find that the trophically-similar grass species in our dataset have population dynamics that are synchronized by similar responses to environmental fluctuations. 
+Species interactions tend to be weak, so removing interspecific competition did not reduce synchrony. 
+The effect of demographic stochasticity depended on the spatial scale of our modeling; demographic stochasticity was strongest in small populations and was able to modestly counteract the synchronizing effect of the environment. 
+Although we found that similar responses to environmental fluctuations synchronized species, dynamics were not completly synchronous. 
+We conclude that niche differentiation among species is strong enough to reduce the synchronizing effect of coupled density dependence via competition, but this is countered by the synchronizing effect of similar environmental responses. 
+The next frontier is to identify the specific environmental drivers of species synchrony to inform predictive efforts.  
 
 __Keywords__: synchrony, compensatory dynamics, environmental stochasticity, demographic stochasticity, stability
 
 Introduction
 ------------
-Asynchrony in population dynamics among co-occuring plant species stabilizes ecosystem-level properties like annual biomass production (Hector et al. 2010, Loreau and de Mazancourt 2013, de Mazancourt et al. 2013, Hautier et al. 2014). Species-specific responses to environmental conditions, in particular, can stabilize ecosystem properties even as environmental forcings fluctuate through time. Such asynchrony of species dynamics in response to the environment has the potential to buffer ecosystems subjected to an increasingly variable climate. Thus, the extent to which natural communities exhibit asynchronous dynamics determines, in part, their ability to cope with interannual climate extremes that are projected to become more common.
+Asynchrony in population dynamics among co-occuring plant species stabilizes ecosystem-level properties like annual biomass production (Hector et al. 2010, Loreau and de Mazancourt 2013, de Mazancourt et al. 2013, Hautier et al. 2014). 
+Species-specific responses to environmental conditions, in particular, can stabilize ecosystem properties even as environmental forcings fluctuate through time. 
+Such asynchrony of species dynamics in response to the environment has the potential to buffer ecosystems subjected to an increasingly variable envirnmental conditions. 
 
-Theory suggests that community synchrony is driven by a combination of internal and external forces. Internal to the community, demographic stochasticity can induce asynchronous dynamics when species tend to fluctuate independently in a constant environment (Loreau and de Mazancourt 2008). However, species live in non-constant environments that act as strong external drivers of community dynamics. Environmental variability can induce asynchronous dynamics when species' responses to environmental conditions are temporally uncorrelated. When species respond similarly to environmental conditions, community dynamics become more synchronized (Gonzalez and Loreau 2009, Loreau and de Mazancourt 2008).
+Theory suggests that community synchrony is driven by a combination of internal and external forces. 
+Internal to the community, demographic stochasticity can induce asynchronous dynamics when species tend to fluctuate independently in a constant environment (Loreau and de Mazancourt 2008). 
+However, species live in non-constant environments that act as strong external drivers of community dynamics. 
+Environmental variability can induce asynchronous dynamics when species' responses to environmental conditions are temporally uncorrelated. 
+When species respond similarly to environmental conditions, community dynamics become more synchronized (Gonzalez and Loreau 2009, Loreau and de Mazancourt 2008).
 
-It is impossible to draw inference on the relative contribution of demographic and environmental stochasticity on synchrony based on empirical estimates alone, so our analysis involves two steps.  First, we will use longterm datasets from five North American grasslands (Fig. 1; Chu and Adler 2015) to calculate community synchrony. Second, we will fit multispecies population models to the data for dominant species to evaluate the relative contribution of species' environmental responses and demographic stochasticity to community synchrony. Sparse data on sub-dominant species constrained model fitting to dominant species that account for ##% - ##% of local plant abundance at their respective sites. Our focus is on temporal trends of per capita growth rates becuase these best reflect the short-term responses of populations to environmental conditions that fluctuate on annual time scales (Loreau and de Mazancourt 2008).
+It is impossible to draw inference on the relative contribution of demographic and environmental stochasticity on synchrony based on empirical estimates alone, so our analysis involves two steps.  
+First, we will use longterm datasets from five North American grasslands (Fig. 1; Chu and Adler 2015) to calculate community synchrony. 
+Second, we will fit multispecies population models to the data for dominant species to evaluate the relative contribution of species' environmental responses, interspecific interactions, and demographic stochasticity to community synchrony. 
+Sparse data on sub-dominant species constrained model fitting to dominant species that account for ##% - ##% of local plant abundance at their respective sites. 
+Our focus is on temporal trends of per capita growth rates becuase these best reflect the short-term responses of populations to environmental conditions that fluctuate on annual time scales (Loreau and de Mazancourt 2008).
 
 
 What is expected by theory?[^devel]
@@ -80,41 +99,28 @@ Based on the above theory, we expect synchrony in a community where only demogra
 Data and Methods
 ----------------
 ## Study sites and species
-We use the exact same data as presented in Chu and Adler (2015). From their paper:
+In the early 20th century, several range experiment stations in the western U.S. began mapping permanent quadrats, and conducted annual censuses for decades. 
+We use such long-term demographic data sets from five semiarid grasslands in the western United States (described in detail by Chu and Adler 2015).
+Each study site includes a set of $1-m^2$ permanent quadrats within which all individual plants were identified and mapped annually using a pantograph (Hill 1920).
+The resulting mapped polygons represent basal cover for grasses and canopy cover for shrubs.
+Data come from the Sonoran desert in Arizona (Anderson et al. 2012), sagebrush steppe in Idaho (Zachmann et al. 2010), southern mixed prairie in Kansas (Adler et al. 2007), northern mixed prairie in Montana (Anderson et al. 2011), and Chihuahuan desert in New Mexico (Anderson et al. in preparation, Chu and Adler 2015).
 
->Many range experiment stations in the western U.S. began mapping permanent quadrats in the early 20th century, and continued annual censuses for decades. Here we focus on five long-term data sets (Fig. 1), four of which have been distributed publicly (Adler et al. 2007b, Zachmann et al. 2010, Anderson et al. 2011, 2012). At each study site, all individual plants within each 1-m2 quadrat were identified and mapped annually using a pantograph (Hill 1920; Fig. 2). Mapped polygons represent basal cover for grasses and canopy cover for shrubs (Fig. 2). 
-
->To fit our population models, we needed to study species common enough to provide a large sample size (i.e. the most common species at each site). In order to describe species interactions, we needed to select species that co-occurred together across many years. Thus, our analysis focused on the niche differences and average fitness differences of the most common, co-occurring species at each site, which implies that the average fitness differences among species could be relatively small. To select these species, we first identified species that occurred in at least 20% of years. Then we used Nonmetric Multidimensional Scaling (NMDS) to identify quadrats with a similar composition of these candidate species. Based on the degree of aggregation of quadrats on the NMDS plot, we selected quadrats and species for our full analysis. We also confirmed these selections with local personnel from each study site. Below we further describe each study site and our criteria for quadrat and species selections.
-
->_Sonoran desert, Arizona_
-
->The Sonoran desert data set comes from 178 permanent quadrats located on semi-desert grasslands at the Santa Rita Experimental Range (31º50’ N, 110º53’ W; elevation 1150 meters), Arizona (Anderson et al. 2012). Mean annual precipitation was 450 mm with the monthly variation from 5 mm (May) to 107 mm (July), and mean annual temperature was 16 °C with the monthly variation from 8 °C (January) to 26 °C (July) during the sampling period. These quadrats were mapped annually from 1915 to 1933 in most cases. The dominant flora varies across the broad range of soils and topography that occur within the semi-desert grasslands. For our present analysis, we chose 32 quadrats dominated by black grama Bouteloua eriopoda (BOER) and Bouteloua rothrockii (BORO). 
-
->_Sagebrush steppe, Idaho_
-
->The sagebrush data set comes from the U.S. Sheep Experiment Station, currently a US Department of Agriculture Agricultural Research Service field station, located 9.6 km north of Dubois, Idaho (44.2°N, 112.1°W; elevation 1500 meters). 26 quadrats were established between 1926 and 1932 (Zachmann et al. 2010). During the period of sampling (1926 – 1957), mean annual precipitation was 270 mm with the monthly variation from 16 mm (March) to 42 mm (June), and mean annual temperature was 6 °C with the monthly variation from -8 °C (January) to 21 °C (July). The vegetation is dominated by the shrub, Artemisia tripartita (ARTR), and the C3 perennial bunchgrasses Pseudoroegneria spicata (PSSP), Hesperostipa comata (HECO), and Poa secunda (POSE).
-
->_Southern mixed prairie, Kansas_
-
->The southern mixed prairie data set represents the pioneering work of Albertson and colleagues (Albertson and Tomanek 1965), who established 51 permanent quadrats inside and outside livestock exclosures near Hays, Kansas (38.8°N, 99.3°W; elevation 650 meters). The mean annual precipitation was 580 mm with the monthly variation from 10 mm (January) to 103 mm (June), and mean annual temperature was 12 °C with the monthly variation from -2.0 °C (January) to 27 °C (July). These quadrats were mapped from 1932 to 1972 at the end of each growing season (Adler et al. 2007b). Variation in soil depth and texture creates distinct plant communities. Many of the quadrats were located on shortgrass communities dominated by Bouteloua gracilis and Buchloë dactyloides. We had difficulty working with these species, which can be hard to distinguish in the field in the absence of inflorescences, and were often mapped inconsistently. Therefore, we focused on 7 quadrats dominated by Bouteloua curtipendula (BOCU), Bouteloua hirsuta (BOHI), and Schizachyrium scoparium (SCSC). 
-
->_Northern mixed prairie, Montana_
-
->The northern mixed prairie data set comes from the Fort Keogh Livestock and Range Research Laboratory, another USDA Agricultural Research Service field station. The study site is located on alluvial plains near the Tongue River (46o19’N, 105o48’W; elevation 720 meters). Mean annual precipitation was 343 mm with the monthly variation from 7 mm (February) to 74 mm (June), and mean annual temperature was 8 °C with the monthly variation from -7 °C (January) to 25 °C (July). 44 quadrats, distributed across six pastures assigned to one of three grazing intensities, were mapped annually (with some exceptions) from 1932 through 1945 (Anderson et al. 2011). Our analysis includes 19 quadrats in which Bouteloua gracilis (BOGR), Hesperostipa comata (HECO), Pascopyrum smithii (PASM), and Poa secunda (POSE) were prevalent.
-
->_Chihuahuan desert, New Mexico_
-
->The last data set consists of 76 permanent quadrats located in Chihuahuan desert plant communities at the Jornada Experimental Range (32.62°N, 106.67°W; elevation 1260 meters), New Mexico. Mean annual precipitation was 264 mm with the monthly variation from 6 mm (April) to 48 mm (August), and mean annual temperature was 14 °C with the monthly variation from 4 °C (January) to 26 °C (July). Quadrats were established from 1915-1920 and mapping was conducted annually until the 1960’s (it continues on roughly 5 yr intervals to the present). Due to the changes in mapping frequency in the 1960’s, and the effects of a severe drought in the 1950’s that triggered a conversion of many quadrats from grassland to shrubland, we analyzed data for the period from 1915 to 1950. We selected 48 quadrats in which both Bouteloua eriopoda (BOER) and Sporobolus flexuosus (SPFL) were common (Anderson et al. in preparation). 
-
+Chu and Adler describe the selection of focal species in each data set, so we offer a brief explanation here.
+Focal species needed to comply with two criteria: (1) be common enough to provide a large sample size for model fitting and (2) co-occur with other focal species often enough to allow us to describe species interactions within the model.
+Thus, Chu and Adler (2015) chose species that occurred in at least 20% of years and then used Nonmetric Multidimensional Scaling (NMDS) to identify quadrats with a similar composition of these candidate species.
 
 ## Analytical approach
-While the observational data allows us to directly calculate species synchrony within the community, it is impossible to isolate the contributions of demographic and environmental stochasticity on species synchrony based on the data alone. So we now turn to a empirically-based modeling approach where we can turn demographic and environmental stochasticity on/off. To our knowledge, Integral Projection Models (IPMs) are the only tools available that allow us to isolate sources of stochasticity. For example, individual-based models require demographic stochasticity, making it impossible to isolate the effect of environmental stochasticity alone.
-
-We describe our approach in three steps. First, we describe the statistical models for three vitale rates: survival, growth, and recruitment. Second, we describe the IPM construction in detail. Third, we describe the IPM simulations we conducted to answer our questions. 
+While the observational data allows us to directly calculate species synchrony within the community, it is impossible to isolate the contributions of demographic and environmental stochasticity on species synchrony based on the data alone. 
+So we now turn to a empirically-based modeling approach where we can turn species' interactions and demographic and environmental stochasticity on/off. 
+We use two models: (1) an environmentally stochastic Integral Projection Model (IPM) and (2) a demographically and environmentally stochastic Individual Based Model (IBM).
+Both models are driven by the same vital rate regressions for survival, growth, and recreuitment.
+We use the IPM to explore the drivers of synchrony assuming a large population where demographic stochasticity is weak or absent.
+We use the IBM to isolate the effect of demographic stochasticity and to examine how demographic and environmental stochasticity interact as population size increases (i.e., as the effect of demographic stochasticity weakens).
+The use of two model types (IPM and IBM) is the only way to isolate the effects of environmental stochasticity (an IPM with no demographic stochasticity) and demographic stochasticity (an IBM with no environmental stochasticity).
 
 ## Statistical models for survival, growth, and recruitment
 ### Survival and growth
-We modeled survival probability and growht on individual genets as a function of genet size, the crowding experienced by the focal genet from both heterospecific and conspecific genets in its neighborhood (described below), temporal varation among years, and spatial variation among quadrat groups. Groups are sets of quadrats located in close proximity within a pasture or grazing exclosure).
+We modeled survival probability and growth on individual genets as a function of genet size, the crowding experienced by the focal genet from both heterospecific and conspecific genets in its neighborhood (described below), temporal varation among years, and spatial variation among quadrat groups. Groups are sets of quadrats located in close proximity within a pasture or grazing exclosure).
 
 We follow the approach of Chu and Adler (2015) to estimate crowding, assuming that the crowding experienced by a focal genet depends on distance to each neighbor genet and the neighbor's size, _u_:
 
