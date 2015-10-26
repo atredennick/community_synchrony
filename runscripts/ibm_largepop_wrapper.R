@@ -122,8 +122,8 @@ for(constant in constant.vec){
       } # end Arizona do_site
       
       if(do_site == "Idaho"){
-        init.cover <- c(0,1,1,1)       # in percent cover
-        # init.cover <- rep(1, times=Nspp) # in percent cover
+        # init.cover <- c(0,1,1,1)       # in percent cover
+        init.cover <- rep(1, times=Nspp) # in percent cover
         maxSize <- c(8000,500,500,500)   # in centimeters
         minSize <- 0.25                  # in centimeters 
       } # end Idaho do_site
@@ -152,7 +152,7 @@ for(constant in constant.vec){
       ####
       for(expand in expand_vec){
         source("ibm_skeleton.R")
-        matplot(output[,8:11], type="l")
+        matplot(output[,4:7], type="l")
         ####
         ####  Save site output; raw time series
         ####

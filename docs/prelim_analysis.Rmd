@@ -386,6 +386,13 @@ print(xtable(table_data, caption = synch_cap),
 
 Figures
 -------
+```{r concept_fig, echo=FALSE, eval=T}
+library(png)
+library(grid)
+img <- readPNG("./prelim_analysis_files/synchrony_conceptual_fig.png")
+grid.raster(img)
+```
+
 ```{r read_data, echo=FALSE, eval=F}
 output_list <- readRDS("../results/ipm_comp_nocomp_sims.RDS")
 mlist <- melt(output_list)
