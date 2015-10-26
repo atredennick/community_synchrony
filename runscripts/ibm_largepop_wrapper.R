@@ -31,12 +31,12 @@ totT <- 100      # time steps of simulation
 burn.in <- 25    # time steps to discard before calculating cover values
 L <- 100          # dimension of square quadrat (cm)
 doGroup <- NA     # NA for spatial avg., values for a specific group
-# constant.vec <- c(FALSE, FALSE, TRUE, TRUE) # TRUE for constant env.; FALSE for random year effects
-# sppinter.vec <- c(FALSE, TRUE, FALSE, TRUE) # TRUE for interspp interactions; FALSE for no interspp interactions
-# filename.flag <- c("fluctnointer", "fluctinter", "constnointer", "constinter")
-constant.vec <- c(FALSE, TRUE, TRUE) # TRUE for constant env.; FALSE for random year effects
-sppinter.vec <- c(TRUE, FALSE, TRUE) # TRUE for interspp interactions; FALSE for no interspp interactions
-filename.flag <- c("fluctinter", "constnointer", "constinter")
+constant.vec <- c(FALSE, FALSE, TRUE, TRUE) # TRUE for constant env.; FALSE for random year effects
+sppinter.vec <- c(FALSE, TRUE, FALSE, TRUE) # TRUE for interspp interactions; FALSE for no interspp interactions
+filename.flag <- c("fluctnointer", "fluctinter", "constnointer", "constinter")
+# constant.vec <- c(FALSE, TRUE, TRUE) # TRUE for constant env.; FALSE for random year effects
+# sppinter.vec <- c(TRUE, FALSE, TRUE) # TRUE for interspp interactions; FALSE for no interspp interactions
+# filename.flag <- c("fluctinter", "constnointer", "constinter")
 
 ## Looping over different landscape sizes
 expand_vec <- c(1,2,3,4,5) # 1 = 1x1 m^2, 2 = 2x2m^2, etc
@@ -122,8 +122,8 @@ for(constant in constant.vec){
       } # end Arizona do_site
       
       if(do_site == "Idaho"){
-        # init.cover <- c(0,1,1,1)       # in percent cover
-        init.cover <- rep(1, times=Nspp) # in percent cover
+        init.cover <- c(0,1,1,1)       # in percent cover
+        # init.cover <- rep(1, times=Nspp) # in percent cover
         maxSize <- c(8000,500,500,500)   # in centimeters
         minSize <- 0.25                  # in centimeters 
       } # end Idaho do_site
@@ -152,7 +152,7 @@ for(constant in constant.vec){
       ####
       for(expand in expand_vec){
         source("ibm_skeleton.R")
-        # matplot(output[,4:7], type="l")
+        matplot(output[,8:11], type="l")
         ####
         ####  Save site output; raw time series
         ####
