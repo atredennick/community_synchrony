@@ -7,6 +7,8 @@ header-includes:
    - \doublespacing
    - \usepackage{todonotes}
    - \usepackage[document]{ragged2e}
+bibliography: ~/Dropbox/Bibliography/CommunitySynchrony.bib
+csl: components/ecology.csl
 
 ## rmarkdown render options
 output:
@@ -17,7 +19,7 @@ fontsize: 12pt
 geometry: margin=1in
 
 ---
-# Environmental responses synchronize population \newline dynamics in five semi-arid grasslands
+# Environmental responses synchronize population \newline dynamics in five semi-arid grasslands, but not completely
 
 \renewcommand*{\thefootnote}{\fnsymbol{footnote}}
 
@@ -51,26 +53,33 @@ __Keywords__: synchrony, compensatory dynamics, environmental stochasticity, dem
 
 Introduction
 ------------
-Asynchrony in population dynamics among co-occuring plant species stabilizes ecosystem-level properties like annual biomass production (Hector et al. 2010, Loreau and de Mazancourt 2013, de Mazancourt et al. 2013, Hautier et al. 2014). 
-Species-specific responses to environmental conditions, in particular, can stabilize ecosystem properties even as environmental forcings fluctuate through time. 
-Such asynchrony of species dynamics in response to the environment has the potential to buffer ecosystems subjected to an increasingly variable envirnmental conditions. 
+All populations fluctuate through time as a result of density-dependence (inter and intraspecific interactions), demographic stochasticity, and fluctuating environmental forces [@Lande2003; @Loreau2008a; @Mutshinda2009; @Gonzalez2009].
+Population fluctuations play integral roles at the community and ecosystem levels by creating opportunities for coexistence [@Chesson2000a] and by stabilizing aggregate properties like annual biomass production [@Hector2010; @Loreau2013; @DeMazancourt2013a; @Hautier2014].
+In both cases (species coexistence and ecosystem stability), temporal niche differentiation driven by species-specific responses to environmental conditions is necessary to create asynchrounous population dynamics.
+However, detecting and interpreting species asynchrony in natural systems has been plagued by methodological issues, and few have attempted to decompose the drivers of species synchrony.
+Thus, we lack general answers to two fundamental questions that have fascinated ecologists for decades: (1) How (a)synchronous are interacting populations in natural ecosystems? and (2) What drives temporal (a)synchrnous dynamics in the real world?
 
-Theory suggests that community synchrony is driven by a combination of internal and external forces. 
-Internal to the community, demographic stochasticity can induce asynchronous dynamics when species tend to fluctuate independently in a constant environment (Loreau and de Mazancourt 2008). 
-However, species live in non-constant environments that act as strong external drivers of community dynamics. 
-Environmental variability can induce asynchronous dynamics when species' responses to environmental conditions are temporally uncorrelated. 
-When species respond similarly to environmental conditions, community dynamics become more synchronized (Gonzalez and Loreau 2009, Loreau and de Mazancourt 2008).
+The seminal study by @Houlahan2007 suggested that asynchronous population dynamics are rare because they found generally positive correlations in species' abundances through time across a large number of ecosystems.
+The conclusion of @Houlahan2007, that abiotic factors synchronize species' abundances, rests on the implicit assumption that species will fluctuate independently in the absence of temporal niche differences.
+Thus, if populations are observed to covary positively through time, then the environment must be driving such synchronization.
+However, the null hypothesis of independent fluctuations is the incorrect starting point from which to judge spceies synchrony.
 
-It is impossible to draw inference on the relative contribution of demographic and environmental stochasticity on synchrony based on empirical estimates alone, so our analysis involves two steps.  
-First, we will use longterm datasets from five North American grasslands (Fig. 1; Chu and Adler 2015) to calculate community synchrony. 
-Second, we will fit multispecies population models to the data for dominant species to evaluate the relative contribution of species' environmental responses, interspecific interactions, and demographic stochasticity to community synchrony. 
-Sparse data on sub-dominant species constrained model fitting to dominant species that account for ##% - ##% of local plant abundance at their respective sites. 
-Our focus is on temporal trends of per capita growth rates becuase these best reflect the short-term responses of populations to environmental conditions that fluctuate on annual time scales (Loreau and de Mazancourt 2008).
+All organisms exist in variable environments, and those that coexist on similar resources should be expected to respond to the environment in similar ways.
+Based on such a proposition, @Loreau2008 suggest that the true null hypothesis is that coexisting species should fluctuate synchronously, not independently, in the absence of temporal niche differenatiation.
+Then, the judgment of whether species fluctate synchronously or not depends on the degree to which observed dynamics deviate from perfect synchrony.
+In such a light, Houlahan et al.'s (2007) results can be viewed very differently.
+However, Houlahan et al.'s (2007) meausure of compensatory dynamics was summed species covariances through time.
+Summed covariances have no upper or lower bound, making it difficult to interpret their results based on deviations from perfect synchrony.
+In the end, the fact that few communities exhibited negative summed covariance yields little insight as to whether communities tend to be sychronized by environmental forces or not.
+
+Aside from issues relating to the null expectation of species synchrony, disentangling the factors that drive species syncrony is difficult.
+
+
 
 
 What is expected by theory?[^devel]
 ---------------------------
-[^devel]: Note that this is still in development...so some of it may be wrong.
+
 
 Loreau and de Mazancourt (2008) derived a statistic to measure community-wide synchrony of per capita population growth rates:
 
@@ -386,7 +395,7 @@ print(xtable(table_data, caption = synch_cap),
 
 Figures
 -------
-```{r concept_fig, echo=FALSE, eval=T}
+```{r concept_fig, echo=FALSE, fig.cap="Conceptual figure outlining the effects of interspecific interactions and environmental stochasticity in large populations where demographic stochasticity is effectively absent (A) and in populations of varying size where demographic stochasticity is present (B).", eval=T}
 library(png)
 library(grid)
 img <- readPNG("./prelim_analysis_files/synchrony_conceptual_fig.png")

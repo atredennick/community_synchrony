@@ -152,7 +152,7 @@ for(constant in constant.vec){
       ####
       for(expand in expand_vec){
         source("ibm_skeleton.R")
-        matplot(output[,4:7], type="l")
+        # matplot(output[,4:7], type="l")
         ####
         ####  Save site output; raw time series
         ####
