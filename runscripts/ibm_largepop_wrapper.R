@@ -31,9 +31,12 @@ totT <- 100      # time steps of simulation
 burn.in <- 25    # time steps to discard before calculating cover values
 L <- 100          # dimension of square quadrat (cm)
 doGroup <- NA     # NA for spatial avg., values for a specific group
-constant.vec <- c(FALSE, FALSE, TRUE, TRUE) # TRUE for constant env.; FALSE for random year effects
-sppinter.vec <- c(FALSE, TRUE, FALSE, TRUE) # TRUE for interspp interactions; FALSE for no interspp interactions
-filename.flag <- c("fluctnointer", "fluctinter", "constnointer", "constinter")
+# constant.vec <- c(FALSE, FALSE, TRUE, TRUE) # TRUE for constant env.; FALSE for random year effects
+# sppinter.vec <- c(FALSE, TRUE, FALSE, TRUE) # TRUE for interspp interactions; FALSE for no interspp interactions
+# filename.flag <- c("fluctnointer", "fluctinter", "constnointer", "constinter")
+constant.vec <- c(FALSE, TRUE, TRUE) # TRUE for constant env.; FALSE for random year effects
+sppinter.vec <- c(TRUE, FALSE, TRUE) # TRUE for interspp interactions; FALSE for no interspp interactions
+filename.flag <- c("fluctinter", "constnointer", "constinter")
 
 ## Looping over different landscape sizes
 expand_vec <- c(1,2,3,4,5) # 1 = 1x1 m^2, 2 = 2x2m^2, etc
