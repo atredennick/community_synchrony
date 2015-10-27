@@ -39,7 +39,7 @@ filename.flag <- c("fluctnointer", "fluctinter", "constnointer", "constinter")
 # filename.flag <- c("fluctinter", "constnointer", "constinter")
 
 ## Looping over different landscape sizes
-expand_vec <- c(1,2,3,4,5) # 1 = 1x1 m^2, 2 = 2x2m^2, etc
+expand_vec <- c(1,2) # 1 = 1x1 m^2, 2 = 2x2m^2, etc
 
 
 ####
@@ -50,7 +50,6 @@ Spars_all <- readRDS("../results/surv_params_list.RDS")
 Rpars_all <- readRDS("../results/recruit_parameters.RDS")
 
 site_names <- names(Gpars_all)
-site_names <- c("Arizona", "Idaho", "Kansas", "NewMexico")
 n_sites <- length(site_names)
 
 
@@ -58,116 +57,110 @@ n_sites <- length(site_names)
 ####
 ####  Start looping over simulation types --------------------------------------
 ####
-count <- 1 # counter for filename flags
-for(constant in constant.vec){
-  for(sppinter in sppinter.vec){
+for(i in 1:length(constant.vec)){
+  constant <- constant.vec[i]
+  sppinter <- sppinter.vec[i]
+  filename.flag.current <- filename.flag[i]
     
-    filename.flag.current <- filename.flag[count]
+  ####
+  ####  Start loop over sites ----------------------------------------------------  
+  ####
+  for(do_site in site_names){
+    ##  Get site-specific regression parameters
+    Gpars_site <- Gpars_all[[do_site]]
+    Spars_site <- Spars_all[[do_site]]
+    Rpars_site <- Rpars_all[[do_site]]
+    
+    ##  Define bookkeeping variables
+    sppList <- spp_list <- names(Gpars_site)
+    Nyrs <- nrow(Gpars_site[[1]])
+    Nspp <- length(sppList)
+    site_path <- paste("../data/", do_site, sep="")
+    
+    ##  Formate regression parameters for model
+    Gpars <- format_growth_params(do_site = do_site, species_list = spp_list, 
+                                  Nyrs = Nyrs, Gdata_species = Gpars_site)
+    Spars <- format_survival_params(do_site = do_site, species_list = spp_list, 
+                                    Nyrs = Nyrs, Sdata_species = Spars_site)
+    Rpars <- format_recruitment_params(do_site = do_site, species_list = spp_list, 
+                                       Nyrs = Nyrs, Rdata_species = Rpars_site,
+                                       path_to_site_data = site_path)
+    
+    ## Turn off random year effects if constant==TRUE
+    if(constant==TRUE){
+      Rpars$intcpt.yr <- matrix(Rpars$intcpt.mu,Nyrs,Nspp,byrow=T)
+      Gpars$intcpt.yr[] <- 0; Gpars$slope.yr[] <- 0
+      Spars$intcpt.yr[] <- 0; Spars$slope.yr[] <- 0    
+    } # end constant T/F
+    
+    ## Turn off competition if sppinter==FALSE
+    if(sppinter==FALSE){
+      rnbtmp <- Rpars$dd
+      rnbtmp[] <- 0
+      diag(rnbtmp) <- diag(Rpars$dd)
+      Rpars$dd <- rnbtmp
+      
+      gnbtmp <- Gpars$nb
+      gnbtmp[] <- 0
+      diag(gnbtmp) <- diag(Gpars$nb)
+      Gpars$nb <- gnbtmp
+      
+      snbtmp <- Spars$nb
+      snbtmp[] <- 0
+      diag(snbtmp) <- diag(Spars$nb)
+      Spars$nb <- snbtmp    
+    } # end interspecific competition if/then
+    
+    
+    ##  Simulation settings by site (sizes from Chu and Adler 2015)
+    if(do_site == "Arizona"){
+      init.cover <- rep(1, times=Nspp) # in percent cover
+      maxSize <- c(170, 40)            # in centimeters
+      minSize <- 0.25                  # in centimeters 
+    } # end Arizona do_site
+    
+    if(do_site == "Idaho"){
+      # init.cover <- c(0,1,1,1)       # in percent cover
+      init.cover <- rep(1, times=Nspp) # in percent cover
+      maxSize <- c(8000,500,500,500)   # in centimeters
+      minSize <- 0.25                  # in centimeters 
+    } # end Idaho do_site
+    
+    if(do_site == "Kansas"){
+      init.cover <- rep(1, times=Nspp) # in percent cover
+      maxSize <- c(1650, 550, 2056)    # in centimeters
+      minSize <- 0.25                  # in centimeters 
+    } # end Kansas do_site
+    
+    if(do_site == "Montana"){
+      init.cover <- rep(1, times=Nspp) # in percent cover
+      maxSize <- c(2500, 130, 22, 100) # in centimeters
+      minSize <- 0.25                  # in centimeters 
+    } # end Montana do_site
+    
+    if(do_site == "NewMexico"){
+      init.cover <- rep(1, times=Nspp) # in percent cover
+      maxSize <- c(600, 1300)          # in centimeters
+      minSize <- 0.25                  # in centimeters 
+    } # end New Mexico do_site
+    
     
     ####
-    ####  Start loop over sites ----------------------------------------------------  
+    ####  Source ibm_skeleton.R
     ####
-    for(do_site in site_names){
-      ##  Get site-specific regression parameters
-      Gpars_site <- Gpars_all[[do_site]]
-      Spars_site <- Spars_all[[do_site]]
-      Rpars_site <- Rpars_all[[do_site]]
-      
-      ##  Define bookkeeping variables
-      sppList <- spp_list <- names(Gpars_site)
-      Nyrs <- nrow(Gpars_site[[1]])
-      Nspp <- length(sppList)
-      site_path <- paste("../data/", do_site, sep="")
-      
-      ##  Formate regression parameters for model
-      Gpars <- format_growth_params(do_site = do_site, species_list = spp_list, 
-                                    Nyrs = Nyrs, Gdata_species = Gpars_site)
-      Spars <- format_survival_params(do_site = do_site, species_list = spp_list, 
-                                      Nyrs = Nyrs, Sdata_species = Spars_site)
-      Rpars <- format_recruitment_params(do_site = do_site, species_list = spp_list, 
-                                         Nyrs = Nyrs, Rdata_species = Rpars_site,
-                                         path_to_site_data = site_path)
-      
-      ## Turn off random year effects if constant==TRUE
-      if(constant==TRUE){
-        Rpars$intcpt.yr <- matrix(Rpars$intcpt.mu,Nyrs,Nspp,byrow=T)
-        Gpars$intcpt.yr[] <- 0; Gpars$slope.yr[] <- 0
-        Spars$intcpt.yr[] <- 0; Spars$slope.yr[] <- 0    
-      } # end constant T/F
-      
-      ## Turn off competition if sppinter==FALSE
-      if(sppinter==FALSE){
-        rnbtmp <- Rpars$dd
-        rnbtmp[] <- 0
-        diag(rnbtmp) <- diag(Rpars$dd)
-        Rpars$dd <- rnbtmp
-        
-        gnbtmp <- Gpars$nb
-        gnbtmp[] <- 0
-        diag(gnbtmp) <- diag(Gpars$nb)
-        Gpars$nb <- gnbtmp
-        
-        snbtmp <- Spars$nb
-        snbtmp[] <- 0
-        diag(snbtmp) <- diag(Spars$nb)
-        Spars$nb <- snbtmp    
-      } # end interspecific competition if/then
-      
-      
-      ##  Simulation settings by site (sizes from Chu and Adler 2015)
-      if(do_site == "Arizona"){
-        init.cover <- rep(1, times=Nspp) # in percent cover
-        maxSize <- c(170, 40)            # in centimeters
-        minSize <- 0.25                  # in centimeters 
-      } # end Arizona do_site
-      
-      if(do_site == "Idaho"){
-        # init.cover <- c(0,1,1,1)       # in percent cover
-        init.cover <- rep(1, times=Nspp) # in percent cover
-        maxSize <- c(8000,500,500,500)   # in centimeters
-        minSize <- 0.25                  # in centimeters 
-      } # end Idaho do_site
-      
-      if(do_site == "Kansas"){
-        init.cover <- rep(1, times=Nspp) # in percent cover
-        maxSize <- c(1650, 550, 2056)    # in centimeters
-        minSize <- 0.25                  # in centimeters 
-      } # end Kansas do_site
-      
-      if(do_site == "Montana"){
-        init.cover <- rep(1, times=Nspp) # in percent cover
-        maxSize <- c(2500, 130, 22, 100) # in centimeters
-        minSize <- 0.25                  # in centimeters 
-      } # end Montana do_site
-      
-      if(do_site == "NewMexico"){
-        init.cover <- rep(1, times=Nspp) # in percent cover
-        maxSize <- c(600, 1300)          # in centimeters
-        minSize <- 0.25                  # in centimeters 
-      } # end New Mexico do_site
-      
-      
+    for(expand in expand_vec){
+      source("ibm_skeleton.R")
+      # matplot(output[,4:7], type="l")
       ####
-      ####  Source ibm_skeleton.R
+      ####  Save site output; raw time series
       ####
-      for(expand in expand_vec){
-        source("ibm_skeleton.R")
-        # matplot(output[,4:7], type="l")
-        ####
-        ####  Save site output; raw time series
-        ####
-        saveRDS(output, paste0("../results/ibm_sims/ibm_", do_site, "_", filename.flag.current, "expand", expand, ".RDS"))
-        print(paste("Done with", do_site, "expansion", expand))
-      } # end expansion landscape loop
-      
-    } # end site loop
+      saveRDS(output, paste0("../results/ibm_sims/ibm_", do_site, "_", filename.flag.current, "expand", expand, ".RDS"))
+      print(paste("Done with", do_site, "expansion", expand))
+    } # end expansion landscape loop
     
-  } # end spp interaction loop
-  
-  count <- count+1 # advance counter for filename flag
-  print(filename.flag[count])
-  
-} # end environment loop
+  } # end site loop
+    
+} # end environment/sppinter loop
 
 
 

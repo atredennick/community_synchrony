@@ -480,8 +480,10 @@ const.nointer.plot <- ggplot(output_df, aes(x=expansion, y=synchrony, color=site
 ####
 ####  Arrange plots and save ---------------------------------------------------
 ####
+# png("../../docs/prelim_analysis_files/ibm_sims_fig.png", height = 10, width = 10, units = "in", res=100)
 out.plot <- grid.arrange(fluct.inter.plot, const.inter.plot, 
                          fluct.nointer.plot, const.nointer.plot,
                          nrow=2, ncol=2)
-
+print(out.plot)
+# dev.off()
 
