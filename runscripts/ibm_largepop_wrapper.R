@@ -39,7 +39,7 @@ filename.flag <- c("fluctnointer", "fluctinter", "constnointer", "constinter")
 # filename.flag <- c("fluctinter", "constnointer", "constinter")
 
 ## Looping over different landscape sizes
-expand_vec <- c(1,2) # 1 = 1x1 m^2, 2 = 2x2m^2, etc
+expand_vec <- c(1,2,3,4,5) # 1 = 1x1 m^2, 2 = 2x2m^2, etc
 
 
 ####
