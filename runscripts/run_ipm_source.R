@@ -43,7 +43,7 @@ size.range=seq(tmp[1],tmp[2],length=50) # range across all possible sizes
 ## initial population density vector
 nt=v
 for(i in 1:Nspp) nt[[i]][]=0.001
-if(do_site=="Idaho") nt[[1]] <- 0
+# if(do_site=="Idaho") nt[[1]] <- 0
 new.nt=nt
 
 # set up matrix to record cover
