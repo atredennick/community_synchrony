@@ -250,13 +250,14 @@ output_df <- output_df[2:nrow(output_df),]
 const.inter.plot <- ggplot(output_df, aes(x=expansion, y=synchrony, color=site))+
   geom_point()+
   stat_smooth(se=FALSE, method="lm", size=1)+
-  scale_color_manual(values = site_colors)+
+  scale_color_manual(values = site_colors, name="")+
   scale_y_continuous(limits=c(0,1))+
   xlab(expression(paste("Simulated landscape size (", m^2, ")")))+
   ylab("Species synchrony")+
   theme_bw()+
   ggtitle("B) Constant environment & \ninterspecific interactions")+
-  theme(legend.position = c(0.9, 0.8))
+  theme(legend.position = c(0.75, 0.85))+
+  guides(color=guide_legend(ncol=2))
 
 
 
@@ -480,10 +481,10 @@ const.nointer.plot <- ggplot(output_df, aes(x=expansion, y=synchrony, color=site
 ####
 ####  Arrange plots and save ---------------------------------------------------
 ####
-# png("../../docs/prelim_analysis_files/ibm_sims_fig.png", height = 10, width = 10, units = "in", res=100)
+png("../../docs/components/ibm_sims_fig.png", height = 10, width = 10, units = "in", res=100)
 out.plot <- grid.arrange(fluct.inter.plot, const.inter.plot, 
                          fluct.nointer.plot, const.nointer.plot,
                          nrow=2, ncol=2)
 print(out.plot)
-# dev.off()
+dev.off()
 
