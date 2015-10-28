@@ -65,6 +65,8 @@ The next frontier is to identify the specific environmental drivers of species s
 
 __Keywords__: synchrony, compensatory dynamics, environmental stochasticity, demographic stochasticity, stability
 
+<!-- \setlength{\parindent}{5ex} -->
+
 Introduction
 ------------
 All populations fluctuate through time as a result of density-dependence (inter and intraspecific interactions), demographic stochasticity, and fluctuating environmental forces [@Lande2003; @Loreau2008a; @Mutshinda2009; @Gonzalez2009].
@@ -546,7 +548,7 @@ pgrsynch_plot <- ggplot(pgr_synch, aes(x=L2, y=value, color=L1, group=L1))+
 print(pgrsynch_plot)
 ```
 
-```{r ibm_sims_figure, echo=FALSE, fig.cap="Species synchrony from spatially-explicit IBM simulations with (A,C) and without (B,D) environmental fluctuations and with (A,B) and without (C,D) interspecific interactions. Points represent replicate IBM simulations (out of 20 possible) in which no species went extinct. Lines show linear fits between plot size (proxy for population size) and species synchrony. Demographic stochasticity plays a large role in small populations (small plot sizes) and a smaller role in large populations (large plot sizes).", fig.height=5}
+```{r ibm_sims_figure, echo=FALSE, fig.cap="Species synchrony from spatially-explicit IBM simulations with (A,C) and without (B,D) environmental fluctuations and with (A,B) and without (C,D) interspecific interactions. Points represent replicate IBM simulations (out of 20 possible) in which no species went extinct. Lines show linear fits between plot size (proxy for population size) and species synchrony. Demographic stochasticity plays a large role in small populations (small plot sizes) and a smaller role in large populations (large plot sizes).", fig.height=6}
 library(png)
 library(grid)
 img <- readPNG("./components/ibm_sims_fig.png")
