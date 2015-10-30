@@ -14,7 +14,7 @@ tlimit <- 2500
 burn_in <- 500
 
 ##  Set up looping vectors for spp interactions
-inter_comp <- c(TRUE)
+inter_comp <- c(TRUE, FALSE)
 sim_names <- c("ENVINTER", "ENVNOINTER")
 
 
