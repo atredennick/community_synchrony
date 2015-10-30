@@ -14,7 +14,7 @@ tlimit <- 2500
 burn_in <- 500
 
 ##  Set up looping vectors for spp interactions
-inter_comp <- c(TRUE,FALSE)
+inter_comp <- c(TRUE)
 sim_names <- c("ENVINTER", "ENVNOINTER")
 
 
@@ -190,13 +190,27 @@ for(do_site in site_list){
     ##  Advance counter
     sim_count <- sim_count+1
     
+    ##  Save stable size distribution IF spp interact == TRUE
+    if(spp_interact==TRUE){
+      outfile <- "stable_size.csv"
+      for(i in 1:Nspp){
+        outdir <- "../results/stable_size_dists/"
+        if(file.exists(outdir)==FALSE){dir.create(outdir)}
+        filename <- paste0(outdir,do_site,"_",spp_list[i],"_",outfile)
+        tmp <- rowMeans(sizeSave[[i]][,(burn_in+1):tlimit])
+        output <- data.frame(v[[i]],tmp)
+        names(output) <- c("size","freq")
+        write.table(output,filename,row.names=F,sep=",")
+      } # end species loop
+    } # end spp_interact IF/THEN for stable size saving
+    
   } # end species interaction loop
   
   ##  Save site output to big list
-  output_list[[do_site]] <- site_output
+  # output_list[[do_site]] <- site_output
   
 } # end site loop
 
 ## Save the output
-saveRDS(output_list, "../results/ipm_comp_nocomp_sims.RDS")
+# saveRDS(output_list, "../results/ipm_comp_nocomp_sims.RDS")
 
