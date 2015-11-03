@@ -7,7 +7,7 @@
 # Clear workspace 
 rm(list=ls(all=TRUE))
 
-totSims <- 20      # number of simulations per site (1 here since using large landscape)
+totSims <- 20      # number of simulations per site 
 totT <- 100      # time steps of simulation
 burn.in <- 25    # time steps to discard before calculating cover values
 site_colors <- c("grey45", "steelblue", "slateblue4", "darkorange", "purple")
@@ -51,7 +51,7 @@ rm(stringlist)
 
 
 output_df <- data.frame(experiment=NA, site=NA, expansion=NA, 
-                        run=NA, synchrony=NA)
+                        run=NA, pgr_synch=NA, abund_synch=NA)
 
 for(do_exp in unique(files_df$experiment)){
   exp_files <- files_df[which(files_df$experiment==do_exp),"filename"]
@@ -121,17 +121,16 @@ for(do_exp in unique(files_df$experiment)){
             obs_gr[ii,] <- as.numeric(log(mergedts[ii,name_ids1]/mergedts[ii,name_ids2]))
           }
           
-          synch.run[count] <- as.numeric(community.sync(obs_gr)[1])
+          colids <- which(colnames(tmpsynch) %in% paste0("Cov.",species_names))
+          synch.abund <- as.numeric(community.sync(tmpsynch[,colids])[1])
+          synch.pgr <- as.numeric(community.sync(obs_gr)[1])
+          tmpD <- data.frame(experiment=do_exp, site=do_site, expansion=i, 
+                             run=count, pgr_synch=synch.pgr, 
+                             abund_synch=synch.abund)
+          output_df <- rbind(output_df, tmpD)
           count <- count+1
         } # end loop over coexistence runs
         
-        # Create tmp dataframe for rbinding to storage df
-        tmpD <- data.frame(synchrony=synch.run) # synchrony of coexistence runs
-        tmpD$experiment <- do_exp
-        tmpD$site <- do_site # current site
-        tmpD$expansion <- i # current plot size
-        tmpD$run <- c(1:length(runs)) # index for simulation run
-        output_df <- rbind(output_df, tmpD[,c("experiment","site", "expansion", "run", "synchrony")])
       } # end if/then for coexistence runs
       
     }# end plot size sim loop
@@ -144,10 +143,13 @@ for(do_exp in unique(files_df$experiment)){
 
 # Remove NA first row
 output_df <- output_df[2:nrow(output_df),]
-
+colnames(output_df)[5:6] <- c("Per capita growth rate", "Cover (%)")
+synch_df <- melt(output_df, id.vars = c("experiment", "site", "expansion", "run"))
+colnames(synch_df) <- c("experiment", "site", "expansion", "run", 
+                        "typesynch", "synch")
 
 ### Make plot and save
-ibm_plot <- ggplot(output_df, aes(x=expansion, y=synchrony, color=experiment))+
+ibm_plot <- ggplot(synch_df, aes(x=expansion, y=synch, color=experiment))+
   geom_point(alpha=0.5)+
   stat_smooth(se=FALSE, method="lm", size=0.7)+
   scale_color_manual(values = c("steelblue", "slateblue4", "darkorange", "darkred"),
@@ -156,12 +158,12 @@ ibm_plot <- ggplot(output_df, aes(x=expansion, y=synchrony, color=experiment))+
                               "F-INTER", "F-NoINTER"))+
   scale_y_continuous(limits=c(0,1))+
   xlab(expression(paste("Simulated landscape size (", m^2, ")")))+
-  ylab("Species synchrony")+
-  facet_wrap("site", ncol=1)+
+  ylab("Community synchrony")+
+  facet_grid(typesynch~site)+
   theme_bw()
 
-png("../../docs/components/ibm_sims_fig.png", height = 10, 
-    width = 4.5, units = "in", res=200)
+png("../../docs/components/ibm_sims_fig.png", height = 5, 
+    width = 10, units = "in", res=150)
 print(ibm_plot)
 dev.off()
 

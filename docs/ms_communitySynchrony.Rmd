@@ -48,7 +48,7 @@ Andrew T. Tredennick\footnote{Correspondance: atredenn@gmail.com}\textsuperscrip
 \renewcommand*{\thefootnote}{\arabic{footnote}}
 \setcounter{footnote}{0}
 
-
+\newpage{}
 
 Abstract
 -------------
@@ -421,7 +421,7 @@ print(xtable(table_data, caption = synch_cap),
 
 Figures
 -------
-```{r concept_fig, echo=FALSE, fig.cap="Conceptual figure outlining the effects of interspecific interactions and environmental stochasticity in large populations where demographic stochasticity is effectively absent (A) and in populations of varying size where demographic stochasticity is present (B).", eval=T}
+```{r concept_fig, echo=FALSE, fig.cap="Conceptual figure outlining the effects of interspecific interactions and environmental stochasticity in large populations where demographic stochasticity is effectively absent (A) and in populations of varying size where demographic stochasticity is present (B).", eval=F}
 library(png)
 library(grid)
 img <- readPNG("./components/synchrony_conceptual_fig.png")
@@ -433,7 +433,7 @@ output_list <- readRDS("../results/ipm_comp_nocomp_sims.RDS")
 mlist <- melt(output_list)
 ```
 
-```{r figure_1, echo=FALSE, fig.cap="Observed (vertical dashed lines) and IPM simulated (solid density curves) synchrony of species per capita growth rates based on changes in percent cover.", fig.width=6, fig.height=6, fig.width=3, eval=T}
+```{r figure_1, echo=FALSE, fig.cap="Observed (vertical dashed lines) and IPM simulated (solid density curves) synchrony of species per capita growth rates based on changes in percent cover. Density curves come from 100 random contiguous sections from 2,000 iteration IPM runs, where the length of each randomly selected section is equal to the numnber of observation years for each data set.", fig.width=6, fig.height=6, fig.width=3, eval=T}
 nyrs <- c(max(out_az$stability$num_observations),
           max(out_id$stability$num_observations),
           max(out_ks$stability$num_observations),
@@ -498,62 +498,25 @@ ggplot()+
   theme_bw()
 ```
 
-```{r figure_2, echo=FALSE, fig.cap="Results from IPM simulations with difference sources of stochasticity present/absent at each site. DEMO = demographic stochasticity only; ENV = environmental stochasticity only; ENVDEMO = both demograhpic and environmental stochasticity.", fig.width=6, eval=T}
-colnames(mlist)[1:3] <- c("year", "species", "cover")
-sites <- unique(mlist$L1)
-sims <- unique(mlist$L2)
-pgr_list <- list()
-for(dosite in sites){
-  tmp_data <- subset(mlist, L1==dosite)
-#   if(dosite=="Idaho"){
-#     tmp_data <- subset(tmp_data, species!="ARTR")
-#   }
-  within_site_list <- list()
-  for(dosim in sims){
-    tmpsim <- subset(tmp_data, L2==dosim)[c("year", "species", "cover")]
-    tmpsynch <- get_ipm_synchrony(tmpsim)
-    tmp_pgr_synch <- as.numeric(tmpsynch$pgr_synchrony["obs"])
-    within_site_list[[dosim]] <- tmp_pgr_synch
-  }
-  pgr_list[[dosite]] <- within_site_list
-}
-pgr_synch <- melt(pgr_list)
-expected_synch <- table_data[,c(1,3)]
-expected_synch$L2 <- "E(SYNCH)"
-colnames(expected_synch) <- c("L1", "value", "L2")
-expected_synch <- expected_synch[,c("value", "L2", "L1")]
-expected_synch[which(expected_synch[,"L1"]=="New Mexico"),"L1"] <- "NewMexico"
+\pagebreak{}
 
-pgr_synch <- rbind(pgr_synch, expected_synch)
-
-# ggplot(pgr_synch, aes(x=L2, y=value, fill=L2))+
-#   geom_bar(stat="identity", position=position_dodge(0.9), color="grey")+
-#   facet_wrap("L1", scales="free_x")+
-#   scale_fill_manual(values = c("grey45", "steelblue", "slateblue4"))+
-#   guides(fill=FALSE)+
-#   scale_y_continuous(limits=c(0,1))+
-#   xlab("Source of stochasticity")+
-#   ylab("Species synchrony")
-
-pgrsynch_plot <- ggplot(pgr_synch, aes(x=L2, y=value, color=L1, group=L1))+
-  geom_line()+
-  geom_point(size=5)+
-  scale_color_manual(values = c("grey45", "steelblue", "slateblue4", "darkorange", "purple"),
-                     name = "Site")+
-  scale_y_continuous(limits=c(0,1))+
-  xlab("Simulation")+
-  ylab("Species synchrony")+
-  theme_bw()
-
-print(pgrsynch_plot)
+```{r figure_2, echo=FALSE, fig.cap="Community synchrony of per capita growth rates (points, solid lines) and percent cover (triangles, dashed lines) from IPM simulations with (INTER) and without (NoINTER) interspecific interactions. 'F' in x-axis labels refers to a fluctuating environment. Errorbars represent the upper and lower 90th quantiles of synchrony from 100 random contiguous 50 year sections from a 2,000 iteration IPM run. Points represent the mean synchrony across the 100 sections.", eval=T}
+library(png)
+library(grid)
+img <- readPNG("./components/ipm_pgr_plot.png")
+grid.raster(img)
 ```
 
-```{r ibm_sims_figure, echo=FALSE, fig.cap="Species synchrony from spatially-explicit IBM simulations with (A,C) and without (B,D) environmental fluctuations and with (A,B) and without (C,D) interspecific interactions. Points represent replicate IBM simulations (out of 20 possible) in which no species went extinct. Lines show linear fits between plot size (proxy for population size) and species synchrony. Demographic stochasticity plays a large role in small populations (small plot sizes) and a smaller role in large populations (large plot sizes).", fig.height=6}
+\pagebreak{}
+
+```{r ibm_sims_figure, echo=FALSE, fig.cap="Community synchrony of per capita growth rates (top panels) and percent cover (bottom panels) from spatially-explicit IBM simulations. Points represent replicate IBM simulations (out of 20 possible) in which no species went extinct. Lines show linear fits between plot size (proxy for population size) and species synchrony. Demographic stochasticity plays a large role in small populations (small plot sizes) and a smaller role in large populations (large plot sizes). Simulation type codes: C = constant environment, F = fluctuating environment, INTER = interspecific interactions included, NoINTER = interspecific interactions excluded (set to zero).", eval=T}
 library(png)
 library(grid)
 img <- readPNG("./components/ibm_sims_fig.png")
 grid.raster(img)
 ```
+
+\pagebreak{}
 
 ```{r time_series, eval=FALSE, echo=FALSE, fig.cap="Example time series from the simulations.", eval=F}
 ggplot(mlist, aes(x=year, y=(cover*100), color=species))+
