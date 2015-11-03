@@ -1,0 +1,264 @@
+Environmental forcing synchronizes community dynamics...but not completely
+========================================================
+author: Andrew Tredennick, Claire de Mazancourt, Michel Loreau, and Peter Adler
+date: 
+
+Asynchrony is a stabilizing force
+========================================================
+
+```{r insynch, echo=FALSE}
+library(ggplot2)
+library(mvtnorm)
+
+annPlantStorage <- function(params, N1, N2){
+  s1 <- params$s1
+  s2 <- params$s2
+  g1 <- params$g1
+  g2 <- params$g2
+  lambda1 <- params$lambda1
+  lambda2 <- params$lambda2
+  alpha11 <- params$alpha11
+  alpha12 <- params$alpha12
+  alpha22 <- params$alpha22
+  alpha21 <- params$alpha21
+  
+  newN1 <- s1*(1-g1)*N1 + ((lambda1*g1*N1) / (1 + alpha11*g1*N1 + alpha12*g2*N2))
+  newN2 <- s2*(1-g2)*N2 + ((lambda2*g2*N2) / (1 + alpha21*g1*N1 + alpha22*g2*N2))
+  
+  newNs <- c(newN1, newN2)
+  return(newNs)
+}
+
+####
+#### Germination rate time series function
+####
+getG <- function(sigE, rho, nTime){
+  varcov <- matrix(c(sigE, rho*sigE, rho*sigE, sigE), 2, 2)
+  e <- rmvnorm(n = nTime, mean = c(0,0), sigma = varcov)
+  g <- exp(e) / (1+exp(e))
+  return(g)
+}
+
+
+s1 <- 0.5
+s2 <- 0.5
+lambda1 <- 50
+lambda2 <- 50
+alpha11 <- 1
+alpha12 <- 1
+alpha21 <- 1
+alpha22 <- 1
+sigE <- 1
+rho <- 0.9
+timeSim <- 50
+initialN <- 100
+
+####
+#### Get germination vectors
+####
+gVec <- getG(sigE = sigE, rho = rho, nTime = timeSim)
+gVec1 <- gVec[,1]
+gVec2 <- gVec[,2]
+
+
+####
+#### Run model
+####
+Nsave <- matrix(nrow=timeSim, ncol=2)
+Nsave[1,] <- initialN
+
+for(t in 2:timeSim){
+  N1 <- Nsave[t-1,1]
+  N2 <- Nsave[t-1,2]
+  params <- list(s1 = s1,
+                 s2 = s2,
+                 lambda1 = lambda1,
+                 lambda2 = lambda2,
+                 alpha11 = alpha11,
+                 alpha12 = alpha12,
+                 alpha21 = alpha21,
+                 alpha22 = alpha22,
+                 g1 = gVec1[t],
+                 g2 = gVec2[t])
+  
+  newN <- annPlantStorage(params = params, N1 = N1, N2 = N2)
+  Nsave[t,1] <- newN[1]
+  Nsave[t,2] <- newN[2]
+}
+
+####
+#### Plot results
+####
+#     matplot(seq(1,timeSim,1), Nsave, type="l")
+plotD <- data.frame(Abundance = c(Nsave[10:timeSim,1], Nsave[10:timeSim,2], Nsave[10:timeSim,1]+Nsave[10:timeSim,2]),
+                    Species = c(rep("A",timeSim-9), rep("B", timeSim-9), rep("ZAll", timeSim-9)),
+                    Time = seq(1,timeSim-9,1))
+
+theplot <- ggplot(plotD, aes(x=Time, y=Abundance, color=Species))+
+  geom_line(size=2)+
+  scale_color_manual(values=c("steelblue", "darkorange", "grey25"))+
+  ylab("Seed Abundance")+
+  guides(color=FALSE)+
+  theme_bw()
+
+print(theplot)
+```
+
+***
+
+```{r outsynch, echo=FALSE}
+s1 <- 0.5
+s2 <- 0.5
+lambda1 <- 50
+lambda2 <- 50
+alpha11 <- 1
+alpha12 <- 1
+alpha21 <- 1
+alpha22 <- 1
+sigE <- 1
+rho <- -0.9
+timeSim <- 50
+initialN <- 100
+
+####
+#### Get germination vectors
+####
+gVec <- getG(sigE = sigE, rho = rho, nTime = timeSim)
+gVec1 <- gVec[,1]
+gVec2 <- gVec[,2]
+
+
+####
+#### Run model
+####
+Nsave <- matrix(nrow=timeSim, ncol=2)
+Nsave[1,] <- initialN
+
+for(t in 2:timeSim){
+  N1 <- Nsave[t-1,1]
+  N2 <- Nsave[t-1,2]
+  params <- list(s1 = s1,
+                 s2 = s2,
+                 lambda1 = lambda1,
+                 lambda2 = lambda2,
+                 alpha11 = alpha11,
+                 alpha12 = alpha12,
+                 alpha21 = alpha21,
+                 alpha22 = alpha22,
+                 g1 = gVec1[t],
+                 g2 = gVec2[t])
+  
+  newN <- annPlantStorage(params = params, N1 = N1, N2 = N2)
+  Nsave[t,1] <- newN[1]
+  Nsave[t,2] <- newN[2]
+}
+
+####
+#### Plot results
+####
+#     matplot(seq(1,timeSim,1), Nsave, type="l")
+plotD <- data.frame(Abundance = c(Nsave[10:timeSim,1], Nsave[10:timeSim,2], Nsave[10:timeSim,1]+Nsave[10:timeSim,2]),
+                    Species = c(rep("A",timeSim-9), rep("B", timeSim-9), rep("ZAll", timeSim-9)),
+                    Time = seq(1,timeSim-9,1))
+
+theplot <- ggplot(plotD, aes(x=Time, y=Abundance, color=Species))+
+  geom_line(size=2)+
+  scale_color_manual(values=c("steelblue", "darkorange", "grey25"))+
+  ylab("Seed Abundance")+
+  guides(color=FALSE)+
+  theme_bw()
+
+print(theplot)
+```
+
+How prevalent are asynchronous dynamics?
+========================================
+<br>
+<br>
+![alt text](houlahan_title.png)
+
+How prevalent are asynchronous dynamics?
+========================================
+![alt text](gross_title.png)
+
+***"In grasslands, compensatory dynamics among species promote community stability, regardless ofhow similarly or dissimilarly those species respond to the environment"***
+
+What drives species synchrony?
+==============================
+**From Loreau and de Mazancourt 2008 (AmNat)**
+* Demographic stochasticity, $\sigma_D$ ($\downarrow$)
+* Environmental forcing, $\sigma_E$ ($\uparrow$)
+* Interspecific interactions, $\sigma_C$ ($\uparrow$)
+
+What drives species synchrony?
+==============================
+**Synchrony varies between 1/S and 1 or $\phi_E$**
+
+<br>
+
+$$
+\phi_r = \frac{\sigma^{2}_{c} + \sigma^{2}_{e} + \sigma^{2}_{d}/(SN)}{[(1/S)(\sum_{i}\sqrt{\sigma^{2}_{c} + \sigma^{2}_{e} + \sigma^{2}_{d}/(N)})]^2}
+$$
+
+What drives species synchrony?
+==============================
+<br>
+$\underbrace{\sigma^{2}_{c}+\sigma^{2}_{e}}_\text{spp. inter. & env.} >> \underbrace{\sigma^{2}_{d}/N_i}_\text{demog. stoch.}$ $\rightarrow$ $\phi_r \approx 1$ or $\phi_E$
+
+$\underbrace{\sigma^{2}_{c}+\sigma^{2}_{e}}_\text{spp. inter. & env.} << \underbrace{\sigma^{2}_{d}/N_i}_\text{demog. stoch.}$ $\rightarrow$ $\phi_r \approx 1/S$
+
+
+
+
+Objectives
+==========
+1. Calculate how (a)synchronous community dynamics are in natural grasslands
+2. Disentangle the drivers of community synchrony
+
+Data
+====
+**Demographic data from 5 semiarid grasslands**
+<br>
+![alt text](chu_map.png)
+
+Methods
+=======
+1. Population models
+  * Environmentally stochastic integral projection model (IPM)
+  * Environmentally and demographically stochastic individually based model (IBM)
+
+2. Explore effects of...
+  * Environmental responses (on/off)
+  * Species interactions (on/off)
+  * Demographic stochasticity (on/off and varying strength)
+  
+Results
+=======
+**Observed vs. modeled synchrony**
+<br>
+<br>
+![alt text](ipm_obs_pgrsynch.png)
+
+Results
+=======
+**No effect of interspecific interactions in large populations**
+<br>
+![alt text](ipm_pgr_plot.png)
+
+Results
+=======
+**Demographic stochasticity de-synchronizes dynamics a little bit**
+<br>
+![alt text](ibm_sims_fig.png)
+
+Conclusion(s)
+=============
+1. Environmental responses synchronize community dynamics, but not completely
+2. Temporal niche differences still exist to (or else synchrony = 1)
+3. Interspecific interactions are weak, so no effect on synchrony
+
+Are asynchronous (compensatory) dynamics rare?
+==============================================
+**NO!**
+<br>
+**We were just looking for them in the wrong place (abundances) and from the wrong starting point (independent fluctuations).**
