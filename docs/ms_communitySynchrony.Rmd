@@ -69,13 +69,15 @@ __Keywords__: synchrony, compensatory dynamics, environmental stochasticity, dem
 
 Introduction
 ------------
-All populations fluctuate through time as a result of density-dependence (inter and intraspecific interactions), demographic stochasticity, and fluctuating environmental forces [@Lande2003; @Loreau2008a; @Mutshinda2009; @Gonzalez2009].
-Population fluctuations play integral roles at the community and ecosystem levels by creating opportunities for coexistence [@Chesson2000a] and by stabilizing aggregate properties like annual biomass production [@Hector2010; @Loreau2013; @DeMazancourt2013a; @Hautier2014].
-In both cases (species coexistence and ecosystem stability), temporal niche differentiation driven by species-specific responses to environmental conditions is necessary to create asynchrounous population dynamics.
-However, detecting and interpreting species asynchrony in natural systems has been plagued by methodological issues, and few have attempted to decompose the drivers of species synchrony.
-Thus, we lack general answers to two fundamental questions that have fascinated ecologists for decades: (1) How (a)synchronous are interacting populations in natural ecosystems? and (2) What drives temporal (a)synchrnous dynamics in the real world?
+Biodiversity tends to confer ecosystem stability in the face of environmental fluctuations [@Hector2010; @DeMazancourt2013a; @Hautier2014].
+In the absence of a highly dominant and stable species, asynchronous population dynamics (also called compensatory dynamics) among interacting species is the only way for biodiversity to stabilize aggregate community or ecosystem function [@Loreau2013].
+Experimental work in grassland communities provides strong evidence for the stabilizing effect of asynchronous population dynamics [@DeMazancourt2013a; @Gross2014; @Hautier2014], but how theoretical mechanisms of species asynchrony link to observed dynamics remains unclear [@Loreau2008a; @Gonzalez2009].
+Futhermore, analyses of observational time series tend to show synchronous, rather than asynchrounous, population dynamics among species of similar ecology (e.g., compete for and use similar resources) [@Houlahan2007; @Rocha2011; @Vasseur2014].
+Thus, our understanding of the prevelance and drivers of asynchronous population dynamics is murky at best.
+Only by fully understanding the mechanisms that lead to asynchronous, or synchronous, in natural ecosystems can we predict how future biodiversity loss may impact ecosystem functioning [@Loreau2010].
 
-The seminal study by @Houlahan2007 suggested that asynchronous population dynamics are rare because they found generally positive correlations in species' abundances through time across a large number of ecosystems.
+All populations fluctuate through time as a result of density-dependence (inter and intraspecific interactions), demographic stochasticity, and fluctuating environmental forces [@Lande2003; @Loreau2008a; @Mutshinda2009; @Gonzalez2009].
+The seminal study by @Houlahan2007 suggested that asynchronous population fluctuations are rare because they found generally positive correlations in species' abundances through time across a large number of ecosystems.
 The conclusion of @Houlahan2007, that abiotic factors synchronize species' abundances, rests on the implicit assumption that species will fluctuate independently in the absence of temporal niche differences.
 Thus, if populations are observed to covary positively through time, then the environment must be driving such synchronization.
 However, the null hypothesis of independent fluctuations is the incorrect starting point from which to judge spceies synchrony.
