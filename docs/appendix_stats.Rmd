@@ -1,0 +1,40 @@
+---
+date: "November 10, 2015"
+output: pdf_document
+---
+
+# Appendix X
+
+## Statistical models for survival, growth, and recruitment
+### Survival and growth
+We modeled survival probability and growth on individual genets as a function of genet size, the crowding experienced by the focal genet from both heterospecific and conspecific genets in its neighborhood (described below), temporal varation among years, and spatial variation among quadrat groups. Groups are sets of quadrats located in close proximity within a pasture or grazing exclosure).
+
+We follow the approach of Chu and Adler (2015) to estimate crowding, assuming that the crowding experienced by a focal genet depends on distance to each neighbor genet and the neighbor's size, _u_:
+
+\begin{equation}
+w_{ijm,t} = \sum_k e^{-\delta_{jm}d_{ijkm,t}^{2}}u_{km,t}.
+\end{equation}
+
+In the above, $w_{ijm,t}$ is the crowding that genet _i_ of species _j_ in year _t_ experiences from neighbors of species _m_. The spatial scale over which species _m_ neighbors exert influence on any genet of species _j_ is determined by $\delta_{jm}$. The function is applied for all _k_ genets of species _m_ that neighbor the focal genet at time _t_, and $d_{ijkm,t}$ is the distance between genet _i_ in species _j_ and genet _k_ in species _m_. When $k=m$, the effect is intraspecific crowding. We use regression-specific (survival and growth) $\delta$ values estimated by Chu and Adler (2015).
+
+### Recruitment
+We model recruitment as a function of plot-level cover, temporal varation among years, and spatial variation among quadrat groups. 
+
+
+## Integral projection models (IPM)
+### Model structure
+We built an environmentally and demographically stochastic integral projection model (IPM), where either environmental or demographic stochasticity can be turned off. Our IPM follows the specification of Chu and Adler (2015) where the population of species _j_ is a density function $n(u_{j},t)$ giving the density of sized-_u_ genets at time _t_. Genet size is on the natural log scale, so that $n(u_{j},t)du$ is the number of genets whose area (on the arithmetic scale) is between $e^{u_{j}}$ and $e^{u_{j}+du}$. So, the density function for any size _v_ at time $t+1$ is
+
+\begin{equation}
+n(v_{j},t+1) = \int_{L_{j}}^{U_{j}} k_{j}(v_{j},u_{j},\bar{\bold{w_{j}}}(u_{j}))n(u_{j},t)
+\end{equation}
+
+where $k_{j}(v_{j},u_{j},\bar{\bold{w_{j}}})$ is the population kernal that describes all possible transitions from size $u$ to $v$ and $\bar{\bold{w_{j}}}$ is a vector of estimates of average crowding experienced from all other species by a genet of size $u_j$ and species $j$. The integral is evaluated over all possible sizes between predefined lower (_L_) and upper (_U_) size limits that extend beyond the range of observed genet sizes.
+
+The population kernal is defined as the joint contributions of survival (_S_), growth (_G_), and recruitment (_R_):
+
+\begin{equation}
+k_{j}(v_{j},u_{j},\bar{\bold{w_{j}}}) = S_j(u_j, \bar{\bold{w_{j}}}(u_{j}))G_j(v_{j},u_{j},\bar{\bold{w_{j}}}(u_{j})) + R_j(v_{j},u_{j},\bar{\bold{w_{j}}}),
+\end{equation}
+
+which, said plainly, means we are calculating growth (_G_) for individuals that survive (_S_) from time _t_ to _t+1_ and adding in newly recruited (_R_) individuals of an average sized one-year-old genet for the focal species. Our stastical model for recruitment (_R_, described below) returns the number of new recruit produced per quadrat. Following previous work, we assume that fecundity increases linearly with size ($R_j(v_{j},u_{j},\bar{\bold{w_{j}}}) = e^{u_j}R_j(v_{j},\bar{\bold{w_{j}}})$) to incorporate the recruitment function in the spatially-implicit IPM.
