@@ -34,17 +34,15 @@ opts_chunk$set(dev='pdf')
 ```
 
 
-# Environmental responses synchronize population dynamics in five semi-arid grasslands, but not completely
+# Disentangling the drivers of species synchrony in natural grasslands: environmental forcing, demographic stochasticity, and interspecific interactions
 
 \renewcommand*{\thefootnote}{\fnsymbol{footnote}}
 
-Andrew T. Tredennick\footnote{Correspondance: atredenn@gmail.com}\textsuperscript{1}, Claire de Mazancourt\textsuperscript{2}, Michel Loreau\textsuperscript{2}, \newline Stephen Ellner\textsuperscript{3}, and Peter B. Adler\textsuperscript{1}
+Andrew T. Tredennick\footnote{Correspondance: atredenn@gmail.com}\textsuperscript{1}, Claire de Mazancourt\textsuperscript{2}, Michel Loreau\textsuperscript{2}, and Peter B. Adler\textsuperscript{1}
 
 \textit{\small{\textsuperscript{1}Department of Wildland Resources and the Ecology Center, 5230 Old Main Hill, Utah State University, Logan, Utah 84322 USA}}
 
 \textit{\small{\textsuperscript{2}Centre for Biodiversity Theory and Modelling, Experimental Ecology Station, Centre National de la Recherche Scientifique, Moulis, 09200, France}}
-
-\textit{\small{\textsuperscript{3}Department of Ecology and Evolutionary Biology, Cornell University, Ithaca, NY 14853, USA}}
 
 \vspace{5em}
 
@@ -61,10 +59,10 @@ Temporal asynchrony among interacting species is an important mechanism through 
 While asynchrony is a key mechanism linking biodiversity and ecosystem function, empirical support for the prevalance species asynchrony is mixed, and no studies have rigorously disentangled the forces driving species (a)synchrony in nature. 
 Theory identifies three drivers of species synchrony: inter- and intraspecific density dependence sychronizes dynamics, demographic stochasticity desynchronizes dynamics, and environmental forcing can either synchronize or desynchronize poplation dynamics depending on the correlation of species-specific environmental responses. 
 Here we use stochastic population models fit using long term datasets from five semi-arid grasslands to identify the forces that increase or decrease species synchrony through time. 
-We find that the trophically-similar grass species in our dataset have population dynamics that are synchronized by similar responses to environmental fluctuations. 
-Species interactions tend to be weak, so removing interspecific competition did not reduce synchrony. 
+Species' environmental responses were positively, but not perfectly correlated. 
+As a result, environmental variation caused an increase in synchrony relative to an expectation of independent species' responses, but synchrony was not perfect.
+Species interactions tend to be weak, so removing interspecific competition did not affect synchrony. 
 The effect of demographic stochasticity depended on the spatial scale of our modeling; demographic stochasticity was strongest in small populations and was able to modestly counteract the synchronizing effect of the environment. 
-Although we found that similar responses to environmental fluctuations synchronized species, dynamics were not completly synchronous. 
 We conclude that niche differentiation among species is strong enough to reduce the synchronizing effect of coupled density dependence via competition, but this is countered by the synchronizing effect of similar environmental responses. 
 The next frontier is to identify the specific environmental drivers of species synchrony to inform predictive efforts.  
 
@@ -76,27 +74,51 @@ Introduction
 ------------
 Biodiversity tends to stabilize ecosystem function in the face of environmental fluctuations [@Hector2010; @DeMazancourt2013a; @Hautier2014].
 In the absence of a highly dominant and stable species, asynchrony in population dynamics (also called compensatory dynamics) among interacting species is the only way for biodiversity to stabilize aggregate community or ecosystem function [@Ives2002; @Loreau2010; @Loreau2013].
-Experimental work in grassland communities provides strong evidence for the stabilizing effect of asynchronous population dynamics [@Hector2010 ;@DeMazancourt2013a; @Gross2014], but how theoretical mechanisms of species asynchrony link to observed dynamics remains unclear [@Loreau2008a; @Gonzalez2009].
-Futhermore, analyses of observational time series tend to show synchronous, rather than asynchrounous, population dynamics among species of similar ecology [@Houlahan2007; @Mutshinda2009; @Rocha2011; @Vasseur2014].
+Experimental work in grassland communities provides strong evidence for the stabilizing effect of asynchronous population dynamics [@Hector2010 ;@DeMazancourt2013a; @Gross2014; Hautier2014], but how theoretical mechanisms of species asynchrony link to observed dynamics remains unclear [@Loreau2008a; @Gonzalez2009].
+Futhermore, analyses of observational time series tend to report synchronous, rather than asynchrounous, population dynamics among species of similar ecology [@Houlahan2007; @Mutshinda2009; @Rocha2011; @Vasseur2014].
 Thus, our understanding of the prevalence and drivers of asynchronous population dynamics is limited.
 Only by fully understanding the mechanisms that lead to asynchronous, or synchronous, dynamics in natural ecosystems can we predict how future biodiversity loss may impact ecosystem functioning [@Loreau2010].
+However, three sources of confusion have limited our understanding of community synchrony: (1) the metric of synchrony, (2) the baseline expectation of synchrony, and (3) the use of population abundances to calculate synchrony.
+Recent theoretical work has clarified all three sources of confusion [@Loreau2008a; @Loreau2010].
+
+@Loreau2008a derived a statistic to measure community-wide synchrony of per capita population growth rates:
+
+\begin{equation}
+\phi_r = \frac{\sigma^{2}_{T}}{(\sum_{i}\sigma_{r_{i}})^{2}}
+\end{equation}
+
+where $\sigma_{r_{i}}$ is the temporal variance of species *i*'s per capita population growth rate ($r_i$) and $\sigma^{2}_{T}$ is the temporal variance of the aggregate community-level growth rate. 
+The metric of @Loreau2008 makes clear that synchrony and asynchrony are not binary states, contrary to their common usage in the literature.
+Rather, the synchrony of community dynamics lies along a continuum from perfect asynchrony ($\phi_r=0$) to perfect synchrony ($\phi_r=1$).
+Thus, our focus should not be on whether or not (a)synchronous dynamics occur, but instead on the degree of (a)synchrony.
+Prior to Loreau and de Mazancourt's (2008) work, the synchrony metric of choice was summed community covariance [e.g., @Ives1995; @Klug2000; @Fischer2001; @Houlahan2007].
+However, @Ranta2008 show that the summed community covariance method cannot be used to detect asynchrony or its drivers because values of summed covariance are not exclusive to particular combinations of drivers.
+For example, contrary to prevailing belief, negative community covariance can occur in the absence of competition and positive community covariance can occur in the presence of strong competitive interactions [@Loreau2008a; @Ranta2008].
+Likewise, positively covarying abundances and negatively covarying environmental responses are not mutually exclusive [@Loreau2008a].
+In the end, the fact that few communities exhibited negative summed covariance yields little insight as to whether communities tend to be sychronized by environmental forces or not [@Loreau2010].
+The use of summed community covariance also relied on the null expectation that species fluctuate independently [@Ranta2008], which need not be the case [@Loreau2008; @Loreau2010]. 
+
+Indeed, there is not a single baseline expectation for community synchrony.
+@Loreau2008a suggest there are two expectations: perfect synchrony in neutral communities where species have identical niches, and the inverse of the number of species in the community (1/*S*) when species fluctuate independently.
+Many previous investigations of community synchrony have implicitly assumped that species will fluctuate independently in the absence of temporal niche differences and that strong interspecific interactions cause compensatory dynamics.
+For example, the seminal study by @Houlahan2007 suggested that asynchronous population fluctuations are rare because they found generally positive correlations in species' abundances through time across a large number of ecosystems.
+Based on that result, @Houlahan2007 concluded that abiotic factors synchronize species' abundances.
+However, their null expectation was that species should fluctuate independently.
+Thus, if populations are observed to covary positively through time, then the environment must be driving such synchronization.
+But, if instead we *a priori* assume that species fluctuate in perfect synchrony [@Loreau2008a], judgment of whether species fluctate synchronously or not depends on the degree to which observed dynamics deviate from perfect synchrony.
+Investigations of community synchrony should therefore focus on both endpoints (1 and 1/*S*) and seek to determine the underlying forces that drive synchrony closer to 1 or 1/*S*.
 
 All populations fluctuate through time as a result of density-dependence (inter and intraspecific interactions), demographic stochasticity, and fluctuating environmental forces [@Lande2003; @Loreau2008a; @Mutshinda2009; @Gonzalez2009].
-The relative strength of those three forces determines if species fluctuate synchronously or not [@Loreau2008a].
-The seminal study by @Houlahan2007 suggested that asynchronous population fluctuations are rare because they found generally positive correlations in species' abundances through time across a large number of ecosystems.
-Based on that result, @Houlahan2007 concluded that abiotic factors synchronize species' abundances.
-Such a conclusion rests on the implicit assumption that species will fluctuate independently in the absence of temporal niche differences and that strong interspecific interactions cause compensatory dynamics.
-Thus, if populations are observed to covary positively through time, then the environment must be driving such synchronization.
-However, independent fluctations may not be the correct benchmark against which to compare observed dynamics, and interspecific competition actually synchronizes species dynamics [@Loreau2008a]. 
+The relative strengths of those three forces determine the degree of synchrony in population dynamics [@Loreau2008a].
+
 
 All organisms exist in variable environments, and those that coexist on similar resources should be expected to respond to the environment in similar ways [@Rocha2011].
 Based on such a proposition, @Loreau2008a suggest that a more appropriate null hypothesis is that coexisting species should fluctuate synchronously, not independently, in the absence of temporal niche differenatiation.
-Then, the judgment of whether species fluctate synchronously or not depends on the degree to which observed dynamics deviate from perfect synchrony.
+Then, the 
 In such a light, Houlahan et al.'s (2007) results can be viewed very differently.
 However, Houlahan et al.'s (2007) meausure of compensatory dynamics was summed covariances of species abundances through time.
 Summed covariances have no upper or lower bound, making it difficult to interpret their results based on deviations from perfect synchrony.
-Likewise, positively covarying abundances and negatively covarying environmental responses are not mutually exclusive [@Loreau2008a].
-In the end, the fact that few communities exhibited negative summed covariance yields little insight as to whether communities tend to be sychronized by environmental forces or not [@Loreau2010].
+
 
 Aside from issues relating to the null expectation of species synchrony, disentangling the factors that drive species syncrony is difficult.
 Observational timeseries of species' abundances allows easy quantification of summed covariances [@Houlahan2007] or species synchrony [@Gross2014], but quantifying the relative influence of density-dependence, demographic stochasticity, and environmental stochasticity remains a challenge.
@@ -124,11 +146,11 @@ where $\sigma^{2}_{c}$ is the temporal variance of per capita population growth 
 
 Loreau and de Mazancourt (2008) show that when demographic stochasticity is weak relative to community regulation and environmental forcing ($\sigma^{2}_{c}+\sigma^{2}_{e} >> \sigma^{2}_{d}/N_i$), $\phi_r \approx \phi_e$, where $phi_e$ is the synchrony of species' responses to the environment. At the other limit, where environmental forcing and community regulation are weak relative to demographic stochasticity ($\sigma^{2}_{c}+\sigma^{2}_{e} << \sigma^{2}_{d}/N_i$), species are expected to fluctuate independently, and $\phi_r \approx 1/S$.
 
-Based on the above theory, we aimed to test the following four hypotheses related the synchrony of per capita growth rates:
+Based on the above theory, we aimed to test the following four hypotheses and associated predictions related the synchrony of per capita growth rates:
 
-1. In large populations ($\sigma^{2}_{d} \approx 0$), removing interspecific interactions should lead to lower synchrony if interspeficic interactions ($\sigma^{2}_{c}$) are strong;
-2. In small and medium-sized populations ($\sigma^{2}_{d} \neq 0$), removing interspecific interactions should have the same effect as hypothesized in (1), and removing environmental stochasticity should lead to lower synchrony if environmental forcing ($\sigma^{2}_{e}$) is strong;
-3. In small and medium-sized populations ($\sigma^{2}_{d} \neq 0$), synchrony of per capita growth rates ($\phi_r$) should equal the inverse of the number of species in the community (1/*S*) when only demographic stochasticity is present ($\sigma^{2}_{c}$ and $\sigma^{2}_{e} \approx 0$);
+1. Interspecific interactions synchronize population dynamics. Therefore, removing interspecific interactions will decrease synchrony.
+2. Plant species in semiarid ecosystems should respond in similar ways to environmental drivers. Therefore, removing environmental variation will decrease synchrony relative to situations were environmental variation is present.
+3. In populations small enough for demographic stochasticity to influence dynamics (where $\sigma^{2}_{d} \neq 0$), synchrony will equal the inverse of the number of species in the community (1/*S*), in the absence of species interactions and environmental variation ($\sigma^{2}_{c}$ and $\sigma^{2}_{e} \approx 0$).
 4. The de-synchronizing effect of demographic stochasticity will weaken as population size increases, regardless of presence of interspecific interactions or environmental stochasticity.
 
 To test these hypotheses we parameterize and simulate dynamic multi-species population models fit long term demographic data from five semi-arid grasslands [@Chu2015].
@@ -139,17 +161,14 @@ Given that our models capture the essential features of community dynamics impor
 
 Materials and Methods
 ---------------------
+Our current work heavily relies on the data and analysis presented by @Chu2015. We refer interested readers to @Chu2015 for full details on the focal plant communities, choice of species, structure of vital rate statistical models, and the ability of fitted population models to reproduce observed dynamics. We offer a brief overview here, but note that the only difference between our vital rate models and those fit by @Chu2015 is that we allowed for positive species interactions. 
+
 ### Data
 In the early 20th century, several range experiment stations in the western U.S. began mapping permanent quadrats, and conducted annual censuses for decades. 
 We use such long-term demographic data sets from five semiarid grasslands in the western United States (described in detail by @Chu2015).
 Each study site includes a set of 1-$\text{m}^2$ permanent quadrats within which all individual plants were identified and mapped annually using a pantograph (Hill 1920).
 The resulting mapped polygons represent basal cover for grasses and canopy cover for shrubs.
 Data come from the Sonoran desert in Arizona [@Anderson2012], sagebrush steppe in Idaho [@Zachmann2010], southern mixed prairie in Kansas [@Adler2007], northern mixed prairie in Montana [@Anderson2011], and Chihuahuan desert in New Mexico [Anderson et al. in preparation, @Chu2015] (Table 1).
-
-Chu and Adler 2015 describe the selection of focal species in each data set, so we offer a brief explanation here.
-Focal species needed to comply with two criteria: (1) be common enough to provide a large sample size for model fitting and (2) co-occur with other focal species often enough to allow us to describe species interactions within the model.
-Thus, Chu and Adler (2015) chose species that occurred in at least 20% of years and then used Nonmetric Multidimensional Scaling (NMDS) to identify quadrats with a similar composition of these candidate species.
-The location (latitude and longitude), biome, number of years in the time series, and selected species for each site are shown in Table 1. 
 
 ### Analytical approach
 Our analysis involved five steps for each study site:
@@ -172,8 +191,6 @@ Using the community time series of per capita growth rates in percent cover, we 
 Vital rate regressions are the building blocks of our dynamic models (IBM and IPM).
 We followed the approach of @Chu2015 to fit statistical models for survival, growth, and recruitment.
 We modeled survival probability of each genet as function of genet size, temporal variation among years, permanent spatial variation among groups of quadrats, and local neighborhood crowding from conspecific and heterospecific genets.
-In brief, the crowding experienced by a focal genet is a function of the size of and distance to all neighboring genets.
-See @Adler2010 and @Chu2015 for a thorough description of how crowding is estimated.
 Regression coefficients for the effect of crowding by each species can be considered a matrix of interaction coefficients whose diagonals represent intraspecific interations and whose off-diagonals represent interspecific interactions [@Adler2010].
 We modeled growth as the change in size of a genet from one year to the next, which depends on the same factors as the survival model.
 We fit the survival and growth regressions using INLA [@Rue2014], a statistical package for fitting generalized linear mixed effects models via approximate Bayesian inference [@Rue2009], in R [@R2013].
