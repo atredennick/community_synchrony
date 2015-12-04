@@ -31,7 +31,7 @@ for(do_site in site_names){
   tmp_df <- data.frame(site=do_site, pgr_synch=tmp_synch)
   out_df <- rbind(out_df, tmp_df)
 }
-
+pgr_synch <- out_df[2:nrow(out_df),]
 
 
 
@@ -121,13 +121,42 @@ for(do_vital in vital_rates){
 
 out_df <- out_df[2:nrow(out_df),]
 out_cast <- dcast(out_df, site~vital_rate)
-rm(list=setdiff(ls(), c("out_cast", "out_df", "cor_df", "cor_cast")))
+rm(list=setdiff(ls(), c("out_cast", "out_df", "cor_df", 
+                        "cor_cast", "pgr_synch")))
 
 
 ####
 ####  Save output for tables
 ####
 outlist <- list(synch_long=out_df, synch_wide=out_cast,
-                corr_long=cor_df, corr_wide=cor_cast)
+                corr_long=cor_df, corr_wide=cor_cast,
+                pgr_synch=pgr_synch)
 # outfile = "path/here/file.RDS"
 # saveRDS(outlist, outfile)
+
+
+
+####
+####  Plot pgr synch versus vital rate synchs
+####
+pgr_vr <- data.frame(site=outlist$synch_wide$site,
+                     pgr_synch=outlist$pgr_synch$pgr_synch,
+                     Survival=outlist$synch_wide$surv,
+                     Growth=outlist$synch_wide$growth,
+                     Recruitment=outlist$synch_wide$recruit)
+pgr_vr_long <- melt(pgr_vr, id.vars = c("site","pgr_synch"))
+
+ggplot(pgr_vr_long, aes(x=pgr_synch, y=value, group=variable))+
+  geom_point()+
+  geom_text(aes(label=site, y=value+0.02), size=3)+
+  geom_smooth(method="lm", se=FALSE, color="black")+
+  facet_wrap("variable")+
+  scale_x_continuous(limits=c(0,1))+
+  scale_y_continuous(limits=c(0,1))+
+  xlab("Synchrony of Yearly Per Capita Growth Rates")+
+  ylab("Synchrony of Random Year Effects")+
+  theme_bw()
+
+
+
+
