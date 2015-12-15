@@ -35,7 +35,7 @@ opts_chunk$set(dev='pdf')
 
 
 \begin{center}
-\large{Disentangling the drivers of species synchrony in natural grasslands: environmental forcing, demographic stochasticity, and interspecific interactions}
+\large{\textbf{Disentangling the drivers of species synchrony in natural grasslands: environmental forcing, demographic stochasticity, and interspecific interactions}}
 
 \renewcommand*{\thefootnote}{\fnsymbol{footnote}}
 
@@ -279,7 +279,7 @@ Discussion
 
 Ackowledgements
 ---------------
-This work was funded by the National Science Foundation through a Postdoctoral Research Fellowship in Biology to ATT (DBI-1400370) and a CAREER award to PBA (DEB-1054040). CdM and ML were supported by the TULIP Laboratory of Excellence (ANR-10-LABX-41). We thank the original mappers of the permanent quadrats at each site and the digitizers in the Adler lab, without whom this work would not have been possible.
+This work was funded by the National Science Foundation through a Postdoctoral Research Fellowship in Biology to ATT (DBI-1400370) and a CAREER award to PBA (DEB-1054040). CdM and ML were supported by the TULIP Laboratory of Excellence (ANR-10-LABX-41). We thank the original mappers of the permanent quadrats at each site and the digitizers in the Adler lab, without whom this work would not have been possible. Compute, storage and other resources from the Division of Research Computing in the Office of Research and Graduate Studies at Utah State University are gratefully acknowledged.
 
 \newpage{}
 
