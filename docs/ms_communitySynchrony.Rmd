@@ -449,6 +449,8 @@ colnames(table_data) <- c("Site",
                           "$\\text{E}(\\phi_{r})$", 
                           "$\\text{E}(\\sigma_{c} + \\sigma_{e})$",
                           "Species richness")
+table_data[,3] <- round(1/table_data[,ncol(table_data)],2) # reset expected sybchrony to 1/S
+table_data[,4] <- table_data[,2] - table_data[,3] # calculate obs - exp synchrony
 
 synch_cap <- "Observed and expected synchrony among species' per capita growth rates and expected effect of demographic stochasticity on observed synchrony. Species richness values reflect the number of species analyzed from the community, not the actual richness."
 print(xtable(table_data, caption = synch_cap),
@@ -580,26 +582,26 @@ ggplot()+
   facet_wrap("Var2", ncol=1)+
   scale_color_manual(values = c("grey45", "steelblue", "slateblue4", "darkorange", "purple"))+
   guides(color=FALSE)+
+  xlab("Community Synchrony")+
+  ylab("Estimated Probability Density")+
   theme_bw()
 ```
 
 \pagebreak{}
 
-```{r figure_2, echo=FALSE, fig.cap="Community synchrony of per capita growth rates (points, solid lines) and percent cover (triangles, dashed lines) from IPM simulations with (INTER) and without (NoINTER) interspecific interactions. 'F' in x-axis labels refers to a fluctuating environment. Errorbars represent the upper and lower 90th quantiles of synchrony from 100 random contiguous 50 year sections from a 2,000 iteration IPM run. Points represent the mean synchrony across the 100 sections.", eval=T}
-library(png)
-library(grid)
-img <- readPNG("./components/ipm_pgr_plot.png")
-grid.raster(img)
-```
+\begin{figure}[!ht]
+  \centering
+      \includegraphics{./components/ipm_pgr_plot.png}
+  \caption{Community synchrony of per capita growth rates (points, solid lines) and percent cover (triangles, dashed lines) from IPM simulations with (INTER) and without (NoINTER) interspecific interactions. `F' in x-axis labels refers to a fluctuating environment. Errorbars represent the upper and lower 90th quantiles of synchrony from 100 random contiguous 50 year sections from a 2,000 iteration IPM run. Points represent the mean synchrony across the 100 sections.}
+\end{figure}
 
 \pagebreak{}
 
-```{r ibm_sims_figure, echo=FALSE, fig.cap="Community synchrony of per capita growth rates (top panels) and percent cover (bottom panels) from spatially-explicit IBM simulations. Points represent replicate IBM simulations (out of 20 possible) in which no species went extinct. Lines show linear fits between plot size (proxy for population size) and species synchrony. Demographic stochasticity plays a large role in small populations (small plot sizes) and a smaller role in large populations (large plot sizes). Simulation type codes: C = constant environment, F = fluctuating environment, INTER = interspecific interactions included, NoINTER = interspecific interactions excluded (set to zero).", eval=T}
-library(png)
-library(grid)
-img <- readPNG("./components/ibm_sims_fig.png")
-grid.raster(img)
-```
+\begin{figure}[!ht]
+  \centering
+      \includegraphics{./components/ibm_sims_fig.png}
+  \caption{Community synchrony of per capita growth rates (top panels) and percent cover (bottom panels) from spatially-explicit IBM simulations. Points represent replicate IBM simulations (out of 20 possible) in which no species went extinct. Lines show linear fits between plot size (proxy for population size) and species synchrony. Demographic stochasticity plays a large role in small populations (small plot sizes) and a smaller role in large populations (large plot sizes). Simulation type codes: C = constant environment, F = fluctuating environment, INTER = interspecific interactions included, NoINTER = interspecific interactions excluded (set to zero).}
+\end{figure}
 
 \pagebreak{}
 

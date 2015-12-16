@@ -7,7 +7,7 @@
 # Clear workspace 
 rm(list=ls(all=TRUE))
 
-totSims <- 20      # number of simulations per site 
+totSims <- 50      # number of simulations per site 
 totT <- 100      # time steps of simulation
 burn.in <- 25    # time steps to discard before calculating cover values
 site_colors <- c("grey45", "steelblue", "slateblue4", "darkorange", "purple")
@@ -28,7 +28,8 @@ library(gridExtra)
 ####
 ####  Read in data and setup up file lists -------------------------------------
 ####
-setwd("../results/ibm_sims/")
+# setwd("../results/ibm_sims/")
+setwd("../../../../../Volumes/A02046115/ibm_synch/results/")
 all_files <- list.files()
 constinterfiles <- all_files[grep("constinter", all_files)]
 constnointerfiles <- all_files[grep("constnointer", all_files)]
@@ -148,8 +149,17 @@ synch_df <- melt(output_df, id.vars = c("experiment", "site", "expansion", "run"
 colnames(synch_df) <- c("experiment", "site", "expansion", "run", 
                         "typesynch", "synch")
 
+# Check for single datapoints
+allcombo <- ddply(synch_df, .(experiment, site, expansion, typesynch), summarise,
+                  nums = length(run))
+singles <- allcombo[which(allcombo$nums<10),]
+singles$remove="yes"
+test <- merge(synch_df, singles, by=c("experiment", "site", "expansion", "typesynch"), all = TRUE)
+ids.out <- which(test$remove=="yes")
+synch_dfplot <- test[-ids.out,]
+
 ### Make plot and save
-ibm_plot <- ggplot(synch_df, aes(x=expansion, y=synch, color=experiment))+
+ibm_plot <- ggplot(synch_dfplot, aes(x=expansion, y=synch, color=experiment))+
   geom_point(alpha=0.5)+
   stat_smooth(se=FALSE, method="lm", size=0.7)+
   scale_color_manual(values = c("steelblue", "slateblue4", "darkorange", "darkred"),
@@ -162,7 +172,8 @@ ibm_plot <- ggplot(synch_df, aes(x=expansion, y=synch, color=experiment))+
   facet_grid(typesynch~site)+
   theme_bw()
 
-png("../../docs/components/ibm_sims_fig.png", height = 5, 
+setwd("~/Repos/community_synchrony/devel")
+png("../docs/components/ibm_sims_fig.png", height = 5, 
     width = 10, units = "in", res=150)
 print(ibm_plot)
 dev.off()
