@@ -600,7 +600,7 @@ ggplot()+
 \begin{figure}[!ht]
   \centering
       \includegraphics{./components/ibm_sims_fig.png}
-  \caption{Community synchrony of per capita growth rates (top panels) and percent cover (bottom panels) from spatially-explicit IBM simulations. Points represent replicate IBM simulations (out of 20 possible) in which no species went extinct. Lines show linear fits between plot size (proxy for population size) and species synchrony. Demographic stochasticity plays a large role in small populations (small plot sizes) and a smaller role in large populations (large plot sizes). Simulation type codes: C = constant environment, F = fluctuating environment, INTER = interspecific interactions included, NoINTER = interspecific interactions excluded (set to zero).}
+  \caption{Community synchrony of per capita growth rates (top panels) and percent cover (bottom panels) from spatially-explicit IBM simulations. Points represent replicate IBM simulations (out of 50 possible) in which no species went extinct. Lines show linear fits between plot size (proxy for population size) and species synchrony. Demographic stochasticity plays a large role in small populations (small plot sizes) and a smaller role in large populations (large plot sizes). Simulation type codes: C = constant environment, F = fluctuating environment, INTER = interspecific interactions included, NoINTER = interspecific interactions excluded (set to zero).}
 \end{figure}
 
 \pagebreak{}
