@@ -104,3 +104,19 @@ ggplot(df, aes(x=comp))+
   theme_bw()
 
 
+
+####
+####  Plot Each Vital Rate Interaction Coefficients
+####
+df <- melt(unlist(vital_comp_list))
+pieces <- strsplit(rownames(df), split = "[.]")
+df$vitalrate <- sapply(pieces, "[", 1)
+sites <- sapply(pieces, "[", 2)
+df$site <- substr(sites, start = 1, stop = nchar(sites)-1)
+df$interintra <- substr(sites, start = nchar(sites), stop = nchar(sites))
+ggplot(df, aes(x=site, y=value, fill=interintra))+
+  geom_bar(stat="identity", position="dodge")+
+  facet_wrap("vitalrate", scales="free_y")
+
+
+
