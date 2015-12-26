@@ -67,8 +67,10 @@ pb <- txtProgressBar(min=2, max=tlimit, char="+", style=3, width=65)
 for (i in 2:(tlimit)){
   
   #draw from observed year effects
-  allYrs=c(1:Nyrs)
-  doYear=sample(allYrs,1)
+  # allYrs=c(1:Nyrs)
+  # doYear=sample(allYrs,1)
+  # doYear set from sourcing script
+  doYear=randyrvec[i]
   yrSave[i]=doYear
   
   #get recruits per area

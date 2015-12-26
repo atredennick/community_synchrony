@@ -67,3 +67,23 @@ ipm_pgr_plot <- ggplot(agg_synch, aes(x=experiment, y=mean_synch,
 png("../docs/components/ipm_pgr_plot.png", width=8.5, height=3, units="in", res=150)
 print(ipm_pgr_plot)
 dev.off()
+
+
+
+####
+####  Plot synchrony in polyculture vs synchrony in monoculture
+####
+library(ggthemes)
+polymono <- agg_synch[,c("site", "typesynch", "experiment", "mean_synch")]
+polymono_wide <- dcast(polymono, site+typesynch~experiment, value.var = "mean_synch")
+ggplot(polymono_wide, aes(x=ENVNOINTER, y=ENVINTER))+
+  geom_abline(aes(intercept=0, slope=1), linetype=3)+
+  geom_point(size=3, aes(shape=typesynch))+
+  scale_y_continuous(limits=c(0,1))+
+  scale_x_continuous(limits=c(0,1))+
+  ylab("Species synchrony in polyculture")+
+  xlab("Species synchrony in monoculture")+
+  scale_shape_discrete(name="", labels=c("Per capita growth rate", "Percent cover"))+
+  theme_few()+
+  theme(legend.position=c(0.3,0.85))
+ggsave("../docs/components/poly_vs_mono_synch.png", width = 4, height = 3.5, dpi = 150)

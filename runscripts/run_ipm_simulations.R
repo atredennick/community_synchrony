@@ -144,6 +144,9 @@ for(do_site in site_list){
     max_size <- c(600,1300)
   }
   
+  ##  Set environment time series to be constant across simulations
+  randyrvec <- sample(1:Nyrs, size = tlimit, replace = TRUE)
+  
   sim_count <- 1
   site_output <- list()
   for(do_comp in inter_comp){
@@ -207,10 +210,11 @@ for(do_site in site_list){
   } # end species interaction loop
   
   ##  Save site output to big list
-  # output_list[[do_site]] <- site_output
+  output_list[[do_site]] <- site_output
+  print(paste("done with ",do_site))
   
 } # end site loop
 
 ## Save the output
-# saveRDS(output_list, "../results/ipm_comp_nocomp_sims.RDS")
+saveRDS(output_list, "../results/ipm_comp_nocomp_sims.RDS")
 
