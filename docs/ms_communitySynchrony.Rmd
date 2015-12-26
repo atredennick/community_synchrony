@@ -17,7 +17,8 @@ output:
     keep_tex: false
 fontsize: 12pt
 geometry: margin=1in
-
+linkcolor: black
+urlcolor: black
 ---
 ```{r caching, include=FALSE}
 library("methods")
@@ -658,12 +659,21 @@ ggplot()+
   \caption{Community synchrony of per capita growth rates (top panels) and percent cover (bottom panels) from spatially-explicit IBM simulations. Points represent replicate IBM simulations (out of 50 possible) in which no species went extinct. Lines show linear fits between plot size (proxy for population size) and species synchrony. Demographic stochasticity plays a large role in small populations (small plot sizes) and a smaller role in large populations (large plot sizes). Simulation type codes: C = constant environment, F = fluctuating environment, INTER = interspecific interactions included, NoINTER = interspecific interactions excluded (set to zero).}
 \end{figure}
 
+<!--
 \pagebreak{}
 
 \begin{figure}[!ht]
   \centering
       \includegraphics{./components/envresp_vs_ipmsynch.png}
   \caption{Average synchrony of IPM-simulated per capita growth rates (from 13 year sections) as a function of the average synchrony of the vital rate random year effects for each site. Community sychrony is expected to approximately equal the synchrony of species' environmental responses in the absence of demographic stochasticity and strong interspecific interactions. The synchrony of species' random year effects across vital rates is a strong ($\text{R}^2$ = 0.67), but not perfect, predictor of community synchrony. Points are labeled by site codes: AZ = Arizona, ID = Idaho, KS = Kansas, MT = Montana, and NM = New Mexico.}
+\end{figure}
+-->
+\pagebreak{}
+
+\begin{figure}[!ht]
+  \centering
+      \includegraphics{./components/poly_vs_mono_synch.png}
+  \caption{Synchrony of communities simulated without interspecific interactions (monoculture) versus synchrony of communities simulated with interspecific interactions (polyculture). We used the same sequence of random year effects for both simulations (mono and polyculture) to mimic biodiversity-ecosystem function experiments. The dashed line is the line of equality.}
 \end{figure}
 
 \pagebreak{}
