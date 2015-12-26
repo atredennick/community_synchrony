@@ -12,11 +12,11 @@
 ####  Clean workspace; Load libraries ------------------------------------------
 ####
 rm(list = ls()) # wipe the workspace clean
+library(ggplot2)
 library(reshape2)
 library(plyr)
-library(ggplot2)
 library(synchrony)
-
+library(communitySynchrony)
 
 
 ####
@@ -156,6 +156,81 @@ ggplot(pgr_vr_long, aes(x=pgr_synch, y=value, group=variable))+
   xlab("Synchrony of Yearly Per Capita Growth Rates")+
   ylab("Synchrony of Random Year Effects")+
   theme_bw()
+
+
+
+####
+####  Plot Synchrony of Yearly Per Capita Growth Rates vs. PGR Synchrony
+####
+output_list <- readRDS("../results/ipm_comp_nocomp_sims.RDS")
+mlist <- melt(output_list)
+colnames(mlist)[1:3] <- c("year", "species", "cover")
+sites <- unique(mlist$L1)
+sims <- unique(mlist$L2)
+synch_df <- data.frame(site=NA, experiment=NA, bootnum=NA, 
+                       pgr_synch=NA, abund_synch=NA)
+boots <- 100
+num_iters <- 13
+for(dosite in sites){
+  tmp_data <- subset(mlist, L1==dosite)
+  for(dosim in sims){
+    tmpsim <- subset(tmp_data, L2==dosim)[c("year", "species", "cover")]
+    for(i in 1:boots){
+      begin_year <- sample(x = 1:(max(tmpsim$year)-num_iters), 1)
+      end_year <- begin_year+num_iters
+      tmp <- subset(tmpsim, year %in% begin_year:end_year)
+      tmpsynch <- get_ipm_synchrony(tmp)
+      tmp_pgr_synch <- as.numeric(tmpsynch$pgr_synchrony["obs"])
+      tmpcast <- dcast(tmp, year~species, value.var = "cover")
+      tmp_abund_synch <- as.numeric(community.sync(tmpcast[2:ncol(tmpcast)])[1])
+      tmp_df <- data.frame(site=dosite, experiment=dosim, 
+                           bootnum=i, pgr_synch=tmp_pgr_synch, 
+                           abund_synch=tmp_abund_synch)
+      synch_df <- rbind(synch_df, tmp_df)
+    }# end boots loop
+  }# end experiment/sim loop
+}# end site loop
+
+synch_dftmp <- synch_df[2:nrow(synch_df),]
+synch_df <- melt(synch_dftmp, id.vars = c("site", "experiment", "bootnum"))
+colnames(synch_df) <- c("site", "experiment", "bootnum", "typesynch", "synch")
+
+agg_synch <- ddply(synch_df, .(site, experiment, typesynch), summarise,
+                   mean_synch = mean(synch),
+                   up_synch = quantile(synch, 0.95),
+                   lo_synch = quantile(synch, 0.05))
+
+all_synch <- subset(agg_synch, experiment=="ENVINTER" & typesynch=="pgr_synch")
+
+vr_synchs <- data.frame(Survival=outlist$synch_wide$surv,
+                        Growth=outlist$synch_wide$growth,
+                        Recruitment=outlist$synch_wide$recruit)
+# vr_synchs <- data.frame(Survival=outlist$synch_wide$surv,
+#                         Growth=outlist$synch_wide$growth)
+vr_avg_synch <- rowMeans(vr_synchs)
+all_synch$vravg <- vr_avg_synch
+all_synch$site <- c("AZ", "ID", "KS", "MT", "NM")
+corsynch <- round(cor(all_synch$mean_synch, all_synch$vravg),2)
+
+R2 <- summary(lm(all_synch$mean_synch~all_synch$vravg))$r.squared
+int <- round(coef(lm(all_synch$mean_synch~all_synch$vravg))[1],2)
+slope <- round(coef(lm(all_synch$mean_synch~all_synch$vravg))[2],2)
+# eq <- paste0("y = ", int, " + ", slope,"x")
+eq <- expression(R^2)
+library(ggthemes)
+ggplot(all_synch, aes(x=vravg, y=mean_synch))+
+  geom_abline(aes(intercept=0, slope=1), linetype=2)+
+  geom_point()+
+  geom_text(aes(label=site, y=mean_synch, x=vravg-0.04), size=3)+
+  scale_x_continuous(limits=c(0,1))+
+  scale_y_continuous(limits=c(0,1))+
+  xlab("Average Synchrony of\nVital Rate Random Year Effects")+
+  ylab("Average Synchrony of\nSimulated Per Capita Growth Rates")+
+  theme_few()
+ggsave(filename = "../docs/components/envresp_vs_ipmsynch.png", width = 4.5, height = 4, dpi = 150)
+
+
+
 
 
 
