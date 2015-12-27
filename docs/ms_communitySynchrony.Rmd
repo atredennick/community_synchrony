@@ -116,7 +116,7 @@ Unfortunately, there is not a single answer.
 The use of summed community covariance relied on the null expectation that species fluctuate independently [@Ranta2008], which need not be the case [@Loreau2008a; @Loreau2010]. 
 @Loreau2008a suggest there are two expectations: perfect synchrony in neutral communities where species have identical niches, and the inverse of the number of species in the community (1/*S*) when species fluctuate independently.
 Many previous investigations of community synchrony have implicitly assumped that species will fluctuate independently in the absence of temporal niche differences and that strong interspecific interactions cause compensatory dynamics.
-For example, the seminal study by @Houlahan2007 suggested that asynchronous population fluctuations are rare because they found generally positive correlations in species' abundances through time across a large number of ecosystems.
+For example, @Houlahan2007 suggested that asynchronous population fluctuations are rare because they found generally positive correlations in species' abundances through time across a large number of ecosystems.
 Based on that result, @Houlahan2007 concluded that abiotic factors synchronize species' abundances.
 However, their null expectation was that species should fluctuate independently.
 Thus, if populations are observed to covary positively through time, then the environment must be driving such synchronization.
