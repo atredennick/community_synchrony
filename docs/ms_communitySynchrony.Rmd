@@ -516,54 +516,84 @@ print(xtable(table_data, caption = synch_cap),
       comment=FALSE)
 ```
 
-```{r time_series_fig, echo=FALSE, include=TRUE, fig.height=7, fig.cap="Observed time series of mean percent cover (averaged over quadrats for each year) and per capita growth rates for each species at each site.", eval=FALSE}
-# out_ks$percent_cover$site <- "Kansas"
-# out_id$percent_cover$site <- "Idaho"
-# out_mt$percent_cover$site <- "Montana"
-# out_nm$percent_cover$site <- "New Mexico"
-# out_az$percent_cover$site <- "Arizona"
-# cover_data <- rbind(out_ks$percent_cover, out_id$percent_cover,
-#                     out_mt$percent_cover, out_nm$percent_cover, 
-#                     out_az$percent_cover)
-# 
-# out_ks$growth_rates$site <- "Kansas"
-# out_id$growth_rates$site <- "Idaho"
-# out_mt$growth_rates$site <- "Montana"
-# out_nm$growth_rates$site <- "New Mexico"
-# out_az$growth_rates$site <- "Arizona"
-# pgr_data <- rbind(out_ks$growth_rates, out_id$growth_rates,
-#                   out_mt$growth_rates, out_nm$growth_rates, 
-#                   out_az$growth_rates)
-# all_spp <- unique(pgr_data$species)
-# color_match <- data.frame(species = all_spp,
-#                           color = brewer.pal(11,"Paired"))
-# pgr_data <- merge(pgr_data, color_match, by = "species")
-# cover_data <- merge(cover_data, color_match, by="species")
-# 
-# cover_plot <- ggplot(data=cover_data, aes(x=(year+1900), y=tot_cover, color=color))+
-#                 geom_line()+
-#                 geom_point()+
-#                 facet_grid(site~., scales = "free_y")+
-#                 guides(color=FALSE)+
-#                 ylab("Mean Percent Cover")+
-#                 xlab("Year")+
-#                 scale_color_manual(values = brewer.pal(11,"Paired"))
-# 
-# pgr_plot <- ggplot(data=pgr_data, aes(x=(year+1900), y=pgr, color=color))+
-#               geom_line()+
-#               geom_point()+
-#               facet_grid(site~., scales = "free_y")+
-#               guides(color=FALSE)+
-#               ylab("Per Capita Growth Rate")+
-#               xlab("Year")+
-#               scale_color_manual(values = brewer.pal(11,"Paired"))
-# full_plot <- grid.arrange(cover_plot, pgr_plot, ncol=2)
-```
-
 \pagebreak{}
 
 Figures
 -------
+
+```{r time_series_fig, echo=FALSE, include=TRUE, fig.width=8.5, fig.height=4, fig.cap="Observed time series of mean percent cover (averaged over quadrats for each year) and per capita growth rates for each species at each site. Panels are labeled by site codes: AZ = Arizona, ID = Idaho, KS = Kansas, MT = Montana, and NM = New Mexico.", eval=T}
+out_ks$percent_cover$site <- "Kansas"
+out_id$percent_cover$site <- "Idaho"
+out_mt$percent_cover$site <- "Montana"
+out_nm$percent_cover$site <- "New Mexico"
+out_az$percent_cover$site <- "Arizona"
+cover_data <- rbind(out_ks$percent_cover, out_id$percent_cover,
+                    out_mt$percent_cover, out_nm$percent_cover, 
+                    out_az$percent_cover)
+
+out_ks$growth_rates$site <- "Kansas"
+out_id$growth_rates$site <- "Idaho"
+out_mt$growth_rates$site <- "Montana"
+out_nm$growth_rates$site <- "New Mexico"
+out_az$growth_rates$site <- "Arizona"
+pgr_data <- rbind(out_ks$growth_rates, out_id$growth_rates,
+                  out_mt$growth_rates, out_nm$growth_rates, 
+                  out_az$growth_rates)
+all_spp <- unique(pgr_data$species)
+color_match <- data.frame(species = all_spp,
+                          color = brewer.pal(12,"Paired"))
+pgr_data <- merge(pgr_data, color_match, by = "species")
+cover_data <- merge(cover_data, color_match, by="species")
+
+### Create labelling dataframe
+site_list <- unique(cover_data$site)
+textdf <- data.frame(species=NA, year=NA, tot_cover=NA, num_obs=NA, site=NA, color=NA)
+for(dosite in site_list){
+  tmp <- subset(cover_data, site==dosite)
+  if(dosite=="Kansas"){
+    maxyr <- min(unique(tmp$year))
+    textdf <- rbind(textdf,tmp[tmp$year == maxyr, ])
+  }
+  if(dosite!="Kansas"){
+    maxyr <- max(unique(tmp$year))
+    textdf <- rbind(textdf,tmp[tmp$year == maxyr, ])
+    textdf$year <- textdf$year+2
+  }
+}
+textdf <- textdf[2:nrow(textdf),]
+
+### Change site to two-letter codes
+site_list <- sort(unique(cover_data$site))
+sitecode <- c("AZ", "ID", "KS", "MT", "NM")
+for(i in 1:length(site_list)){
+  cover_data[cover_data$site==site_list[i], "site"] <- sitecode[i]
+  pgr_data[pgr_data$site==site_list[i], "site"] <- sitecode[i]
+}
+
+cover_plot <- ggplot(data=cover_data, aes(x=(year+1900), y=tot_cover, color=color))+
+                geom_line(alpha=0.25)+
+                geom_point(size=2)+
+                facet_grid(site~., scales = "free_y")+
+                guides(color=FALSE)+
+                ylab("Mean Percent Cover")+
+                xlab("Year")+
+                scale_color_manual(values = brewer.pal(12,"Paired"))+
+                theme_bw()
+
+pgr_plot <- ggplot(data=pgr_data, aes(x=(year+1900), y=pgr, color=color))+
+              geom_line(alpha=0.25)+
+                geom_point(size=2)+
+              facet_grid(site~., scales = "free_y")+
+              guides(color=FALSE)+
+              ylab("Per Capita Growth Rate")+
+              xlab("Year")+
+              scale_color_manual(values = brewer.pal(12,"Paired"))+
+              theme_bw()
+full_plot <- grid.arrange(cover_plot, pgr_plot, ncol=2)
+```
+
+\pagebreak{}
+
 ```{r concept_fig, echo=FALSE, fig.cap="Conceptual figure outlining the effects of interspecific interactions and environmental stochasticity in large populations where demographic stochasticity is effectively absent (A) and in populations of varying size where demographic stochasticity is present (B).", eval=F}
 library(png)
 library(grid)
