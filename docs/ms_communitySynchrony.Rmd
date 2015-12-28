@@ -364,9 +364,9 @@ But functionally diverse suites of species will have the lowest synchrony of env
 Conclusion
 ----------
 We used empirically-based, multi-species population models to test predictions arising from theory on the drivers of species synchrony.
-Our results show that community-wide synchrony is predominantly driven by environmental forcing across five perennial plant communities.
-Thus, our results support Loreau and de Mazancourt's (2008) prediction that community-wide synchrony of per capita growth rates should approximately equal the synchrony of species' environmental responses when demographic stochasticity and species interactions are weak.
-We have reason to believe that our results are quite general since many studies report strong niche differences in plant communities; meaning that species interactions are weak.
+Our results are consistent across five perennial plant communities and show that community-wide synchrony is predominantly driven by environmental forcing.
+Thus, we find support for Loreau and de Mazancourt's (2008) prediction that community-wide synchrony of per capita growth rates should approximately equal the synchrony of species' environmental responses when demographic stochasticity and species interactions are weak.
+We have reason to believe that our results are quite general since many studies report large niche differences, and thus weak interactions, in plant communities.
 However, our results are in contrast to a recent analysis of several biodiversity-ecosystem function experiments showing that competition drives community synchrony.
 We conclude that the difference between the Gross et al. (2014) study and our own is due to community assembly processes: recently assembled communities, such as experimental plots, may exhibit strong species interactions that will weaken over time [@Kokkoris1999].
 Viewing community synchrony through the lens of community assembly processes may provide a way to reconcile inconsistent observations on the biotic and abiotic forces that jointly drive community dynamics.
@@ -561,7 +561,7 @@ print(xtable(table_data, caption = synch_cap),
 Figures
 -------
 
-```{r time_series_fig, echo=FALSE, include=TRUE, fig.width=8.5, fig.height=4, fig.cap="Observed time series of mean percent cover (averaged over quadrats for each year) and per capita growth rates for each species at each site. Panels are labeled by site codes: AZ = Arizona, ID = Idaho, KS = Kansas, MT = Montana, and NM = New Mexico.", eval=T}
+```{r time_series_fig, echo=FALSE, include=TRUE, fig.width=8.5, fig.height=4, fig.cap="Observed time series of mean percent cover (averaged over quadrats for each year) and per capita growth rates for each species at each site. Panels are labeled by site codes: AZ = Arizona, ID = Idaho, KS = Kansas, MT = Montana, and NM = New Mexico.", eval=F}
 out_ks$percent_cover$site <- "Kansas"
 out_id$percent_cover$site <- "Idaho"
 out_mt$percent_cover$site <- "Montana"
