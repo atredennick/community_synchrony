@@ -50,21 +50,25 @@ opts_chunk$set(dev='pdf')
 
 \end{center}
 
-\textit{Authorship}: ATT, CdM, and PBA designed the research, ATT performed the research, and ATT, CdM, ML, and PBA contributed to the analyses and interpretation of results. All authors contributed to writing the manuscript.
+\vspace{2em}
 
 \textit{Keywords}: synchrony, compensatory dynamics, environmental stochasticity, demographic stochasticity, stability
 
-\textit{Running Title}: Species synchrony in grasslands
+\vspace{2em}
 
-\textit{Article Type}: Letter
+\textbf{Authorship}: ATT, CdM, and PBA designed the research, ATT performed the research, and ATT, CdM, ML, and PBA contributed to the analyses and interpretation of results. All authors contributed to writing the manuscript.
 
-\textit{Number of Words}: Abstract = ; Main Text = 
+\textbf{Running Title}: Drivers of species synchrony in natural grasslands
 
-\textit{Number of References}: 
+\textbf{Article Type}: Letter
 
-\textit{Number of Tables and Figures}:  Tables;  Figures
+\textbf{Number of Words}: Abstract = ; Main Text = 
 
-\textit{Corresponding Author}: Andrew Tredennick \\  
+\textbf{Number of References}: 
+
+\textbf{Number of Tables and Figures}:  Tables;  Figures
+
+\textbf{Corresponding Author}: Andrew Tredennick \\  
 Address: Department of Wildland Resources and the Ecology Center, 5230 Old Main Hill, Utah State University, Logan, Utah 84322 USA \\
 Phone: +1-970-443-1599 \\
 Fax: +1-435-797-3796 \\
@@ -142,9 +146,9 @@ But, if instead we *a priori* assume that species fluctuate in perfect synchrony
 Investigations of community synchrony should therefore focus on both endpoints (1 and 1/*S*) and seek to determine the underlying forces that drive synchrony closer to 1 or 1/*S*.
 
 What temporal variable should we use to measure synchrony?
-In constrast to virtually every study on synchrony that uses population abundance (CITATIONS), @Loreau2008a suggest community-wide synchrony is best viewed through the lense of per capita growth rates.
+In constrast to virtually every study on synchrony that uses population abundance [e.g., @Houlahan2007; @Mutshinda2009; @Hector2010; @Gross2014; @Vasseur2014], @Loreau2008a suggest community-wide synchrony is best viewed through the lense of per capita growth rates.
 On conceptual grounds, per capita growth rates represent the immediate response of species to the environment and competition that we wish to attribute to synchrony.
-On practical grounds, positively covarying abundances and negatively covarying environmental responses are not mutually exclusive [@Loreau2008a].
+On practical grounds, positively covarying abundances and negatively covarying environmental responses are not mutually exclusive [@Loreau2008a; @Ranta2008].
 Therefore, measuring the synchrony of population abundances through time does not allow inference on the drivers of synchrony.
 
 Aside from issues on how to measure synchrony, disentangling the factors that drive species syncrony is difficult.
@@ -152,7 +156,7 @@ Observational timeseries of species' abundances allows easy quantification of su
 Indeed, to our knowledge, only one study has attempted to separate the influences of density-dependence and environmental stochasticity directly [@Mutshinda2009].
 @Mutshinda2009 used a statistical technique to decompose synchrony of species' abundances calculate from five time series.
 They found that the effect of environmental forcing on temporal dynamics is much stronger than that of interspecific interactions, across all taxa they analyzed [@Mutshinda2009].
-However, the @Mutshinda2009 study did not include data from plant communities that have, so far, received the most evidence for a strong role for interspecific interactions in driving species asynchrony [@Gross2014].
+However, the @Mutshinda2009 study did not include data from plant communities that have, so far, received the most evidence for a strong role for interspecific interactions in determining species synchrony [@Gross2014].
 
 In this paper, we seek to overcome the limitations of previous studies by explicitly testing theory on all the drivers of species synchrony using empirically-based multi-species population models that include the effects of density-dependence, environmental stochasticity, and demographic stochasticity.
 We follow the theory of @Loreau2008a, who show that in a neutral community of *S* species, expected synchrony ($\phi_r$) is defined as:
@@ -632,7 +636,6 @@ pgr_plot <- ggplot(data=pgr_data, aes(x=(year+1900), y=pgr, color=color))+
 full_plot <- grid.arrange(cover_plot, pgr_plot, ncol=2)
 ```
 
-\pagebreak{}
 
 ```{r concept_fig, echo=FALSE, fig.cap="Conceptual figure outlining the effects of interspecific interactions and environmental stochasticity in large populations where demographic stochasticity is effectively absent (A) and in populations of varying size where demographic stochasticity is present (B).", eval=F}
 library(png)
