@@ -549,7 +549,7 @@ colnames(table_data) <- c("Site",
                           "$\\text{E}(\\phi_{r})$", 
                           "$\\text{E}(\\sigma_{c} + \\sigma_{e})$",
                           "Species richness")
-table_data[,3] <- round(1/table_data[,ncol(table_data)],2) # reset expected sybchrony to 1/S
+# table_data[,3] <- round(1/table_data[,ncol(table_data)],2) # reset expected sybchrony to 1/S
 table_data[,4] <- table_data[,2] - table_data[,3] # calculate obs - exp synchrony
 
 synch_cap <- "Observed and expected synchrony among species' per capita growth rates and expected effect of demographic stochasticity on observed synchrony. Species richness values reflect the number of species analyzed from the community, not the actual richness."

@@ -77,13 +77,22 @@ get_comm_synchrony <- function(ts_data){
   
   
   ##  Expected synchrony under independent fluctuations
-  sigma <- numeric(num_spp)
-  sigma_sqr <- numeric(num_spp)
-  for(i in 1:num_spp){
-    sigma[i] <- sd(obs_gr[,i])
-    sigma_sqr[i] <- (sd(obs_gr[,i]))^2
-  }
-  expected_synchrony_ind_flucts <- (sum(sigma_sqr)) / ((sum(sigma))^2)
+  # New formula from Claire
+  ts_freq <- ddply(ts_data, .(year, species), summarise,
+                   avg_totcov = mean(totCover))
+  ts_freq_tmp <- dcast(ts_freq, year~species, value.var = "avg_totcov")
+  ts_freq_tmp$total <- rowSums(ts_freq_tmp[,c(2,3,4)])
+  ts_freq_wide <- colMeans(ts_freq_tmp[,c(2,3,4)] / ts_freq_tmp[,5])
+  expected_cover_synchrony <- 1 / (sum(ts_freq_wide^(1/2)))^2
+  expected_pgr_synchrony <- sum(ts_freq_wide^-1) / (sum(ts_freq_wide^(-1/2)))^2
+  
+#   sigma <- numeric(num_spp)
+#   sigma_sqr <- numeric(num_spp)
+#   for(i in 1:num_spp){
+#     sigma[i] <- sd(obs_gr[,i])
+#     sigma_sqr[i] <- (sd(obs_gr[,i]))^2
+#   }
+#   expected_synchrony_ind_flucts <- (sum(sigma_sqr)) / ((sum(sigma))^2)
   
   
   ##  Output
@@ -92,7 +101,8 @@ get_comm_synchrony <- function(ts_data){
   colnames(obs_gr) <- c("year","species","pgr")
   return(list(stability = stability,
               pgr_synchrony = growth_rate_synchrony,
-              pgr_expected_synch_ind_flucts = expected_synchrony_ind_flucts,
+              pgr_expected_synch_ind_flucts = expected_pgr_synchrony,
+              cover_expected_synch_ind_flucts = expected_cover_synchrony,
               abund_synchrony = synch_abundance,
               growth_rates = obs_gr,
               percent_cover = ts_agg))
