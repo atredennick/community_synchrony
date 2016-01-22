@@ -76,14 +76,47 @@ dev.off()
 library(ggthemes)
 polymono <- agg_synch[,c("site", "typesynch", "experiment", "mean_synch")]
 polymono_wide <- dcast(polymono, site+typesynch~experiment, value.var = "mean_synch")
-ggplot(polymono_wide, aes(x=ENVNOINTER, y=ENVINTER))+
+g1 <- ggplot(polymono_wide, aes(x=ENVNOINTER, y=ENVINTER))+
   geom_abline(aes(intercept=0, slope=1), linetype=3)+
   geom_point(size=3, aes(shape=typesynch))+
   scale_y_continuous(limits=c(0,1))+
   scale_x_continuous(limits=c(0,1))+
   ylab("Species synchrony in polyculture")+
-  xlab("Species synchrony in monoculture")+
+  xlab("Species synchrony \nin monoculture")+
   scale_shape_discrete(name="", labels=c("Per capita growth rate", "Percent cover"))+
   theme_few()+
+  ggtitle("A                                             ")+
   theme(legend.position=c(0.3,0.85))
-ggsave("../docs/components/poly_vs_mono_synch.png", width = 4, height = 3.5, dpi = 150)
+
+pgr_list <- readRDS("../results/ipm_yearly_pgr.RDS")
+site_names <- names(pgr_list)
+out_df <- data.frame(site=NA, pgr_synch=NA)
+for(do_site in site_names){
+  tmp_pgrs <- pgr_list[[do_site]]
+  tmp_synch <- as.numeric(community.sync(tmp_pgrs)[1])
+  tmp_df <- data.frame(site=do_site, pgr_synch=tmp_synch)
+  out_df <- rbind(out_df, tmp_df)
+}
+pgr_synch <- out_df[2:nrow(out_df),]
+polymono_wide$yrpgr <- rep(pgr_synch$pgr_synch, each=2)
+
+g2 <- ggplot(polymono_wide, aes(x=yrpgr, y=ENVINTER))+
+  geom_abline(aes(intercept=0, slope=1), linetype=3)+
+  geom_point(size=3, aes(shape=typesynch))+
+  scale_y_continuous(limits=c(0,1))+
+  scale_x_continuous(limits=c(0,1))+
+  ylab("Species synchrony in polyculture")+
+  xlab("Yearly per capita growth rate synchrony \nin monoculture")+
+  scale_shape_discrete(name="", labels=c("Per capita growth rate", "Percent cover"))+
+  theme_few()+
+  ggtitle("B                                             ")+
+  guides(shape=FALSE)+
+  theme(legend.position=c(0.3,0.85))
+
+library(gridExtra)
+
+png("../docs/components/poly_vs_mono_synch.png",width = 8, height = 4, units = "in", res=150)
+g_out <- grid.arrange(g1,g2,ncol=2)
+dev.off()
+
+# ggsave("../docs/components/poly_vs_mono_synch.png", plot=g_out, width = 8, height = 3.5, dpi = 150)

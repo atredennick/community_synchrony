@@ -140,7 +140,7 @@ for(do_site in site_list){
   site_output <- list()
   
   constant <- FALSE                 # always run with random year effects
-  spp_interact <- TRUE              # always run with interspp interactions
+  spp_interact <- FALSE              # always run with interspp interactions
   n_spp <- Nspp <- length(spp_list) # all possible forms of Nspp
   A <- 10000                        # area of a 1x1 meter plot, in cm
   maxSize <- max_size               # redo for IPM source script
