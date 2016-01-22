@@ -82,7 +82,7 @@ get_comm_synchrony <- function(ts_data){
                    avg_totcov = mean(totCover))
   ts_freq_tmp <- dcast(ts_freq, year~species, value.var = "avg_totcov")
   ts_freq_tmp$total <- rowSums(ts_freq_tmp[,c(2:ncol(ts_freq_tmp))])
-  ts_freq_wide <- colMeans(ts_freq_tmp[,c(2:ncol(ts_freq_tmp)-1)] / ts_freq_tmp[,ncol(ts_freq_tmp)])
+  ts_freq_wide <- colMeans(ts_freq_tmp[,c(2:(ncol(ts_freq_tmp)-1))] / ts_freq_tmp[,ncol(ts_freq_tmp)])
   expected_cover_synchrony <- 1 / (sum(ts_freq_wide^(1/2)))^2
   expected_pgr_synchrony <- sum(ts_freq_wide^-1) / (sum(ts_freq_wide^(-1/2)))^2
   

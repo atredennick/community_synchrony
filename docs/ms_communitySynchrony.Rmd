@@ -511,7 +511,7 @@ for(dospp in 1:num_spp){ #loop through species to read in data
 az_data <- az_data[2:nrow(az_data),] #remove first NA row
 ```
 
-```{r get_all_synch, echo=FALSE, include=TRUE, eval=T}
+```{r get_all_synch, echo=FALSE, include=TRUE, eval=T, cache=FALSE}
 out_ks <- get_comm_synchrony(ts_data = ks_data)
 out_id <- get_comm_synchrony(ts_data = id_data)
 out_mt <- get_comm_synchrony(ts_data = mt_data)
@@ -519,13 +519,16 @@ out_nm <- get_comm_synchrony(ts_data = nm_data)
 out_az <- get_comm_synchrony(ts_data = az_data)
 ```
 
-```{r synchrony_table, echo=FALSE, include=TRUE, results='asis', message=FALSE, eval=T}
+```{r synchrony_table, echo=FALSE, include=TRUE, results='asis', message=FALSE, eval=T, cache=FALSE}
 get_table_metrics <- function(output){
   tmp <- output
   exp_tmp <- round(tmp$pgr_expected_synch_ind_flucts, 2)
   obs_tmp <- round(as.numeric(tmp$pgr_synchrony[1]), 2)
   demo_tmp <- obs_tmp - exp_tmp
-  return(c(obs_tmp, exp_tmp, demo_tmp))
+  exp_cover <- round(as.numeric(tmp$cover_expected_synch_ind_flucts), 2)
+  obs_cover <- round(as.numeric(tmp$abund_synchrony[1]), 2)
+  demo_cover <- obs_cover - exp_cover
+  return(c(obs_tmp, exp_tmp, demo_tmp, obs_cover, exp_cover, demo_cover))
 }
 
 table_data <- as.data.frame(rbind(get_table_metrics(out_ks),
@@ -534,7 +537,7 @@ table_data <- as.data.frame(rbind(get_table_metrics(out_ks),
                                   get_table_metrics(out_nm),
                                   get_table_metrics(out_az)))
 table_data$Site <- c("Kansas", "Idaho", "Montana", "New Mexico", "Arizona")
-table_data <- table_data[,c("Site", "V1", "V2", "V3")]
+table_data <- table_data[,c("Site", "V1", "V2", "V3", "V4", "V5", "V6")]
 table_data$spp <- c(length(unique(ks_data$species)),
                     length(unique(id_data$species)),
                     length(unique(mt_data$species)),
@@ -547,10 +550,13 @@ table_data$spp <- c(length(unique(ks_data$species)),
 colnames(table_data) <- c("Site",
                           "$\\phi_{r}$", 
                           "$\\text{E}(\\phi_{r})$", 
-                          "$\\text{E}(\\sigma_{c} + \\sigma_{e})$",
+                          "$\\text{E}(\\sigma_{r,c} + \\sigma_{r,e})$",
+                          "$\\phi_{C}$", 
+                          "$\\text{E}(\\phi_{C})$",
+                          "$\\text{E}(\\sigma_{C,c} + \\sigma_{C,e})$",
                           "Species richness")
 # table_data[,3] <- round(1/table_data[,ncol(table_data)],2) # reset expected sybchrony to 1/S
-table_data[,4] <- table_data[,2] - table_data[,3] # calculate obs - exp synchrony
+# table_data[,4] <- table_data[,2] - table_data[,3] # calculate obs - exp synchrony
 
 synch_cap <- "Observed and expected synchrony among species' per capita growth rates and expected effect of demographic stochasticity on observed synchrony. Species richness values reflect the number of species analyzed from the community, not the actual richness."
 print(xtable(table_data, caption = synch_cap),
