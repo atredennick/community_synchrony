@@ -17,6 +17,9 @@
 #' @return A list of data frames for synchrony and stability metrics for the community.
 
 get_comm_synchrony <- function(ts_data){
+  ##  Get average size of all plants
+  avg_cover <- mean(ts_data$totCover)
+  
   ## aggregate the quadrat-level data for average observed cover
   # divide totCover by 100 to convert from m2 to percent cover in 1m2 plot
   ts_agg <- ddply(ts_data, .(year, species), summarise,
@@ -75,6 +78,10 @@ get_comm_synchrony <- function(ts_data){
   colnames(obs_gr) <- species_list
   obs_gr$year <- merged_df$year
   
+  ##  Total cover variability
+  ts_tot <- apply(ts_mat[2:ncol(ts_mat)], 1, sum)
+  comm_cv <- sd(ts_tot)/mean(ts_tot)
+  
   
   ##  Expected synchrony under independent fluctuations
   # New formula from Claire
@@ -99,7 +106,9 @@ get_comm_synchrony <- function(ts_data){
   obs_gr <- melt(obs_gr, id.vars = "year")
   obs_gr <- obs_gr[with(obs_gr, order(year)), ]
   colnames(obs_gr) <- c("year","species","pgr")
-  return(list(stability = stability,
+  return(list(avg_size = avg_cover,
+              stability = stability,
+              variability = comm_cv,
               pgr_synchrony = growth_rate_synchrony,
               pgr_expected_synch_ind_flucts = expected_pgr_synchrony,
               cover_expected_synch_ind_flucts = expected_cover_synchrony,
