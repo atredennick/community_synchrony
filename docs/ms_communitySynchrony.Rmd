@@ -267,21 +267,18 @@ Synchrony was calculated over the 100 time steps for each no extinction run with
 
 Results
 -------
-### Observed and simulated community synchrony
-Synchrony of species' per capita growth rates at our study sites ranged from 0.36 to 0.89 (Table 2).
-Synchrony tended to be higher in communities with few species (Arizona and New Mexico).
+Synchrony of species' per capita growth rates at our study sites ranged from 0.36 to 0.89 and synchrony of percent cover ranged from 0.15 to 0.92 (Table 2).
+Synchrony tended to be higher in communities with few species (Arizona and New Mexico) and/or with relatively high temporal variability (e.g., Montana).
 Synchrony was lowest in Idaho, the only data set that includes two life forms: a shrub (*Artimisia tripartita*) and three perennial grasses (Table 1).
-All sites exhibited more synchronous dynamics than expected if only demographic stochasticity was operating (E($\phi_r$) = 1/*S* in Table 2).
-The difference between observed $\phi_r$ and E($\phi_r$) represents the effect of the environment and species interactions combined .
-The combined effect of the environment and species interactions is positive in all communities (E($\phi_c + \phi_e$) in Table 2), indicating a synchronizing effect of those forces that counter-balance the desynchronizing effect of demographic stochasticity.
-For all five communities, species synchrony from IPM and IBM simulations closely approximated observed synchrony (Fig. 1).
+For per capita growth rates, all sites exhibited more synchronous dynamics than expected if only demographic stochasticity was operating (E($\phi_r$) < $\phi_r$ in Table 2).
+The difference between observed $\phi_r$ and E($\phi_r$) represents the effect of the environmemt, species interactions, and species differences combined.
+The combined effect of the environment, species interactions, and species differences is positive in all communities (E($\phi_c + \phi_e$) in Table 2), indicating a synchronizing effect of those forces that counter-balance the desynchronizing effect of demographic stochasticity.
+In contrast, expected synchrony of percent cover was lower than expected if only demographic stochasticity was operating in two out of the five communities (Kansas and Idaho, Table 2).
 
-### Effect of removing interspecific interactions
-The statistical models for vital rates showed that interspecific interactions were weak in all communities (Table X1), as previously found by @Chu2015.
-Consistent with weak interspecific interactions, removing such interactions from IPM simulations resulted in no discernable changes in species synchrony of per capita growth rates or percent cover (Fig. 2).
-This indicates that community regulation of population dynamics via coupled density-dependence ($\sigma_c$) is relatively weak in these communities.
-
-The effect of removing interspecific interactions on synchrony in IBM simulations was also small for per capita growth rates and was not affected by population size (Fig. 3, top panels).
+For all five communities, species synchrony from IPM and IBM simulations closely approximated observed synchrony (Fig. 1), meaning that we can use the models to test the importance of different drivers of synchrony in these communities.
+Simulations from the IPM show that removing interspecific interactions has little affect on synchrony of per capita growth rates or percent cover in all five communities (Fig. 2).
+The weak effect of interspecific interactions on synchrony is not surprising because interspecific interactions are weak in our focal communities (Table X1, and see @Chu2015).
+The effect of removing interspecific interactions on synchrony of per capita growth rates in IBM simulations was also small and was not affected by population size (Fig. 3, top panels).
 The only discernable effect of interspecific interactions was in the Arizona and New Mexico communities when environmental stochasticity was also removed.
 In those cases, removing interspecific interactions caused a decrease in species synchrony of per capita growth rates (Fig 3-a,e).
 Removing interspecific interactions had idosyncratic effects of the synchrony of species' percent cover and no clear patterns emerged (Fig. 3, bottom panels)
@@ -533,7 +530,7 @@ get_table_metrics <- function(output){
   plant_size <- tmp$avg_size
   cover_var <- tmp$variability
   return(c(obs_tmp, exp_tmp, demo_tmp, obs_cover, exp_cover, 
-           demo_cover, plant_size, cover_var))
+           demo_cover, cover_var))
 }
 
 table_data <- as.data.frame(rbind(get_table_metrics(out_ks),
@@ -542,7 +539,7 @@ table_data <- as.data.frame(rbind(get_table_metrics(out_ks),
                                   get_table_metrics(out_nm),
                                   get_table_metrics(out_az)))
 table_data$Site <- c("Kansas", "Idaho", "Montana", "New Mexico", "Arizona")
-table_data <- table_data[,c("Site", "V1", "V2", "V3", "V4", "V5", "V6", "V7", "V8")]
+table_data <- table_data[,c("Site", "V1", "V2", "V3", "V4", "V5", "V6", "V7")]
 table_data$spp <- c(length(unique(ks_data$species)),
                     length(unique(id_data$species)),
                     length(unique(mt_data$species)),
@@ -559,7 +556,6 @@ colnames(table_data) <- c("Site",
                           "$\\phi_{C}$", 
                           "$\\text{E}(\\phi_{C})$",
                           "$\\text{E}(\\sigma_{C,c} + \\sigma_{C,e})$",
-                          "Avg. Plant Size",
                           "CV of Total Cover",
                           "Species richness")
 # table_data[,3] <- round(1/table_data[,ncol(table_data)],2) # reset expected sybchrony to 1/S

@@ -99,6 +99,8 @@ Gpars_all <- readRDS("../results/growth_params_list.RDS")
 Spars_all <- readRDS("../results/surv_params_list.RDS")
 Rpars_all <- readRDS("../results/recruit_parameters.RDS")
 
+randyrlist <- readRDS("../results/randyr_list.RDS")
+
 site_list <- names(Gpars_all)
 
 output_list <- list()
@@ -145,7 +147,8 @@ for(do_site in site_list){
   }
   
   ##  Set environment time series to be constant across simulations
-  randyrvec <- sample(1:Nyrs, size = tlimit, replace = TRUE)
+  # randyrvec <- sample(1:Nyrs, size = tlimit, replace = TRUE)
+  randyrvec <- randyrlist[[do_site]]
   
   sim_count <- 1
   site_output <- list()
