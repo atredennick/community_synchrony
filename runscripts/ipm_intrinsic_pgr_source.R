@@ -167,7 +167,7 @@ for(jjjj in 1:length(spp_list)){
   ## Calculate low density growth rate of focal species
   tmp1 <- which(colnames(covSave)==paste(fixSpp, ".t0", sep=""))
   tmp2 <- which(colnames(covSave)==paste(fixSpp, ".t1", sep=""))
-  pgr <- log(covSave[2:tlimit,tmp2]/covSave[2:tlimit,tmp1])
+  pgr <- log(covSave[1:tlimit,tmp2]/covSave[1:tlimit,tmp1])
   maxR[,jjjj] <- pgr
 } # end fixed species loop
 

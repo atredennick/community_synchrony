@@ -1,6 +1,6 @@
 ##  Get sequence of random year effects for each site
 
-tlimit=2000
+tlimit=2500
 
 # Read in growth parameters to get number of random years
 Gpars_all <- readRDS("../results/growth_params_list.RDS")

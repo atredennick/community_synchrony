@@ -85,14 +85,18 @@ Abstract
 -------------
 Temporal asynchrony among interacting species is an important mechanism through which species richness can stabilize biomass production through time. 
 While asynchrony is a key mechanism linking biodiversity and ecosystem function, empirical support for the prevalance species asynchrony is mixed, and no studies have rigorously disentangled the forces driving species (a)synchrony in nature. 
-Theory identifies three drivers of species synchrony: inter- and intraspecific density dependence sychronizes dynamics, demographic stochasticity desynchronizes dynamics, and environmental forcing can either synchronize or desynchronize poplation dynamics depending on the correlation of species-specific environmental responses. 
-Here we use stochastic population models fit using long term datasets from five semi-arid grasslands to identify the forces that increase or decrease species synchrony through time.
+Theory identifies three drivers of species synchrony: inter- and intraspecific density dependence, demographic stochasticity, and environmental forcing.
+However, general trends between synchrony and its drivers are elusive except in special limiting cases.
+Here we use stochastic population models fit using long term datasets from five semi-arid grasslands to identify the forces that increase or decrease species synchrony.
 Species' environmental responses were positively, but not perfectly correlated. 
 As a result, environmental variation caused an increase in synchrony relative to an expectation of independent species' responses, but synchrony was not perfect.
 Species interactions tend to be weak, so removing interspecific competition did not affect synchrony. 
-The effect of demographic stochasticity depended on the spatial scale of our modeling; demographic stochasticity was strongest in small populations and was able to modestly counteract the synchronizing effect of the environment. 
+The effect of demographic stochasticity depended on the spatial scale of our modeling: demographic stochasticity was strongest in small populations and was able to modestly counteract the synchronizing effect of the environment. 
 We conclude that niche differentiation among species is strong enough to reduce the synchronizing effect of coupled density dependence via competition, but this is countered by the synchronizing effect of similar environmental responses. 
-The next frontier is to identify the specific environmental drivers of species synchrony to inform predictive efforts.  
+Our results are in contrast to a recent analysis of several biodiversity-ecosystem function experiments that found species asynchrony to be driven by competition.
+We propose that such differences are due to community assembly processes: recently assembled communities, such as experimental plots, may exhibit strong species interactions that will weaken over time.
+Viewing community synchrony through the lens of community assembly processes may provide a way to reconcile inconsistent observations on the biotic and abiotic forces that jointly drive community dynamics.
+
 
 <!-- \setlength{\parindent}{5ex} -->
 \setlength{\parindent}{5ex}

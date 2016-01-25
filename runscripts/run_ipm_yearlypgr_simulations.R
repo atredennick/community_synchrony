@@ -149,14 +149,14 @@ for(do_site in site_list){
   maxSize <- max_size               # redo for IPM source script
   bigM <- iter_matrix_dims          # redo for IPM source script
   NoOverlap.Inter <- FALSE          # heterospecifics allowed to overlap
-  tlimit <- 2000                    # number of years to simulate
+  tlimit <- 2500                    # number of years to simulate
   size_dir <- "../results/stable_size_dists/" # path for stable size dists
   
   ## Run the IPM from a source script
   source("ipm_intrinsic_pgr_source.R") 
   
   ##  Save site output to big list
-  output_list[[do_site]] <- maxR
+  output_list[[do_site]] <- maxR[501:tlimit,]
   
 } # end site loop
 
