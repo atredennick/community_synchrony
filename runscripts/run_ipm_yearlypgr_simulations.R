@@ -91,6 +91,8 @@ Gpars_all <- readRDS("../results/growth_params_list.RDS")
 Spars_all <- readRDS("../results/surv_params_list.RDS")
 Rpars_all <- readRDS("../results/recruit_parameters.RDS")
 
+randyrlist <- readRDS("../results/randyr_list.RDS")
+
 site_list <- names(Gpars_all)
 
 output_list <- list()
@@ -99,6 +101,7 @@ for(do_site in site_list){
   Gpars_tmp <- Gpars_all[[do_site]]
   Spars_tmp <- Spars_all[[do_site]]
   Rpars_tmp <- Rpars_all[[do_site]]
+  randyrvec <- randyrlist[[do_site]]
   
   spp_list <- names(Gpars_tmp)
   Nyrs <- nrow(Gpars_tmp[[1]])
@@ -140,13 +143,13 @@ for(do_site in site_list){
   site_output <- list()
   
   constant <- FALSE                 # always run with random year effects
-  spp_interact <- FALSE              # always run with interspp interactions
+  spp_interact <- FALSE             # always run with interspp interactions OFF
   n_spp <- Nspp <- length(spp_list) # all possible forms of Nspp
   A <- 10000                        # area of a 1x1 meter plot, in cm
   maxSize <- max_size               # redo for IPM source script
   bigM <- iter_matrix_dims          # redo for IPM source script
   NoOverlap.Inter <- FALSE          # heterospecifics allowed to overlap
-  tlimit <- Nyrs+1                  # number of years to simulate
+  tlimit <- 2000                    # number of years to simulate
   size_dir <- "../results/stable_size_dists/" # path for stable size dists
   
   ## Run the IPM from a source script

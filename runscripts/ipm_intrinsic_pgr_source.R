@@ -8,7 +8,7 @@
 ##  Created: 10-30-2015
 ################################################################################
 
-maxR <- matrix(nrow=Nyrs,ncol=Nspp)
+maxR <- matrix(nrow=tlimit,ncol=Nspp)
 for(jjjj in 1:length(spp_list)){
   # set fixed species
   fixSpp <- spp_list[jjjj] ##need to change if for other species
@@ -79,8 +79,10 @@ for(jjjj in 1:length(spp_list)){
   for (i in 2:(tlimit)){
     
     #draw from observed year effects
-    allYrs=c(1:Nyrs)
-    doYear=allYrs[i-1]
+#     allYrs=c(1:Nyrs)
+#     doYear=allYrs[i-1]
+#     yrSave[i]=doYear
+    doYear <- randyrvec[i]
     yrSave[i]=doYear
     
     #get recruits per area
