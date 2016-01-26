@@ -85,20 +85,47 @@ g1 <- ggplot(polymono_wide, aes(x=ENVNOINTER, y=ENVINTER))+
   xlab("Species synchrony \nin monoculture")+
   scale_shape_discrete(name="", labels=c("Per capita growth rate", "Percent cover"))+
   theme_few()+
-  ggtitle("A                                             ")+
+  ggtitle("A                                                          ")+
   theme(legend.position=c(0.3,0.85))
 
-pgr_list <- readRDS("../results/ipm_yearly_pgr.RDS")
-site_names <- names(pgr_list)
-out_df <- data.frame(site=NA, pgr_synch=NA)
-for(do_site in site_names){
-  tmp_pgrs <- pgr_list[[do_site]]
-  tmp_synch <- as.numeric(community.sync(tmp_pgrs)[1])
-  tmp_df <- data.frame(site=do_site, pgr_synch=tmp_synch)
-  out_df <- rbind(out_df, tmp_df)
-}
-pgr_synch <- out_df[2:nrow(out_df),]
-polymono_wide$yrpgr <- rep(pgr_synch$pgr_synch, each=2)
+
+
+output_list <- readRDS("../results/ipm_yearly_pgr.RDS")
+mlist <- melt(output_list)
+colnames(mlist)[1:3] <- c("year", "species", "pgr")
+sites <- unique(mlist$L1)
+synch_df <- data.frame(site=NA, bootnum=NA, pgr_synch=NA)
+boots <- 100
+num_iters <- 50
+for(dosite in sites){
+  tmpsim <- subset(mlist, L1==dosite)
+    for(i in 1:boots){
+      begin_year <- sample(x = 1:(max(tmpsim$year)-num_iters), 1)
+      end_year <- begin_year+num_iters
+      tmp <- subset(tmpsim, year %in% begin_year:end_year)
+      tmp <- dcast(tmp, year~species, value.var = "pgr")
+      tmpsynch <- as.numeric(community.sync(tmp[2:ncol(tmp)])[1])
+      tmp_df <- data.frame(site=dosite, bootnum=i, pgr_synch=tmpsynch)
+      synch_df <- rbind(synch_df, tmp_df)
+    }# end boots loop
+}# end site loop
+synch_dftmp <- synch_df[2:nrow(synch_df),]
+pgr_synch <- ddply(synch_dftmp, .(site), summarise,
+                   mean_pgrsynch = mean(pgr_synch))
+
+
+
+# pgr_list <- readRDS("../results/ipm_yearly_pgr.RDS")
+# site_names <- names(pgr_list)
+# out_df <- data.frame(site=NA, pgr_synch=NA)
+# for(do_site in site_names){
+#   tmp_pgrs <- pgr_list[[do_site]]
+#   tmp_synch <- as.numeric(community.sync(tmp_pgrs)[1])
+#   tmp_df <- data.frame(site=do_site, pgr_synch=tmp_synch)
+#   out_df <- rbind(out_df, tmp_df)
+# }
+# pgr_synch <- out_df[2:nrow(out_df),]
+polymono_wide$yrpgr <- rep(pgr_synch$mean_pgrsynch, each=2)
 
 g2 <- ggplot(polymono_wide, aes(x=yrpgr, y=ENVINTER))+
   geom_abline(aes(intercept=0, slope=1), linetype=3)+
@@ -109,7 +136,7 @@ g2 <- ggplot(polymono_wide, aes(x=yrpgr, y=ENVINTER))+
   xlab("Yearly per capita growth rate synchrony \nin monoculture")+
   scale_shape_discrete(name="", labels=c("Per capita growth rate", "Percent cover"))+
   theme_few()+
-  ggtitle("B                                             ")+
+  ggtitle("B                                                          ")+
   guides(shape=FALSE)+
   theme(legend.position=c(0.3,0.85))
 
