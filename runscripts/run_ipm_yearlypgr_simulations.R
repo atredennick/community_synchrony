@@ -156,7 +156,7 @@ for(do_site in site_list){
   source("ipm_intrinsic_pgr_source.R") 
   
   ##  Save site output to big list
-  output_list[[do_site]] <- maxR[501:tlimit,]
+  output_list[[do_site]] <- maxR[501:tlimit-1,]
   
 } # end site loop
 
