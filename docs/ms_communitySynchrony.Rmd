@@ -84,18 +84,13 @@ Email: atredenn@gmail.com
 Abstract
 -------------
 Temporal asynchrony among interacting species is an important mechanism through which species richness can stabilize biomass production through time. 
-While asynchrony is a key mechanism linking biodiversity and ecosystem function, empirical support for the prevalance species asynchrony is mixed, and no studies have rigorously disentangled the forces driving species (a)synchrony in nature. 
-Theory identifies three drivers of species synchrony: inter- and intraspecific density dependence, demographic stochasticity, and environmental forcing.
-However, general trends between synchrony and its drivers are elusive except in special limiting cases.
-Here we use stochastic population models fit using long term datasets from five semi-arid grasslands to identify the forces that increase or decrease species synchrony.
+While asynchrony is a key mechanism linking biodiversity and ecosystem function, empirical support for the prevalance of species asynchrony is mixed, and no studies have rigorously disentangled the forces driving species (a)synchrony in nature. 
+We use stochastic, multi-species population models fit using long term datasets from five semi-arid grasslands to determine the relative importance of the three forces that drive species synchrony: environmental fluctuations, interspecific competition, and demographic stochasticity.
 Species' environmental responses were positively, but not perfectly correlated. 
-As a result, environmental variation caused an increase in synchrony relative to an expectation of independent species' responses, but synchrony was not perfect.
-Species interactions tend to be weak, so removing interspecific competition did not affect synchrony. 
-The effect of demographic stochasticity depended on the spatial scale of our modeling: demographic stochasticity was strongest in small populations and was able to modestly counteract the synchronizing effect of the environment. 
-We conclude that niche differentiation among species is strong enough to reduce the synchronizing effect of coupled density dependence via competition, but this is countered by the synchronizing effect of similar environmental responses. 
-Our results are in contrast to a recent analysis of several biodiversity-ecosystem function experiments that found species asynchrony to be driven by competition.
-We propose that such differences are due to community assembly processes: recently assembled communities, such as experimental plots, may exhibit strong species interactions that will weaken over time.
-Viewing community synchrony through the lens of community assembly processes may provide a way to reconcile inconsistent observations on the biotic and abiotic forces that jointly drive community dynamics.
+As a result, community-wide synchrony was higher when environmental variation was present rather than absent, but synchrony was not perfect.
+Removing interspecific competition, which was weak in all communities, did not affect synchrony, and demographic stochasticity only played a role in small populations.
+Our results suggest that all five communities represent the theoretical limiting case where demographic stochasticity and competition are weak, and community-wide synchrony is approximately equal to the synchrony of species' environmental responses -- a result that may be quite general if natural communities tend to have large niche differences among species.
+However, our results are in contrast to a recent analysis of several biodiversity-ecosystem function experiments, suggesting an interplay between community assembly and the drivers of community synchrony.
 
 
 <!-- \setlength{\parindent}{5ex} -->
@@ -103,43 +98,51 @@ Viewing community synchrony through the lens of community assembly processes may
 
 Introduction
 ------------
-Biodiversity tends to stabilize ecosystem function in fluctuating environments [@Hector2010; @DeMazancourt2013a; @Hautier2014].
-In the absence of a highly dominant and stable species, asynchrony in population dynamics (also called compensatory dynamics) among interacting species is the only way for biodiversity to stabilize aggregate community or ecosystem function [@Ives2002; @Loreau2010; @Loreau2013].
-Experimental work in grassland communities provides strong evidence for the stabilizing effect of asynchronous population dynamics [@Hector2010; @DeMazancourt2013a; @Gross2014; @Hautier2014], but how theoretical mechanisms of species asynchrony link to observed dynamics remains unclear [@Loreau2008a; @Gonzalez2009].
-Futhermore, analyses of observational time series tend to report synchronous, rather than asynchrounous, population dynamics among species of similar ecology [@Houlahan2007; @Mutshinda2009; @Rocha2011; @Vasseur2014].
+Asynchrony in population dynamics (also called compensatory dynamics) among interacting species is a key mechanism by which biodiversity stabilizes aggregate community or ecosystem function [@Ives2002; @Loreau2010; @Loreau2013].
+Experimental work in grassland communities provides strong evidence for the stabilizing effect of asynchronous population dynamics [@Hector2010; @DeMazancourt2013a; @Gross2014; @Hautier2014], but how theoretical mechanisms of species asynchrony link to observed dynamics remains unclear [@Loreau2008a; @Gonzalez2009; @Loreau2013].
+Futhermore, analyses of observational time series tend to report synchronous, rather than asynchronous, population dynamics among species of similar ecology [@Houlahan2007; @Mutshinda2009; @Rocha2011; @Vasseur2014].
 Thus, our understanding of the prevalence and drivers of asynchronous population dynamics is limited.
 Only by fully understanding the mechanisms that lead to asynchronous, or synchronous, dynamics in natural ecosystems can we predict how future biodiversity loss may impact ecosystem functioning [@Loreau2010].
 
 Discovering the mechanisms behind population fluctuations, and whether they are synchronous among species or not, is a long-standing goal of ecology.
-One view is that density-dependent processes like interspecific competition lead to compensatory dyanmics [e.g., @Elton1942; @Tilman1988; @Ives1995].
+One view is that density-dependent processes like interspecific competition lead to compensatory dynamics [e.g., @Elton1942; @Tilman1988; @Ives1995].
 An alternative view is that density-independent processes like environmental forcing drive population fluctuations and tend to synchronize dynamics of ecologically-similar species [@Strong1983; @Fischer2001].
 Clearly, these views are not mutually exclusive, and most research has focused on determining the relative strength of biotic and abiotic forcing on the synchrony of community dynamics [e.g., @Ives1995; @Klug2000; @Houlahan2007; @Mutshinda2009].
-However, recent theory [@Loreau2008a] suggests that previous interpretations of time series have been impaired by (1) a faulty metric of synchrony that treated synchrony and asynchrony as binary states, (2) biased null expectations of species synchrony, and (3) the use of population abundances that are strongly influenced by lag effects and drift to estimate immediate responses to the environment and competition.
-Moreover, interspecific competition may actually synchronize, rather than de-synchronize, population dynamics [@Loreau2008a; @Loreau2010].
+The consensus from analyses of observational time series across a wide range of taxa is that compensatory dynamics are rare and that similar environmental responses among species synchronize community dynamics [@Houlahan2007; @Mutshinda2009].
+In contrast, a recent analysis of several biodiversity-ecosystem function experiments found evidence for compensatory dynamics in grasslands driven by competitive interactions, not species' specific responses to the environment [@Gross2014].
+
+However, recent theory [@Loreau2008a; @Loreau2013] suggests that previous interpretations of time series have been impaired by (1) a faulty metric of synchrony that treated synchrony and asynchrony as binary states, (2) biased null expectations of species synchrony, and (3) the use of population abundances that are strongly influenced by lag effects and drift to estimate immediate responses to the environment and competition.
 
 How should synchrony be measured?
 Traditionally, most researchers relied on summed covariances to detect compensatory, and thus asynchronous, dynamics [e.g., @Ives1995; @Klug2000; @Fischer2001; @Houlahan2007].
 The idea is that if the summed covariances of species' abundances through time are positive, then abiotic forces structure dynamics since species covar positively through time in response to a shared environmental driver.
 Alternatively, negative summed covariance should indicate that competition structures community fluctuations by driving compensatory dynamics.
-Unfortunately, reliance on such a metric created the search for binary states -- synchronous or not, compensatory dynamics or not -- where a continuum exists [@Loreau2008a].
-Likewise, values of summed covariance are not exclusive to particular combinations of drivers, meaning that negative summed covariances can ocurr in the absence of competition [@Ranta2008].
+Unfortunately, reliance on such a metric created the search for binary states -- synchronous or not, compensatory dynamics or not -- where a continuum exists [@Loreau2008a; @Gross2014].
+Likewise, values of summed covariance are not exclusive to particular combinations of drivers, meaning that negative summed covariances can occur in the absence of competition [@Ranta2008].
 Finally, summed covariances have no upper or lower limits and are sensitive to community size, making it difficult to compare different communities [@Loreau2008a].
-In the end, the fact that few communities exhibit negative summed covariance [e.g., @Houlahan2007] yields little insight as to whether communities tend to be sychronized by environmental forces or not [@Loreau2010].
+In the end, the fact that few communities exhibit negative summed covariance [e.g., @Houlahan2007] yields little insight on the relative influence of competition and environmental forcing on community dynamics [@Loreau2010].
 
-To overcome these limitations, @Loreau2008a derived a new metric of species synchrony based on a multi-species population dynamic model.
-Their proposed metric, best suited to measure community-wide synchrony of per capita population growth rates, is
+To overcome many of these limitations, @Loreau2008a derived a new metric of species synchrony based on a multi-species population dynamic model.
+Their proposed metric, which can be applied to per capita growth rates and abundances, is
 
 \begin{equation}
-\phi_r = \frac{\sigma^{2}_{T}}{(\sum_{i}\sigma_{r_{i}})^{2}}
+\phi_r = \frac{\sigma^{2}_{T}}{(\sum_{i}\sigma_{x_{i}})^{2}}
 \end{equation}
 
-\noindent where $\sigma_{r_{i}}$ is the temporal variance of species *i*'s per capita population growth rate ($r_i$) and $\sigma^{2}_{T}$ is the temporal variance of the aggregate community-level growth rate. 
+\noindent where $\sigma_{x_{i}}$ is the temporal variance of species *i*'s per capita population growth rate ($r_i$) or abundance ($N_i$) and $\sigma^{2}_{T}$ is the temporal variance of the aggregate community-level growth rate or abundance. 
 The metric of @Loreau2008a makes clear that synchrony and asynchrony are not binary states, contrary to their common usage in the literature.
-Rather, the synchrony of community dynamics lies along a continuum from perfect asynchrony ($\phi_r=0$) to perfect synchrony ($\phi_r=1$).
+Rather, the synchrony of community dynamics lies along a continuum from perfect asynchrony ($\phi=0$) to perfect synchrony ($\phi=1$).
 Thus, our focus should not be on whether or not (a)synchronous dynamics occur, but instead on the degree of (a)synchrony within a community and what process increase or decrease sychrony.
 
 What is the null expectation of species synchrony in competitive communities?
 Unfortunately, there is not a single answer.
+Theoretical work has isolated three main factors that drive species synchrony in competitive communities: density-dependence via intra- and interspecific competition, environmental fluctuations, and demographic stochasticity [@Loreau2008a; @Loreau2013].
+
+
+
+Theory identifies several limiting cases, but none can be considered an expectation in natural communities where the strengths of internal and external forces are unkown.
+For example, 
+
 The use of summed community covariance relied on the null expectation that species fluctuate independently [@Ranta2008], which need not be the case [@Loreau2008a; @Loreau2010]. 
 @Loreau2008a suggest there are two expectations: perfect synchrony in neutral communities where species have identical niches, and the inverse of the number of species in the community (1/*S*) when species fluctuate independently.
 Many previous investigations of community synchrony have implicitly assumped that species will fluctuate independently in the absence of temporal niche differences and that strong interspecific interactions cause compensatory dynamics.

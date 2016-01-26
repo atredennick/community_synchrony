@@ -78,15 +78,20 @@ polymono <- agg_synch[,c("site", "typesynch", "experiment", "mean_synch")]
 polymono_wide <- dcast(polymono, site+typesynch~experiment, value.var = "mean_synch")
 g1 <- ggplot(polymono_wide, aes(x=ENVNOINTER, y=ENVINTER))+
   geom_abline(aes(intercept=0, slope=1), linetype=3)+
-  geom_point(size=3, aes(shape=typesynch))+
+  geom_point(size=3, aes(shape=typesynch, color=site))+
   scale_y_continuous(limits=c(0,1))+
   scale_x_continuous(limits=c(0,1))+
   ylab("Species synchrony in polyculture")+
   xlab("Species synchrony \nin monoculture")+
-  scale_shape_discrete(name="", labels=c("Per capita growth rate", "Percent cover"))+
+  scale_shape_discrete(name="Temporal Variable", labels=c("Per capita growth rate", "Percent cover"))+
+  scale_color_manual(values = c("grey45", "steelblue", "slateblue4", "darkorange", "purple"),
+                     name = "Site")+
   theme_few()+
+  guides(shape=FALSE)+
   ggtitle("A                                                          ")+
-  theme(legend.position=c(0.3,0.85))
+  theme(legend.position=c(0.2,0.7))+
+  theme(legend.text = element_text(size = 8))+
+  theme(legend.background = element_rect(colour = "grey", fill = NA))
 
 
 
@@ -129,16 +134,17 @@ polymono_wide$yrpgr <- rep(pgr_synch$mean_pgrsynch, each=2)
 
 g2 <- ggplot(polymono_wide, aes(x=yrpgr, y=ENVINTER))+
   geom_abline(aes(intercept=0, slope=1), linetype=3)+
-  geom_point(size=3, aes(shape=typesynch))+
+  geom_point(size=3, aes(shape=typesynch, color=site))+
   scale_y_continuous(limits=c(0,1))+
   scale_x_continuous(limits=c(0,1))+
   ylab("Species synchrony in polyculture")+
   xlab("Yearly per capita growth rate synchrony \nin monoculture")+
-  scale_shape_discrete(name="", labels=c("Per capita growth rate", "Percent cover"))+
+  scale_shape_discrete(name="Temporal Variable", labels=c("Per capita growth rate", "Percent cover"))+
+  scale_color_manual(values = c("grey45", "steelblue", "slateblue4", "darkorange", "purple"),
+                     name = "Site")+
   theme_few()+
-  ggtitle("B                                                          ")+
-  guides(shape=FALSE)+
-  theme(legend.position=c(0.3,0.85))
+  guides(shape=FALSE, color=FALSE)+
+  ggtitle("B                                                          ")
 
 library(gridExtra)
 
