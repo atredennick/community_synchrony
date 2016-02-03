@@ -98,26 +98,33 @@ However, our results are in contrast to a recent analysis of several biodiversit
 
 Introduction
 ------------
-Asynchrony in population dynamics (also called compensatory dynamics) among interacting species is a key mechanism by which biodiversity stabilizes aggregate community or ecosystem function [@Ives2002; @Loreau2010; @Loreau2013].
+Asynchrony in population dynamics (also called compensatory dynamics) among interacting species is a key mechanism by which biodiversity stabilizes aggregate community or ecosystem function [@Ives2002; @Gonzalez2009; @Loreau2010; @Loreau2013].
 Experimental work in grassland communities provides strong evidence for the stabilizing effect of asynchronous population dynamics [@Hector2010; @DeMazancourt2013a; @Gross2014; @Hautier2014], but how theoretical mechanisms of species asynchrony link to observed dynamics remains unclear [@Loreau2008a; @Gonzalez2009; @Loreau2013].
 Futhermore, analyses of observational time series tend to report synchronous, rather than asynchronous, population dynamics among species of similar ecology [@Houlahan2007; @Mutshinda2009; @Rocha2011; @Vasseur2014].
 Thus, our understanding of the prevalence and drivers of asynchronous population dynamics is limited.
 Only by fully understanding the mechanisms that lead to asynchronous, or synchronous, dynamics in natural ecosystems can we predict how future biodiversity loss may impact ecosystem functioning [@Loreau2010].
 
-Discovering the mechanisms behind population fluctuations, and whether they are synchronous among species or not, is a long-standing goal of ecology.
-One view is that density-dependent processes like interspecific competition lead to compensatory dynamics [e.g., @Elton1942; @Tilman1988; @Ives1995].
-An alternative view is that density-independent processes like environmental forcing drive population fluctuations and tend to synchronize dynamics of ecologically-similar species [@Strong1983; @Fischer2001].
-Clearly, these views are not mutually exclusive, and most research has focused on determining the relative strength of biotic and abiotic forcing on the synchrony of community dynamics [e.g., @Ives1995; @Klug2000; @Houlahan2007; @Mutshinda2009; @Gross2014].
-However, recent theory [@Loreau2008a; @Loreau2013] suggests that previous interpretations of time series have been impaired by (1) a faulty metric of synchrony that treated synchrony and asynchrony as binary states, (2) biased null expectations of species synchrony, and (3) the use of population abundances that are strongly influenced by lag effects and drift to estimate immediate responses to the environment and competition.
+A major roadblock to understanding community synchrony is that many proposed mechanisms lead to similar outcomes.
+Asynchronous fluctuations in species' abundances can result from interspecific competition [@Tilman2000] or species-specific responses to variable environmental conditions [@Loreau2013].
+However, the effects of interspecific competition and environmental fluctuations are not as general as they appear.
+For example, interspecific competition can have either a positive or negative effect on synchrony depending on how strongly species interact, the symmetry of those interactions, and species' growth rates [@Loreau2013].
+Likewise, environmental fluctuations can have either a positive or negative effect on synchrony depending on how similarly species respond to environmental conditions.
+Since predictions arising from the above mechanisms are not mutually exclusive [@Ranta2008], it is difficult to infer mechanism from population time series [e.g., @Houlahan2007].
 
-How should synchrony be measured?
-Traditionally, most researchers relied on summed covariances to detect compensatory, and thus asynchronous, dynamics [e.g., @Ives1995; @Klug2000; @Fischer2001; @Houlahan2007].
+Inferring the mechanism driving synchrony in observed population time series has also been hampered by the widespread use of summed community covariance as a metric for detecting compensatory dynamics [e.g., @Ives1995; @Klug2000; @Fischer2001; @Houlahan2007].
 The idea is that if the summed covariances of species' abundances through time are positive, then abiotic forces structure dynamics since species covar positively through time in response to a shared environmental driver.
 Alternatively, negative summed covariance should indicate that competition structures community fluctuations by driving compensatory dynamics.
 Unfortunately, reliance on such a metric created the search for binary states -- synchronous or not, compensatory dynamics or not -- where a continuum exists [@Loreau2008a; @Gross2014].
 Likewise, values of summed covariance are not exclusive to particular combinations of drivers, meaning that negative summed covariances can occur in the absence of competition [@Ranta2008].
 Finally, summed covariances have no upper or lower limits and are sensitive to community size, making it difficult to compare different communities [@Loreau2008a].
 In the end, the fact that few communities exhibit negative summed covariance [e.g., @Houlahan2007] yields little insight on the relative influence of competition and environmental forcing on community dynamics [@Loreau2010].
+
+
+However, recent theory [@Loreau2008a; @Loreau2013] suggests that previous interpretations of time series have been impaired by (1) a faulty metric of synchrony that treated synchrony and asynchrony as binary states, (2) biased null expectations of species synchrony, and (3) the use of population abundances that are strongly influenced by lag effects and drift to estimate immediate responses to the environment and competition.
+
+How should synchrony be measured?
+Traditionally, most researchers relied on summed covariances to detect compensatory, and thus asynchronous, dynamics [e.g., @Ives1995; @Klug2000; @Fischer2001; @Houlahan2007].
+
 
 To overcome many of these limitations, @Loreau2008a derived a new metric of species synchrony based on a multi-species population dynamic model.
 Their proposed metric, which can be applied to per capita growth rates and abundances, is
