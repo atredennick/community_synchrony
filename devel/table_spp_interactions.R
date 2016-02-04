@@ -91,6 +91,14 @@ for(do_vital in vital_rates){
   vital_comp_list[[do_vital]] <- comp_list
 }
 
+df <- melt(unlist(vital_comp_list))
+pieces <- strsplit(rownames(df), split = "[.]")
+df$vitalrate <- sapply(pieces, "[", 1)
+sites <- sapply(pieces, "[", 2)
+df$site <- substr(sites, start = 1, stop = nchar(sites)-1)
+df$interintra <- substr(sites, start = nchar(sites), stop = nchar(sites))
+avg_interintra <- ddply(df, .(site, interintra), summarise,
+                        avg_val = mean(value))
 
 
 ####
