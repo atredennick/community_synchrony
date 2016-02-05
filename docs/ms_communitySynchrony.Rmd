@@ -67,7 +67,7 @@ opts_chunk$set(dev='pdf')
 
 \textbf{Number of References}: 
 
-\textbf{Number of Tables and Figures}:  Tables;  Figures
+\textbf{Number of Tables and Figures}:  2 Tables;  4 Figures
 
 \textbf{Corresponding Author}: Andrew Tredennick \\  
 Address: Department of Wildland Resources and the Ecology Center, 5230 Old Main Hill, Utah State University, Logan, Utah 84322 USA \\
@@ -98,35 +98,40 @@ However, our results are in contrast to a recent analysis of several biodiversit
 
 Introduction
 ------------
-The temporal synchrony of population dynamics among interacting species largely determines ecosystem stability [@Ives2002; @Loreau2013; @Gross2014] and is a function of demographic stochasticity, environmental stochasticity, and competition [@Loreau2008a; @Loreau2013].
-Strong asynchrony (also called compensatory dynamics) can emerge from negative interactions among competitors [@Lehman2000], but can also be the result of species-specific responses to environmental conditions [@Loreau2013].
-However, it may often be the case that communities are composed of species that respond similarly to environmental conditions, which can synchronize community dynamics [@Houlahan2007; @Rocha2011].
-Competition, too, may synchronize dynamics under some conditions [@Loreau2013].
-In fact, demographic stochasticity is the only force with a consistent desynchronizing effect on population dynamics [@Loreau2008a].
-Since environmental forces and competition can both lead to strong synchronous or asynchronous dynamics, deciphering the mechanisms behind species synchrony in natural communities has been a challenge.
+The relationship between species richness and ecosystem stability depends on species synchrony [@Gonzalez2009].
+All else being equal, the stability of ecosystem function is highest when species dynamics are asynchronous [@DeMazancourt2013a].
+Thus, a mechanistic understanding of the diversity-stability relationship requires understanding the processes that increase or decrease species synchrony in nature.
+In the simplest case, when interspecific interactions and demographic stochasticity are weak, species synchrony is entirely determined by the synchrony of species' responses to fluctuating environmental conditions [@Loreau2008a; @Loreau2013].
+Synchrony is highest when species' environmental responses are perfectly correlated, and declines as environmental responses diverge [@Ives2002; @Loreau2008a; @Loreau2013].
+Alternatively, if environmental forcing is weak, interspecific competition can lead to compensatory dynamics that desynchronize species dynamics [@Lehman2000].
+Of course, real communities are subject to some combination of environmental stochasticity, interspecific competition, and demographic stochasticity that complicate predictions from special theoretical cases [@Loreau2013].
 
-One of the largest hurdles to understanding community synchrony has been how we define synchrony.
-Unfortunately, the null expectation of independent species fluctutations and the use of summed community covariance as a metric of synchrony resulted in the perception that synchrony and asynchrony are binary states [@Ives1995; @Klug2000; @Fischer2001; @Houlahan2007], when in fact synchrony is a continuous property [@Loreau2008a].
-Fortunately, two recent theoretical advances clarify how we should view community syhnchrony.
-First, there is no null expectation of community synchrony.
-Theory identifies several limiting cases, but none can be considered null expectations [@Loreau2008a; @Loreau2013].
-For example, independent fluctuations among species is one expected theoretical outcome, but only when demographic stochasticity alone is operating and all species have equal abundances and variances [@Loreau2008a].
-Another expectation is that species fluctuate in perfect synchrony when competition and demographic stochasticity are weak and species' responses to the environment are perfectly correlated [@Loreau2008a].
-It is impossible to *a priori* assign a theoretical expectation to a natural community, suggesting we should abandon the use of any null expectation.
-Second, @Loreau2008a derived a new metric of synchrony ($\phi$) from a multi-species dynamic population model, which makes clear that synchrony and asynchrony are not binary states, contrary to their common usage in the literature.
-Rather, the synchrony of community dynamics lies along a continuum from perfect asynchrony ($\phi=0$) to perfect synchrony ($\phi=1$).
-Thus, our focus should not be on whether or not (a)synchronous dynamics occur, but instead on the degree of (a)synchrony within a community and what process increase or decrease sychrony [e.g., @Gross2014].
+The fact that species synchrony emerges from complex interactions among species' environmental responses, species interactions, and demographic stochasticity makes it difficult to disentangle the drivers of synchrony in observational data [e.g., @Houlahan2007].
+Weak synchrony could reflect positive environmental correlations offset by strong competition, or weak environmental correlations and weak competition.
+Likewise, demographic stochasticity can induce ecological drift in small populations that mask signals of competition and the environment [@Loreau2008a; @DeMazancourt2013a].
+Therefore, inference on the processes that drive synchrony from metrics of synchrony, like summed community covariance, alone is prone to error.
+@Mutshinda2009 attempted to overcome some of the limitations of inferring process from pattern by fitting a dynamic population model to several community time series of animal abundance.
+They used a statistical technique to decompose temporal variation into competition and environmental components, and found that postively correlated environmental responses among species determined community dynamics.
+However, Mutshinda et al.'s (2009) modeling technique relied on abundance data that may or may not reliably capture competitive interactions that occur at the individual level.
 
-Since there is no null expectation for synchrony, no breakpoint at which dynamics can be considered asynchronous or synchronous, and values of synchrony are not unique to specific processes, it is impossible to infer the relative strength of different mechanisms driving synchrony by calculating summed covariances of population time series [e.g., @Houlahan2007].
-To overcome the limitations of analyzing community covariance alone, @Mutshinda2009 used a statistical approach to decompose fluctuations in abundance into contributions from environmental stochasticity and species' interactions.
-In agreement with Houlahan et al.'s (2007) conclusions, @Mutshinda2009 found that community dynamics were driven by positively correlated environmental responses among species.
-However, the @Mutshinda2009 study did not include data from plant communities that have, so far, received the most evidence for a strong role for interspecific interactions in determining species synchrony [@Gross2014].
-
-In this paper, we explicitly test theory on all the drivers of species synchrony by parameterizing and simulating dynamic multi-species population models fit to long term demographic data from five semi-arid grasslands [@Chu2015].
-We make no *a priori* assumptions about expected synchrony or the potential for drivers of population dynamics to increase or decrease synchrony.
-Instead, we use the fitted population models to simulate communities with and without interspecific interactions, environmental forcing, and demographic stochasticity.
+Here, we explicitly test theory on the drivers of species synchrony by parameterizing and simulating dynamic, multi-species population models fit to long term demographic data from five semi-arid grasslands [@Chu2015].
+We use the fitted population models to simulate communities with and without interspecific interactions, environmental forcing, and demographic stochasticity.
 Our modeling approach allows us to draw inference from real ecological systems that would otherwise be impossible using strictly statistical [e.g., @Mutshinda2009], experimental [e.g., @Gross2014], or observational [e.g., @Houlahan2007] approaches.
 Given that our models capture the essential features of community dynamics important to synchrony (density-dependence, demographic and environmental stochasticity) and that these models are able to reproduce observed plant abundances [@Chu2015], perturbing the models reveals the processes responsible for the degree of species synchrony in our focal grassland communities.
+Our main focus is on the synchrony of species' per capita growth rates since they represent a species immediate response to environmental conditions and competition.
+However, we also analyze synchrony of plant cover (a metric of abundance) to relate our findings to previous research.
+
+Our approach has several advantages.
+First, we can use the models the directly compare synchrony from communities with and without different processes operating.
+This means we do not have to rely on biased null expectations, such as independent species fluctuations, to determine if competition or environmental responses are more important -- we can test for this directly.
+Second, our models represent natural communities, rather than experimentally-assembled communities.
+This means our results may be more generalizable then results obtained from biodiversity-ecosystem function experiments where strong, but transient, competition is a hallmark [@Gross2014].
+Third, our models are based on individual-level demographic data, which allows us to accurately estimate inter and intraspecific competition.
+Lastly, we can use the models to estimate the synchrony of species' low density growth rates in the absence of interspecific competition.
+Experimental analyses must rely on species' growth in monoculture as an indicator of a species' response to the environemnt, but low density growth rates are a direct measure of a species' immediate response to environmental conditions.
+In combination, our dynamic modeling approach represents the most direct means toward unraveling the process that jointly determine community dynamics, species synchrony, and ultimately ecosystem stability.
+
+
 
 <!-- COMMENT THIS OUT FOR NOW...
 
