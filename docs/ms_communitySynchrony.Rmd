@@ -113,9 +113,11 @@ Therefore, inference on the processes that drive synchrony from metrics of synch
 @Mutshinda2009 attempted to overcome some of the limitations of inferring process from pattern by fitting a dynamic population model to several community time series of animal abundance.
 They used a statistical technique to decompose temporal variation into competition and environmental components, and found that postively correlated environmental responses among species determined community dynamics.
 However, Mutshinda et al.'s (2009) modeling technique relied on abundance data that may or may not reliably capture competitive interactions that occur at the individual level.
+Thus, despite several efforts to determine the drivers of species synchrony in natural communities, our understanding remains limited.
 
+Much like research on diversity-stability relationships, empirical work has lagged behind theoretical work aimed at deepening our mechanistic understanding of species synchrony.
 Here, we explicitly test theory on the drivers of species synchrony by parameterizing and simulating dynamic, multi-species population models fit to long term demographic data from five semi-arid grasslands [@Chu2015].
-We use the fitted population models to simulate communities with and without interspecific interactions, environmental forcing, and demographic stochasticity.
+We use the fitted population models to simulate communities with and without the three processes identified by theory as drivers of species synchrony: interspecific interactions, environmental forcing, and demographic stochasticity [@Loreau2008a; @Loreau2013; @DeMazancourt2013a].
 Our modeling approach allows us to draw inference from real ecological systems that would otherwise be impossible using strictly statistical [e.g., @Mutshinda2009], experimental [e.g., @Gross2014], or observational [e.g., @Houlahan2007] approaches.
 Given that our models capture the essential features of community dynamics important to synchrony (density-dependence, demographic and environmental stochasticity) and that these models are able to reproduce observed plant abundances [@Chu2015], perturbing the models reveals the processes responsible for the degree of species synchrony in our focal grassland communities.
 Our main focus is on the synchrony of species' per capita growth rates since they represent a species immediate response to environmental conditions and competition.
@@ -129,7 +131,7 @@ This means our results may be more generalizable then results obtained from biod
 Third, our models are based on individual-level demographic data, which allows us to accurately estimate inter and intraspecific competition.
 Lastly, we can use the models to estimate the synchrony of species' low density growth rates in the absence of interspecific competition.
 Experimental analyses must rely on species' growth in monoculture as an indicator of a species' response to the environemnt, but low density growth rates are a direct measure of a species' immediate response to environmental conditions.
-In combination, our dynamic modeling approach represents the most direct means toward unraveling the process that jointly determine community dynamics, species synchrony, and ultimately ecosystem stability.
+In combination, our dynamic modeling approach represents the most direct means toward unraveling the process that jointly determine community dynamics, species synchrony, and, ultimately, ecosystem stability.
 
 
 
@@ -255,7 +257,7 @@ However, the @Mutshinda2009 study did not include data from plant communities th
 
 Materials and Methods
 ---------------------
-Our current work heavily relies on the data and analysis presented by @Chu2015. We refer interested readers to @Chu2015 for full details on the focal plant communities, choice of species, structure of vital rate statistical models, and the ability of fitted population models to reproduce observed dynamics. We offer a brief overview here, but note that the only difference between our vital rate models and those fit by @Chu2015 is that we allowed for positive species interactions. 
+Our work heavily relies on the data and analysis presented by @Chu2015. We refer interested readers to @Chu2015 for full details on the focal plant communities, choice of species, structure of vital rate statistical models, and the ability of fitted population models to reproduce observed dynamics. We offer a brief overview here, but note that the only difference between our vital rate models and those fit by @Chu2015 is that we allowed for positive species interactions. 
 
 ### Data
 In the early 20th century, several range experiment stations in the western U.S. began mapping permanent quadrats, and conducted annual censuses for decades. 
@@ -267,19 +269,46 @@ Data come from the Sonoran desert in Arizona [@Anderson2012], sagebrush steppe i
 ### Analytical approach
 Our analysis involved five steps for each study site:
 
-1. Calculate observed synchrony of per capita growth rates
+1. Calculate observed and expected synchrony of per capita growth rates and percent cover
 2. Fit statistical models for survival, growth, and recruitment
-3. Build dynamic, multi-species population models (IBMs and IPMs)
+3. Build dynamic, multi-species population models: a spatially-implicit integral projection model (IPM; does not include demographic stochasticity) and a spatially-explicit individual based model (IBM; includes demographic stochasticity)
 4. Remove interspecific interactions from IPM simulations to isolate the effect of environmental responses
 5. Sequentially remove interspecific interactions, environmental fluctuations, and both (isolates effect of demographic stochasticity) from the IBM across a range of population sizes (effects strength of demographic stochasticity)
 
-All our code and the data necessary to reproduce the results reported in this paper can be found on GitHub (link) as release v1.0, and we have archived that release on Dryad (link).
+\noindent All our code and the data necessary to reproduce the results reported in this paper can be found on GitHub (link) as release v1.0, and we have archived that release on Dryad (link).
 
 #### Calculating observed synchrony
-The data consists of records for individual plant size in quadrats for each year.
+The data consist of records for individual plant size in quadrats for each year.
 To obtain estimates of percent cover for each focal species in each year, we summed the individual-level data within quadrats and then averaged percent cover, by species, over all quadrats.
 We calculated per capita growth rates as $\text{log}(x_t) - \text{log}(x_{t-1})$, where *x* is species' percent cover in year *t*.
-Using the community time series of per capita growth rates in percent cover, we calculated community synchrony using the metric of @Loreau2008a (Equation 1) in the `synchrony' package [@Gouhier2014] in R [@R2013].
+Using the community time series of per capita growth rates in percent cover, we calculated community synchrony using the metric of @Loreau2008a in the `synchrony' package [@Gouhier2014] in R [@R2013].
+Specifically, we calculated synchrony as
+
+\begin{equation}
+\phi_x = \frac{\sigma^{2}_{T}}{(\sum_{i}\sigma_{x_{i}})^{2}}
+\end{equation}
+
+\noindent where $\sigma_{x_{i}}$ is the temporal variance of species *i*'s per capita population growth rate ($r_i$) or abundance ($N_i$) and $\sigma^{2}_{T}$ is the temporal variance of the aggregate community-level growth rate or abundance.
+
+We chose to use the special theoretical case where only demographic stochasticity is operating and all species have similar growth rates and variances to serve as an expectation of synchrony (see Appendix X).
+Specifically, based on a multi-species dynamic population model (Appendix X), we calculate expected synchrony of per capita growth rates ($\text{E}(\phi_r)$) as
+
+\begin{equation}
+\text{E}(\phi_r) = \frac{\sum_{i}p_{i}^{-1}}{\left(\sum_{i}p_{i}^{-1/2}\right)^{2}}
+\end{equation}
+
+\noindent and expected synchrony of percent cover ($\text{E}(\phi_N)$) as
+
+\begin{equation}
+\text{E}(\phi_r) = \frac{1}{\left(\sum_{i}p_{i}^{1/2}\right)^{2}}
+\end{equation}
+
+\noindent where $p_i$ is the average frequency of species *i* ($p_i = N_i/N_Total$).  
+
+The difference between observed and expected synchrony represents the combined effect of competition and environmental stochasticity.
+However, it is important to note that comparing observed and expected synchrony does not yield insight on the relative contributions of competition and environmental stochasticity.
+The difference between observed and expected synchrony serves as a metric of how far natural communities are from idealized expectations.
+To understand the influence of competition and environmental stochasticity, we must turn to using population model simulations.
 
 #### Fitting statistical models
 Vital rate regressions are the building blocks of our dynamic models (IBM and IPM).
