@@ -157,6 +157,8 @@ singles$remove="yes"
 test <- merge(synch_df, singles, by=c("experiment", "site", "expansion", "typesynch"), all = TRUE)
 ids.out <- which(test$remove=="yes")
 synch_dfplot <- test[-ids.out,]
+avg_synchs <- ddply(synch_dfplot, .(experiment, expansion, typesynch), summarise,
+                    avg_synch = mean(synch))
 
 ### Make plot and save
 ibm_plot <- ggplot(synch_dfplot, aes(x=expansion, y=synch, color=experiment))+

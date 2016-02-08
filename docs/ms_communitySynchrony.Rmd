@@ -85,12 +85,12 @@ Abstract
 -------------
 Temporal asynchrony among interacting species is an important mechanism through which species richness can stabilize biomass production through time. 
 While asynchrony is a key mechanism linking biodiversity and ecosystem function, empirical support for the prevalance of species asynchrony is mixed, and no studies have rigorously disentangled the forces driving species (a)synchrony in nature. 
-We use stochastic, multi-species population models fit using long term datasets from five semi-arid grasslands to determine the relative importance of the three forces that drive species synchrony: environmental fluctuations, interspecific competition, and demographic stochasticity.
-Species' environmental responses were positively, but not perfectly correlated. 
-As a result, community-wide synchrony was higher when environmental variation was present rather than absent, but synchrony was not perfect.
+We used stochastic, multi-species population models fit using long term datasets from five semi-arid grasslands to determine the relative importance of the three forces that drive species synchrony: environmental fluctuations, interspecific competition, and demographic stochasticity.
+Species' environmental responses, quantified as temporal random effects in vital rate regressions, were positively correlated in each community, ranging from $\rho = 0.23$ to $\rho = 0.38$ when averaged over vital rates. 
+As a result, community-wide synchrony of per capita growth rates ($\phi_r$), which ranges from 0 (perfect asynchrony) to 1 (perfect synchrony), was higher when environmental variation was present (average $\phi_r = 0.62$) rather than absent (average $\phi_r = 0.43$).
 Removing interspecific competition, which was weak in all communities, did not affect synchrony, and demographic stochasticity only played a role in small populations.
 Our results suggest that all five communities represent the theoretical limiting case where demographic stochasticity and competition are weak, and community-wide synchrony is approximately equal to the synchrony of species' environmental responses -- a result that may be quite general if natural communities tend to have large niche differences among species.
-However, our results are in contrast to a recent analysis of several biodiversity-ecosystem function experiments, suggesting an interplay between community assembly and the drivers of community synchrony.
+However, our results are in contrast to a recent analysis of several biodiversity-ecosystem function experiments, suggesting that strong transient competition early in community assembly can counteract the often synchronizing effect of environmental fluctuations.
 
 \newpage{}
 <!-- THIS HOW TO COMMENT-OUT -->

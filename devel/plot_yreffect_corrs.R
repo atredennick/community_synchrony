@@ -101,7 +101,7 @@ for(do_vital in vital_rates){
 }
 cor_df <- out_df[2:nrow(out_df),]
 cor_cast <- dcast(cor_df, site~vital_rate)
-
+avg_env_resp <- apply(cor_cast[,2:4], MARGIN = 1, FUN = "mean")
 
 ####
 ####  Calculate synchrony of random year effects -------------------------------
