@@ -43,7 +43,11 @@ opts_chunk$set(dev='pdf')
 
 \renewcommand*{\thefootnote}{\fnsymbol{footnote}}
 
+\vspace{1em}
+
 \normalsize{Andrew T. Tredennick\textsuperscript{1}, Claire de Mazancourt\textsuperscript{2}, Michel Loreau\textsuperscript{2}, and Peter B. Adler\textsuperscript{1}}
+
+\vspace{1em}
 
 \textit{\small{\textsuperscript{1}Department of Wildland Resources and the Ecology Center, 5230 Old Main Hill, Utah State University, Logan, Utah 84322 USA}}
 
@@ -239,7 +243,7 @@ Temporal variation is included in exactly the same way as for the IBM.
 For full details on the IPMs we use, see @Chu2015.
 
 
-#### Removing interspecific interactions (IPM)
+#### Removing interspecific interactions and quantifying species' environmental responses (IPM)
 To remove interspecific interactions, we simply set the off-diagonals of the interaction matrix for each vital rate regression to zero.
 This retains intraspecific interactions, and thus density-dependence, and results in simulations where species are effectively growing in monoculture.
 We ran IPM simulations with interspecific interactions turned on/off for 2,000 time steps, after an initial 500 iteration burn-in period.
@@ -248,6 +252,12 @@ We then calculated the synchrony of species' percent cover and per capita growth
 These simulations allowed us to isolate the effects of competition and environmental fluctuations in large populations where demographic stochasticity is absent.
 Note, however, what we could not run IPM simulations without environmental fluctuations, because it is only those fluctuations that drive variability in stochastich IPMs.
 In a constant environment, IPM simulations asymptote at stable equilibriums for each species.
+
+One way to quantify the importance of environmental stochasticity on synchrony is to compare species synchrony when grown in monoculture versus when grown in polyculture [@Gross2014].
+The assumption is that synchrony in monoculture is representative of the synchrony of species' environmental responses.
+A more direct measure of a species' environmental response is the low density growth rate in a given year in the absence of interspecific competition because then only the environment is influencing the change in abundance [@Adler2010].
+Thus, we compare species synchrony in polyculture (equilibrium densities, with species interactions) to species synchrony in monoculture (equilibrium densities, no species interactions) and to the synchrony of low density growth rates (low densities, no species interactions).
+The difference between synchrony of per capita growth rates in monoculture at equilibrium versus low densities represents the effect of intraspecific density-dependence.
 
 #### Removing interspecific interactions and environmental fluctuations (IBM)
 Since the IBM and IPM are driven by the same vital rate regressions, interspecific interactions were removed as described above for the IPM simulations.
@@ -292,6 +302,7 @@ Demographic stochasticity had a weaker effect on synchrony of percent cover; onl
 Since species interactions are weak and demographic stochasticity only matters in small populations, the synchrony of species in monoculture (without interspecific interactions) should predict the synchrony of species in polyculture (with interspecific interactions).
 For all five communities and for percent cover and per capita growth rates, the synchrony of species in monoculture is a near-perfect predictor of species synchrony in polyculture (Fig. 4A).
 However, the synchrony of species' low-density growth rates, a more accurate measure of a species' environmental response, was a less accurate predictor of species synchrony in polyculture (Fig. 4B).
+Except for synchrony of per capita growth rates in the Idaho and Montana communities, synchrony of low density growth rates in monoculture underpredicted synchrony in polyculture (Fig. 4B).
 
 Discussion
 ----------
