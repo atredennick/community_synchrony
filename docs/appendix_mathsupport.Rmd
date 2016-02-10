@@ -1,0 +1,92 @@
+---
+layout: 12pt
+header-includes:
+   - \usepackage{lineno}
+   - \linenumbers
+   - \usepackage{setspace}
+   - \usepackage{todonotes}
+   - \doublespacing
+   - \usepackage[document]{ragged2e}
+   - \usepackage{color}
+   - \usepackage{rotating}
+bibliography: ~/Dropbox/Bibliography/CommunitySynchrony.bib
+csl: components/ecology.csl
+
+## rmarkdown render options
+output:
+  pdf_document:
+    fig_caption: true
+    keep_tex: false
+fontsize: 12pt
+geometry: margin=1in
+linkcolor: black
+urlcolor: black
+
+---
+# Appendix X for TITLE: Mathematical Support
+
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+
+Andrew T. Tredennick\footnote{Correspondance: atredenn@gmail.com}\textsuperscript{1}, Claire de Mazancourt\textsuperscript{2}, Michel Loreau\textsuperscript{2}, and Peter B. Adler\textsuperscript{1}
+
+\textit{\small{\textsuperscript{1}Department of Wildland Resources and the Ecology Center, 5230 Old Main Hill, Utah State University, Logan, Utah 84322 USA}}
+
+\textit{\small{\textsuperscript{2}Centre for Biodiversity Theory and Modelling, Experimental Ecology Station, Centre National de la Recherche Scientifique, Moulis, 09200, France}}
+
+\renewcommand*{\thefootnote}{\arabic{footnote}}
+\setcounter{footnote}{0}
+
+\renewcommand{\theequation}{X\arabic{equation}}
+
+Derivation of Expected Synchrony
+--------------------------------
+Following @Loreau2013 and @DeMazancourt2013a, we define population growth, ignoring observation error, as
+
+\begin{align}
+\tilde{r_i}(t) = r_{mi} \left[ 1- \frac{\tilde{N_i}(t)+\sum_{j \neq i} \alpha_{ij}\tilde{N_j}(t)} {K_i} + \sigma_{ei}\mu_{ei}(t) + \frac{\sigma_{di}\mu_{di}(t)}{\sqrt{\tilde{N_i}(t)}} \right]
+\end{align}
+
+\noindent where $\tilde{N_i}(t)$ is the biomass of species *i* in year *t*, and $\tilde{r_i}(t)$ is its instantaneous growth rate in year *t* (tildes denote latent quantities that cannot be known due to observation error). 
+$r_{mi}$ is species *i*'s intrinsic rate of increase, $K_i$ is its carrying capacity, and $\alpha_{ij}$ is the interspecific competition coefficient representing the effect of species *j* on species *i*. 
+Just as in our vital rate statistical model (Appendix X), environmental stochasticity is incorporated as an additive year effect on a species' growth rate.
+In the theoretical population model, environmental stochasticity is incorporated as $\sigma_{ei}\mu_{ei}(t)$, where $\sigma_{ei}^2$ is the environmental variance and $\mu_{ei}$ are normal random variables with zero mean and unit variance that are independent through time but may be correlated.
+Demographic stochasticity arises from variations in births and deaths among individuals (e.g., same states, different fates), and is included in the model as a first order, normal approximation [@Lande2003; @DeMazancourt2013a].
+$\sigma_{di}^2$ is the demographic variance and $\mu_{di}(t)$ are independent normal variables with zero mean and unit variance.
+
+In the general case, **C** is the variance-covariance matrix for population biomasses at steady state.
+It solves the Lyapunov equation $\textbf{C}^\infty = \textbf{A} \textbf{C}^\infty \textbf{A}^T + \textbf{B}$, where
+
+\begin{align}
+A_{ij} = 
+  \begin{cases}
+      1-r_{mi} \frac{N_{i}^*}{K_i}, & i=j \\
+      -r_{mi} \frac{N_{i}^*}{K_i} \alpha_{ij}, & i \neq j
+    \end{cases}
+\end{align}
+
+\noindent and
+
+\begin{equation}
+B_{ij} = N_{i}^* N_{j}^* \sigma_{ei} \sigma_{ej} \text{cov}(\mu_{ei},\mu_{ej}) + \sqrt{N_{i}^* N_{j}^*} \sigma_{di}\sigma_{dj} \text{cov}(\mu_{di},\mu_{dj})
+\end{equation}
+
+\noindent Similarly, **R** is the variance-covariance matrix for population growth rates at steady state
+
+\begin{equation}
+R_{ij} = \frac{r_{mi}r_{mj}}{K_i K_j} \sum_{k,l} \alpha_{ik} \alpha_{jl} C_{kl} + \sigma_{ei} \sigma_{ej} \text{cov}(\mu_{ei},\mu_{ej}) + \frac{\sigma_{di}\sigma_{dj} \text{cov}(\mu_{di},\mu_{dj})}{\sqrt{N_{i}^* N_{j}^*}}.
+\end{equation}
+
+\noindent Then, following the synchrony metric of @Loreau2008a, the sychrony of population biomasses is
+
+\begin{equation}
+\phi_N = \frac{\sum_{i,j}C_{ij}}{\left( \sum_i \sqrt{C_{ii}} \right)^2}
+\end{equation}
+
+\noindent and the synchrony of per capita growth rates is
+
+\begin{equation}
+\phi_R = \frac{\sum_{i,j}R_{ij}}{\left( \sum_i \sqrt{R_{ii}} \right)^2}.
+\end{equation}
+
+References
+----------
