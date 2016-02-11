@@ -88,5 +88,44 @@ R_{ij} = \frac{r_{mi}r_{mj}}{K_i K_j} \sum_{k,l} \alpha_{ik} \alpha_{jl} C_{kl} 
 \phi_R = \frac{\sum_{i,j}R_{ij}}{\left( \sum_i \sqrt{R_{ii}} \right)^2}.
 \end{equation}
 
+Equations A# and A# show that synchrony population biomasses and growth rates emerge from complex interactions among species' intrinsic growth rates, interspecific interactions, environmental stochasticity, and demographic stochasticity.
+Given these complexities, it is impossible to determine expected effects of different parameters in a multi-species case.
+Thus, we analyze a simplified case where interspecific interactions are zero.
+The variance-covariance matrix of population biomasses at steady state then becomes
+
+\begin{equation}
+c_{ij} = \frac{B_{ij}}{1-a_i a_j} = \frac{N_{i}^* N_{j}^* \sigma_{ei} \sigma_{ej} \text{cov}(\mu_{ei},\mu_{ej}) + \sqrt{N_{i}^* N_{j}^*} \sigma_{di}\sigma_{dj} \text{cov}(\mu_{di},\mu_{dj})}{1 - (1-r_{mi})(1-r_{mj})}
+\end{equation}
+
+and the variance-covariance matrix of population growth rates becomes
+
+\begin{equation}
+R_{ij} = \frac{r_{mi}r_{mj}}{K_i K_j} C_{ij} + \sigma_{ei} \sigma_{ej} \text{cov}(\mu_{ei},\mu_{ej}) + \frac{\sigma_{di}\sigma_{dj} \text{cov}(\mu_{di},\mu_{dj})}{\sqrt{N_{i}^* N_{j}^*}},
+\end{equation}
+
+which simplifies to
+
+\begin{equation}
+R_{ij} = \frac{1}{1- \frac{r_{mi}r_{mj}}{r_{mi}+r_{mj}}} \left( \sigma_{ei} \sigma_{ej} \text{cov}(\mu_{ei},\mu_{ej}) + \frac{\sigma_{di}\sigma_{dj} \text{cov}(\mu_{di},\mu_{dj})}{\sqrt{N_{i}^* N_{j}^*}} \right)
+\end{equation}
+
+\noindent This is still not a general result, however, because synchrony in population sizes and synchrony in growth rates use weighted factors of the environmental variances and covariances with species-specific parameters.
+So, we further assume that, along with interspecific interactions being zero, all species have identical growth rates, environmental stochasticity is absent, and all species have identical demographic variance.
+This represents a theoretical limiting case where the community consists of identical species coexisting in a constant environment where only demographic stochasticity causes temporal fluctuations.
+Under such conditions, synchrony of population biomasses is
+
+\begin{equation}
+\phi_N = \frac{1}{\left(\sum_i p_i^{1/2} \right)^2}
+\end{equation}
+
+\noindent and synchrony of growth rates is
+
+\begin{equation}
+\phi_N = \frac{\sum_i p_i^{-1}}{\left(\sum_i p_i^{-1/2} \right)^2}
+\end{equation}
+
+\noindent where $p_i$ is the average frequency of species *i*, $p_i = N_i/N_T$.
+When all species have identical abundances and $p_i = 1/S$, where *S* is species richness, the both synchrony values equal 1/S [@Loreau2008a].
+
 References
 ----------
