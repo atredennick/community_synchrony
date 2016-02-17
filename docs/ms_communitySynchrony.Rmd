@@ -715,15 +715,44 @@ obs_pgr_df <- c(as.numeric(out_az$pgr_synchrony[1]),
 obs_pgr_df <- data.frame(pgr_synch=obs_pgr_df,
                          Var2=sites)
 
-ggplot()+
-  geom_line(data=synch_df, aes(x=value, color=Var2), stat="density", adjust=2)+
+### Get IBM synchs
+synch_df$type <- "IPM"
+synch_df <- synch_df[,2:ncol(synch_df)]
+ibm_poly <- readRDS("../devel/mono_poly_ibm.RDS")
+ibm_poly <- subset(ibm_poly, typesynch=="Per capita growth rate")
+ibm_poly$type <- "IBM"
+ibm_df <- ibm_poly[,c("site","synch","type")]
+names(ibm_df) <- names(synch_df)
+synch_df <- rbind(synch_df, ibm_df)
+
+
+
+
+g1 <- ggplot()+
+  geom_line(data=subset(synch_df, type=="IPM"), aes(x=value, color=Var2), 
+            stat="density", adjust=2)+
   geom_vline(data=obs_pgr_df, aes(xintercept=pgr_synch, color=Var2), linetype=2)+
-  facet_wrap("Var2", ncol=1)+
+  facet_wrap("Var2", ncol=1, scales="free_y")+
   scale_color_manual(values = c("grey45", "steelblue", "slateblue4", "darkorange", "purple"))+
   guides(color=FALSE)+
   xlab("Community Synchrony")+
   ylab("Estimated Probability Density")+
+  ggtitle("IPM")+
   theme_bw()
+
+g2 <- ggplot()+
+  geom_line(data=subset(synch_df, type=="IBM"), aes(x=value, color=Var2), 
+            stat="density", adjust=2)+
+  geom_vline(data=obs_pgr_df, aes(xintercept=pgr_synch, color=Var2), linetype=2)+
+  facet_wrap("Var2", ncol=1, scales="free_y")+
+  scale_color_manual(values = c("grey45", "steelblue", "slateblue4", "darkorange", "purple"))+
+  guides(color=FALSE)+
+  xlab("Community Synchrony")+
+  ylab("Estimated Probability Density")+
+  ggtitle("IBM")+
+  theme_bw()
+
+grid.arrange(g1,g2,ncol=2)
 ```
 
 \pagebreak{}

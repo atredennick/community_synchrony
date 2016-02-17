@@ -160,6 +160,10 @@ synch_dfplot <- test[-ids.out,]
 avg_synchs <- ddply(synch_dfplot, .(experiment, expansion, typesynch), summarise,
                     avg_synch = mean(synch))
 
+mono_poly <- subset(synch_dfplot, experiment=="fluctinter" & expansion==5)
+saveRDS(mono_poly, file = "../../../../../Users/atredenn/Repos/community_synchrony/devel/mono_poly_ibm.RDS")
+
+
 ### Make plot and save
 ibm_plot <- ggplot(synch_dfplot, aes(x=expansion, y=synch, color=experiment))+
   geom_point(alpha=0.5)+
