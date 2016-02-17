@@ -82,16 +82,17 @@ g1 <- ggplot(polymono_wide, aes(x=ENVNOINTER, y=ENVINTER))+
   scale_y_continuous(limits=c(0,1))+
   scale_x_continuous(limits=c(0,1))+
   ylab("Species synchrony in polyculture")+
-  xlab("Species synchrony \nin monoculture")+
+  xlab("Species synchrony in monoculture")+
   scale_shape_discrete(name="Temporal Variable", labels=c("Per capita growth rate", "Percent cover"))+
   scale_color_manual(values = c("grey45", "steelblue", "slateblue4", "darkorange", "purple"),
-                     name = "Site")+
+                     name = "",
+                     labels = c("Arizona", "Idaho", "Kansas", "Montana", "New Mexico"))+
   theme_few()+
   guides(shape=FALSE)+
-  ggtitle("A                                                          ")+
-  theme(legend.position=c(0.2,0.7))+
+  # ggtitle("A                                                          ")+
+  theme(legend.position=c(0.2,0.8))+
   theme(legend.text = element_text(size = 8))+
-  theme(legend.background = element_rect(colour = "grey", fill = NA))
+  theme(legend.background = element_rect(colour = NA, fill = NA))
 
 
 
@@ -148,8 +149,9 @@ g2 <- ggplot(polymono_wide, aes(x=yrpgr, y=ENVINTER))+
 
 library(gridExtra)
 
-png("../docs/components/poly_vs_mono_synch.png",width = 8, height = 4, units = "in", res=150)
-g_out <- grid.arrange(g1,g2,ncol=2)
+png("../docs/components/poly_vs_mono_synch.png",width = 4.5, height = 4, units = "in", res=150)
+# g_out <- grid.arrange(g1,g2,ncol=2)
+g1
 dev.off()
 
 # ggsave("../docs/components/poly_vs_mono_synch.png", plot=g_out, width = 8, height = 3.5, dpi = 150)
