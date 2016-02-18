@@ -119,7 +119,7 @@ Nonetheless, theoretical and empirical work agree that competition should genera
 
 Along with environmental fluctuations and interspecific competition, demographic stochasticity can influence synchrony in small populations.
 In the absence of all other forces, and in communities composed of species with similar growth rates, abundances, and demogaphic variance, demographic stochasticity leads to independent species fluctuations and always desynchronizes population dynamics [@Loreau2008a; @DeMazancourt2013a].
-However, the effect of demographic stochasticity is strong only in small populations, and in theory it cannot oppose, or substantially modulate, the effects of environmental fluctuations and interspecific competition [@Loreau2008a].
+However, the effect of demographic stochasticity is strong only in small populations, and in theory it cannot oppose or amplify the effects of environmental fluctuations and interspecific competition [@Loreau2008a].
 
 The fact that species synchrony emerges from complex interactions among species' environmental responses, species interactions, and demographic stochasticity makes it difficult to disentangle the drivers of synchrony in observational data, especially since an unbiased null expectation does not exist [@Loreau2008a].
 Weak synchrony could reflect positive environmental correlations offset by strong competition, or weak environmental correlations and weak competition.
@@ -325,7 +325,7 @@ In other words, if there is no relationship between landscape size and populatio
 
 Demographic stochasticity is able to partially counteract the synchronizing effects of environmental fluctuations and interspecific interactions on per capita growth rates, but only when populations are small.
 Even in small populations, however, demographic stochasticity is not a strong enough force to induce independent fluctuations.
-These results cofirm the theoretical argument by @Loreau2008a that independent fluctuations among interacting species in a non-constant environment should be rare.
+These results confirm the theoretical argument by @Loreau2008a that independent fluctuations among interacting species in a non-constant environment should be rare.
 Only in the Idaho community does synchrony of per capita growth rates approach 1/*S* in a non-constant environment (Fig. 3x).
 This is most likely due to the strong effect of demographic stochasticity on the shrub *Artemisia tripartita* since even a 5 $\text{m}^2$ quadrat would only contain a few individuals of that species.
 

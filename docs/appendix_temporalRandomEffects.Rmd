@@ -1,0 +1,173 @@
+---
+layout: 12pt
+header-includes:
+   - \usepackage{lineno}
+   - \linenumbers
+   - \usepackage{setspace}
+   - \usepackage{todonotes}
+   - \doublespacing
+   - \usepackage[document]{ragged2e}
+   - \usepackage{color}
+   - \usepackage{rotating}
+bibliography: ~/Dropbox/Bibliography/CommunitySynchrony.bib
+csl: components/ecology.csl
+
+## rmarkdown render options
+output:
+  pdf_document:
+    fig_caption: true
+    keep_tex: false
+fontsize: 12pt
+geometry: margin=1in
+linkcolor: black
+urlcolor: black
+
+---
+# Appendix X for TITLE: Correlations of Species' Random Year Effects
+
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+
+Andrew T. Tredennick\footnote{Correspondance: atredenn@gmail.com}\textsuperscript{1}, Claire de Mazancourt\textsuperscript{2}, Michel Loreau\textsuperscript{2}, and Peter B. Adler\textsuperscript{1}
+
+\textit{\small{\textsuperscript{1}Department of Wildland Resources and the Ecology Center, 5230 Old Main Hill, Utah State University, Logan, Utah 84322 USA}}
+
+\textit{\small{\textsuperscript{2}Centre for Biodiversity Theory and Modelling, Experimental Ecology Station, Centre National de la Recherche Scientifique, Moulis, 09200, France}}
+
+\renewcommand*{\thefootnote}{\arabic{footnote}}
+\setcounter{footnote}{0}
+
+```{r get_randeffs, echo=FALSE, include=TRUE, warning=FALSE, message=FALSE}
+####
+####  Clean workspace; Load libraries ------------------------------------------
+####
+rm(list = ls()) # wipe the workspace clean
+library(ggplot2)
+library(reshape2)
+library(plyr)
+library(synchrony)
+library(communitySynchrony)
+library(xtable)
+
+
+####
+####  Read in growth rate matrices ---------------------------------------------
+####
+pgr_list <- readRDS("../results/ipm_yearly_pgr.RDS")
+site_names <- names(pgr_list)
+out_df <- data.frame(site=NA, pgr_synch=NA)
+for(do_site in site_names){
+  tmp_pgrs <- pgr_list[[do_site]]
+  tmp_synch <- as.numeric(community.sync(tmp_pgrs)[1])
+  tmp_df <- data.frame(site=do_site, pgr_synch=tmp_synch)
+  out_df <- rbind(out_df, tmp_df)
+}
+pgr_synch <- out_df[2:nrow(out_df),]
+
+
+
+####
+####  Read in regression fits --------------------------------------------------
+####
+all_files <- list.files("../results/")
+param_files <- all_files[grep("param*", all_files)]
+num_vitals <- length(param_files)
+
+list_yr_effects <- list()
+for(j in 1:num_vitals){
+  param_list <- readRDS(paste0("../results/",param_files[j]))
+  vital_name <- unlist(strsplit(param_files[j], "_"))[1]
+  
+  if(vital_name != "recruit"){
+    
+    site_names <- names(param_list)
+    site_year_list <- list()
+    for(do_site in site_names){
+      tmp_site <- param_list[[do_site]]
+      num_spp <- length(tmp_site) 
+      tmp_yr_mat <- matrix(ncol = num_spp, nrow=nrow(tmp_site[[1]]))
+      for(i in 1:num_spp){
+        spp_df <- tmp_site[[i]]
+        tmp_yr_mat[,i] <- spp_df$Intercept.yr
+      } # end species within site loop
+      site_year_list[[do_site]] <- tmp_yr_mat
+    } # end site within vital rate loop
+    
+  } # end NOT recruit loops
+ 
+  if(vital_name == "recruit"){
+    
+    site_names <- names(param_list)
+    site_year_list <- list()
+    for(do_site in site_names){
+      tmp_site <- param_list[[do_site]]
+      tmp_yrs <- tmp_site[grep("intcpt.yr", rownames(tmp_site)),"Mean"]
+      stringlist <- strsplit(names(tmp_yrs), ",")
+      num_spp <- length(unique(sapply(stringlist, "[[", 2)))
+      mat_yrs <- t(matrix(tmp_yrs, nrow=num_spp, byrow = TRUE))
+      site_year_list[[do_site]] <- mat_yrs
+    } # end site within vital rate loop
+    
+  } # end YES recruit loops
+  
+  list_yr_effects[[vital_name]] <- site_year_list
+} # end vital rate loop
+
+
+####
+####  Calculate average correlation of year effects ----------------------------
+####
+vital_rates <- names(list_yr_effects)
+out_df <- data.frame(site=NA, vital_rate=NA, corr=NA)
+for(do_vital in vital_rates){
+  tmp_vital <- list_yr_effects[[do_vital]]
+  site_names <- names(tmp_vital)
+  for(do_site in site_names){
+    tmp_site <- tmp_vital[[do_site]]
+    tmp_cor <- cor(tmp_site)
+    avg_cor <- mean(tmp_cor[upper.tri(tmp_cor)])
+    tmp_out <- data.frame(site=do_site, vital_rate=do_vital, corr=avg_cor)
+    out_df <- rbind(out_df, tmp_out)
+  }
+}
+cor_df <- out_df[2:nrow(out_df),]
+cor_cast <- dcast(cor_df, site~vital_rate)
+avg_env_resp <- apply(cor_cast[,2:4], MARGIN = 1, FUN = "mean")
+
+####
+####  Calculate synchrony of random year effects -------------------------------
+####
+vital_rates <- names(list_yr_effects)
+out_df <- data.frame(site=NA, vital_rate=NA, synch=NA)
+for(do_vital in vital_rates){
+  tmp_vital <- list_yr_effects[[do_vital]]
+  site_names <- names(tmp_vital)
+  for(do_site in site_names){
+    tmp_site <- tmp_vital[[do_site]]
+    site_synch <- as.numeric(community.sync(tmp_site)[1])
+    tmp_out <- data.frame(site=do_site, vital_rate=do_vital, synch=site_synch)
+    out_df <- rbind(out_df, tmp_out)
+  }
+}
+
+out_df <- out_df[2:nrow(out_df),]
+out_cast <- dcast(out_df, site~vital_rate)
+rm(list=setdiff(ls(), c("out_cast", "out_df", "cor_df", 
+                        "cor_cast", "pgr_synch")))
+
+
+####
+####  Save output for tables
+####
+outlist <- list(synch_long=out_df, synch_wide=out_cast,
+                corr_long=cor_df, corr_wide=cor_cast,
+                pgr_synch=pgr_synch)
+```
+
+```{r make_table, echo=FALSE, include=TRUE, results='asis', message=FALSE, eval=T, cache=FALSE, warning=FALSE}
+synch_cap <- "Pearson's correlations among species' temporal random effects by site and vital rate."
+print(xtable(cor_cast, caption = synch_cap),
+      caption.placement="top",
+      include.rownames = F, 
+      sanitize.colnames.function = identity,
+      comment=FALSE)
+```
