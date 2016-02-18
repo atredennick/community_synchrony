@@ -182,7 +182,7 @@ Specifically, we calculated synchrony as
 \phi_x = \frac{\sigma^{2}_{T}}{(\sum_{i}\sigma_{x_{i}})^{2}}
 \end{equation}
 
-\noindent where $\sigma_{x_{i}}$ is the temporal variance of species *i*'s per capita population growth rate ($r_i$) or abundance ($N_i$) and $\sigma^{2}_{T}$ is the temporal variance of the aggregate community-level growth rate or abundance. $\phi$ ranges from 0 at perfect asynchrony to 1 at perfect synchrony [@Loreau2008a].
+\noindent where $\sigma_{x_{i}}$ is the temporal variance of species *i*'s per capita population growth rate ($r_i$) or percent cover ($N_i$) and $\sigma^{2}_{T}$ is the temporal variance of the aggregate community-level growth rate or abundance. $\phi$ ranges from 0 at perfect asynchrony to 1 at perfect synchrony [@Loreau2008a].
 
 We chose to use the special theoretical case where only demographic stochasticity is operating and all species have similar growth rates and variances to serve as an expectation of synchrony (see Appendix X).
 Specifically, based on a multi-species dynamic population model (Appendix X), we calculate expected synchrony of per capita growth rates ($\text{E}(\phi_r)$) as
@@ -235,7 +235,6 @@ Following @Chu2015, we use a mean field approximation that captures the essentia
 Temporal variation is included in exactly the same way as for the IBM.
 For full details on the IPMs we use, see @Chu2015.
 
-
 #### Removing interspecific interactions and quantifying species' environmental responses (IPM)
 To remove interspecific interactions, we simply set the off-diagonals of the interaction matrix for each vital rate regression to zero.
 This retains intraspecific interactions, and thus density-dependence, and results in simulations where species are effectively growing in monoculture.
@@ -255,7 +254,7 @@ Since the IBM and IPM are driven by the same vital rate regressions, interspecif
 To remove the effect of a fluctuating environment, we simply removed the temporal (interannual) random effects from the regression equations.
 Thus, if we remove interspecific interactions and the temporal random effects, the only force causing population fluctutations through time is demographic stochasticity.
 We ran a series of simulations for four "experiments": (1) environmental stochasticity on and interspecific interactions present, (2) environmental stochasticity off and interspecific interactions present, (3) environmental stochasticity on and interspecific interactions absent, and (4) environmental stochasticity off and interspecific interactions absent (only demographic stochasticity).
-We ran IBM simulations for 100 time steps, and repeated the simulations 50 times for each "experiment" (interspecific interactions on/off with and without environmental stochasticity).
+We ran IBM simulations for 100 time steps, and repeated the simulations 100 times for each "experiment" (interspecific interactions on/off with and without environmental stochasticity).
 From those, we retained only the simulations in which no species went extinct due to demographic stochasticity.
 Synchrony was calculated over the 100 time steps for each no extinction run within a model experiment.
 
@@ -274,29 +273,38 @@ In contrast, expected synchrony of percent cover was lower than expected if only
 -->
 
 For all five communities, species synchrony from IPM and IBM simulations closely approximated observed synchrony (Fig. 1), meaning that we can use the models to test the importance of different drivers of synchrony in these communities.
-Removing interspecific interactions from the IPMs did not affect the synchrony of per capita growth rates (Fig. 2), likely because because interspecific interactions are weak in our focal communities (Table X1, and see @Chu2015).
-For three out five communities, removing interspecific interactions had no effect on the synchrony of percent cover (Fig. 2a,c,d).
-In the two communities where removing interspecific interactions did have an effect, synchrony of percent cover was higher when species interactions were absent (Fig. 2b,e).
-We achieved similar results with the IBM simulations (Fig. 3).
+However, IBM-simulated synchrony is consistently lower than IPM-simulated synchrony (Fig. 1), likely due to the desynchronizing effect of demographic stochasticity.
+Removing interspecific interactions from the IPMs had little effect on the synchrony of per capita growth rates (Fig. 2) because interspecific interactions are weak in our focal communities (Table X1, and see @Chu2015).
+Only in Arizona does removing species interactions result in a small decline in synchrony of per capita growth rates (Fig. 2a).
+For two out five communities, removing interspecific interactions had little effect on the synchrony of percent cover (Fig. 2c,d; Kansas and Montana).
+In the three communities where removing interspecific interactions did have an effect (Arizona, Idaho and New Mexico), synchrony of percent cover was higher when species interactions were absent (Fig. 2a,b,e).
+We achieved similar results with the IBM simulations: removing interspecific interactions had little effect on synchrony of per capita growth rates, but increased synchrony of percent cover in Idaho and New Mexico (Fig. 3).
+In Idaho, however, synchrony of per capita growth rates is similar among all simulations with species interactions present, regardless of the presence of environmental fluctuations (Fig. 3b).
 
 Species' environmental responses, quantified as temporal random effects in vital rate regressions, were positively correlated in each community, ranging from $\rho = 0.23$ to $\rho = 0.38$ when averaged over vital rates (Appendix X).
-Thus, removing environmental stochasticity caused synchrony of per capita growth rates to decrease in all five communities, whether interspecific interactions were present or not (Fig. 3, top panels, blue tones vs. orange tones).
-Without environmental stochasticity or species interactions, synchrony of per capita growth rates all approximated the theoretical expectation of 1/*S*, where *S* is species richness, when only demographic stochasticity is operating (Fig. 3; top panels, dark blue lines).
-In most cases, removing environmental stochasticity also led to a decrease in the synchrony of percent cover (Fig. 3; bottom panels).
-The Montana community is the clear outlier, where synchrony of percent cover is virtually the same whether environmental fluctuations are present or not (Fig. 3).
+Thus, removing environmental stochasticity caused synchrony of per capita growth rates to decrease in all five communities (Fig. 3a-e).
+In our simulations synchrony of per capita growth rates was higher when environmental variation was present (average $\phi_r = 0.62$) rather than absent (average $\phi_r = 0.43$).
+This is true whether species interactions are present or not, except for Idaho (Fig. 3b).
+Removing environmental fluctuations also decreased synchrony of percent cover, except in Idaho and Montana (Fig. 3f-j).
+In Idaho, synchrony of percent cover is similar among simulations with and without environmental fluctuations when species interactions are not present, but synchrony is lowest in simulation where species interactions are present and environmental fluctuations are absent (Fig. 3g).
+In Montana, all simulations result in the same values of synchrony of percent cover (Fig. 3h).
 
+Without environmental stochasticity or species interactions, synchrony of per capita growth rates all approximated the theoretical expectation of 1/*S*, where *S* is species richness, when only demographic stochasticity is operating (Fig. 3; top panels, dark blue lines).
 Demographic stochasticity counteracted the synchronizing effect of the environment in only the smallest populations (Fig. 3).
 The strength of demographic stochasticity decreased with the size of the simulated landscape in our IBMs.
 Thus, in Figure 3 the strength of demographic stochasticity decreases along the x-axis.
-In the absence of environmental stochasticity, the strength of demographic stochasticity has no impact of the synchrony of per capita growth rates or percent cover (Fig. 3, blue tones).
-In the presence of environmental stochasticity, synchrony of per capita growth rates is lower when demographic stochasticity is strong (Fig. 3, top panels, orange tones).
-The desynchronizing effect of demographic stochasticity on per capita growth rates is strongest in small populations (small landscapes) for all communities (Fig. 3, top panels).
+In the absence of environmental stochasticity and species interactions, the strength of demographic stochasticity has no impact of the synchrony of per capita growth rates or percent cover (Fig. 3; dark blue lines).
+In the presence of environmental stochasticity, synchrony of per capita growth rates is lower when demographic stochasticity is strong (Fig. 3a-e; orange tones).
+The desynchronizing effect of demographic stochasticity on per capita growth rates is strongest in small populations (small landscapes) for all communities (Fig. 3a-e).
 Demographic stochasticity had a weaker effect on synchrony of percent cover; only in the Arizona community does strong demographic stochasticity counteract the synchronizing effect of the environment (Fig. 3; bottom panels).
 
 Since species interactions are weak and demographic stochasticity only matters in small populations, the synchrony of species in monoculture (without interspecific interactions) should predict the synchrony of species in polyculture (with interspecific interactions).
-For all five communities and for percent cover and per capita growth rates, the synchrony of species in monoculture is a near-perfect predictor of species synchrony in polyculture (Fig. 4A).
+For all five communities and for percent cover (rank correlation = 0.8) and per capita growth rates (rank correlation = 1), the synchrony of species in monoculture is strongly associated with species synchrony in polyculture (Fig. 4).
+
+<!--
 However, the synchrony of species' low-density growth rates, a more accurate measure of a species' environmental response, was a less accurate predictor of species synchrony in polyculture (Fig. 4B).
 Except for synchrony of per capita growth rates in the Idaho and Montana communities, synchrony of low density growth rates in monoculture underpredicted synchrony in polyculture (Fig. 4B).
+-->
 
 Discussion
 ----------

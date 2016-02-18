@@ -69,6 +69,14 @@ print(ipm_pgr_plot)
 dev.off()
 
 
+####
+####  Calculate some correlations
+####
+cor(subset(polymono_wide, typesynch=="pgr_synch")[,"ENVINTER"],
+    subset(polymono_wide, typesynch=="pgr_synch")[,"ENVNOINTER"], method = "spearman")
+cor(subset(polymono_wide, typesynch=="abund_synch")[,"ENVINTER"],
+    subset(polymono_wide, typesynch=="abund_synch")[,"ENVNOINTER"], method = "spearman")
+
 
 ####
 ####  Plot synchrony in polyculture vs synchrony in monoculture
