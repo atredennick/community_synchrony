@@ -7,7 +7,7 @@
 # Clear workspace 
 rm(list=ls(all=TRUE))
 
-totSims <- 50      # number of simulations per site 
+totSims <- 100   # number of simulations per site 
 totT <- 100      # time steps of simulation
 burn.in <- 25    # time steps to discard before calculating cover values
 site_colors <- c("grey45", "steelblue", "slateblue4", "darkorange", "purple")

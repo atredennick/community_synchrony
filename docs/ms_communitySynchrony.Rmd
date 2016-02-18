@@ -659,7 +659,7 @@ output_list <- readRDS("../results/ipm_comp_nocomp_sims.RDS")
 mlist <- melt(output_list)
 ```
 
-```{r figure_1, echo=FALSE, fig.cap="Observed (vertical dashed lines) and IPM simulated (solid density curves) synchrony of species per capita growth rates based on changes in percent cover. Density curves come from 100 random contiguous sections from 2,000 iteration IPM runs, where the length of each randomly selected section is equal to the numnber of observation years for each data set.", fig.width=6, fig.height=6, fig.width=3, eval=T}
+```{r figure_1, echo=FALSE, fig.cap="Observed (vertical dashed lines) and simulated (solid density curves) synchrony of species per capita growth rates at each site from the IPM (left panels) and the IBM (right panels). IPM density curves come from 100 random contiguous sections from 2,000 iteration IPM runs, where the length of each randomly selected section is equal to the numnber of observation years for each data set. IBM density curves come from 100 replicate simulations of 75 iterations each. Synchrony values come from simulations where environmental stochasticity and interspecific interactions are present. The IBM was run on a 5 by 5 meter landscape to reduce the effect of demographic stochasticity.", fig.width=6, fig.height=6, fig.width=6, eval=T}
 nyrs <- c(max(out_az$stability$num_observations),
           max(out_id$stability$num_observations),
           max(out_ks$stability$num_observations),
@@ -768,7 +768,7 @@ grid.arrange(g1,g2,ncol=2)
 \begin{figure}[!ht]
   \centering
       \includegraphics{./components/ibm_sims_fig.png}
-  \caption{Community synchrony of per capita growth rates (top panels) and percent cover (bottom panels) from spatially-explicit IBM simulations. Points represent replicate IBM simulations (out of 50 possible) in which no species went extinct. Lines show linear fits between plot size (proxy for population size) and species synchrony. Demographic stochasticity plays a large role in small populations (small plot sizes) and a smaller role in large populations (large plot sizes). Simulation type codes: C = constant environment, F = fluctuating environment, INTER = interspecific interactions included, NoINTER = interspecific interactions excluded (set to zero).}
+  \caption{Community synchrony of per capita growth rates (top panels) and percent cover (bottom panels) from spatially-explicit IBM simulations. Points represent replicate IBM simulations (out of 100 possible) in which no species went extinct. Lines show linear fits between plot size (proxy for population size) and species synchrony. Demographic stochasticity plays a large role in small populations (small plot sizes) and a smaller role in large populations (large plot sizes). Simulation type codes: C = constant environment, F = fluctuating environment, INTER = interspecific interactions included, NoINTER = interspecific interactions excluded (set to zero).}
 \end{figure}
 
 <!--
