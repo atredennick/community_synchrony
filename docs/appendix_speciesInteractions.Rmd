@@ -1,0 +1,122 @@
+---
+layout: 12pt
+header-includes:
+   - \usepackage{lineno}
+   - \linenumbers
+   - \usepackage{setspace}
+   - \usepackage{todonotes}
+   - \doublespacing
+   - \usepackage[document]{ragged2e}
+   - \usepackage{color}
+   - \usepackage{rotating}
+bibliography: ~/Dropbox/Bibliography/CommunitySynchrony.bib
+csl: components/ecology.csl
+
+## rmarkdown render options
+output:
+  pdf_document:
+    fig_caption: true
+    keep_tex: false
+fontsize: 12pt
+geometry: margin=1in
+linkcolor: black
+urlcolor: black
+
+---
+# Appendix X for TITLE: Correlations of Species' Random Year Effects
+
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+
+Andrew T. Tredennick\footnote{Correspondance: atredenn@gmail.com}\textsuperscript{1}, Claire de Mazancourt\textsuperscript{2}, Michel Loreau\textsuperscript{2}, and Peter B. Adler\textsuperscript{1}
+
+\textit{\small{\textsuperscript{1}Department of Wildland Resources and the Ecology Center, 5230 Old Main Hill, Utah State University, Logan, Utah 84322 USA}}
+
+\textit{\small{\textsuperscript{2}Centre for Biodiversity Theory and Modelling, Experimental Ecology Station, Centre National de la Recherche Scientifique, Moulis, 09200, France}}
+
+\renewcommand*{\thefootnote}{\arabic{footnote}}
+\setcounter{footnote}{0}
+
+\renewcommand{\thetable}{X\arabic{table}}
+
+```{r get_interactions, echo=FALSE, include=TRUE, warning=FALSE, message=FALSE}
+####
+####  Clean Workspace an Load Libraries ----------------------------------------
+####
+rm(list = ls()) # wipe the workspace clean
+library(reshape2)
+library(plyr)
+library(ggplot2)
+library(xtable)
+
+
+
+####
+####  Get Vital Rate Satistical Results Files ----------------------------------
+####
+vital_rates <- c("growth", "surv", "recruit")
+result_files <- list.files("../results/")
+vr_files <-result_files[grep(paste(vital_rates,collapse="|"), 
+                              list.files("../results/"))]
+
+
+
+####
+####  Loop Over Files and Extract Crowding Effects -----------------------------
+####
+# Growth and survival first
+vital_mat_list <- list()
+for(do_vital in vital_rates[c(1,2)]){
+  vr_do <- vr_files[grep(do_vital,vr_files)]
+  tmp_vital <- readRDS(paste0("../results/",vr_do))
+  sites <- names(tmp_vital)
+  mat_list <- list()
+  for(do_site in sites){
+    tmp <- tmp_vital[[do_site]]
+    spp <- names(tmp)
+    tmpmat <- matrix(0,nrow = length(spp), ncol = length(spp))
+    for(i in 1:length(spp)){
+      do_spp <- spp[i]
+      tmpspp <- tmp[[do_spp]]
+      tmpw <- tmpspp[1,grep("crowd*", colnames(tmpspp))]
+      tmpmat[i,] <- as.numeric(tmpw)
+    }
+    rownames(tmpmat) <- spp
+    colnames(tmpmat) <- spp
+    mat_list[[do_site]] <- tmpmat
+  }
+  vital_mat_list[[do_vital]] <- mat_list 
+}
+
+# Recruitment
+vr_do <- vr_files[grep("recruit",vr_files)]
+tmp_vital <- readRDS(paste0("../results/",vr_do))
+names_vital <- readRDS(paste0("../results/",vr_files[1]))
+sites <- names(tmp_vital)
+mat_list <- list()
+for(do_site in sites){
+  tmp <- tmp_vital[[do_site]]
+  spp <- names(names_vital[[do_site]])
+  tmpdd <- tmp[grep("dd", rownames(tmp)),"Mean"]
+  tmpmat <- matrix(tmpdd,length(spp),length(spp), byrow = FALSE)
+  rownames(tmpmat) <- spp
+  colnames(tmpmat) <- spp
+  mat_list[[do_site]] <- tmpmat
+}
+vital_mat_list[["recruit"]] <- mat_list 
+```
+
+```{r make_tables, echo=FALSE, include=TRUE, results='asis', message=FALSE, eval=T, cache=FALSE, warning=FALSE}
+names(vital_mat_list) <- c("growth", "survival", "recruitment")
+for(do_vital in names(vital_mat_list)){
+  tmp_list <- vital_mat_list[[do_vital]]
+  for(do_site in names(tmp_list)){
+    site_list <- tmp_list[[do_site]]
+    synch_cap <- paste0("Interaction coefficients for ", do_vital, " regressions in ", do_site, ".")
+    print(xtable(site_list, caption = synch_cap),
+      caption.placement="top",
+      include.rownames = TRUE, 
+      sanitize.colnames.function = identity,
+      comment=FALSE)
+  }
+}
+```
