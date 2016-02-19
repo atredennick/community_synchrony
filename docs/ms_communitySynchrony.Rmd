@@ -104,7 +104,7 @@ The difference between our studies suggests that strong transient competition ea
 
 Introduction
 ------------
-The relationship between species richness and ecosystem stability depends on species synchrony [@Gonzalez2009].
+The relationship between species richness and ecosystem stability in grasslands depends on species synchrony [@Tilman2006; @Isbell2009; @Hector2010; @Hautier2014].
 All else being equal, the stability of ecosystem function is highest when species dynamics are asynchronous [@DeMazancourt2013a].
 Thus, a mechanistic understanding of the diversity-stability relationship requires understanding the processes that increase or decrease species synchrony in nature.
 In the simplest case, when interspecific interactions and demographic stochasticity are weak, species synchrony is entirely determined by the synchrony of species' responses to fluctuating environmental conditions [@Loreau2008a; @Loreau2013].
@@ -746,6 +746,7 @@ g1 <- ggplot()+
   xlab("Community Synchrony")+
   ylab("Estimated Probability Density")+
   ggtitle("IPM")+
+  scale_x_continuous(limits=c(0,1))+
   theme_bw()
 
 g2 <- ggplot()+
@@ -758,6 +759,7 @@ g2 <- ggplot()+
   xlab("Community Synchrony")+
   ylab("Estimated Probability Density")+
   ggtitle("IBM")+
+  scale_x_continuous(limits=c(0,1))+
   theme_bw()
 
 grid.arrange(g1,g2,ncol=2)
