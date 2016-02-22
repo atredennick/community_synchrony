@@ -316,15 +316,22 @@ Discussion
 Temporal asynchrony among interacting populations can stabilize ecosystem-level function and is influenced by inter and intraspecific competition, demographic stochasticity, and environmental fluctuations [@Loreau2008a].
 We used multi-species population models applied to five semiarid plant communities to determine the relative influence of the drivers of community synchrony.
 Our study produced three main findings that were consistent across five plant communities: (1) interspecific interactions were weak and therefore had little impact on community synchrony; (2) demographic stochasticity decreased community synchrony, as expected by theory, and its effect was largest in small populations; and (3) environmental fluctuations increased community synchrony relative to simulations in constant environments because species-specific responses to the environment were positively, but not completely, correlated.
-Thus, our results are in agreement with theoretical expectations: when species interactions and demographic stochasticity are weak, community synchrony approximately equals the synchrony of species' responses to the environment.
+Thus, our results are in agreement with theoretical expectations: when species interactions and demographic stochasticity are weak, community-wide species synchrony is determined by the synchrony of species' responses to environmental conditions.
 
 ### Interspecific interactions had little impact on community synchrony
-We expected community synchrony of per capita growth rates to decrease and synchrony of plant cover to increase when we removed interspecific interactions.
+We expected community synchrony of per capita growth rates to decrease and synchrony of plant cover to increase when we removed interspecific interactions [@Loreau2008a and Appendix X].
 In the absence of demographic stochasticity, community synchrony was virtually indistinguishable between simulations with and without interspecific interactions for both per capita growth rates and percent cover (Fig. 2).
 The only notable exception is the Idaho community where, as expected, synchrony of percent cover increased when we removed interspecific interactions.
-Instead, we observed no effect of removing interspecific interactions in the presence of environmental fluctuations, regardless of the presence or absence of demographic stochasticity (Figs. 2,3).
 When we also removed environmental fluctuations, removing interspecific interactions decreased synchrony of per capita growth rates in three of our five communities and increased synchrony of per capita growth rates in two communities (Fig. 3).
-This result is in contrast to a large body of theoretical work that predicts a strong role for competition in creating compensatory dynamics and a recent empirical analysis [@Gross2014].  
+The lack of an effect of interspecific competition on synchrony is in contrast to a large body of theoretical work that predicts a strong role for competition in creating compensatory dynamics [@Tilman1988] and a recent empirical analysis [@Gross2014].
+
+Our results do not contradict the idea that competition can lead to compensatory dynamics, but they do highlight the fact that interspecific competition must be relatively strong to influence species synchrony.
+The communities we analyzed are composed of species with very little niche overlap [@Chu2015] and weak interspecific interactions (Tables X1-X10).
+Mechanistic consumer-resource models [@Lehman2000] and phenomenological Lotka-Volterra models [@Lehman2000; @Loreau2013] both confirm that the effect of competition on species synchrony diminishes as niche overlap increases.
+In that sense, our results are not surprising: interspecific interactions are weak, so of course removing them does not affect synchrony.
+More surprising is that our focal communities have little niche overlap. 
+But, as discussed by @Chu2015, little niche overlap becomes less surprising when we consider the virtually limitless niche axes upon which species can partition themselves [@Clark2010].
+
 
 ### Demographic stochasticity decreases synchrony
 Demographic stochasticity is able to partially counteract the synchronizing effects of environmental fluctuations and interspecific interactions on per capita growth rates, but only when populations are small, in agreement with theory [@Loreau2008a].
