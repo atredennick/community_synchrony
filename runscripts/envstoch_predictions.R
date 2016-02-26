@@ -3,16 +3,20 @@
 
 ## clear the workspace
 rm(list=ls())
+library(plyr)
+library(reshape2)
 
 ##  Define functions
 sync_biomass <- function(obs_spp_frequencies, mono_pairwise_spp_corrs) {
-  pairwise_frequency_products <- apply(combn(obs_spp_frequencies, 2), 2, prod)
-  sync <- sum(pairwise_frequency_products*mono_pairwise_spp_corrs[lower.tri(mono_pairwise_spp_corrs)])
+  pairwise_frequency <- expand.grid(obs_spp_frequencies, obs_spp_frequencies)
+  corrs_vec <- as.numeric(mono_pairwise_spp_corrs)
+  pairwise_frequency$Var3 <- corrs_vec
+  sync <- sum(apply(pairwise_frequency, 1, prod))
   return(sync)
 }
 
 sync_growthrates <- function(mono_pairwise_spp_corrs) {
-  sync <- sum(mono_pairwise_spp_corrs[lower.tri(mono_pairwise_spp_corrs)]) / ncol(mono_pairwise_spp_corrs)^2
+  sync <- sum(mono_pairwise_spp_corrs) / ncol(mono_pairwise_spp_corrs)^2
   return(sync)
 }
 
