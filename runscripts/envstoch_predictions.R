@@ -90,6 +90,7 @@ for(do_site in site_names){
   synchrony_predictions <- rbind(synchrony_predictions, tmpdf)
 }
 
-
+synchrony_predictions[2:nrow(synchrony_predictions),]
+saveRDS(synchrony_predictions,"../results/envstoch_predictions.RDS")
 
 

@@ -39,7 +39,7 @@ opts_chunk$set(dev='pdf')
 \begin{singlespace}
 
 \begin{center}
-\large{\textbf{Disentangling the drivers of species synchrony in natural grasslands: environmental forcing, demographic stochasticity, and interspecific interactions}}
+\large{\textbf{Disentangling the drivers of species synchrony in natural plant communities: environmental forcing, demographic stochasticity, and interspecific interactions}}
 
 \renewcommand*{\thefootnote}{\fnsymbol{footnote}}
 
@@ -63,7 +63,7 @@ opts_chunk$set(dev='pdf')
 
 \textbf{Authorship}: ATT, CdM, and PBA designed the research, ATT performed the research, and ATT, CdM, ML, and PBA contributed to the analyses and interpretation of results. All authors contributed to writing the manuscript.
 
-\textbf{Running Title}: Drivers of species synchrony in natural grasslands
+\textbf{Running Title}: Drivers of species synchrony in natural plant communities
 
 \textbf{Article Type}: Letter
 
@@ -106,7 +106,7 @@ The difference between our studies suggests that strong transient competition ea
 <!-- THIS HOW TO COMMENT-OUT -->
 \setlength{\parindent}{5ex}
 
-Introduction
+INTRODUCTION
 ------------
 The relationship between species richness and ecosystem stability in grasslands depends on species synchrony [@Tilman2006; @Isbell2009; @Hector2010; @Hautier2014].
 All else being equal, the stability of ecosystem function is highest when species dynamics are asynchronous [@DeMazancourt2013a].
@@ -132,7 +132,16 @@ Likewise, demographic stochasticity can induce ecological drift in small populat
 Even the metric used to quantify synchrony can cause confusion.
 For example, @Ranta2008 showed that the most commonly used metric of species synchrony, community covariance, can be positive or negative in the presence or absence of strong competition.
 Thus, it seems that understanding the processes leading to synchrony by analysing patterns alone is impossible.
+So far, no study has rigorously integrated theoretical and empirical approaches to definitively elucidate the mechanisms underlying community-wide species synchrony in natural communities.
 
+In this paper, we refine previous theory that has been used to predict the effects of species richness on ecosystem stability [@DeMazancourt2013] and species synchrony [@Loreau2008a].
+We use the theory to generate predictions of community-wide species synchrony under two limiting cases derived from the dynamics of individual species in monoculture.
+We then confront our theoretical predictions with data from five semi-arid plant communities by using empirically-based population models.
+The fitted population models allow us to estimate species dynamics in monoculture and, thus, test our predictions.
+We also use the population models to directly manipulate the three factors that jointly determine species synchrony: interspecific interactions, environmental forcing, and demographic stochasticity.
+Given that our population models capture the essential features of community dynamics important to synchrony (density-dependence, demographic and environmental stochasticity) and that these models are able to reproduce observed plant abundances [@Chu2015], perturbing the models reveals the processes responsible for the degree of species synchrony in our focal grassland communities.
+
+<!--
 One potential way forward is to use population models fit to empirical data to understand the influence of different drivers on species synchrony.
 @Mutshinda2009 used such an approach by fitting a dynamic population model to several community time series of insect and bird abundances.
 They used a statistical technique to decompose temporal variation into competition and environmental components, and found that postively correlated environmental responses among species determined community dynamics.
@@ -145,19 +154,75 @@ Our modeling approach allows us to draw inference from real ecological systems t
 Given that our models capture the essential features of community dynamics important to synchrony (density-dependence, demographic and environmental stochasticity) and that these models are able to reproduce observed plant abundances [@Chu2015], perturbing the models reveals the processes responsible for the degree of species synchrony in our focal grassland communities.
 Our main focus is on the synchrony of species' per capita growth rates since they represent a species immediate response to environmental conditions and competition.
 However, we also analyze synchrony of plant cover (a metric of abundance) to relate our findings to previous research.
+-->
 
-
-Materials and Methods
+MATERIALS AND METHODS
 ---------------------
-Our work relies on the data and population modeling approach presented by @Chu2015. We refer interested readers to @Chu2015 for full details on the focal plant communities, choice of species, structure of vital rate statistical models, and the ability of fitted population models to reproduce observed dynamics. We offer a brief overview here, but note that the only difference between our vital rate models and those fit by @Chu2015 is that we allowed for positive species interactions. 
+### Theoretical model and predictions
+Following @Loreau2013 and @DeMazancourt2013a, we define population growth, ignoring observation error, as
 
-### Data
+\begin{align}
+r_i(t) = r_{mi} \left[ 1- \frac{N_i(t)+\sum_{j \neq i} \alpha_{ij}N_j(t)} {K_i} + \sigma_{ei}\mu_{ei}(t) + \frac{\sigma_{di}\mu_{di}(t)}{\sqrt{N_i(t)}} \right]
+\end{align}
+
+\noindent where $N_i(t)$ is the biomass of species *i* in year *t*, and $r_i(t)$ is its instantaneous growth rate in year *t*. 
+$r_{mi}$ is species *i*'s intrinsic rate of increase, $K_i$ is its carrying capacity, and $\alpha_{ij}$ is the interspecific competition coefficient representing the effect of species *j* on species *i*. 
+Environmental stochasticity is incorporated as $\sigma_{ei}\mu_{ei}(t)$, where $\sigma_{ei}^2$ is the environmental variance and $\mu_{ei}$ are normal random variables with zero mean and unit variance that are independent through time but may be correlated.
+Demographic stochasticity arises from variations in births and deaths among individuals (e.g., same states, different fates), and is included in the model as a first order, normal approximation [@Lande2003; @DeMazancourt2013a].
+$\sigma_{di}^2$ is the demographic variance and $\mu_{di}(t)$ are independent normal variables with zero mean and unit variance.
+
+CLAIRE'S TEXT ON DERIVING THE PREDICTION...
+
+We derived predictions for synchrony of growth rates and synchrony of abundance for two limiting cases that are analytically tractable.
+First, we assume no interspecific interactions, no environmental stochasticity, identical intrinsic growth rates, and that demographic stochasticity is operating but all species have identical demographic variances.
+This limiting case, $\mathcal{M}_{D}$, represents a community where dynamics are driven by demographic stochasticity alone.
+Our predictions are
+
+\begin{equation}
+\phi_{N,\mathcal{M}_{D}} = \frac{1}{\left(\sum_i p_i^{1/2} \right)^2}
+\end{equation}
+
+\noindent{} for synchrony of population abundances and
+
+\begin{equation}
+\phi_{R,\mathcal{M}_{D}} = \frac{\sum_i p_i^{-1}}{\left(\sum_i p_i^{-1/2} \right)^2}
+\end{equation}
+
+\noindent for synchrony of per capita growth rates.
+In both equations, $p_i$ is the average frequency of species *i*, $p_i = N_i/N_T$.
+When all species have identical abundances and $p_i = 1/S$, where *S* is species richness, the both synchrony values equal 1/S [@Loreau2008a].
+
+Our second limiting case assumes only environmental stochasticity is operating. Thus, there are no interspecific interactions, demographic stochasticity is absent, intrinsic growth rates are identical, and environmental variance is identical for all species.
+Our predictions for this limiting case, $\mathcal{M}_{E}$, are 
+
+\begin{equation}
+\phi_{N,\mathcal{M}_{E}} = \sum_{i,j} p_i p_j \text{cov}(\mu_{ei},\mu_{ej})
+\end{equation}
+
+\noindent{} for synchrony of population abundances and
+
+\begin{equation}
+\phi_{R,\mathcal{M}_{E}} = \frac{\sum_{i,j}\text{cov}(\mu_{ei},\mu_{ej})}{S^2}
+\end{equation}
+
+\noindent{} for synchrony of per capita growth rates.
+In both equations, $p_i$ is the average frequency of species *i*, $p_i = N_i/N_T$, and $\text{cov}(\mu_{ei},\mu_{ej})$ is the standardize covariance (correlation) of environmental responses between species *i* and species *j*.
+Confronting our theoretical predictions with data requires estimates of species dynamics in monoculture to calculate the covariance of species' environmental responses.
+To estimate environmental responses in natural communities, we turn to our population models built using long term demographic data.
+
+<!--
+Our work relies on the data and population modeling approach presented by @Chu2015. We refer interested readers to @Chu2015 for full details on the focal plant communities, choice of species, structure of vital rate statistical models, and the ability of fitted population models to reproduce observed dynamics. We offer a brief overview here, but note that the only difference between our vital rate models and those fit by @Chu2015 is that we allowed for positive species interactions. 
+-->
+
+### Empirically-based population models
+#### Data
 In the early 20th century, several range experiment stations in the western U.S. began mapping permanent quadrats, and conducted annual censuses for decades. 
 We use such long-term demographic data sets from five semiarid grasslands in the western United States (described in detail by @Chu2015).
 Each study site includes a set of 1-$\text{m}^2$ permanent quadrats within which all individual plants were identified and mapped annually using a pantograph (Hill 1920).
 The resulting mapped polygons represent basal cover for grasses and canopy cover for shrubs.
 Data come from the Sonoran desert in Arizona [@Anderson2012], sagebrush steppe in Idaho [@Zachmann2010], southern mixed prairie in Kansas [@Adler2007], northern mixed prairie in Montana [@Anderson2011], and Chihuahuan desert in New Mexico [Anderson et al. in preparation, @Chu2015] (Table 1).
 
+<!--
 ### Analytical approach
 Our analysis involved five steps for each study site:
 
@@ -176,6 +241,8 @@ Lastly, our models are based on individual-level demographic data, which allows 
 
 All our code and the data necessary to reproduce the results reported in this paper can be found on GitHub (link) as release v1.0, and we have archived that release on Dryad (link).
 
+-->
+
 #### Calculating observed synchrony
 The data consist of records for individual plant size in quadrats for each year.
 To obtain estimates of percent cover for each focal species in each year, we summed the individual-level data within quadrats and then averaged percent cover, by species, over all quadrats.
@@ -189,6 +256,7 @@ Specifically, we calculated synchrony as
 
 \noindent where $\sigma_{x_{i}}$ is the temporal variance of species *i*'s per capita population growth rate ($r_i$) or percent cover ($N_i$) and $\sigma^{2}_{T}$ is the temporal variance of the aggregate community-level growth rate or abundance. $\phi$ ranges from 0 at perfect asynchrony to 1 at perfect synchrony [@Loreau2008a].
 
+<!--
 We chose to use the special theoretical case where only demographic stochasticity is operating and all species have similar growth rates and variances to serve as an expectation of synchrony (see Appendix X).
 Specifically, based on a multi-species dynamic population model (Appendix X), we calculate expected synchrony of per capita growth rates ($\text{E}(\phi_r)$) as
 
@@ -208,6 +276,7 @@ The difference between observed and expected synchrony represents the combined e
 However, it is important to note that comparing observed and expected synchrony does not yield insight on the relative contributions of competition and environmental stochasticity.
 The difference between observed and expected synchrony serves as a metric of how far natural communities are from idealized expectations.
 To understand the influence of competition and environmental stochasticity, we must turn to using population model simulations.
+-->
 
 #### Fitting statistical models
 Vital rate regressions are the building blocks of our dynamic models (IBM and IPM).
