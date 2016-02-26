@@ -195,31 +195,45 @@ plot_df <- data.frame(site=c(rep(site_names,4)),
                                        exp_synchrony_env$growthrate_prediction,
                                        exp_synchrony_demo$cover,
                                        exp_synchrony_demo$cover),
-                      typesynch=c(rep("cover", 5),
-                                  rep("growth rate",5),
-                                  rep("cover", 5),
-                                  rep("growth rate",5)),
+                      typesynch=c(rep("Percent Cover", 5),
+                                  rep("Growth Rate",5),
+                                  rep("Percent Cover", 5),
+                                  rep("Growth Rate",5)),
                       predtype=c(rep("env",5*2),
                                  rep("demo",5*2)))
 
 
 mycolors <- c("#9D6188","#97A861")
-ggplot(plot_df, aes(x=pred_synchrony, y=obs_synchrony, color=predtype))+
+gout <- ggplot(plot_df, aes(x=pred_synchrony, y=obs_synchrony, color=predtype))+
   geom_point(size=3)+
   stat_smooth(method="lm", se=FALSE, size=1)+
   geom_abline(aes(intercept=0, slope=1), linetype=2, color="grey")+
   scale_y_continuous(limits=c(0,1))+
   scale_x_continuous(limits=c(0,1))+
-  facet_wrap("typesynch", ncol=2)+
-  scale_color_manual(values=mycolors)+
+  facet_wrap("typesynch", ncol=1)+
+  scale_color_manual(values=mycolors, labels=c(expression(M[D]), expression(M[E])), name="")+
   xlab("Predicted Synchrony")+
   ylab("Observed Synchrony")+
   # guides(shape=FALSE)+
-  theme_few()
+  theme_few()+
+  theme(legend.position=c(0.2,0.95),
+        legend.background = element_rect(colour = NA, fill = NA))
 
+png("../docs/components/prediction_observed.png", width = 3, height=5, units = "in", res=100)
+print(gout)
+dev.off()
 
 corrs_all <- ddply(plot_df, .(typesynch, predtype), summarise,
                    value = cor(pred_synchrony, obs_synchrony))
 
-predict(lm(obs_synchrony~pred_synchrony, data=subset(plot_df, typesynch=="growth rate" & predtype=="env")))
-predict(lm(obs_synchrony~pred_synchrony, data=subset(plot_df, typesynch=="growth rate" & predtype=="demo")))
+env_pgr_preds <- predict(lm(obs_synchrony~pred_synchrony, data=subset(plot_df, typesynch=="growth rate" & predtype=="env")))
+demo_pgr_preds <- predict(lm(obs_synchrony~pred_synchrony, data=subset(plot_df, typesynch=="growth rate" & predtype=="demo")))
+env_cover_preds <- predict(lm(obs_synchrony~pred_synchrony, data=subset(plot_df, typesynch=="cover" & predtype=="env")))
+demo_cover_preds <- predict(lm(obs_synchrony~pred_synchrony, data=subset(plot_df, typesynch=="cover" & predtype=="demo")))
+
+errors_env_pgr <- unlist(subset(plot_df, typesynch=="growth rate" & predtype=="env")["pred_synchrony"])-unlist(subset(plot_df, typesynch=="growth rate" & predtype=="env")["obs_synchrony"])
+preds <- unlist(subset(plot_df, typesynch=="growth rate" & predtype=="env")["pred_synchrony"])
+summary(lm(errors_env_pgr~preds))
+errors_dem_pgr <- unlist(subset(plot_df, typesynch=="growth rate" & predtype=="demo")["pred_synchrony"])-unlist(subset(plot_df, typesynch=="growth rate" & predtype=="demo")["obs_synchrony"])
+preds <- unlist(subset(plot_df, typesynch=="growth rate" & predtype=="demo")["pred_synchrony"])
+summary(lm(errors_dem_pgr~demo_pgr_preds))
