@@ -92,10 +92,10 @@ opts_chunk$set(dev='pdf')
 \begin{abstract}
 Temporal asynchrony among species is an important mechanism through which diversity can stabilize ecosystem function, but elucidating the mechanisms underlying species synchrony remains a challenge. 
 Here, we extend theory to predict species synchrony under limiting cases that we couple with an empirical analysis from five plant communities.
-When parameterized with empirical estimates, our prediction under the limiting case of only environmental stochasticity operating best explains observed synchrony of per capita growth rates.
+When parameterized with empirical estimates, our prediction of species synchrony under only environmental stochasticity best predicts observed synchrony of per capita growth rates.
 In model simulations, average synchrony of per capita growth rates, which ranges from 0 (perfect asynchrony) to 1 (perfect synchrony), was higher when environmental variation was present (0.62) rather than absent (0.43).
 Removing interspecific competition and demographic stochasticity had small effects on synchrony.
-Our results suggest that all five communities represent the theoretical limiting case where demographic stochasticity and competition are weak, and community-wide synchrony is approximately equal to the synchrony of species' environmental responses.
+Our results suggest that all five communities represent the theoretical limiting case where demographic stochasticity and competition are weak, and community-wide synchrony can be predicted by the synchrony of species' environmental responses.
 \end{abstract}
 
 \newpage{}
@@ -104,7 +104,7 @@ Our results suggest that all five communities represent the theoretical limiting
 
 INTRODUCTION
 ------------
-The relationship between species richness and ecosystem stability in grasslands depends on species synchrony [@Tilman2006; @Isbell2009; @Hector2010; @Hautier2014].
+The relationship between species richness and ecosystem stability in plant communities depends on species synchrony [@Tilman2006; @Isbell2009; @Hector2010; @Hautier2014].
 All else being equal, the stability of ecosystem function is highest when species dynamics are asynchronous [@DeMazancourt2013a].
 Thus, a mechanistic understanding of the diversity-stability relationship requires understanding the processes that increase or decrease species synchrony in nature.
 In the simplest case, when interspecific interactions and demographic stochasticity are weak, species synchrony is entirely determined by the synchrony of species' responses to fluctuating environmental conditions [@Loreau2008a; @Loreau2013].
@@ -113,13 +113,13 @@ Of course, real communities are subject to many internal and external forces bey
 
 Interspecific competition has long been considered a leading driver of species asynchrony (also called compensatory dynamics) [@Tilman1988; @Ives1995]. 
 If two species compete strongly, then fluctuating densities in one species leads to compensatory fluctuations in the densities of the other species [@Lehman2000].
-All else being equal, interspecific competition generally desynchronizes population abundances but sunchronizes per capita growth rates [@Loreau2008a; @Loreau2013; @Gross2014], except in the special case where competition is weak and population growth rates are high [@Loreau2013].
+In the absence of other forces, interspecific competition generally desynchronizes population abundances but synchronizes per capita growth rates [@Loreau2008a; @Loreau2013; @Gross2014], except in the special case where competition is weak and population growth rates are high [@Loreau2013].
 When both those conditions are met, the presence of competition synchronizes population abundances [@Loreau2013].
 Nonetheless, theoretical and empirical work agree that competition should generally lead to compensatory dynamics in population abundances.
 However, competition-induced compensatory dynamics may or may not increase ecosystem stability, depending on how much competition destabilizes population dynamics [@Loreau2013].
 
 Along with environmental fluctuations and interspecific competition, demographic stochasticity can influence synchrony.
-In the absence of all other forces, and in communities composed of species with similar growth rates, abundances, and demogaphic variance, demographic stochasticity leads to independent species fluctuations and always desynchronizes population dynamics [@Loreau2008a; @DeMazancourt2013a].
+In the absence of environmental fluctuations and interspecific competition, and in communities composed of species with similar growth rates, abundances, and demographic variance, demographic stochasticity leads to independent species fluctuations and always desynchronizes population dynamics [@Loreau2008a; @DeMazancourt2013a].
 However, the effect of demographic stochasticity is strong only in small populations, and in theory it cannot oppose or amplify the effects of environmental fluctuations and interspecific competition [@Loreau2008a].
 
 The fact that species synchrony emerges from complex interactions among species' environmental responses, species interactions, and demographic stochasticity makes it difficult to disentangle the drivers of synchrony in observational data, especially since an unbiased null expectation does not exist [@Loreau2008a].
@@ -322,6 +322,7 @@ In a constant environment, IPM simulations asymptote at stable equilibriums for 
 A common way to quantify the importance of environmental stochasticity on synchrony is to compare species synchrony when grown in monoculture versus when grown in polyculture [@Gross2014].
 The assumption is that synchrony in monoculture is representative of the synchrony of species' environmental responses.
 Thus, we compare species synchrony in polyculture (with species interactions) to species synchrony in monoculture (equilibrium densities) based on IPM simulations where demographic stochasticity is absent.
+We also use simulation results from species growing in monoculture to estimate the covariance of species' responses to the environment ($cov(u_{ie}, u_{je})$) for parameterizing Equations 5-6.
 
 #### Removing interspecific interactions and environmental fluctuations (IBM)
 Since the IBM and IPM are driven by the same vital rate regressions, interspecific interactions were removed as described above for the IPM simulations.
@@ -349,10 +350,10 @@ In contrast, expected synchrony of percent cover was lower than expected if only
 For all five communities, species synchrony from IPM and IBM simulations closely approximated observed synchrony (Fig. X1), meaning that we can use the models to test the importance of different drivers of synchrony in these communities.
 However, IBM-simulated synchrony is consistently lower than IPM-simulated synchrony (Fig. X1), likely due to the desynchronizing effect of demographic stochasticity.
 
-Across the five communities, our limiting case prediction of community-wide synchrony when only environmental stochasticity is operating best matched observed synchrony for per capita growth rates (Fig. 1).
+Across the five communities, our limiting case prediction of community-wide synchrony when only environmental stochasticity is operating ($\mathcal{M}_E$) best matched observed synchrony for per capita growth rates (Fig. 1).
 The regression line between observed growth rate synchrony and predicted growth rate synchrony under prediction $\mathcal{M}_E$ was the only one whose slope and intercept were not significantly different from zero (*P* = 0.88) and one (*P* = 0.87), respectively (Supplementary Information X).
 Our prediction under $\mathcal{M}_E$ for percent cover did not fair as well, with a slope and intercept that were significantly different from zero or one, respectively.
-The regression lines between observed and predicted growth rates under prediction $\mathcal{M}_D$ had intercepts or slopes significantly different from zero or one, respectively, for both percent cover and per capita growth rates.
+The regression lines between observed and predicted growth rates under prediction $\mathcal{M}_D$ (demographic stochasticity only) had intercepts and/or slopes significantly different from zero or one, respectively, for both percent cover and per capita growth rates.
 
 Removing interspecific interactions from the IPMs had little effect on the synchrony of per capita growth rates (Fig. 2) because interspecific interactions are weak in our focal communities (Table X1, and see @Chu2015).
 Only in Arizona does removing species interactions result in a small decline in synchrony of per capita growth rates (Fig. 2a).
@@ -388,10 +389,10 @@ Except for synchrony of per capita growth rates in the Idaho and Montana communi
 
 DISCUSSION
 ----------
-Temporal asynchrony among interacting populations can stabilize ecosystem-level function and is influenced by inter and intraspecific competition, demographic stochasticity, and environmental fluctuations [@Loreau2008a].
-We used multi-species population models applied to five semiarid plant communities to determine the relative influence of the drivers of community synchrony.
-Our study produced three main findings that were consistent across five plant communities: (1) interspecific interactions were weak and therefore had little impact on community synchrony; (2) demographic stochasticity decreased community synchrony, as expected by theory, and its effect was largest in small populations; and (3) environmental fluctuations increased community synchrony relative to simulations in constant environments because species-specific responses to the environment were positively, but not completely, correlated.
-Thus, our results are in agreement with theoretical expectations: when species interactions and demographic stochasticity are weak, community-wide species synchrony is determined by the synchrony of species' responses to environmental conditions.
+Our study produced three main findings that were consistent across five natural plant communities: (1) interspecific interactions were weak and therefore had little impact on community synchrony; (2) demographic stochasticity decreased community synchrony, as expected by theory, and its effect was largest in small populations; and (3) environmental fluctuations increased community synchrony relative to simulations in constant environments because species-specific responses to the environment were positively, but not completely, correlated.
+These results are in agreement with our theoretical prediction for species synchrony under the limiting case of community dynamics being driven by environmental fluctuations alone.
+For all of our results, from empirical tests of theoretical predictions to our model simulations, synchrony of per capita growth rates were more consitent and predictive of community dynamics that percent cover.
+Thus, we primarily focus on those results in our discussion, and echo the call of @Loreau2008a to view species synchrony through the lens of per capita growth rates.
 
 ### Interspecific interactions had little impact on community synchrony
 We expected community synchrony of per capita growth rates to decrease and synchrony of plant cover to increase when we removed interspecific interactions [@Loreau2008a and Appendix X].
@@ -407,24 +408,25 @@ In that sense, our results are not surprising: interspecific interactions are we
 More surprising is that our focal communities have little niche overlap. 
 But, as discussed by @Chu2015, little niche overlap becomes less surprising when we consider the virtually limitless niche axes upon which species can partition themselves [@Clark2010].
 
-
 ### Demographic stochasticity decreases synchrony
-Demographic stochasticity is able to partially counteract the synchronizing effects of environmental fluctuations and interspecific interactions on per capita growth rates, but only when populations are small, in agreement with theory [@Loreau2008a].
-Even in small populations, however, demographic stochasticity is not a strong enough force to induce independent fluctuations.
+Our theoretical prediction for species synchrony in a neutral community with no species interactions or environmental fluctuations ($\mathcal{M}_D$) received no support when parameterized with emprical estimates (Fig. 1).
+Demographic stochasticity is able to partially counteract the synchronizing effects of environmental fluctuations and interspecific interactions on per capita growth rates, but only when populations are small (Fig. 3), in agreement with theory [@Loreau2008a].
+Even in small populations, however, demographic stochasticity is not a strong enough force to induce independent fluctuations (Fig. 3).
 These results confirm the theoretical argument by @Loreau2008a that independent fluctuations among interacting species in a non-constant environment should be rare.
 Only in the Idaho community does synchrony of per capita growth rates approach 1/*S* in a non-constant environment (Fig. 3x).
 This is most likely due to the strong effect of demographic stochasticity on the shrub *Artemisia tripartita* since even a 5 $\text{m}^2$ quadrat would only contain a few individuals of that species.
 
 ### Environmental fluctuations drive community synchrony
-In large populations where interspecific interactions are weak, synchrony is expected to be driven exclusively by environmental fluctuations [@Loreau2013].
-Under such conditions community synchrony should approximately equal the synchrony of species' responses to the environment.
-We find that environmental fluctuations drive synchrony of per capita growth rates and plant percent cover in all five communities.
-Removing environmental fluctuations consistently reduced synchrony (Fig. 3) and the synchrony of species in monoculture is a strong predictor of synchrony of species in polyculture (Fig. 4).
-Likewise, removing interspecific interactions resulted in no discernable change in community-wide species synchrony of per capita growth rates (Fig. 2).
-If we consider sychrony in monoculture to represent the synchrony of species' responses to the environment, then our results lead to only one conclusion: environmental fluctuations are the primary driver of community-wide species synchrony.
+In large populations where interspecific interactions are weak, synchrony is expected to be driven exclusively by environmental fluctuations (Equations 5-6).
+Under such conditions community synchrony should approximately equal the synchrony of species' responses to the environment [@Loreau2008a].
+Several lines of evidence lead us to conclude that environmental fluctuations drive species synchrony in our focal plant communities.
+First, of our two limiting-case theoretical predictions for species synchrony (Equations 3-6), only our prediction for communities driven by environmental fluctuations alone ($\mathcal{M}_E$) received empirical support (Fig. 1).
+Second, in our model simulations, removing interspecific interactions resulted in no discernable change in community-wide species synchrony of per capita growth rates (Fig. 2).
+Lastly, removing environmental fluctuations from simulations consistently reduced synchrony (Fig. 3), and the synchrony of species in monoculture is a very strong predictor of synchrony of species in polyculture (Fig. 4).
+If we consider synchrony in monoculture to represent the synchrony of species' responses to the environment, then our results lead to only one conclusion: environmental fluctuations are the primary driver of community-wide species synchrony.
 This is unsurprising since we know that species interactions are weak in these communities.
 More surprising is that our results appear to be quite general: across five arid-to-subhumid grasslands community synchrony is almost soley due to environmental fluctuations since interspecific interactions are weak.
-Given accumulating evidence that niche differences in natural communities are large [reviewed in @Chu2015], and thus species interactions are likely to be weak, our results may be general in natural grasslands.
+Given accumulating evidence that niche differences in natural communities are large [reviewed in @Chu2015], and thus species interactions are likely to be weak, our results may be general in natural plant communities.
 
 One challenge to the generality of our results is that we were only able to model common, co-occuring species [see @Chu2015].
 Rare species, which our analysis does not include, could be kept at low densities by competitive suppression due to strong interspecific interactions.
@@ -446,11 +448,12 @@ This also leads to the prediction that community synchrony is driven by competit
 In other words, in the absence of disturbance and invasion, the dominant driver of community synchrony should shift from competition to environmental fluctuations through time.
 One way to test this prediction is to continue collecting data from biodiversity-ecoystem function experiments and conduct the analysis of @Gross2014 every few years.
 
-Our analysis contributes to mounting evidence on the importance of functional diversity for maintaining temporal stability via species asynchrony [@Reich2012; @Polley2013].
+### The importance of functional diversity
+Our analysis also contributes to mounting evidence on the importance of functional diversity for maintaining temporal stability via species asynchrony [@Reich2012; @Polley2013].
 Functional traits define how a species will respond to its environment.
 Therefore, greater functional differences among species should lead to lower correlations in species' responses to the environment.
 We found evidence for the negative effect of functional diversity on community synchrony: community synchrony was lowest Idaho (Table 2, Fig. 2); the only community that contained two life forms (one shrub, three perennial grasses).
-In fact, when we ran simulations with the shrub removed, synchrony of the Idaho community increased substantially and was similar to synchrony in the Kansas community, which also contained three species.
+In fact, when we ran simulations with the shrub removed, synchrony of the Idaho community increased substantially and was similar to synchrony in the Kansas community (Fig. SX), which also contained three species.
 Functional diversity is especially important in communities with weak interspecific interactions where synchrony depends soley on species' environmental responses.
 Adding species to such communities will always decrease synchrony, and increase temporal stability, so long as the synchrony of species' environmental response is less than 1 [@Loreau2008a; @Loreau2013].
 But functionally diverse suites of species will have the lowest synchrony of environmental responses, and thus lowest community synchrony and highest stability.
@@ -466,7 +469,7 @@ However, if community-wide species synchrony is less than 1, some degree of comp
 Since observed and simulated synchrony is less than 1 in all our focal communities (Fig. 1), we conclude that compensatory dynamics are common in natural grasslands.
 But, in agreement with other studies [@Rocha2011; @Vasseur2014], we find that environmental responses are primarily responsible for the degree of synchrony among ecologically-similar species.
 
-We found strong support for Loreau and de Mazancourt's (2008) prediction that community-wide synchrony of per capita growth rates should approximately equal the synchrony of species' environmental responses when demographic stochasticity and species interactions are weak, since removing environmental fluctuations was the only simulation that affected synchrony.
+We found strong support for our theoretical prediction that community-wide synchrony of per capita growth rates should approximately equal the synchrony of species' environmental responses when demographic stochasticity and species interactions are weak: removing environmental fluctuations was the only simulation that affected synchrony and our limiting-case prediction where only environmental stochasticity is operating faired well when confronted with emprical estiamtes.
 We have reason to believe that our results are quite general since many studies report large niche differences, and thus weak interactions, in plant communities.
 However, our results are in contrast to a recent analysis of several biodiversity-ecosystem function experiments showing that competition drives community synchrony [@Gross2014].
 The difference between the Gross et al. (2014) study and our own may be due to community assembly processes: recently assembled communities, such as experimental plots, may exhibit strong species interactions that will weaken over time [@Kokkoris1999].
