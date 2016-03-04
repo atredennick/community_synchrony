@@ -57,7 +57,7 @@ ibm_synch_agg <- ddply(ibm_synch_all, .(experiment, site, expansion, typesynch),
 ibm_synch <- subset(ibm_synch_agg, expansion==5 & typesynch=="Per capita growth rate")
 
 ##  Combine results -----
-sim_names <- c("Control", "No D.S.", "No E.S.", "No Comp.", "No Comp. + No D.S.", "No Comp. + No E.S.")
+sim_names <- c("All Drivers", "No D.S.", "No E.S.", "No Comp.", "No Comp. + No D.S.", "No Comp. + No E.S.")
 sim_names_order <- paste0(1:length(sim_names),sim_names)
 site_names <- unique(ipm_synch$site)
 nsites <- length(site_names)
@@ -82,7 +82,7 @@ plot_df <- data.frame(site = rep(site_labels, times=length(sim_names)),
                       simulation = rep(sim_names_order, each=nsites),
                       synchrony = all_experiments)
 
-##  Make the plot -----
+##  Make the main (all sims) plot -----
 ggplot(plot_df, aes(x=simulation, y=synchrony, fill=site))+
   geom_bar(stat="identity")+
   facet_wrap("site", nrow=1)+
@@ -97,5 +97,27 @@ ggplot(plot_df, aes(x=simulation, y=synchrony, fill=site))+
 
 ggsave("../docs/components/all_sims_results.png", width = 10, height = 4, units="in", dpi=75)
   
+
+##  Make demographic stochasiticty plot for all landscape sizes -----
+ibm_demo_rms <- subset(ibm_synch_agg, typesynch=="Per capita growth rate")
+ibm_demo_rms <- ibm_demo_rms[which(ibm_demo_rms$experiment %in% c("fluctinter", "constnointer")),]
+
+ggplot(ibm_demo_rms, aes(x=expansion, y=avg_synch, color=site))+
+  geom_line(aes(linetype=experiment))+
+  geom_point(aes(shape=experiment), size=3)+
+  facet_wrap("site", nrow=1)+
+  scale_color_manual(values=site_colors, labels=site_labels, name="")+
+  xlab(expression(paste("Simulate Landscape Size (", m^2,")")))+
+  ylab("Synchrony of Species' Growth Rates")+
+  scale_y_continuous(limits=c(0,1))+
+  scale_shape_discrete(name="",labels=c("No E.S + No Comp.", "All Drivers"))+
+  scale_linetype_discrete(name="",labels=c("No E.S + No Comp.", "All Drivers"))+
+  guides(color=FALSE)+
+  theme_few()+
+  theme(legend.position=c(0.1,0.2),
+        legend.background = element_rect(fill = NA))
+
+ggsave("../docs/components/ibm_sims_across_landscape.png", width = 10, height = 3, units="in", dpi=75)
+
 
 
