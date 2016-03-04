@@ -1,0 +1,101 @@
+##  Main plot for synchrony results
+
+library(ggplot2)
+library(ggthemes)
+library(reshape2)
+library(plyr)
+library(synchrony)
+library(communitySynchrony)
+
+site_colors <- c("grey45", "steelblue", "slateblue4", "darkorange", "purple")
+
+
+##  Read in IPM results ---------
+output_list <- readRDS("../results/ipm_comp_nocomp_sims.RDS")
+mlist <- melt(output_list)
+colnames(mlist)[1:3] <- c("year", "species", "cover")
+sites <- unique(mlist$L1)
+sims <- unique(mlist$L2)
+synch_df <- data.frame(site=NA, experiment=NA, bootnum=NA, 
+                       pgr_synch=NA, abund_synch=NA)
+boots <- 100
+num_iters <- 50
+for(dosite in sites){
+  tmp_data <- subset(mlist, L1==dosite)
+  for(dosim in sims){
+    tmpsim <- subset(tmp_data, L2==dosim)[c("year", "species", "cover")]
+    for(i in 1:boots){
+      begin_year <- sample(x = 1:(max(tmpsim$year)-num_iters), 1)
+      end_year <- begin_year+num_iters
+      tmp <- subset(tmpsim, year %in% begin_year:end_year)
+      tmpsynch <- get_ipm_synchrony(tmp)
+      tmp_pgr_synch <- as.numeric(tmpsynch$pgr_synchrony["obs"])
+      tmpcast <- dcast(tmp, year~species, value.var = "cover")
+      tmp_abund_synch <- as.numeric(community.sync(tmpcast[2:ncol(tmpcast)])[1])
+      tmp_df <- data.frame(site=dosite, experiment=dosim, 
+                           bootnum=i, pgr_synch=tmp_pgr_synch, 
+                           abund_synch=tmp_abund_synch)
+      synch_df <- rbind(synch_df, tmp_df)
+    }# end boots loop
+  }# end experiment/sim loop
+}# end site loop
+
+synch_dftmp <- synch_df[2:nrow(synch_df),]
+synch_df <- melt(synch_dftmp, id.vars = c("site", "experiment", "bootnum"))
+colnames(synch_df) <- c("site", "experiment", "bootnum", "typesynch", "synch")
+
+ipm_synch <- ddply(synch_df, .(site, experiment, typesynch), summarise,
+                   mean_synch = mean(synch),
+                   up_synch = quantile(synch, 0.95),
+                   lo_synch = quantile(synch, 0.05))
+ipm_synch <- subset(ipm_synch, typesynch=="pgr_synch")
+
+##  Read in IBM results -----
+ibm_synch_all <- readRDS("../results/ibm_sims_collated.RDS") 
+ibm_synch_agg <- ddply(ibm_synch_all, .(experiment, site, expansion, typesynch), summarise,
+                   avg_synch = mean(synch))
+ibm_synch <- subset(ibm_synch_agg, expansion==5 & typesynch=="Per capita growth rate")
+
+##  Combine results -----
+sim_names <- c("Control", "No D.S.", "No E.S.", "No Comp.", "No Comp. + No D.S.", "No Comp. + No E.S.")
+sim_names_order <- paste0(1:length(sim_names),sim_names)
+site_names <- unique(ipm_synch$site)
+nsites <- length(site_names)
+site_labels <- site_names
+site_labels[which(site_labels=="NewMexico")] <- "New Mexico"
+
+# Get vectors of synchrony for each "experiment"
+control_synch <- subset(ibm_synch, experiment=="fluctinter")
+nods_synch <- subset(ipm_synch, experiment=="ENVINTER")
+noes_synch <- subset(ibm_synch, experiment=="constinter")
+nocomp_synch <- subset(ibm_synch, experiment=="fluctnointer")
+nodsnocomp_synch <- subset(ipm_synch, experiment=="ENVNOINTER")
+noesnocomp_synch <- subset(ibm_synch, experiment=="constnointer")
+all_experiments <- c(control_synch$avg_synch,
+                     nods_synch$mean_synch,
+                     noes_synch$avg_synch,
+                     nocomp_synch$avg_synch,
+                     nodsnocomp_synch$mean_synch, 
+                     noesnocomp_synch$avg_synch)
+
+plot_df <- data.frame(site = rep(site_labels, times=length(sim_names)),
+                      simulation = rep(sim_names_order, each=nsites),
+                      synchrony = all_experiments)
+
+##  Make the plot -----
+ggplot(plot_df, aes(x=simulation, y=synchrony, fill=site))+
+  geom_bar(stat="identity")+
+  facet_wrap("site", nrow=1)+
+  scale_fill_manual(values=site_colors, labels=site_labels, name="")+
+  xlab("Simulation Experiment")+
+  ylab("Synchrony of Species' Growth Rates")+
+  scale_x_discrete(labels=sim_names)+
+  scale_y_continuous(limits=c(0,1))+
+  theme_few()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  guides(fill=FALSE)
+
+ggsave("../docs/components/all_sims_results.png", width = 10, height = 4, units="in", dpi=75)
+  
+
+
