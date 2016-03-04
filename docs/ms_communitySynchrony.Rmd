@@ -322,7 +322,7 @@ In a constant environment, IPM simulations asymptote at stable equilibriums for 
 A common way to quantify the importance of environmental stochasticity on synchrony is to compare species synchrony when grown in monoculture versus when grown in polyculture [@Gross2014].
 The assumption is that synchrony in monoculture is representative of the synchrony of species' environmental responses.
 Thus, we compare species synchrony in polyculture (with species interactions) to species synchrony in monoculture (equilibrium densities) based on IPM simulations where demographic stochasticity is absent.
-We also use simulation results from species growing in monoculture to estimate the covariance of species' responses to the environment ($cov(u_{ie}, u_{je})$) for parameterizing Equations 5-6.
+We also use simulation results from species growing in monoculture to estimate the covariance of species' responses to the environment ($\text{cov}(\mu_{ie}, \mu_{je})$) for parameterizing Equations 5-6.
 
 #### Removing interspecific interactions and environmental fluctuations (IBM)
 Since the IBM and IPM are driven by the same vital rate regressions, interspecific interactions were removed as described above for the IPM simulations.
