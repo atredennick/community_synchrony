@@ -84,14 +84,32 @@ cor(subset(polymono_wide, typesynch=="abund_synch")[,"ENVINTER"],
 library(ggthemes)
 polymono <- agg_synch[,c("site", "typesynch", "experiment", "mean_synch")]
 polymono_wide <- dcast(polymono, site+typesynch~experiment, value.var = "mean_synch")
-g1 <- ggplot(polymono_wide, aes(x=ENVNOINTER, y=ENVINTER))+
+# g1 <- ggplot(polymono_wide, aes(x=ENVNOINTER, y=ENVINTER))+
+#   geom_abline(aes(intercept=0, slope=1), linetype=3)+
+#   geom_point(size=3, aes(shape=typesynch, color=site))+
+#   scale_y_continuous(limits=c(0,1))+
+#   scale_x_continuous(limits=c(0,1))+
+#   ylab("Species synchrony in polyculture")+
+#   xlab("Species synchrony in monoculture")+
+#   scale_shape_discrete(name="Temporal Variable", labels=c("Per capita growth rate", "Percent cover"))+
+#   scale_color_manual(values = c("grey45", "steelblue", "slateblue4", "darkorange", "purple"),
+#                      name = "",
+#                      labels = c("Arizona", "Idaho", "Kansas", "Montana", "New Mexico"))+
+#   theme_few()+
+#   guides(shape=FALSE)+
+#   # ggtitle("A                                                          ")+
+#   theme(legend.position=c(0.2,0.8))+
+#   theme(legend.text = element_text(size = 8))+
+#   theme(legend.background = element_rect(colour = NA, fill = NA))
+
+g1 <- ggplot(subset(polymono_wide,typesynch=="pgr_synch"), aes(x=ENVNOINTER, y=ENVINTER))+
   geom_abline(aes(intercept=0, slope=1), linetype=3)+
-  geom_point(size=3, aes(shape=typesynch, color=site))+
+  geom_point(size=3, aes(color=site))+
   scale_y_continuous(limits=c(0,1))+
   scale_x_continuous(limits=c(0,1))+
   ylab("Species synchrony in polyculture")+
   xlab("Species synchrony in monoculture")+
-  scale_shape_discrete(name="Temporal Variable", labels=c("Per capita growth rate", "Percent cover"))+
+  # scale_shape_discrete(name="Temporal Variable", labels=c("Per capita growth rate", "Percent cover"))+
   scale_color_manual(values = c("grey45", "steelblue", "slateblue4", "darkorange", "purple"),
                      name = "",
                      labels = c("Arizona", "Idaho", "Kansas", "Montana", "New Mexico"))+
@@ -102,64 +120,65 @@ g1 <- ggplot(polymono_wide, aes(x=ENVNOINTER, y=ENVINTER))+
   theme(legend.text = element_text(size = 8))+
   theme(legend.background = element_rect(colour = NA, fill = NA))
 
-
-
-output_list <- readRDS("../results/ipm_yearly_pgr.RDS")
-mlist <- melt(output_list)
-colnames(mlist)[1:3] <- c("year", "species", "pgr")
-sites <- unique(mlist$L1)
-synch_df <- data.frame(site=NA, bootnum=NA, pgr_synch=NA)
-boots <- 100
-num_iters <- 50
-for(dosite in sites){
-  tmpsim <- subset(mlist, L1==dosite)
-    for(i in 1:boots){
-      begin_year <- sample(x = 1:(max(tmpsim$year)-num_iters), 1)
-      end_year <- begin_year+num_iters
-      tmp <- subset(tmpsim, year %in% begin_year:end_year)
-      tmp <- dcast(tmp, year~species, value.var = "pgr")
-      tmpsynch <- as.numeric(community.sync(tmp[2:ncol(tmp)])[1])
-      tmp_df <- data.frame(site=dosite, bootnum=i, pgr_synch=tmpsynch)
-      synch_df <- rbind(synch_df, tmp_df)
-    }# end boots loop
-}# end site loop
-synch_dftmp <- synch_df[2:nrow(synch_df),]
-pgr_synch <- ddply(synch_dftmp, .(site), summarise,
-                   mean_pgrsynch = mean(pgr_synch))
-
-
-
-# pgr_list <- readRDS("../results/ipm_yearly_pgr.RDS")
-# site_names <- names(pgr_list)
-# out_df <- data.frame(site=NA, pgr_synch=NA)
-# for(do_site in site_names){
-#   tmp_pgrs <- pgr_list[[do_site]]
-#   tmp_synch <- as.numeric(community.sync(tmp_pgrs)[1])
-#   tmp_df <- data.frame(site=do_site, pgr_synch=tmp_synch)
-#   out_df <- rbind(out_df, tmp_df)
-# }
-# pgr_synch <- out_df[2:nrow(out_df),]
-polymono_wide$yrpgr <- rep(pgr_synch$mean_pgrsynch, each=2)
-
-g2 <- ggplot(polymono_wide, aes(x=yrpgr, y=ENVINTER))+
-  geom_abline(aes(intercept=0, slope=1), linetype=3)+
-  geom_point(size=3, aes(shape=typesynch, color=site))+
-  scale_y_continuous(limits=c(0,1))+
-  scale_x_continuous(limits=c(0,1))+
-  ylab("Species synchrony in polyculture")+
-  xlab("Yearly per capita growth rate synchrony \nin monoculture")+
-  scale_shape_discrete(name="Temporal Variable", labels=c("Per capita growth rate", "Percent cover"))+
-  scale_color_manual(values = c("grey45", "steelblue", "slateblue4", "darkorange", "purple"),
-                     name = "Site")+
-  theme_few()+
-  guides(shape=FALSE, color=FALSE)+
-  ggtitle("B                                                          ")
-
-library(gridExtra)
-
-png("../docs/components/poly_vs_mono_synch.png",width = 4.5, height = 4, units = "in", res=150)
+png("../docs/components/poly_vs_mono_synch.png",width = 4.5, height = 4, units = "in", res=76)
 # g_out <- grid.arrange(g1,g2,ncol=2)
 g1
 dev.off()
 
-# ggsave("../docs/components/poly_vs_mono_synch.png", plot=g_out, width = 8, height = 3.5, dpi = 150)
+
+# output_list <- readRDS("../results/ipm_yearly_pgr.RDS")
+# mlist <- melt(output_list)
+# colnames(mlist)[1:3] <- c("year", "species", "pgr")
+# sites <- unique(mlist$L1)
+# synch_df <- data.frame(site=NA, bootnum=NA, pgr_synch=NA)
+# boots <- 100
+# num_iters <- 50
+# for(dosite in sites){
+#   tmpsim <- subset(mlist, L1==dosite)
+#     for(i in 1:boots){
+#       begin_year <- sample(x = 1:(max(tmpsim$year)-num_iters), 1)
+#       end_year <- begin_year+num_iters
+#       tmp <- subset(tmpsim, year %in% begin_year:end_year)
+#       tmp <- dcast(tmp, year~species, value.var = "pgr")
+#       tmpsynch <- as.numeric(community.sync(tmp[2:ncol(tmp)])[1])
+#       tmp_df <- data.frame(site=dosite, bootnum=i, pgr_synch=tmpsynch)
+#       synch_df <- rbind(synch_df, tmp_df)
+#     }# end boots loop
+# }# end site loop
+# synch_dftmp <- synch_df[2:nrow(synch_df),]
+# pgr_synch <- ddply(synch_dftmp, .(site), summarise,
+#                    mean_pgrsynch = mean(pgr_synch))
+# 
+# 
+# 
+# # pgr_list <- readRDS("../results/ipm_yearly_pgr.RDS")
+# # site_names <- names(pgr_list)
+# # out_df <- data.frame(site=NA, pgr_synch=NA)
+# # for(do_site in site_names){
+# #   tmp_pgrs <- pgr_list[[do_site]]
+# #   tmp_synch <- as.numeric(community.sync(tmp_pgrs)[1])
+# #   tmp_df <- data.frame(site=do_site, pgr_synch=tmp_synch)
+# #   out_df <- rbind(out_df, tmp_df)
+# # }
+# # pgr_synch <- out_df[2:nrow(out_df),]
+# polymono_wide$yrpgr <- rep(pgr_synch$mean_pgrsynch, each=2)
+# 
+# g2 <- ggplot(polymono_wide, aes(x=yrpgr, y=ENVINTER))+
+#   geom_abline(aes(intercept=0, slope=1), linetype=3)+
+#   geom_point(size=3, aes(shape=typesynch, color=site))+
+#   scale_y_continuous(limits=c(0,1))+
+#   scale_x_continuous(limits=c(0,1))+
+#   ylab("Species synchrony in polyculture")+
+#   xlab("Yearly per capita growth rate synchrony \nin monoculture")+
+#   scale_shape_discrete(name="Temporal Variable", labels=c("Per capita growth rate", "Percent cover"))+
+#   scale_color_manual(values = c("grey45", "steelblue", "slateblue4", "darkorange", "purple"),
+#                      name = "Site")+
+#   theme_few()+
+#   guides(shape=FALSE, color=FALSE)+
+#   ggtitle("B                                                          ")
+# 
+# library(gridExtra)
+# 
+# 
+# 
+# # ggsave("../docs/components/poly_vs_mono_synch.png", plot=g_out, width = 8, height = 3.5, dpi = 150)

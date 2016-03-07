@@ -204,22 +204,22 @@ plot_df <- data.frame(site=c(rep(site_names,4)),
 
 
 mycolors <- c("#9D6188","#97A861")
-gout <- ggplot(plot_df, aes(x=pred_synchrony, y=obs_synchrony, color=predtype))+
+gout <- ggplot(subset(plot_df, typesynch=="Growth Rate"), aes(x=pred_synchrony, y=obs_synchrony, color=predtype))+
   geom_point(size=3)+
   stat_smooth(method="lm", se=FALSE, size=1)+
   geom_abline(aes(intercept=0, slope=1), linetype=2, color="grey")+
   scale_y_continuous(limits=c(0,1))+
   scale_x_continuous(limits=c(0,1))+
-  facet_wrap("typesynch", ncol=1)+
+  # facet_wrap("typesynch", ncol=1)+
   scale_color_manual(values=mycolors, labels=c(expression(M[D]), expression(M[E])), name="")+
   xlab("Predicted Synchrony")+
   ylab("Observed Synchrony")+
   # guides(shape=FALSE)+
   theme_few()+
-  theme(legend.position=c(0.2,0.95),
+  theme(legend.position=c(0.1,0.85),
         legend.background = element_rect(colour = NA, fill = NA))
 
-png("../docs/components/prediction_observed.png", width = 3, height=5, units = "in", res=100)
+png("../docs/components/prediction_observed.png", width = 4, height=4, units = "in", res=100)
 print(gout)
 dev.off()
 
