@@ -83,6 +83,22 @@ for(j in 1:num_vitals){
 } # end vital rate loop
 
 
+## Plot histograms of year effects by vital rate
+vital_rates <- names(list_yr_effects)
+par(mfrow=c(3,5))
+for(do_vital in vital_rates){
+  tmp_vital <- list_yr_effects[[do_vital]]
+  site_names <- names(tmp_vital)
+  for(do_site in site_names){
+    tmp_site <- tmp_vital[[do_site]]
+    hist(tmp_site, main=paste(do_site,do_vital), xlab="Year Effect", xlim=c(-3,8))
+  }
+}
+
+##  Get standard deviation of year effect posterior
+
+
+
 ####
 ####  Calculate average correlation of year effects ----------------------------
 ####
