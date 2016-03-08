@@ -39,7 +39,7 @@ opts_chunk$set(dev='pdf')
 \begin{singlespace}
 
 \begin{center}
-\large{\textbf{Disentangling the drivers of species synchrony in natural plant communities: environmental forcing, demographic stochasticity, and interspecific interactions}}
+\large{\textbf{Environmental responses, not species interactions, determine species synchrony in five natural plant communities}}
 
 \renewcommand*{\thefootnote}{\fnsymbol{footnote}}
 
@@ -122,8 +122,9 @@ This could be done experimentally, but empirically-based models of interacting p
 For example, @Mutshinda2009 fit a dynamic population model to several community time series of insect and bird abundances.
 They used a statistical technique to decompose temporal variation into competition and environmental components, and found that postively correlated environmental responses among species determined community dynamics.
 While a major step forward, Mutshinda et al.'s (2009) modeling technique relied on abundance data that may or may not reliably capture competitive interactions that occur at the individual level.
-Furthermore, their analysis did not include data from grassland communities, which have received the most experimental [@Tilman2001] and theoretical [@DeMazancourt2013a] attention.
-Thus, there remains a gap in our ability to draw clear lines of inference from theoretical and experimental work to natural plant communities.
+Furthermore, although @Mutshinda2009 quantify the relative importance of environmental stochasticity and competition to explain the observed variation of species synchrony, they did not use the model to quantify how much synchrony changes when each factor is removed.
+Lastly, their analysis did not include data from grassland communities, which have received the most experimental [@Tilman2001; @Hector2010] and theoretical [@DeMazancourt2013a] attention.
+Thus, we lack the ability to draw clear lines of inference from theoretical and experimental work to natural plant communities.
 
 Here, we use multi-species population models fit to long-term demographic data from five semi-arid plant communities to test theory on the drivers of species synchrony.
 First, we refine previous theory that has been used to predict the effects of species richness on ecosystem stability [@DeMazancourt2013a] and species synchrony [@Loreau2008a].
@@ -328,7 +329,7 @@ The regression lines between observed and predicted growth rates under predictio
 Simulation experiments reveal that removing environmental fluctuations has the largest impact on synchrony, leading to a reduction in snychrony of species growth rates in four out five communities (Fig. 2a).
 Removing environmental fluctuations ("No E.S" simulations) decreased synchrony by 33% in Arizona, 48% in Kansas, 39% in Montana, and 40% in New Mexico.
 Only in Idaho did removing environmental fluctuations cause an increase in synchrony (Fig. 2a), but the effect was small (9% increase).
-Species interactions are weak in this communitie (Table SX), so removing interspecific competition had little effect on synchrony (Fig. 2a; "No Comp." simulations).
+Species interactions are weak in these communities [Table SX and @Chu2015], so removing interspecific competition had little effect on synchrony (Fig. 2a; "No Comp." simulations).
 Removing competition caused, at most, a 5% change in synchrony (Table SX).
 Removing demographic stochasticity ("No D.S." simulations) caused synchrony to increase slightly in all communities (Fig. 2a), with an average 6% increase.
 The desynchronizing effect of demographic stochasticity was able to modestly counteract the synchronizing force of the environment, but not enough to match the synchrony of species when only demographic stochasticity is operating (Fig. 2b).
@@ -342,7 +343,7 @@ Except for synchrony of per capita growth rates in the Idaho and Montana communi
 
 DISCUSSION
 ----------
-Our study produced three main findings that were consistent across five natural plant communities: (1) interspecific interactions were weak and therefore had little impact on community synchrony; (2) demographic stochasticity decreased community synchrony, as expected by theory, and its effect was largest in small populations; and (3) environmental fluctuations increased community synchrony relative to simulations in constant environments because species-specific responses to the environment were positively, but not completely, correlated.
+Our study produced three main findings that were generally consistent across five natural plant communities: (1) interspecific interactions were weak and therefore had little impact on community synchrony; (2) demographic stochasticity decreased community synchrony, as expected by theory, and its effect was largest in small populations; and (3) environmental fluctuations increased community synchrony relative to simulations in constant environments because species-specific responses to the environment were positively, but not completely, correlated.
 These results are in agreement with our theoretical prediction for species synchrony under the limiting case of community dynamics being driven by environmental fluctuations alone.
 
 ### Interspecific interactions had little impact on community synchrony
