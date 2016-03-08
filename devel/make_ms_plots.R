@@ -97,6 +97,10 @@ ggplot(plot_df, aes(x=simulation, y=synchrony, fill=site))+
 
 ggsave("../docs/components/all_sims_results.png", width = 10, height = 4, units="in", dpi=75)
   
+##  Calculate percent differences for Results
+plot_df$control <- rep(plot_df[which(plot_df$simulation=="1All Drivers"),"synchrony"], times=nrow(plot_df)/nsites)
+plot_df$percent_diff <- with(plot_df, abs(synchrony-control)/((synchrony+control)/2)*100)
+write.csv(plot_df, "../results/synchsims_percent_diffs.csv")
 
 ##  Make demographic stochasiticty plot for all landscape sizes -----
 ibm_demo_rms <- subset(ibm_synch_agg, typesynch=="Per capita growth rate")
