@@ -53,7 +53,9 @@ ipm_synch <- subset(ipm_synch, typesynch=="pgr_synch")
 ##  Read in IBM results -----
 ibm_synch_all <- readRDS("../results/ibm_sims_collated.RDS") 
 ibm_synch_agg <- ddply(ibm_synch_all, .(experiment, site, expansion, typesynch), summarise,
-                   avg_synch = mean(synch))
+                   avg_synch = mean(synch),
+                   up_synch = quantile(synch, 0.95),
+                   lo_synch = quantile(synch, 0.05))
 ibm_synch <- subset(ibm_synch_agg, expansion==5 & typesynch=="Per capita growth rate")
 
 ##  Combine results -----
@@ -77,23 +79,40 @@ all_experiments <- c(control_synch$avg_synch,
                      nocomp_synch$avg_synch,
                      nodsnocomp_synch$mean_synch, 
                      noesnocomp_synch$avg_synch)
+all_ups <- c(control_synch$up_synch,
+             nods_synch$up_synch,
+             noes_synch$up_synch,
+             nocomp_synch$up_synch,
+             nodsnocomp_synch$up_synch, 
+             noesnocomp_synch$up_synch)
+all_downs <- c(control_synch$lo_synch,
+               nods_synch$lo_synch,
+               noes_synch$lo_synch,
+               nocomp_synch$lo_synch,
+               nodsnocomp_synch$lo_synch, 
+               noesnocomp_synch$lo_synch)
 
 plot_df <- data.frame(site = rep(site_labels, times=length(sim_names)),
                       simulation = rep(sim_names_order, each=nsites),
-                      synchrony = all_experiments)
+                      synchrony = all_experiments,
+                      upper_synch = all_ups,
+                      lower_synch = all_downs)
 
 ##  Make the main (all sims) plot -----
-ggplot(plot_df, aes(x=simulation, y=synchrony, fill=site))+
+ggplot(plot_df, aes(x=simulation, y=synchrony, fill=site, color=site))+
   geom_bar(stat="identity")+
+  geom_errorbar(aes(ymin=lower_synch, ymax=upper_synch), color="white", size=1, width=0.25)+
+  geom_errorbar(aes(ymin=lower_synch, ymax=upper_synch), width=0.25)+
   facet_wrap("site", nrow=1)+
   scale_fill_manual(values=site_colors, labels=site_labels, name="")+
+  scale_color_manual(values=site_colors, labels=site_labels, name="")+
   xlab("Simulation Experiment")+
   ylab("Synchrony of Species' Growth Rates")+
   scale_x_discrete(labels=sim_names)+
   scale_y_continuous(limits=c(0,1))+
   theme_few()+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  guides(fill=FALSE)
+  guides(fill=FALSE,color=FALSE)
 
 ggsave("../docs/components/all_sims_results.png", width = 10, height = 4, units="in", dpi=75)
   
@@ -109,9 +128,10 @@ ibm_demo_rms <- ibm_demo_rms[which(ibm_demo_rms$experiment %in% c("fluctinter", 
 ggplot(ibm_demo_rms, aes(x=expansion, y=avg_synch, color=site))+
   geom_line(aes(linetype=experiment))+
   geom_point(aes(shape=experiment), size=3)+
+  geom_errorbar(aes(ymin=lo_synch, ymax=up_synch), width=0.25)+
   facet_wrap("site", nrow=1)+
   scale_color_manual(values=site_colors, labels=site_labels, name="")+
-  xlab(expression(paste("Simulate Landscape Size (", m^2,")")))+
+  xlab(expression(paste("Simulated Area (", m^2,")")))+
   ylab("Synchrony of Species' Growth Rates")+
   scale_y_continuous(limits=c(0,1))+
   scale_shape_discrete(name="",labels=c("No E.S + No Comp.", "All Drivers"))+
