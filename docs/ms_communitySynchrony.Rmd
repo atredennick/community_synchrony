@@ -827,8 +827,16 @@ grid.arrange(g1,g2,ncol=2)
 
 \begin{figure}[!ht]
   \centering
-      \includegraphics[width=6in]{./components/formatted_fig2.png}
-  \caption{Community-wide species synchrony of per capita growth rates from model simulation experiments. (a) Synchrony of species' growth rates for each study area from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific competition present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific competition removed (``No Comp.''), interspecific competition and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific competition and environmental stochasticity removed (``No Comp. + No E.S.''). Abbreviations within the bars for the Arizona site indicate whether the IBM or IPM was used for a particular simulation. (b) Synchrony of species' growth rates for each study area from IBM simulations across different landscape sizes when all drivers are present (``All Drivers'') and where only demographic stochasticity is present (``No E.S. + No Comp.''). The strength of demographic stochasticity decreases as landscape size increases.}
+      \includegraphics[width=6in]{./components/all_sims_results.png}
+  \caption{Community-wide species synchrony of per capita growth rates from model simulation experiments. Synchrony of species' growth rates for each study area are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific competition present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific competition removed (``No Comp.''), interspecific competition and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific competition and environmental stochasticity removed (``No Comp. + No E.S.''). Abbreviations within the bars for the Arizona site indicate whether the IBM or IPM was used for a particular simulation. (b) Synchrony of species' growth rates for each study area from IBM simulations across different landscape sizes when all drivers are present (``All Drivers'') and where only demographic stochasticity is present (``No E.S. + No Comp.''). The strength of demographic stochasticity decreases as landscape size increases.}
+\end{figure}
+
+\pagebreak{}
+
+\begin{figure}[!ht]
+  \centering
+      \includegraphics[width=6in]{./components/ibm_sims_across_landscape.png}
+  \caption{Synchrony of species' growth rates for each study area from IBM simulations across different landscape sizes when all drivers are present (``All Drivers'') and where only demographic stochasticity is present (``No E.S. + No Comp.''). The strength of demographic stochasticity decreases as landscape size increases.}
 \end{figure}
 
 \pagebreak{}
