@@ -292,13 +292,13 @@ Across the five communities, our limiting case prediction of community-wide sync
 The regression line between observed growth rate synchrony and predicted growth rate synchrony under prediction $\mathcal{M}_E$ was the only one whose slope and intercept were not significantly different from zero (*P* = 0.88) and one (*P* = 0.87), respectively (Supplementary Information X).
 The regression line between observed and predicted growth rates under prediction $\mathcal{M}_D$ (demographic stochasticity only) had an intercept and slope significantly different from zero and one, respectively (Fig. 1).
 
-Simulation experiments revealed that removing environmental fluctuations has the largest impact on synchrony, leading to a reduction in synchrony of species growth rates in four out five communities (Fig. 2a).
+Simulation experiments revealed that removing environmental fluctuations has the largest impact on synchrony, leading to a reduction in synchrony of species growth rates in four out five communities (Fig. 2).
 Removing environmental fluctuations ("No E.S" simulations) decreased synchrony by 33% in Arizona, 48% in Kansas, 39% in Montana, and 40% in New Mexico.
-Only in Idaho did removing environmental fluctuations cause an increase in synchrony (Fig. 2a), but the effect was small (9% increase).
-Species interactions are weak in these communities [Table SX and @Chu2015], so removing interspecific competition had little effect on synchrony (Fig. 2a; "No Comp." simulations).
+Only in Idaho did removing environmental fluctuations cause an increase in synchrony (Fig. 2), but the effect was small (9% increase).
+Species interactions are weak in these communities [Table SX and @Chu2015], so removing interspecific competition had little effect on synchrony (Fig. 2; "No Comp." simulations).
 Removing competition caused, at most, a 5% change in synchrony (Table SX).
-Removing demographic stochasticity ("No D.S." simulations) caused synchrony to increase slightly in all communities (Fig. 2a), with an average 6% increase.
-The desynchronizing effect of demographic stochasticity was able to modestly counteract the synchronizing force of the environment, but not enough to match the synchrony of species when only demographic stochasticity is operating (Fig. 2b).
+Removing demographic stochasticity ("No D.S." simulations) caused synchrony to increase slightly in all communities (Fig. 2), with an average 6% increase.
+The desynchronizing effect of demographic stochasticity was able to modestly counteract the synchronizing force of the environment, but not enough to match the synchrony of species when only demographic stochasticity is operating (Fig. 3).
 For all five communities, the synchrony of species' growth rates in monoculture was strongly associated with species synchrony in polyculture (rank correlation = 1; Fig. 3).
 Results for synchrony of percent cover are qualitatively similar (Figs. SX-SX) but more noisy, as expected by theory [@Loreau2008a].
 
@@ -310,7 +310,7 @@ These results are in agreement with our theoretical prediction for species synch
 
 ### Interspecific interactions had little impact on community synchrony
 We expected community synchrony of per capita growth rates to decrease when we removed interspecific interactions [@Loreau2008a and Supplementary Information].
-Contrary to expectations, community synchrony was virtually indistinguishable between simulations with and without interspecific interactions (Fig. 2a).
+Contrary to expectations, community synchrony was virtually indistinguishable between simulations with and without interspecific interactions (Fig. 2).
 The lack of an effect of interspecific competition on synchrony is in contrast to a large body of theoretical work that predicts a strong role for competition in creating compensatory dynamics [@Tilman1988] and a recent empirical analysis [@Gross2014].
 
 Our results do not contradict the idea that competition can lead to compensatory dynamics, but they do highlight the fact that interspecific competition must be relatively strong to influence species synchrony.
@@ -322,10 +322,10 @@ But, as discussed by @Chu2015, little niche overlap becomes less surprising when
 
 ### Demographic stochasticity decreases synchrony
 Our theoretical prediction for species synchrony in a neutral community with no species interactions or environmental fluctuations ($\mathcal{M}_D$) received no support when parameterized with emprical estimates (Fig. 1).
-Demographic stochasticity is able to partially counteract the synchronizing effects of environmental fluctuations and interspecific interactions on per capita growth rates, but only when populations are small (Fig. 2b), in agreement with theory [@Loreau2008a].
-Even in small populations, however, demographic stochasticity is not a strong enough force to induce independent fluctuations (Fig. 2b).
+Demographic stochasticity is able to partially counteract the synchronizing effects of environmental fluctuations and interspecific interactions on per capita growth rates, but only when populations are small (Fig. 3), in agreement with theory [@Loreau2008a].
+Even in small populations, however, demographic stochasticity is not a strong enough force to induce independent fluctuations (Fig. 3).
 These results confirm the theoretical argument by @Loreau2008a that independent fluctuations among interacting species in a non-constant environment should be rare.
-Only in the Idaho community does synchrony of per capita growth rates approach independent fluctuations (1/*S*, where *S* is the number of specuies) in a non-constant environment (Fig. 2b).
+Only in the Idaho community does synchrony of per capita growth rates approach independent fluctuations (1/*S*, where *S* is the number of specuies) in a non-constant environment (Fig. 3).
 This is most likely due to the strong effect of demographic stochasticity on the shrub *Artemisia tripartita* since even a 5 $\text{m}^2$ quadrat would only contain a few individuals of that species.
 
 ### Environmental fluctuations drive community synchrony
@@ -333,8 +333,8 @@ In large populations where interspecific interactions are weak, synchrony is exp
 Under such conditions community synchrony should approximately equal the synchrony of species' responses to the environment [@Loreau2008a].
 Several lines of evidence lead us to conclude that environmental fluctuations drive species synchrony in our focal plant communities.
 First, of our two limiting-case theoretical predictions for species synchrony (Equations 3-4), only our prediction for communities driven by environmental fluctuations alone ($\mathcal{M}_E$) received empirical support (Fig. 1).
-Second, in our model simulations, removing interspecific interactions resulted in no discernable change in community-wide species synchrony of per capita growth rates (Fig. 2a).
-Lastly, removing environmental fluctuations from simulations consistently reduced synchrony (Fig. 2a), and the synchrony of species in monoculture is a very strong predictor of synchrony of species in polyculture (Fig. 3).
+Second, in our model simulations, removing interspecific interactions resulted in no discernable change in community-wide species synchrony of per capita growth rates (Fig. 2).
+Lastly, removing environmental fluctuations from simulations consistently reduced synchrony (Fig. 2), and the synchrony of species in monoculture is a very strong predictor of synchrony of species in polyculture (Fig. 3).
 Our results lead us to conclude that environmental fluctuations, not species interactions, are the primary driver of community-wide species synchrony.
 Likewise, our results appear to be quite general: across four arid-to-subhumid grasslands community synchrony is almost soley due to environmental fluctuations since interspecific interactions are weak.
 Only in the Idaho community did not removing environmental fluctuations not cause a large decrease in synchrony, but removing competition had no effect either.
@@ -382,7 +382,7 @@ But functionally diverse suites of species will have the lowest synchrony of env
 CONCLUSIONS
 -----------
 Species-specific responses to temporally fluctuating environmental conditions is an important mechanism underlying asynchronous population dynamics and, in turn, ecosystem stability [@Loreau2013].
-When we removed environmental variation, we found that synchrony decreased in four out of the five grassland communities we studied (Fig. 2a).
+When we removed environmental variation, we found that synchrony decreased in four out of the five grassland communities we studied (Fig. 2).
 A tempting conclusion is that our study confirms that compensatory dynamics are rare in natural communities, and that ecologically-similar species will exhibit synchronous dynamics [e.g., @Houlahan2007].
 Such a conclusion is only half correct.
 The perennial grasses we studied do have similar responses to the environment (Table X1-X10), which will tend to synchronize dynamics.
@@ -789,8 +789,8 @@ grid.arrange(g1,g2,ncol=2)
 
 \begin{figure}[!ht]
   \centering
-      \includegraphics[width=6in]{./components/all_sims_results.png}
-  \caption{Community-wide species synchrony of per capita growth rates from model simulation experiments. Synchrony of species' growth rates for each study area are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific competition present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific competition removed (``No Comp.''), interspecific competition and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific competition and environmental stochasticity removed (``No Comp. + No E.S.''). Abbreviations within the bars for the Arizona site indicate whether the IBM or IPM was used for a particular simulation. (b) Synchrony of species' growth rates for each study area from IBM simulations across different landscape sizes when all drivers are present (``All Drivers'') and where only demographic stochasticity is present (``No E.S. + No Comp.''). The strength of demographic stochasticity decreases as landscape size increases.}
+      \includegraphics[width=6in]{./components/formatted_fig2.png}
+  \caption{Community-wide species synchrony of per capita growth rates from model simulation experiments. Synchrony of species' growth rates for each study area are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific competition present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific competition removed (``No Comp.''), interspecific competition and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific competition and environmental stochasticity removed (``No Comp. + No E.S.''). Abbreviations within the bars for the Arizona site indicate whether the IBM or IPM was used for a particular simulation. Error bars represent the upper and lower 95\% quantiles from model simulations.}
 \end{figure}
 
 \pagebreak{}
@@ -798,7 +798,7 @@ grid.arrange(g1,g2,ncol=2)
 \begin{figure}[!ht]
   \centering
       \includegraphics[width=6in]{./components/ibm_sims_across_landscape.png}
-  \caption{Synchrony of species' growth rates for each study area from IBM simulations across different landscape sizes when all drivers are present (``All Drivers'') and where only demographic stochasticity is present (``No E.S. + No Comp.''). The strength of demographic stochasticity decreases as landscape size increases.}
+  \caption{Synchrony of species' growth rates for each study area from IBM simulations across different landscape sizes when all drivers are present (``All Drivers'') and where only demographic stochasticity is present (``No E.S. + No Comp.''). The strength of demographic stochasticity decreases as landscape size increases. Error bars represent the upper and lower 95\% quantiles from model simulations.}
 \end{figure}
 
 \pagebreak{}
