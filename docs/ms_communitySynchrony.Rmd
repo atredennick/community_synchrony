@@ -340,12 +340,15 @@ Likewise, our results appear to be quite general: across four arid-to-subhumid g
 Only in the Idaho community did not removing environmental fluctuations not cause a large decrease in synchrony, but removing competition had no effect either.
 Given accumulating evidence that niche differences in natural communities are large [reviewed in @Chu2015], and thus species interactions are likely to be weak, our results may be general in natural plant communities.
 
-The insensitivity of species synchrony to model perturbations in the Idaho community challenges the consistency of our results, but its outlier status may have more to do with environmental variability than intrinsic species synchrony.
-Regardless of how synchronously or asynchronously species in a community respond to environmental fluctuations, if the environment does not fluctuate substantially then removing such fluctuations will not impact species synchrony.
-Indeed, the Idaho community had the lowest variability in percent cover over the observation period (Table 2).
-At the same time, correlations among species' temporal random effects for each vital rate in the Idaho community were similar to, or greater than, those in the other communities we studied (Table SX).
-These lines of evidence lead us to conclude that either environmental fluctuations are weak in the Idaho community or our model was unable to detect temporal fluctuations in the data.
-In other words, species' responses to environmental conditions are likely the main determinant of synchrony in the Idaho community, but we were unable to detect the effect of the environment due to model misspecification or a lack of a strong environmental signal in the data.
+The insensitivity of species synchrony to model perturbations in the Idaho community challenges the consistency of our results.
+Idaho's outlier status is due to its functional diversity.
+In fact, when we removed the shrub (*Artemisia tripartita*) from our analyses, results from the Idaho data set conformed with results from all other sites: removing environmental stochasticity caused a significant reduction in species synchrony (Fig. SX).
+Our main results for Idaho (Fig. 2), with *A. tripartita* included, demonstrate how the processes that determine species synchrony interact in complex ways.
+*A. tripartita* has a facilitative effect on each grass species across all vital rates, except for a small competitive effect on *H. comata*'s survival probability (Tables SX, SX, SX).
+At the same time, all the perennial grasses have negative effects on each other for each vital rate (Tables SX, SX, SX).
+Thus, interspecific interactions play a relatively large role in determining synchrony in Idaho, but only when *A. tripartita* is at equilibrium abundance.
+The removal of environmental variation causes a decrease in the abundance of *A. tripartita* and, in turn, a weakening of the overall effect of competition on species synchrony.
+This would explain why synchrony actually increases when we remove environmental fluctuations in Idaho (Fig. 2).
 
 A challenge to the generality of our results is that we were only able to model common, co-occuring species [see @Chu2015].
 Rare species, which our analysis does not include, could be kept at low densities by competitive suppression due to strong interspecific interactions.
