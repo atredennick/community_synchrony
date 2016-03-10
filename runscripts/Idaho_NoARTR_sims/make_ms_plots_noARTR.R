@@ -115,12 +115,12 @@ ggplot(plot_df, aes(x=simulation, y=synchrony, fill=site, color=site))+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
   guides(fill=FALSE,color=FALSE)
 
-ggsave("../docs/components/all_sims_results.png", width = 10, height = 4, units="in", dpi=75)
+ggsave("../../docs/components/all_sims_supp_noARTR.png", width = 4, height = 4, units="in", dpi=75)
   
 ##  Calculate percent differences for Results
-plot_df$control <- rep(plot_df[which(plot_df$simulation=="1All Drivers"),"synchrony"], times=nrow(plot_df)/nsites)
-plot_df$percent_diff <- with(plot_df, abs(synchrony-control)/((synchrony+control)/2)*100)
-write.csv(plot_df, "../results/synchsims_percent_diffs.csv")
+# plot_df$control <- rep(plot_df[which(plot_df$simulation=="1All Drivers"),"synchrony"], times=nrow(plot_df)/nsites)
+# plot_df$percent_diff <- with(plot_df, abs(synchrony-control)/((synchrony+control)/2)*100)
+# write.csv(plot_df, "../results/synchsims_percent_diffs.csv")
 
 ##  Make demographic stochasiticty plot for all landscape sizes -----
 ibm_demo_rms <- subset(ibm_synch_agg, typesynch=="Per capita growth rate")
@@ -130,7 +130,6 @@ ggplot(ibm_demo_rms, aes(x=expansion, y=avg_synch, color=site))+
   geom_line(aes(linetype=experiment))+
   geom_point(aes(shape=experiment), size=3)+
   geom_errorbar(aes(ymin=lo_synch, ymax=up_synch), width=0.25)+
-  facet_wrap("site", nrow=1)+
   scale_color_manual(values=site_colors, labels=site_labels, name="")+
   xlab(expression(paste("Simulated Area (", m^2,")")))+
   ylab("Synchrony of Species' Growth Rates")+
@@ -139,10 +138,10 @@ ggplot(ibm_demo_rms, aes(x=expansion, y=avg_synch, color=site))+
   scale_linetype_discrete(name="",labels=c("No E.S + No Comp.", "All Drivers"))+
   guides(color=FALSE)+
   theme_few()+
-  theme(legend.position=c(0.1,0.2),
+  theme(legend.position=c(0.3,0.8),
         legend.background = element_rect(fill = NA))
 
-ggsave("../docs/components/ibm_sims_across_landscape.png", width = 10, height = 3, units="in", dpi=75)
+ggsave("../../docs/components/ibm_across_landscape_supp_noARTR.png", width = 4, height = 4, units="in", dpi=75)
 
 
 
