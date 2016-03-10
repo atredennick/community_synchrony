@@ -121,6 +121,9 @@ plot_df$control <- rep(plot_df[which(plot_df$simulation=="1All Drivers"),"synchr
 plot_df$percent_diff <- with(plot_df, abs(synchrony-control)/((synchrony+control)/2)*100)
 write.csv(plot_df, "../results/synchsims_percent_diffs.csv")
 
+##  Save the plot data
+saveRDS(plot_df, "../results/allsims_plot_data.RDS")
+
 ##  Make demographic stochasiticty plot for all landscape sizes -----
 ibm_demo_rms <- subset(ibm_synch_agg, typesynch=="Per capita growth rate")
 ibm_demo_rms <- ibm_demo_rms[which(ibm_demo_rms$experiment %in% c("fluctinter", "constnointer")),]
