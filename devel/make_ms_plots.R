@@ -44,11 +44,11 @@ synch_dftmp <- synch_df[2:nrow(synch_df),]
 synch_df <- melt(synch_dftmp, id.vars = c("site", "experiment", "bootnum"))
 colnames(synch_df) <- c("site", "experiment", "bootnum", "typesynch", "synch")
 
-ipm_synch <- ddply(synch_df, .(site, experiment, typesynch), summarise,
+ipm_synch_all <- ddply(synch_df, .(site, experiment, typesynch), summarise,
                    mean_synch = mean(synch),
                    up_synch = quantile(synch, 0.95),
                    lo_synch = quantile(synch, 0.05))
-ipm_synch <- subset(ipm_synch, typesynch=="pgr_synch")
+ipm_synch <- subset(ipm_synch_all, typesynch=="pgr_synch")
 
 ##  Read in IBM results -----
 ibm_synch_all <- readRDS("../results/ibm_sims_collated.RDS") 
@@ -148,3 +148,98 @@ ggsave("../docs/components/ibm_sims_across_landscape.png", width = 10, height = 
 
 
 
+##  Make supplement plots for percent cover ------------
+ipm_synch_all <- ddply(synch_df, .(site, experiment, typesynch), summarise,
+                       mean_synch = mean(synch),
+                       up_synch = quantile(synch, 0.95),
+                       lo_synch = quantile(synch, 0.05))
+ipm_synch <- subset(ipm_synch_all, typesynch=="abund_synch")
+
+##  Read in IBM results -----
+ibm_synch_all <- readRDS("../results/ibm_sims_collated.RDS") 
+ibm_synch_agg <- ddply(ibm_synch_all, .(experiment, site, expansion, typesynch), summarise,
+                       avg_synch = mean(synch),
+                       up_synch = quantile(synch, 0.95),
+                       lo_synch = quantile(synch, 0.05))
+ibm_synch <- subset(ibm_synch_agg, expansion==5 & typesynch=="Cover (%)")
+
+##  Combine results -----
+sim_names <- c("All Drivers", "No D.S.", "No E.S.", "No Comp.", "No Comp. + No D.S.", "No Comp. + No E.S.")
+sim_names_order <- paste0(1:length(sim_names),sim_names)
+site_names <- unique(ipm_synch$site)
+nsites <- length(site_names)
+site_labels <- site_names
+site_labels[which(site_labels=="NewMexico")] <- "New Mexico"
+
+# Get vectors of synchrony for each "experiment"
+control_synch <- subset(ibm_synch, experiment=="fluctinter")
+nods_synch <- subset(ipm_synch, experiment=="ENVINTER")
+noes_synch <- subset(ibm_synch, experiment=="constinter")
+nocomp_synch <- subset(ibm_synch, experiment=="fluctnointer")
+nodsnocomp_synch <- subset(ipm_synch, experiment=="ENVNOINTER")
+noesnocomp_synch <- subset(ibm_synch, experiment=="constnointer")
+all_experiments <- c(control_synch$avg_synch,
+                     nods_synch$mean_synch,
+                     noes_synch$avg_synch,
+                     nocomp_synch$avg_synch,
+                     nodsnocomp_synch$mean_synch, 
+                     noesnocomp_synch$avg_synch)
+all_ups <- c(control_synch$up_synch,
+             nods_synch$up_synch,
+             noes_synch$up_synch,
+             nocomp_synch$up_synch,
+             nodsnocomp_synch$up_synch, 
+             noesnocomp_synch$up_synch)
+all_downs <- c(control_synch$lo_synch,
+               nods_synch$lo_synch,
+               noes_synch$lo_synch,
+               nocomp_synch$lo_synch,
+               nodsnocomp_synch$lo_synch, 
+               noesnocomp_synch$lo_synch)
+
+plot_df <- data.frame(site = rep(site_labels, times=length(sim_names)),
+                      simulation = rep(sim_names_order, each=nsites),
+                      synchrony = all_experiments,
+                      upper_synch = all_ups,
+                      lower_synch = all_downs)
+
+##  Make the main (all sims) plot -----
+ggplot(plot_df, aes(x=simulation, y=synchrony, fill=site, color=site))+
+  geom_bar(stat="identity")+
+  geom_errorbar(aes(ymin=lower_synch, ymax=upper_synch), color="white", size=1, width=0.25)+
+  geom_errorbar(aes(ymin=lower_synch, ymax=upper_synch), width=0.25)+
+  facet_wrap("site", nrow=1)+
+  scale_fill_manual(values=site_colors, labels=site_labels, name="")+
+  scale_color_manual(values=site_colors, labels=site_labels, name="")+
+  xlab("Simulation Experiment")+
+  ylab("Synchrony of Species' Percent Cover")+
+  scale_x_discrete(labels=sim_names)+
+  scale_y_continuous(limits=c(0,1))+
+  theme_few()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  guides(fill=FALSE,color=FALSE)
+
+ggsave("../docs/components/figureS2_simscover.png", width = 10, height = 4, units="in", dpi=75)
+
+
+##  Make demographic stochasiticty plot for all landscape sizes -----
+ibm_demo_rms <- subset(ibm_synch_agg, typesynch=="Cover (%)")
+ibm_demo_rms <- ibm_demo_rms[which(ibm_demo_rms$experiment %in% c("fluctinter", "constnointer")),]
+
+ggplot(ibm_demo_rms, aes(x=expansion, y=avg_synch, color=site))+
+  geom_line(aes(linetype=experiment))+
+  geom_point(aes(shape=experiment), size=3)+
+  geom_errorbar(aes(ymin=lo_synch, ymax=up_synch), width=0.25)+
+  facet_wrap("site", nrow=1)+
+  scale_color_manual(values=site_colors, labels=site_labels, name="")+
+  xlab(expression(paste("Simulated Area (", m^2,")")))+
+  ylab("Synchrony of Species' Percent Cover")+
+  scale_y_continuous(limits=c(0,1))+
+  scale_shape_discrete(name="",labels=c("No E.S + No Comp.", "All Drivers"))+
+  scale_linetype_discrete(name="",labels=c("No E.S + No Comp.", "All Drivers"))+
+  guides(color=FALSE)+
+  theme_few()+
+  theme(legend.position=c(0.1,0.2),
+        legend.background = element_rect(fill = NA))
+
+ggsave("../docs/components/figureS3_ibmcover.png", width = 10, height = 3, units="in", dpi=75)

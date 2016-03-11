@@ -154,7 +154,7 @@ Environmental stochasticity is incorporated as $\sigma_{ei}\mu_{ei}(t)$, where $
 Demographic stochasticity arises from variations in births and deaths among individuals (e.g., same states, different fates), and is included in the model as a first order, normal approximation [@Lande2003; @DeMazancourt2013a].
 $\sigma_{di}^2$ is the demographic variance and $\mu_{di}(t)$ are independent normal variables with zero mean and unit variance.
 
-To derive analytical predictions we...CLAIRE'S TEXT ON DERIVING THE PREDICTION...
+To derive analytical predictions we...CLAIRE'S TEXT ON DERIVING THE PREDICTION... (see Online Supporting Information).
 
 ### Predictions
 Our first prediction assumes no interspecific interactions, no environmental stochasticity, identical intrinsic growth rates, and that demographic stochasticity is operating but all species have identical demographic variances.
@@ -180,8 +180,6 @@ Our prediction for this limiting case, $\mathcal{M}_{E}$, is
 Again, $p_i$ is the average frequency of species *i*, $p_i = N_i/N_T$, and $\text{cov}(\mu_{ei},\mu_{ej})$ is the standardize covariance (correlation) of environmental responses between species *i* and species *j*.
 Confronting our theoretical predictions with data requires estimates of species dynamics in monoculture to calculate the covariance of species' environmental responses.
 To estimate environmental responses in natural communities, we turn to our population models built using long term demographic data.
-
-Qualitative predictions here...?
 
 
 EMPIRICAL ANALYSIS
@@ -209,7 +207,7 @@ Specifically, we calculated synchrony as
 
 #### Fitting statistical models
 Vital rate regressions are the building blocks of our dynamic models: an integral projection model (IPM) and an individual-based model (IBM).
-We followed the approach of @Chu2015 to fit statistical models for survival, growth, and recruitment.
+We followed the approach of @Chu2015 to fit statistical models for survival, growth, and recruitment (see Online Supporting Information for full details).
 We modeled survival probability of each genet as function of genet size, temporal variation among years, permanent spatial variation among groups of quadrats, and local neighborhood crowding from conspecific and heterospecific genets.
 Regression coefficients for the effect of crowding by each species can be considered a matrix of interaction coefficients whose diagonals represent intraspecific interations and whose off-diagonals represent interspecific interactions [@Adler2010]. These interaction coefficients can take positive (facilitative) or negative (competitive) values.
 We modeled growth as the change in size of a genet from one year to the next, which depends on the same factors as the survival model.
@@ -231,7 +229,7 @@ To include temporal environmental variation, at each time step we randomly choos
 For all simulations, we ignore the spatial random effect associated with variation among quadrat groups, so our simulations represent an average quadrat for each site.
 
 The IPM uses the same vital rate regressions as the IBM [@Rees2009; @Rees2014], but it is spatially-implicit and does not include demographic stochasticity.
-Following @Chu2015, we use a mean field approximation that captures the essential features of spatial patterning to define the crowding index at each time step.
+Following @Chu2015, we use a mean field approximation that captures the essential features of spatial patterning to define the crowding index at each time step (Supporting Online Information).
 Temporal variation is included in exactly the same way as for the IBM.
 For full details on the IPMs we use, see @Chu2015.
 
@@ -269,8 +267,8 @@ Thus, we directly test the theoretical predictions by comparing them to observed
 Synchrony of species' per capita growth rates at our study sites ranged from 0.36 to 0.89 and synchrony of percent cover ranged from 0.15 to 0.92 (Table 2).
 Synchrony tended to be higher in communities with few species (Arizona and New Mexico) and/or with relatively high temporal variability in percent cover (e.g., Montana).
 Synchrony was lowest in Idaho, the only data set that includes two life forms: a shrub and three perennial grasses (Table 1).
-For all five communities, species synchrony from IPM and IBM simulations closely approximated observed synchrony (Fig. X1).
-IBM-simulated synchrony is consistently, but only slightly, lower than IPM-simulated synchrony (Fig. X1), likely due to the desynchronizing effect of demographic stochasticity.
+For all five communities, species synchrony from IPM and IBM simulations closely approximated observed synchrony (Fig. S1).
+IBM-simulated synchrony is consistently, but only slightly, lower than IPM-simulated synchrony (Fig. S1), likely due to the desynchronizing effect of demographic stochasticity.
 
 Across the five communities, our limiting case predictions closely matched synchrony from the corresponding simulation experiment (Table 3).
 The correlation between our analytical predictions and simulated synchrony was 0.97 for $\phi_{R,\mathcal{M}_D}$ and 0.997 for $\phi_{R,\mathcal{M}_E}$.
@@ -278,13 +276,13 @@ The largest difference between predicted and simulated synchrony was 0.05 in New
 
 Simulation experiments revealed that removing environmental fluctuations has the largest impact on synchrony, leading to a reduction in synchrony of species growth rates in four out five communities (Fig. 2).
 Removing environmental fluctuations ("No E.S" simulations) decreased synchrony by 33% in Arizona, 48% in Kansas, 39% in Montana, and 40% in New Mexico.
-Only in Idaho did removing environmental fluctuations cause an increase in synchrony (Fig. 2), but the effect was small (9% increase).
-Species interactions are weak in these communities [Table SX and @Chu2015], and removing interspecific competition had little effect on synchrony (Fig. 2; "No Comp." simulations).
-Removing competition caused, at most, a 5% change in synchrony (Table SX).
-Removing demographic stochasticity ("No D.S." simulations) caused synchrony to increase slightly in all communities (Fig. 2), with an average 6% increase [IS THIS FOR THE SMALLEST SIMULATED PLOT SIZE?].
+Only in Idaho did removing environmental fluctuations cause an increase in synchrony (Fig. 2), but the effect was small (9% increase; Table S2).
+Species interactions are weak in these communities [Table S3 and @Chu2015], and removing interspecific competition had little effect on synchrony (Fig. 2; "No Comp." simulations).
+Removing competition caused, at most, a 5% change in synchrony (Table S2).
+Removing demographic stochasticity ("No D.S." simulations) caused synchrony to increase slightly in all communities (Fig. 2), with an average 6% increase over synchrony from IBM simulations on a five meter area.
 The desynchronizing effect of demographic stochasticity modestly counteracted the synchronizing force of the environment, but not enough to lower synchrony to the level observed when only demographic stochasticity is operating (Fig. 3).
 For all five communities, the synchrony of species' growth rates in monoculture was strongly associated with species synchrony in polyculture (rank correlation = 1; Fig. 3).
-Results for synchrony of percent cover are qualitatively similar (Figs. SX-SX) but more variable, as expected by theory [@Loreau2008a].
+Results for synchrony of percent cover are qualitatively similar (Figs. S2-S3) but more variable, as expected by theory [@Loreau2008a].
 
 
 DISCUSSION
@@ -296,7 +294,6 @@ Our theoretical predictions were derived from a simple model of population dynam
 However, the theoretical predictions were strongly supported by simulations of population models fit to long-term data from natural plant communities (Table 3).
 Such a close match between our analytical predictions and the simulation results should inspire confidence in the ability of simple models to inform our understanding of species synchrony.
 The theoretical population dynamical model we used here also successfully predicted ecosystem stability in several biodiversity-ecosystem function experiments [@DeMazancourt2013a].
-The accumulating evidence from both experimental and observational studies demonstrates the utility of linking population dynamics to community and ecosystem level properties [@Loreau2010]. [THIS LAST SENTENCE SUCKS]
 
 ### Demographic stochasticity decreases synchrony
 Demographic stochasticity partially counteracted the synchronizing effects of environmental fluctuations and interspecific interactions on per capita growth rates, but only when populations were small (Fig. 3), in agreement with theory [@Loreau2008a].
@@ -316,10 +313,10 @@ Given accumulating evidence that niche differences in natural communities are la
 
 In the Idaho community, removing environmental fluctuations did not cause a large decrease in synchrony.
 However, that result appears to be an artifact. Removing environmental variation results in a negative invasion growth rate for *A. tripartita*. Although we only analyzed IBM runs in which *A. tripartita* had not yet gone extinct, it was at much lower abundance than in the other simulation runs.
-When we removed the shrub (*Artemisia tripartita*) from all simulations, the Idaho results conformed with results from all other sites: removing environmental stochasticity caused a significant reduction in species synchrony (Fig. SX).
+When we removed *A. tripartita* from all simulations, the Idaho results conformed with results from all other sites: removing environmental stochasticity caused a significant reduction in species synchrony (Fig. S4).
 Our main results for Idaho (Fig. 2), with *A. tripartita* included, demonstrate how the processes that determine species synchrony interact in complex ways.
-*A. tripartita* has a facilitative effect on each grass species across all vital rates, except for a small competitive effect on *H. comata*'s survival probability (Tables SX, SX, SX).
-At the same time, all the perennial grasses have negative effects on each other for each vital rate (Tables SX, SX, SX).
+*A. tripartita* has a facilitative effect on each grass species across all vital rates, except for a small competitive effect on *H. comata*'s survival probability (Tables S4, S9, S14).
+At the same time, all the perennial grasses have negative effects on each other for each vital rate (Tables S4, S9, S14).
 We know synchrony is affected by interspecific competition [@Loreau2008a], but how facilitative effects manifest themselves is unknown.
 The interaction of facilitation and competition is clearly capable of having a large effect on species synchrony, and future theoretical efforts should aim to include a wider range of species interactions.
 
@@ -337,7 +334,7 @@ We found that community synchrony was virtually indistinguishable between simula
 The lack of an effect of interspecific competition on synchrony is in contrast to a large body of theoretical work that predicts a strong role for competition in creating compensatory dynamics [@Tilman1988] and a recent empirical analysis [@Gross2014].
 
 Our results do not contradict the idea that competition can lead to compensatory dynamics, but they do highlight the fact that interspecific competition must be relatively strong to influence species synchrony.
-The communities we analyzed are composed of species with very little niche overlap [@Chu2015] and weak interspecific interactions (Tables X1-X10).
+The communities we analyzed are composed of species with very little niche overlap [@Chu2015] and weak interspecific interactions (Tables S1, S3-S17).
 Mechanistic consumer-resource models [@Lehman2000] and phenomenological Lotka-Volterra models [@Lehman2000; @Loreau2013] both confirm that the effect of competition on species synchrony diminishes as niche overlap increases.
 In that sense, our results are not surprising: interspecific interactions are weak, so of course removing them does not affect synchrony.
 

@@ -1,0 +1,460 @@
+---
+layout: 12pt
+header-includes:
+   - \usepackage{lineno}
+   - \linenumbers
+   - \usepackage{setspace}
+   - \usepackage{todonotes}
+   - \doublespacing
+   - \usepackage[document]{ragged2e}
+   - \usepackage{color}
+   - \usepackage{rotating}
+bibliography: ~/Dropbox/Bibliography/CommunitySynchrony.bib
+csl: components/ecology.csl
+
+## rmarkdown render options
+output:
+  pdf_document:
+    fig_caption: true
+    keep_tex: false
+fontsize: 12pt
+geometry: margin=1in
+linkcolor: black
+urlcolor: black
+---
+
+```{r caching, include=FALSE}
+library("methods")
+library("knitr")
+basename <- "ms_communitySynchrony"
+opts_chunk$set(fig.path = paste("components/figure/", basename, "-", sep=""),
+               cache.path = paste("components/cache/", basename, "/", sep=""))
+opts_chunk$set(cache = 2)
+opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, 
+               comment = NA, verbose = TRUE, echo=FALSE)
+
+# PDF-based figures
+opts_chunk$set(dev='pdf')
+```
+
+\textbf{ONLINE SUPPORTING INFORMATION}
+
+
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+
+\tableofcontents
+\listoffigures
+\listoftables
+\newpage{}
+
+
+Derivation of limiting case predictions for synchrony of per capita growth rates (Equations 3-4)
+--------------------------------
+Following @Loreau2013 and @DeMazancourt2013a, we define population growth, ignoring observation error, as
+
+\begin{align}
+\tilde{r_i}(t) = r_{mi} \left[ 1- \frac{\tilde{N_i}(t)+\sum_{j \neq i} \alpha_{ij}\tilde{N_j}(t)} {K_i} + \sigma_{ei}\mu_{ei}(t) + \frac{\sigma_{di}\mu_{di}(t)}{\sqrt{\tilde{N_i}(t)}} \right]
+\end{align}
+
+\noindent where $N_i(t)$ is the biomass of species *i* in year *t*, and $r_i(t)$ is its instantaneous growth rate in year *t*. 
+$r_{mi}$ is species *i*'s intrinsic rate of increase, $K_i$ is its carrying capacity, and $\alpha_{ij}$ is the interspecific competition coefficient representing the effect of species *j* on species *i*. 
+Environmental stochasticity is incorporated as $\sigma_{ei}\mu_{ei}(t)$, where $\sigma_{ei}^2$ is the environmental variance and $\mu_{ei}$ are normal random variables with zero mean and unit variance that are independent through time but may be correlated.
+Demographic stochasticity arises from variations in births and deaths among individuals (e.g., same states, different fates), and is included in the model as a first order, normal approximation [@Lande2003; @DeMazancourt2013a].
+$\sigma_{di}^2$ is the demographic variance and $\mu_{di}(t)$ are independent normal variables with zero mean and unit variance.
+
+In the general case, **C** is the variance-covariance matrix for population biomasses at steady state.
+It solves the Lyapunov equation $\textbf{C}^\infty = \textbf{A} \textbf{C}^\infty \textbf{A}^T + \textbf{B}$, where
+
+\begin{align}
+A_{ij} = 
+  \begin{cases}
+      1-r_{mi} \frac{N_{i}^*}{K_i}, & i=j \\
+      -r_{mi} \frac{N_{i}^*}{K_i} \alpha_{ij}, & i \neq j
+    \end{cases}
+\end{align}
+
+\noindent and
+
+\begin{equation}
+B_{ij} = N_{i}^* N_{j}^* \sigma_{ei} \sigma_{ej} \text{cov}(\mu_{ei},\mu_{ej}) + \sqrt{N_{i}^* N_{j}^*} \sigma_{di}\sigma_{dj} \text{cov}(\mu_{di},\mu_{dj})
+\end{equation}
+
+\noindent Similarly, **R** is the variance-covariance matrix for population growth rates at steady state
+
+\begin{equation}
+R_{ij} = \frac{r_{mi}r_{mj}}{K_i K_j} \sum_{k,l} \alpha_{ik} \alpha_{jl} C_{kl} + \sigma_{ei} \sigma_{ej} \text{cov}(\mu_{ei},\mu_{ej}) + \frac{\sigma_{di}\sigma_{dj} \text{cov}(\mu_{di},\mu_{dj})}{\sqrt{N_{i}^* N_{j}^*}}.
+\end{equation}
+
+\noindent Then, following the synchrony metric of @Loreau2008a, the sychrony of population biomasses is
+
+\begin{equation}
+\phi_N = \frac{\sum_{i,j}C_{ij}}{\left( \sum_i \sqrt{C_{ii}} \right)^2}
+\end{equation}
+
+\noindent and the synchrony of per capita growth rates is
+
+\begin{equation}
+\phi_R = \frac{\sum_{i,j}R_{ij}}{\left( \sum_i \sqrt{R_{ii}} \right)^2}.
+\end{equation}
+
+Synchrony of population biomasses and growth rates emerge from complex interactions among species' intrinsic growth rates, interspecific interactions, environmental stochasticity, and demographic stochasticity.
+Given these complexities, it is impossible to determine expected effects of different parameters in a multi-species case.
+Thus, we analyze a simplified case where interspecific interactions are zero.
+The variance-covariance matrix of population biomasses at steady state then becomes
+
+\begin{equation}
+c_{ij} = \frac{B_{ij}}{1-a_i a_j} = \frac{N_{i}^* N_{j}^* \sigma_{ei} \sigma_{ej} \text{cov}(\mu_{ei},\mu_{ej}) + \sqrt{N_{i}^* N_{j}^*} \sigma_{di}\sigma_{dj} \text{cov}(\mu_{di},\mu_{dj})}{1 - (1-r_{mi})(1-r_{mj})}
+\end{equation}
+
+and the variance-covariance matrix of population growth rates becomes
+
+\begin{equation}
+R_{ij} = \frac{r_{mi}r_{mj}}{K_i K_j} C_{ij} + \sigma_{ei} \sigma_{ej} \text{cov}(\mu_{ei},\mu_{ej}) + \frac{\sigma_{di}\sigma_{dj} \text{cov}(\mu_{di},\mu_{dj})}{\sqrt{N_{i}^* N_{j}^*}},
+\end{equation}
+
+which simplifies to
+
+\begin{equation}
+R_{ij} = \frac{1}{1- \frac{r_{mi}r_{mj}}{r_{mi}+r_{mj}}} \left( \sigma_{ei} \sigma_{ej} \text{cov}(\mu_{ei},\mu_{ej}) + \frac{\sigma_{di}\sigma_{dj} \text{cov}(\mu_{di},\mu_{dj})}{\sqrt{N_{i}^* N_{j}^*}} \right)
+\end{equation}
+
+\noindent This is still not a general result, however, because synchrony in population sizes and synchrony in growth rates use weighted factors of the environmental variances and covariances with species-specific parameters.
+So, we further assume that, along with interspecific interactions being zero, all species have identical growth rates, environmental stochasticity is absent, and all species have identical demographic variance.
+This represents a theoretical limiting case where the community consists of identical species coexisting in a constant environment where only demographic stochasticity causes temporal fluctuations.
+Under such conditions, synchrony of population biomasses is
+
+\begin{equation}
+\phi_N = \frac{1}{\left(\sum_i p_i^{1/2} \right)^2}
+\end{equation}
+
+\noindent and synchrony of growth rates is
+
+\begin{equation}
+\phi_R = \frac{\sum_i p_i^{-1}}{\left(\sum_i p_i^{-1/2} \right)^2}
+\end{equation}
+
+\noindent where $p_i$ is the average frequency of species *i*, $p_i = N_i/N_T$.
+When all species have identical abundances and $p_i = 1/S$, where *S* is species richness, the both synchrony values equal 1/S [@Loreau2008a]. The prediction represented in Equation S11 is Equation 3 in the main text, which we refer to as $\phi_{R,\mathcal{M_D}}$.
+
+Another limiting case is where only environmental stochasticity is operating: no interspecific interactions, no demographic stochasticity, identical intrinsic growth rates, and environmental stochasticity with same standard deviation for all species.
+Under such constraints, the synchrony of of species' biomasses is
+
+\begin{equation}
+\phi_N = \sum_{i,j} p_i p_j \text{cov}(u_{ei}, u_{ej})
+\end{equation}
+
+\noindent{} and the synchrony of species' growth rates is
+
+\begin{equation}
+\phi_R = \frac{\sum_{i,j} p_i p_j \text{cov}(u_{ei}, u_{ej})}{S^2}
+\end{equation}
+
+\noindent The prediction represented in Equation S13 is Equation 4 in the main text, which we refer to as $\phi_{R,\mathcal{M_E}}$. If we know the covariance matrix of the species environmental responses, we can calculate the above expectations directly. Note that the environmental responses are normalized in the above equations, therefore the covariances are correlations in the above equations.
+
+\newpage{}
+
+Materials and methods details
+-----------------------------
+### Vital rate statistical models
+We modeled survival probability and growth on individual genets as a function of genet size, the crowding experienced by the focal genet from both heterospecific and conspecific genets in its neighborhood (described below), temporal varation among years, and spatial variation among quadrat groups. Groups are sets of quadrats located in close proximity within a pasture or grazing exclosure).
+
+We follow the approach of @Chu2015 to estimate crowding, assuming that the crowding experienced by a focal genet depends on distance to each neighbor genet and the neighbor's size, _u_:
+
+\begin{equation}
+w_{ijm,t} = \sum_k e^{-\delta_{jm}d_{ijkm,t}^{2}}u_{km,t}.
+\end{equation}
+
+In the above, $w_{ijm,t}$ is the crowding that genet _i_ of species _j_ in year _t_ experiences from neighbors of species _m_. The spatial scale over which species _m_ neighbors exert influence on any genet of species _j_ is determined by $\delta_{jm}$. The function is applied for all _k_ genets of species _m_ that neighbor the focal genet at time _t_, and $d_{ijkm,t}$ is the distance between genet _i_ in species _j_ and genet _k_ in species _m_. When $k=m$, the effect is intraspecific crowding. We use regression-specific (survival and growth) $\delta$ values estimated by Chu and Adler (2015).
+
+We used logistic regression to model survival probability ($S$) of genet $i$ from species $j$ in quadrat group $g$ from time $t$ to $t+1$:
+
+\begin{align}
+\text{logit}(S_{ijg,t}) &= \gamma^{S}_{j,t} + \phi^{S}_{jg} + \beta^{S}_{j,t}x_{ij,t} + \boldsymbol{\omega}^{S}_{j} \textbf{w}_{ij,t}
+\end{align}
+
+where $x_{ij,t}$ is the log of genet size, $\gamma^{S}_{j,t}$ is a year-specific intercept, $\beta^{S}_{j,t}$ is the year-specific slope parameter for size, $\phi^{S}_{jg}$ is the random effect of quadrat group location, and $\omega$ is a vector of per capita interaction coefficients which determine the impact of crowding, \textbf{w}, by each species on the focal species. 
+
+We modeled genet growth, conditional on survival, in a similar manner:
+
+\begin{align}
+\mu_{ijg,t+1} &= \gamma^{G}_{j,t} + \phi^{G}_{jg} + \beta^{G}_{j,t}\mu_{ij,t} + \boldsymbol{\omega}^{G}_{j} \textbf{w}_{ij,t}
+\end{align}
+
+where $\mu$ is log genet size and all other parameters are as described for the survival regression. We capture non-constant error variance in growth by modeling the variance around the growth regression ($\varepsilon$) as a nonlinear function of predicted genet size:
+
+\begin{align}
+\varepsilon_{ij,t} = a e^{b \mu_{ijg,t+1}}
+\end{align}
+
+Our data allows us to track new recruits, but we cannot assign a specific parent to new genets. THerefore, we model recruitment at the quadrat level: the number of new individuals of species $j$ in quadrat $q$ recruiting at time $t+1$ as a function of quadrat "effective cover" ($A'$) in the previous year ($t$). Effective cover is a mixture of observed cover ($A$) in the focal quadrat ($q$) and the mean cover across the entire group ($\bar{A}$) of $Q$ quadrats in which $q$ is located:
+
+\begin{equation}
+A'_{jq,t} = p_{j}A_{jq,t} + (1-p_{j})\bar{A}_{jQ,t}
+\end{equation}
+
+where $p$ is a mixing fraction between 0 and 1 that is estimated within the model.
+
+We assume the number of individuals, $y^{R}$, recruiting at time $t+1$ follows a negative binomial distribution:
+
+\begin{equation}
+y^{R}_{jq,t+1} \sim \text{NegBin}(\lambda_{jq,t+1},\zeta)
+\end{equation}
+
+where $\lambda$ is the mean intensity and $\zeta$ is the size parameter. We define $\lambda$ as:
+
+\begin{equation}
+\lambda_{jq,t+1} = A'_{jq,t}e^{(\gamma^{R}_{j,t} + \phi^{R}_{jQ} + \theta^{R}_{jk}C_{k,t} + \omega^{R}\sqrt{A'_{q,t}})}
+\end{equation}
+
+where $A'$ is effective cover ($\text{cm}^2$) of species $j$ in quadrat $q$ and all other terms are as in the survival and growth regressions.
+
+### Multi-species populations models
+The individually based model (IBM) is straighforward and described in the main text, so here focus on the structure of the integral projeciton model (IPM).
+We built an environmentally stochastic IPM. Our IPM follows the specification of @Chu2015 where the population of species _j_ is a density function $n(u_{j},t)$ giving the density of sized-_u_ genets at time _t_. Genet size is on the natural log scale, so that $n(u_{j},t)du$ is the number of genets whose area (on the arithmetic scale) is between $e^{u_{j}}$ and $e^{u_{j}+du}$. So, the density function for any size _v_ at time $t+1$ is
+
+\begin{equation}
+n(v_{j},t+1) = \int_{L_{j}}^{U_{j}} k_{j}(v_{j},u_{j},\bar{\bold{w_{j}}}(u_{j}))n(u_{j},t)
+\end{equation}
+
+where $k_{j}(v_{j},u_{j},\bar{\bold{w_{j}}})$ is the population kernal that describes all possible transitions from size $u$ to $v$ and $\bar{\bold{w_{j}}}$ is a vector of estimates of average crowding experienced from all other species by a genet of size $u_j$ and species $j$. The integral is evaluated over all possible sizes between predefined lower (_L_) and upper (_U_) size limits that extend beyond the range of observed genet sizes.
+
+The population kernal is defined as the joint contributions of survival (_S_), growth (_G_), and recruitment (_R_):
+
+\begin{equation}
+k_{j}(v_{j},u_{j},\bar{\bold{w_{j}}}) = S_j(u_j, \bar{\bold{w_{j}}}(u_{j}))G_j(v_{j},u_{j},\bar{\bold{w_{j}}}(u_{j})) + R_j(v_{j},u_{j},\bar{\bold{w_{j}}}),
+\end{equation}
+
+\noindent{} which means we are calculating growth (_G_) for individuals that survive (_S_) from time _t_ to _t+1_ and adding in newly recruited (_R_) individuals of an average sized one-year-old genet for the focal species. Our stastical model for recruitment (_R_, described below) returns the number of new recruit produced per quadrat. Following previous work, we assume that fecundity increases linearly with size ($R_j(v_{j},u_{j},\bar{\bold{w_{j}}}) = e^{u_j}R_j(v_{j},\bar{\bold{w_{j}}})$) to incorporate the recruitment function in the spatially-implicit IPM.
+
+\newpage{}
+
+Figures
+-------
+\begin{figure}[!ht]
+  \centering
+      \includegraphics[width=4in]{./components/figureS1.pdf}
+  \caption{Observed (vertical dashed lines) and simulated (solid density curves) synchrony of species per capita growth rates at each site from the IPM (left panels) and the IBM (right panels). IPM density curves come from 100 random contiguous sections from 2,000 iteration IPM runs, where the length of each randomly selected section is equal to the numnber of observation years for each data set. IBM density curves come from 100 replicate simulations of 75 iterations each. Synchrony values come from simulations where environmental stochasticity and interspecific interactions are present. The IBM was run on a 5 by 5 meter landscape to reduce the effect of demographic stochasticity.}
+\end{figure}
+
+\pagebreak{}
+
+\begin{figure}[!ht]
+  \centering
+      \includegraphics[width=6in]{./components/figureS2_simscover.png}
+  \caption{Community-wide species percent cover from model simulation experiments. Synchrony of species' percent cover for each study area are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific competition present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific competition removed (``No Comp.''), interspecific competition and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific competition and environmental stochasticity removed (``No Comp. + No E.S.''). Abbreviations within the bars for the Arizona site indicate whether the IBM or IPM was used for a particular simulation. Error bars represent the upper and lower 95\% quantiles from model simulations.}
+\end{figure}
+
+\pagebreak{}
+
+\begin{figure}[!ht]
+  \centering
+      \includegraphics[width=6in]{./components/figureS3_ibmcover.png}
+  \caption{Synchrony of species' percent cover for each study area from IBM simulations across different landscape sizes when all drivers are present (``All Drivers'') and where only demographic stochasticity is present (``No E.S. + No Comp.''). The strength of demographic stochasticity decreases as landscape size increases. Error bars represent the upper and lower 95\% quantiles from model simulations.}
+\end{figure}
+
+\pagebreak{}
+
+\begin{figure}[!ht]
+  \centering
+      \includegraphics{./components/all_sims_supp_noARTR.png}
+  \caption{Community-wide species percent cover from model simulation experiments for the Idaho community with \textit{Artemisia tripartita} removed. Synchrony of species' percent cover for each study area are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific competition present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific competition removed (``No Comp.''), interspecific competition and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific competition and environmental stochasticity removed (``No Comp. + No E.S.''). Abbreviations within the bars for the Arizona site indicate whether the IBM or IPM was used for a particular simulation. Error bars represent the upper and lower 95\% quantiles from model simulations.}
+\end{figure}
+
+\newpage{}
+
+Tables
+------
+```{r avg_spp_interactions, echo=FALSE, include=TRUE, results='asis', message=FALSE, eval=T, cache=FALSE, warning=FALSE}
+library(reshape2)
+library(plyr)
+library(ggplot2)
+library(xtable)
+####
+####  Get Vital Rate Satistical Results Files ----------------------------------
+####
+vital_rates <- c("growth", "surv", "recruit")
+result_files <- list.files("../results/")
+vr_files <-result_files[grep(paste(vital_rates,collapse="|"), 
+                              list.files("../results/"))]
+
+
+
+####
+####  Loop Over Files and Extract Crowding Effects -----------------------------
+####
+# Growth and survival first
+vital_mat_list <- list()
+for(do_vital in vital_rates[c(1,2)]){
+  vr_do <- vr_files[grep(do_vital,vr_files)]
+  tmp_vital <- readRDS(paste0("../results/",vr_do))
+  sites <- names(tmp_vital)
+  mat_list <- list()
+  for(do_site in sites){
+    tmp <- tmp_vital[[do_site]]
+    spp <- names(tmp)
+    tmpmat <- matrix(0,nrow = length(spp), ncol = length(spp))
+    for(i in 1:length(spp)){
+      do_spp <- spp[i]
+      tmpspp <- tmp[[do_spp]]
+      tmpw <- tmpspp[1,grep("crowd*", colnames(tmpspp))]
+      tmpmat[i,] <- as.numeric(tmpw)
+    }
+    rownames(tmpmat) <- spp
+    colnames(tmpmat) <- spp
+    mat_list[[do_site]] <- tmpmat
+  }
+  vital_mat_list[[do_vital]] <- mat_list 
+}
+
+# Recruitment
+vr_do <- vr_files[grep("recruit",vr_files)]
+tmp_vital <- readRDS(paste0("../results/",vr_do))
+names_vital <- readRDS(paste0("../results/",vr_files[1]))
+sites <- names(tmp_vital)
+mat_list <- list()
+for(do_site in sites){
+  tmp <- tmp_vital[[do_site]]
+  spp <- names(names_vital[[do_site]])
+  tmpdd <- tmp[grep("dd", rownames(tmp)),"Mean"]
+  tmpmat <- matrix(tmpdd,length(spp),length(spp), byrow = FALSE)
+  rownames(tmpmat) <- spp
+  colnames(tmpmat) <- spp
+  mat_list[[do_site]] <- tmpmat
+}
+vital_mat_list[["recruit"]] <- mat_list 
+
+####
+####  Calculate Average Inter and Intraspecific Interactions -------------------
+####
+vital_comp_list <- list()
+for(do_vital in vital_rates){
+  tmp <- vital_mat_list[[do_vital]]
+  sites <- names(tmp)
+  comp_list <- list()
+  for(do_site in sites){
+    tmpsite <- tmp[[do_site]]
+    avgintra <- mean(diag(tmpsite))
+    avginter <- mean(c(tmpsite[upper.tri(tmpsite)], tmpsite[lower.tri(tmpsite)]))
+    avgcomp <- matrix(c(avginter, avgintra),1,2)
+    colnames(avgcomp) <- c("inter", "intra")
+    comp_list[[do_site]] <- avgcomp
+  }
+  vital_comp_list[[do_vital]] <- comp_list
+}
+
+df <- melt(unlist(vital_comp_list))
+pieces <- strsplit(rownames(df), split = "[.]")
+df$vitalrate <- sapply(pieces, "[", 1)
+sites <- sapply(pieces, "[", 2)
+df$site <- substr(sites, start = 1, stop = nchar(sites)-1)
+df$interintra <- substr(sites, start = nchar(sites), stop = nchar(sites))
+avg_interintra <- ddply(df, .(site, interintra), summarise,
+                        avg_val = mean(value))
+avg_interintra[which(avg_interintra$interintra==1),"interintra"] <- "Interspecific Competition"
+avg_interintra[which(avg_interintra$interintra==2),"interintra"] <- "Intraspecific Competition"
+interintra_table <- dcast(avg_interintra, site~interintra, value.var = "avg_val")
+
+comp_cap <- "Average interaction coefficients across vital rates for each community."
+print(xtable(interintra_table, caption = comp_cap),
+  caption.placement="top",
+  include.rownames = FALSE, 
+  sanitize.colnames.function = identity,
+  comment=FALSE)
+```
+
+```{r perc_diff_table, echo=FALSE, include=TRUE, results='asis', message=FALSE, eval=T, cache=FALSE, warning=FALSE}
+library(reshape2)
+library(plyr)
+library(ggplot2)
+library(xtable)
+
+perc_changes <- read.csv("../results/synchsims_percent_diffs.csv")
+perc_changes <- perc_changes[which(perc_changes$simulation!="1All Drivers"), c("site", "simulation", "percent_diff")]
+table_diff <- dcast(perc_changes, simulation~site, value.var = "percent_diff")
+
+diff_cap <- "Percent differences of synchrony of per capita growth rates between each removal simulation experiment and the 'All Drivers' simulation."
+print(xtable(table_diff, caption = diff_cap),
+  caption.placement="top",
+  include.rownames = FALSE, 
+  sanitize.colnames.function = identity,
+  comment=FALSE)
+```
+
+```{r get_interactions, echo=FALSE, include=TRUE, warning=FALSE, message=FALSE}
+####
+####  Get Vital Rate Satistical Results Files ----------------------------------
+####
+vital_rates <- c("growth", "surv", "recruit")
+result_files <- list.files("../results/")
+vr_files <-result_files[grep(paste(vital_rates,collapse="|"), 
+                              list.files("../results/"))]
+
+
+
+####
+####  Loop Over Files and Extract Crowding Effects -----------------------------
+####
+# Growth and survival first
+vital_mat_list <- list()
+for(do_vital in vital_rates[c(1,2)]){
+  vr_do <- vr_files[grep(do_vital,vr_files)]
+  tmp_vital <- readRDS(paste0("../results/",vr_do))
+  sites <- names(tmp_vital)
+  mat_list <- list()
+  for(do_site in sites){
+    tmp <- tmp_vital[[do_site]]
+    spp <- names(tmp)
+    tmpmat <- matrix(0,nrow = length(spp), ncol = length(spp))
+    for(i in 1:length(spp)){
+      do_spp <- spp[i]
+      tmpspp <- tmp[[do_spp]]
+      tmpw <- tmpspp[1,grep("crowd*", colnames(tmpspp))]
+      tmpmat[i,] <- as.numeric(tmpw)
+    }
+    rownames(tmpmat) <- spp
+    colnames(tmpmat) <- spp
+    mat_list[[do_site]] <- tmpmat
+  }
+  vital_mat_list[[do_vital]] <- mat_list 
+}
+
+# Recruitment
+vr_do <- vr_files[grep("recruit",vr_files)]
+tmp_vital <- readRDS(paste0("../results/",vr_do))
+names_vital <- readRDS(paste0("../results/",vr_files[1]))
+sites <- names(tmp_vital)
+mat_list <- list()
+for(do_site in sites){
+  tmp <- tmp_vital[[do_site]]
+  spp <- names(names_vital[[do_site]])
+  tmpdd <- tmp[grep("dd", rownames(tmp)),"Mean"]
+  tmpmat <- matrix(tmpdd,length(spp),length(spp), byrow = FALSE)
+  rownames(tmpmat) <- spp
+  colnames(tmpmat) <- spp
+  mat_list[[do_site]] <- tmpmat
+}
+vital_mat_list[["recruit"]] <- mat_list 
+```
+
+```{r make_tables, echo=FALSE, include=TRUE, results='asis', message=FALSE, eval=T, cache=FALSE, warning=FALSE}
+names(vital_mat_list) <- c("growth", "survival", "recruitment")
+for(do_vital in names(vital_mat_list)){
+  tmp_list <- vital_mat_list[[do_vital]]
+  for(do_site in names(tmp_list)){
+    site_list <- tmp_list[[do_site]]
+    synch_cap <- paste0("Interaction coefficients for ", do_vital, " regressions in ", do_site, ".")
+    print(xtable(site_list, caption = synch_cap),
+      caption.placement="top",
+      include.rownames = TRUE, 
+      sanitize.colnames.function = identity,
+      comment=FALSE)
+  }
+}
+```
+
+\newpage{}
+
+References
+----------
