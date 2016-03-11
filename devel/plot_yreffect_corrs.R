@@ -54,12 +54,17 @@ for(j in 1:num_vitals){
     for(do_site in site_names){
       tmp_site <- param_list[[do_site]]
       num_spp <- length(tmp_site) 
-      tmp_yr_mat <- matrix(ncol = num_spp, nrow=nrow(tmp_site[[1]]))
+      tmp_yr_int <- matrix(ncol = num_spp, nrow=nrow(tmp_site[[1]]))
+      tmp_yr_slope <- matrix(ncol = num_spp, nrow=nrow(tmp_site[[1]]))
       for(i in 1:num_spp){
         spp_df <- tmp_site[[i]]
-        tmp_yr_mat[,i] <- spp_df$Intercept.yr
+        tmp_yr_int[,i] <- spp_df$Intercept.yr
+        col2use <- grep("logarea", colnames(spp_df))
+        col2use2 <- grep(".yr", colnames(spp_df[col2use]))
+        tmp_yr_slope[,i] <- spp_df[,col2use[col2use2]]
       } # end species within site loop
-      site_year_list[[do_site]] <- tmp_yr_mat
+      site_year_list[[do_site]][["intercept"]] <- tmp_yr_int
+      site_year_list[[do_site]][["slope"]] <- tmp_yr_slope
     } # end site within vital rate loop
     
   } # end NOT recruit loops
@@ -83,17 +88,17 @@ for(j in 1:num_vitals){
 } # end vital rate loop
 
 
-## Plot histograms of year effects by vital rate
-vital_rates <- names(list_yr_effects)
-par(mfrow=c(3,5))
-for(do_vital in vital_rates){
-  tmp_vital <- list_yr_effects[[do_vital]]
-  site_names <- names(tmp_vital)
-  for(do_site in site_names){
-    tmp_site <- tmp_vital[[do_site]]
-    hist(tmp_site, main=paste(do_site,do_vital), xlab="Year Effect", xlim=c(-3,8))
-  }
-}
+# ## Plot histograms of year effects by vital rate
+# vital_rates <- names(list_yr_effects)
+# par(mfrow=c(3,5))
+# for(do_vital in vital_rates){
+#   tmp_vital <- list_yr_effects[[do_vital]]
+#   site_names <- names(tmp_vital)
+#   for(do_site in site_names){
+#     tmp_site <- tmp_vital[[do_site]]
+#     hist(tmp_site, main=paste(do_site,do_vital), xlab="Year Effect", xlim=c(-3,8))
+#   }
+# }
 
 ##  Get standard deviation of year effect posterior
 
@@ -103,21 +108,34 @@ for(do_vital in vital_rates){
 ####  Calculate average correlation of year effects ----------------------------
 ####
 vital_rates <- names(list_yr_effects)
-out_df <- data.frame(site=NA, vital_rate=NA, corr=NA)
+out_df <- data.frame(site=NA, vital_rate=NA, term=NA, corr=NA)
 for(do_vital in vital_rates){
   tmp_vital <- list_yr_effects[[do_vital]]
   site_names <- names(tmp_vital)
   for(do_site in site_names){
     tmp_site <- tmp_vital[[do_site]]
-    tmp_cor <- cor(tmp_site)
-    avg_cor <- mean(tmp_cor[upper.tri(tmp_cor)])
-    tmp_out <- data.frame(site=do_site, vital_rate=do_vital, corr=avg_cor)
-    out_df <- rbind(out_df, tmp_out)
+    
+    if(do_vital != "recruit"){
+      for(i in 1:length(tmp_site)){
+        tmp_cor <- cor(tmp_site[[i]])
+        avg_cor <- mean(tmp_cor[upper.tri(tmp_cor)])
+        tmp_out <- data.frame(site=do_site, vital_rate=do_vital, term=names(tmp_site)[i], corr=avg_cor)
+        out_df <- rbind(out_df, tmp_out)
+      }
+    }
+    
+    if(do_vital == "recruit"){
+      tmp_cor <- cor(tmp_site)
+      avg_cor <- mean(tmp_cor[upper.tri(tmp_cor)])
+      tmp_out <- data.frame(site=do_site, vital_rate=do_vital, term="intercept", corr=avg_cor)
+      out_df <- rbind(out_df, tmp_out)
+    }
+    
   }
 }
 cor_df <- out_df[2:nrow(out_df),]
-cor_cast <- dcast(cor_df, site~vital_rate)
-avg_env_resp <- apply(cor_cast[,2:4], MARGIN = 1, FUN = "mean")
+cor_cast <- dcast(cor_df, site+term~vital_rate)
+# avg_env_resp <- apply(cor_cast[,3:5], MARGIN = 1, FUN = "mean")
 
 ####
 ####  Calculate synchrony of random year effects -------------------------------

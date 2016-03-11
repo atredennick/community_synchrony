@@ -276,7 +276,8 @@ The largest difference between predicted and simulated synchrony was 0.05 in New
 
 Simulation experiments revealed that removing environmental fluctuations has the largest impact on synchrony, leading to a reduction in synchrony of species growth rates in four out five communities (Fig. 2).
 Removing environmental fluctuations ("No E.S" simulations) decreased synchrony by 33% in Arizona, 48% in Kansas, 39% in Montana, and 40% in New Mexico.
-Only in Idaho did removing environmental fluctuations cause an increase in synchrony (Fig. 2), but the effect was small (9% increase; Table S2).
+Only in Idaho did removing environmental fluctuations cause an increase in synchrony (Fig. 2), but the effect was small (9% increase; Table S1).
+Overall, species' temporal random effects in the statistical vital rate models are positively correlated (Table S2).
 Species interactions are weak in these communities [Table S3 and @Chu2015], and removing interspecific competition had little effect on synchrony (Fig. 2; "No Comp." simulations).
 Removing competition caused, at most, a 5% change in synchrony (Table S2).
 Removing demographic stochasticity ("No D.S." simulations) caused synchrony to increase slightly in all communities (Fig. 2), with an average 6% increase over synchrony from IBM simulations on a five meter area.
@@ -345,7 +346,7 @@ The natural, relatively undisturbed communities we studied consist of species th
 In theory, species interactions should weaken through time as community assembly progesses [@Kokkoris1999], meaning that in biodiversity-ecosystem function experiments the processes driving competitive exclusion are still operating.
 Such communities may be highly influenced by transient, but strong, interspecific competition that can mask the synchronizing effects of the environment.
 In contrast, synchrony may be driven by environmental fluctuations in older communities. In other words, the dominant driver of community synchrony should shift from competition to environmental fluctuations through time.
-One way to test this prediction is to continue collecting data from biodiversity-ecoystem function experiments and conduct repeat the analysis of @Gross2014 every few years.
+One way to test this prediction is to continue collecting data from biodiversity-ecoystem function experiments and conduct the analysis of @Gross2014 every few years.
 
 
 CONCLUSIONS
@@ -354,7 +355,7 @@ Species-specific responses to temporally fluctuating environmental conditions is
 When we removed environmental variation, we found that synchrony decreased in four out of the five grassland communities we studied (Fig. 2).
 A tempting conclusion is that our study confirms that compensatory dynamics are rare in natural communities, and that ecologically-similar species will exhibit synchronous dynamics [e.g., @Houlahan2007].
 Such a conclusion is only half correct.
-The perennial grasses we studied do have similar responses to the environment (Table X1-X10), which will tend to synchronize dynamics.
+The perennial grasses we studied do have similar responses to the environment (Table S2), which will tend to synchronize dynamics.
 However, if community-wide species synchrony is less than 1, as it is in all our focal communities, some degree of compensatory dynamics must be present [@Loreau2008a].
 In agreement with other studies [@Rocha2011; @Vasseur2014], we find that environmental responses are primarily responsible for the degree of synchrony among ecologically-similar species.
 Such a conclusion is in contrast to a recent analysis of several biodiversity-ecosystem function experiments showing that competition drives community synchrony [@Gross2014].

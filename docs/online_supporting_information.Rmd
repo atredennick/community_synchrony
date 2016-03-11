@@ -266,6 +266,138 @@ Figures
 
 Tables
 ------
+```{r perc_diff_table, echo=FALSE, include=TRUE, results='asis', message=FALSE, eval=T, cache=FALSE, warning=FALSE}
+library(reshape2)
+library(plyr)
+library(ggplot2)
+library(xtable)
+
+perc_changes <- read.csv("../results/synchsims_percent_diffs.csv")
+perc_changes <- perc_changes[which(perc_changes$simulation!="1All Drivers"), c("site", "simulation", "percent_diff")]
+table_diff <- dcast(perc_changes, simulation~site, value.var = "percent_diff")
+
+diff_cap <- "Percent differences of synchrony of per capita growth rates between each removal simulation experiment and the 'All Drivers' simulation."
+print(xtable(table_diff, caption = diff_cap),
+  caption.placement="top",
+  include.rownames = FALSE, 
+  sanitize.colnames.function = identity,
+  comment=FALSE)
+```
+
+```{r corr_yeareffs, echo=FALSE, include=TRUE, results='asis', message=FALSE, eval=T, cache=FALSE, warning=FALSE}
+library(reshape2)
+library(plyr)
+library(ggplot2)
+library(xtable)
+####
+####  Read in regression fits --------------------------------------------------
+####
+all_files <- list.files("../results/")
+param_files <- all_files[grep("param*", all_files)]
+num_vitals <- length(param_files)
+
+list_yr_effects <- list()
+for(j in 1:num_vitals){
+  param_list <- readRDS(paste0("../results/",param_files[j]))
+  vital_name <- unlist(strsplit(param_files[j], "_"))[1]
+  
+  if(vital_name != "recruit"){
+    
+    site_names <- names(param_list)
+    site_year_list <- list()
+    for(do_site in site_names){
+      tmp_site <- param_list[[do_site]]
+      num_spp <- length(tmp_site) 
+      tmp_yr_int <- matrix(ncol = num_spp, nrow=nrow(tmp_site[[1]]))
+      tmp_yr_slope <- matrix(ncol = num_spp, nrow=nrow(tmp_site[[1]]))
+      for(i in 1:num_spp){
+        spp_df <- tmp_site[[i]]
+        tmp_yr_int[,i] <- spp_df$Intercept.yr
+        col2use <- grep("logarea", colnames(spp_df))
+        col2use2 <- grep(".yr", colnames(spp_df[col2use]))
+        tmp_yr_slope[,i] <- spp_df[,col2use[col2use2]]
+      } # end species within site loop
+      site_year_list[[do_site]][["intercept"]] <- tmp_yr_int
+      site_year_list[[do_site]][["slope"]] <- tmp_yr_slope
+    } # end site within vital rate loop
+    
+  } # end NOT recruit loops
+ 
+  if(vital_name == "recruit"){
+    
+    site_names <- names(param_list)
+    site_year_list <- list()
+    for(do_site in site_names){
+      tmp_site <- param_list[[do_site]]
+      tmp_yrs <- tmp_site[grep("intcpt.yr", rownames(tmp_site)),"Mean"]
+      stringlist <- strsplit(names(tmp_yrs), ",")
+      num_spp <- length(unique(sapply(stringlist, "[[", 2)))
+      mat_yrs <- t(matrix(tmp_yrs, nrow=num_spp, byrow = TRUE))
+      site_year_list[[do_site]] <- mat_yrs
+    } # end site within vital rate loop
+    
+  } # end YES recruit loops
+  
+  list_yr_effects[[vital_name]] <- site_year_list
+} # end vital rate loop
+
+
+# ## Plot histograms of year effects by vital rate
+# vital_rates <- names(list_yr_effects)
+# par(mfrow=c(3,5))
+# for(do_vital in vital_rates){
+#   tmp_vital <- list_yr_effects[[do_vital]]
+#   site_names <- names(tmp_vital)
+#   for(do_site in site_names){
+#     tmp_site <- tmp_vital[[do_site]]
+#     hist(tmp_site, main=paste(do_site,do_vital), xlab="Year Effect", xlim=c(-3,8))
+#   }
+# }
+
+##  Get standard deviation of year effect posterior
+
+
+
+####
+####  Calculate average correlation of year effects ----------------------------
+####
+vital_rates <- names(list_yr_effects)
+out_df <- data.frame(site=NA, vital_rate=NA, term=NA, corr=NA)
+for(do_vital in vital_rates){
+  tmp_vital <- list_yr_effects[[do_vital]]
+  site_names <- names(tmp_vital)
+  for(do_site in site_names){
+    tmp_site <- tmp_vital[[do_site]]
+    
+    if(do_vital != "recruit"){
+      for(i in 1:length(tmp_site)){
+        tmp_cor <- cor(tmp_site[[i]])
+        avg_cor <- mean(tmp_cor[upper.tri(tmp_cor)])
+        tmp_out <- data.frame(site=do_site, vital_rate=do_vital, term=names(tmp_site)[i], corr=avg_cor)
+        out_df <- rbind(out_df, tmp_out)
+      }
+    }
+    
+    if(do_vital == "recruit"){
+      tmp_cor <- cor(tmp_site)
+      avg_cor <- mean(tmp_cor[upper.tri(tmp_cor)])
+      tmp_out <- data.frame(site=do_site, vital_rate=do_vital, term="intercept", corr=avg_cor)
+      out_df <- rbind(out_df, tmp_out)
+    }
+    
+  }
+}
+cor_df <- out_df[2:nrow(out_df),]
+cor_cast <- dcast(cor_df, site+term~vital_rate)
+
+cor.cap <- "Correlations of species' year random effects for each site by term, where term refers to the random effect on the slope or the intercept."
+print(xtable(cor_cast, caption = cor.cap),
+  caption.placement="top",
+  include.rownames = FALSE, 
+  sanitize.colnames.function = identity,
+  comment=FALSE)
+```
+
 ```{r avg_spp_interactions, echo=FALSE, include=TRUE, results='asis', message=FALSE, eval=T, cache=FALSE, warning=FALSE}
 library(reshape2)
 library(plyr)
@@ -358,24 +490,6 @@ interintra_table <- dcast(avg_interintra, site~interintra, value.var = "avg_val"
 
 comp_cap <- "Average interaction coefficients across vital rates for each community."
 print(xtable(interintra_table, caption = comp_cap),
-  caption.placement="top",
-  include.rownames = FALSE, 
-  sanitize.colnames.function = identity,
-  comment=FALSE)
-```
-
-```{r perc_diff_table, echo=FALSE, include=TRUE, results='asis', message=FALSE, eval=T, cache=FALSE, warning=FALSE}
-library(reshape2)
-library(plyr)
-library(ggplot2)
-library(xtable)
-
-perc_changes <- read.csv("../results/synchsims_percent_diffs.csv")
-perc_changes <- perc_changes[which(perc_changes$simulation!="1All Drivers"), c("site", "simulation", "percent_diff")]
-table_diff <- dcast(perc_changes, simulation~site, value.var = "percent_diff")
-
-diff_cap <- "Percent differences of synchrony of per capita growth rates between each removal simulation experiment and the 'All Drivers' simulation."
-print(xtable(table_diff, caption = diff_cap),
   caption.placement="top",
   include.rownames = FALSE, 
   sanitize.colnames.function = identity,
