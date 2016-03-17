@@ -102,7 +102,9 @@ polymono_wide <- dcast(polymono, site+typesynch~experiment, value.var = "mean_sy
 #   theme(legend.text = element_text(size = 8))+
 #   theme(legend.background = element_rect(colour = NA, fill = NA))
 
-g1 <- ggplot(subset(polymono_wide,typesynch=="pgr_synch"), aes(x=ENVNOINTER, y=ENVINTER))+
+plot_df <- subset(polymono_wide,typesynch=="pgr_synch")
+plot_df$site <- c("2Arizona", "5Idaho", "3Kansas", "4Montana", "1New Mexico")
+g1 <- ggplot(plot_df, aes(x=ENVNOINTER, y=ENVINTER))+
   geom_abline(aes(intercept=0, slope=1), linetype=3)+
   geom_point(size=3, aes(color=site))+
   scale_y_continuous(limits=c(0,1))+
@@ -112,10 +114,9 @@ g1 <- ggplot(subset(polymono_wide,typesynch=="pgr_synch"), aes(x=ENVNOINTER, y=E
   # scale_shape_discrete(name="Temporal Variable", labels=c("Per capita growth rate", "Percent cover"))+
   scale_color_manual(values = c("grey45", "steelblue", "slateblue4", "darkorange", "purple"),
                      name = "",
-                     labels = c("Arizona", "Idaho", "Kansas", "Montana", "New Mexico"))+
+                     labels = c("New Mexico", "Arizona", "Kansas", "Montana", "Idaho"))+
   theme_few()+
   guides(shape=FALSE)+
-  # ggtitle("A                                                          ")+
   theme(legend.position=c(0.2,0.8))+
   theme(legend.text = element_text(size = 8))+
   theme(legend.background = element_rect(colour = NA, fill = NA))

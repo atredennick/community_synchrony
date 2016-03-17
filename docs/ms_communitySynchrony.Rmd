@@ -22,6 +22,9 @@ geometry: margin=1in
 linkcolor: black
 urlcolor: black
 ---
+
+<!--    - \usepackage{times}   -->
+
 ```{r caching, include=FALSE}
 library("methods")
 library("knitr")
@@ -527,9 +530,15 @@ table_data <- as.data.frame(rbind(get_table_metrics(out_az),
                                   get_table_metrics(out_ks),
                                   get_table_metrics(out_mt),
                                   get_table_metrics(out_nm)))
-alltable_data <- table_data
 table_data$Site <- c("Arizona", "Idaho", "Kansas", "Montana", "New Mexico")
-table_data <- table_data[,c("Site", "V1", "V4", "V7")]
+alltable_data <- table_data
+colnames(table_data) <- c("obs_gr_synch", "demo_only_exp_grsynch",
+                          "diff_noneed", "obs_cover_synch",
+                          "demo_only_exp_coversynch", "diffcover_noneed",
+                          "cover_variance", "site")
+saveRDS(table_data, "../results/calculate_site_metrics.RDS")
+
+table_data <- alltable_data[,c("Site", "V1", "V4", "V7")]
 table_data$spp <- c(length(unique(az_data$species)),
                     length(unique(id_data$species)),
                     length(unique(ks_data$species)),
@@ -575,7 +584,7 @@ pred_table <- data.frame(site = table_data$Site,
                          exp_demo = exp_synchrony_demo$pgr,
                          sim_demo = round(subset(sims_output, simulation=="6No Comp. + No E.S.")["synchrony"],2),
                          exp_env = round(exp_synchrony_env$growthrate_prediction,2),
-                         sim_env = round(subset(sims_output, simulation=="5No Comp. + No D.S.")["synchrony"],2))
+                         sim_env = round(subset(sims_output, simulation=="2No Comp. + No D.S.")["synchrony"],2))
 
 colnames(pred_table) <- c("Site", 
                           "Predicted $\\phi_{R,\\mathcal{M}_D}$",
@@ -793,7 +802,7 @@ grid.arrange(g1,g2,ncol=2)
 
 \begin{figure}[!ht]
   \centering
-      \includegraphics[width=6in]{./components/formatted_fig2.png}
+      \includegraphics[width=6in]{./components/formatted_figures/formatted_figure1.png}
   \caption{Community-wide species synchrony of per capita growth rates from model simulation experiments. Synchrony of species' growth rates for each study area are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific competition present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific competition removed (``No Comp.''), interspecific competition and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific competition and environmental stochasticity removed (``No Comp. + No E.S.''). Abbreviations within the bars for the Arizona site indicate whether the IBM or IPM was used for a particular simulation. Error bars represent the upper and lower 95\% quantiles from model simulations.}
 \end{figure}
 
@@ -801,7 +810,7 @@ grid.arrange(g1,g2,ncol=2)
 
 \begin{figure}[!ht]
   \centering
-      \includegraphics[width=6in]{./components/ibm_sims_across_landscape.png}
+      \includegraphics[width=6in]{./components/formatted_figures/formatted_figure2.png}
   \caption{Synchrony of species' growth rates for each study area from IBM simulations across different landscape sizes when all drivers are present (``All Drivers'') and where only demographic stochasticity is present (``No E.S. + No Comp.''). The strength of demographic stochasticity decreases as landscape size increases. Error bars represent the upper and lower 95\% quantiles from model simulations.}
 \end{figure}
 
@@ -809,8 +818,8 @@ grid.arrange(g1,g2,ncol=2)
 
 \begin{figure}[!ht]
   \centering
-      \includegraphics[width=4in]{./components/poly_vs_mono_synch.png}
-  \caption{Synchrony of species per capita growth rates (filled circles) and percent cover (filled triangles) simulated in monoculture (without species interactions) versus synchrony in polyculture (with species interactions). We used the same sequence of random year effects for both simulations (monoculture and polyculture) to mimic biodiversity-ecosystem function experiments. The dashed line is the line of equality.}
+      \includegraphics[width=4in]{./components/formatted_figures/formatted_figure3.png}
+  \caption{Synchrony of species per capita growth rates simulated in monoculture (without species interactions) versus synchrony in polyculture (with species interactions). We used the same sequence of random year effects for both simulations (monoculture and polyculture) to mimic biodiversity-ecosystem function experiments. The dashed line is the line of equality.}
 \end{figure}
 
 \pagebreak{}

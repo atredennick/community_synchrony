@@ -60,11 +60,12 @@ ibm_synch <- subset(ibm_synch_agg, expansion==5 & typesynch=="Per capita growth 
 
 ##  Combine results -----
 sim_names <- c("All Drivers", "No D.S.", "No E.S.", "No Comp.", "No Comp. + No D.S.", "No Comp. + No E.S.")
-sim_names_order <- paste0(1:length(sim_names),sim_names)
+sim_names_order <- paste0(c(3,1,5,4,2,6),sim_names)
 site_names <- unique(ipm_synch$site)
 nsites <- length(site_names)
 site_labels <- site_names
 site_labels[which(site_labels=="NewMexico")] <- "New Mexico"
+site_labels_order <- paste0(c(2,5,3,4,1), site_labels)
 
 # Get vectors of synchrony for each "experiment"
 control_synch <- subset(ibm_synch, experiment=="fluctinter")
@@ -92,23 +93,48 @@ all_downs <- c(control_synch$lo_synch,
                nodsnocomp_synch$lo_synch, 
                noesnocomp_synch$lo_synch)
 
-plot_df <- data.frame(site = rep(site_labels, times=length(sim_names)),
+plot_df <- data.frame(site = rep(site_labels_order, times=length(sim_names)),
                       simulation = rep(sim_names_order, each=nsites),
                       synchrony = all_experiments,
                       upper_synch = all_ups,
                       lower_synch = all_downs)
 
+
+site_labels <- site_labels[order(site_labels_order)]
+sim_labels <- sim_names[order(sim_names_order)]
+
+# Bring in theoretical predictions and observed values
+theory_env <- readRDS("../results/envstoch_predictions.RDS")
+theory_env <- theory_env[2:nrow(theory_env), c("site", "growthrate_prediction")]
+metrics <- readRDS("../results/calculate_site_metrics.RDS")
+theory_demo <- metrics[,c("demo_only_exp_grsynch", "obs_gr_synch", "site")]
+theory_demo[which(theory_demo$site=="New Mexico"),"site"] <- "NewMexico"
+theoretical_preds_and_obs <- merge(theory_env, theory_demo)
+colnames(theoretical_preds_and_obs) <- c("site", "envonly_pred", "demonly_pred", "obs")
+theoretical_preds_and_obs$site <- site_labels_order
+
 ##  Make the main (all sims) plot -----
-ggplot(plot_df, aes(x=simulation, y=synchrony, fill=site, color=site))+
-  geom_bar(stat="identity")+
-  geom_errorbar(aes(ymin=lower_synch, ymax=upper_synch), color="white", size=1, width=0.25)+
-  geom_errorbar(aes(ymin=lower_synch, ymax=upper_synch), width=0.25)+
+pointocols <- rep("grey25",3)
+ggplot(data=plot_df)+
+  geom_bar(data=plot_df, aes(x=simulation, y=synchrony, fill=site, color=site),
+           stat="identity")+
+  geom_errorbar(data=plot_df, aes(x=simulation, y=synchrony, fill=site, color=site, 
+                             ymin=lower_synch, ymax=upper_synch), 
+                color="white", size=1, width=0.25)+
+  geom_errorbar(data=plot_df, aes(x=simulation, y=synchrony, fill=site, color=site, 
+                             ymin=lower_synch, ymax=upper_synch), width=0.25)+
+  geom_point(data=theoretical_preds_and_obs, aes(x=3, y=obs), size=3.5, color="white", shape=15)+
+  geom_point(data=theoretical_preds_and_obs, aes(x=3, y=obs), size=3, color=pointocols[1], shape=15)+
+  geom_point(data=theoretical_preds_and_obs, aes(x=2, y=envonly_pred), size=3.5, color="white", shape=16)+
+  geom_point(data=theoretical_preds_and_obs, aes(x=2, y=envonly_pred), size=3, color=pointocols[2], shape=16)+
+  geom_point(data=theoretical_preds_and_obs, aes(x=6, y=demonly_pred), size=3.5, color="white", shape=17)+
+  geom_point(data=theoretical_preds_and_obs, aes(x=6, y=demonly_pred), size=3, color=pointocols[3], shape=17)+
   facet_wrap("site", nrow=1)+
   scale_fill_manual(values=site_colors, labels=site_labels, name="")+
   scale_color_manual(values=site_colors, labels=site_labels, name="")+
   xlab("Simulation Experiment")+
   ylab("Synchrony of Species' Growth Rates")+
-  scale_x_discrete(labels=sim_names)+
+  scale_x_discrete(labels=sim_labels)+
   scale_y_continuous(limits=c(0,1))+
   theme_few()+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
@@ -126,10 +152,17 @@ saveRDS(plot_df, "../results/allsims_plot_data.RDS")
 
 ##  Make demographic stochasiticty plot for all landscape sizes -----
 ibm_demo_rms <- subset(ibm_synch_agg, typesynch=="Per capita growth rate")
-ibm_demo_rms <- ibm_demo_rms[which(ibm_demo_rms$experiment %in% c("fluctinter", "constnointer")),]
+ibm_demo_rms <- ibm_demo_rms[which(ibm_demo_rms$experiment %in% c("fluctinter", "constinter")),]
+ibm_demo_rms[which(ibm_demo_rms$site == "NewMexico"),"site"] <- "1New Mexico"
+ibm_demo_rms[which(ibm_demo_rms$site == "Arizona"),"site"] <- "2Arizona"
+ibm_demo_rms[which(ibm_demo_rms$site == "Kansas"),"site"] <- "3Kansas"
+ibm_demo_rms[which(ibm_demo_rms$site == "Montana"),"site"] <- "4Montana"
+ibm_demo_rms[which(ibm_demo_rms$site == "Idaho"),"site"] <- "5Idaho"
 
 ggplot(ibm_demo_rms, aes(x=expansion, y=avg_synch, color=site))+
-  geom_line(aes(linetype=experiment))+
+  geom_hline(data=theoretical_preds_and_obs, aes(yintercept=envonly_pred), color="grey15", linetype=3)+
+  geom_hline(data=theoretical_preds_and_obs, aes(yintercept=demonly_pred), color="grey15", linetype=2)+
+  geom_line(aes(group=experiment))+
   geom_point(aes(shape=experiment), size=3)+
   geom_errorbar(aes(ymin=lo_synch, ymax=up_synch), width=0.25)+
   facet_wrap("site", nrow=1)+
@@ -137,8 +170,8 @@ ggplot(ibm_demo_rms, aes(x=expansion, y=avg_synch, color=site))+
   xlab(expression(paste("Simulated Area (", m^2,")")))+
   ylab("Synchrony of Species' Growth Rates")+
   scale_y_continuous(limits=c(0,1))+
-  scale_shape_discrete(name="",labels=c("No E.S + No Comp.", "All Drivers"))+
-  scale_linetype_discrete(name="",labels=c("No E.S + No Comp.", "All Drivers"))+
+  scale_shape_discrete(name="",labels=c("No E.S", "All Drivers"))+
+  # scale_linetype_discrete(name="",labels=c("No E.S", "All Drivers"))+
   guides(color=FALSE)+
   theme_few()+
   theme(legend.position=c(0.1,0.2),
