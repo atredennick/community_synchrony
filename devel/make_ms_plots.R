@@ -143,7 +143,7 @@ ggplot(data=plot_df)+
 ggsave("../docs/components/all_sims_results.png", width = 10, height = 4, units="in", dpi=75)
   
 ##  Calculate percent differences for Results
-plot_df$control <- rep(plot_df[which(plot_df$simulation=="1All Drivers"),"synchrony"], times=nrow(plot_df)/nsites)
+plot_df$control <- rep(plot_df[which(plot_df$simulation=="3All Drivers"),"synchrony"], times=nrow(plot_df)/nsites)
 plot_df$percent_diff <- with(plot_df, abs(synchrony-control)/((synchrony+control)/2)*100)
 write.csv(plot_df, "../results/synchsims_percent_diffs.csv")
 
@@ -198,11 +198,12 @@ ibm_synch <- subset(ibm_synch_agg, expansion==5 & typesynch=="Cover (%)")
 
 ##  Combine results -----
 sim_names <- c("All Drivers", "No D.S.", "No E.S.", "No Comp.", "No Comp. + No D.S.", "No Comp. + No E.S.")
-sim_names_order <- paste0(1:length(sim_names),sim_names)
+sim_names_order <- paste0(c(3,1,5,4,2,6),sim_names)
 site_names <- unique(ipm_synch$site)
 nsites <- length(site_names)
 site_labels <- site_names
 site_labels[which(site_labels=="NewMexico")] <- "New Mexico"
+site_labels_order <- paste0(c(2,5,3,4,1), site_labels)
 
 # Get vectors of synchrony for each "experiment"
 control_synch <- subset(ibm_synch, experiment=="fluctinter")
@@ -230,23 +231,32 @@ all_downs <- c(control_synch$lo_synch,
                nodsnocomp_synch$lo_synch, 
                noesnocomp_synch$lo_synch)
 
-plot_df <- data.frame(site = rep(site_labels, times=length(sim_names)),
+plot_df <- data.frame(site = rep(site_labels_order, times=length(sim_names)),
                       simulation = rep(sim_names_order, each=nsites),
                       synchrony = all_experiments,
                       upper_synch = all_ups,
                       lower_synch = all_downs)
 
+
+site_labels <- site_labels[order(site_labels_order)]
+sim_labels <- sim_names[order(sim_names_order)]
+
 ##  Make the main (all sims) plot -----
-ggplot(plot_df, aes(x=simulation, y=synchrony, fill=site, color=site))+
-  geom_bar(stat="identity")+
-  geom_errorbar(aes(ymin=lower_synch, ymax=upper_synch), color="white", size=1, width=0.25)+
-  geom_errorbar(aes(ymin=lower_synch, ymax=upper_synch), width=0.25)+
+pointocols <- rep("grey25",3)
+ggplot(data=plot_df)+
+  geom_bar(data=plot_df, aes(x=simulation, y=synchrony, fill=site, color=site),
+           stat="identity")+
+  geom_errorbar(data=plot_df, aes(x=simulation, y=synchrony, fill=site, color=site, 
+                                  ymin=lower_synch, ymax=upper_synch), 
+                color="white", size=1, width=0.25)+
+  geom_errorbar(data=plot_df, aes(x=simulation, y=synchrony, fill=site, color=site, 
+                                  ymin=lower_synch, ymax=upper_synch), width=0.25)+
   facet_wrap("site", nrow=1)+
   scale_fill_manual(values=site_colors, labels=site_labels, name="")+
   scale_color_manual(values=site_colors, labels=site_labels, name="")+
   xlab("Simulation Experiment")+
-  ylab("Synchrony of Species' Percent Cover")+
-  scale_x_discrete(labels=sim_names)+
+  ylab("Synchrony of Species' Growth Rates")+
+  scale_x_discrete(labels=sim_labels)+
   scale_y_continuous(limits=c(0,1))+
   theme_few()+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
@@ -257,19 +267,26 @@ ggsave("../docs/components/figureS2_simscover.png", width = 10, height = 4, unit
 
 ##  Make demographic stochasiticty plot for all landscape sizes -----
 ibm_demo_rms <- subset(ibm_synch_agg, typesynch=="Cover (%)")
-ibm_demo_rms <- ibm_demo_rms[which(ibm_demo_rms$experiment %in% c("fluctinter", "constnointer")),]
+ibm_demo_rms <- ibm_demo_rms[which(ibm_demo_rms$experiment %in% c("fluctnointer", "constnointer")),]
+ibm_demo_rms[which(ibm_demo_rms$site == "NewMexico"),"site"] <- "1New Mexico"
+ibm_demo_rms[which(ibm_demo_rms$site == "Arizona"),"site"] <- "2Arizona"
+ibm_demo_rms[which(ibm_demo_rms$site == "Kansas"),"site"] <- "3Kansas"
+ibm_demo_rms[which(ibm_demo_rms$site == "Montana"),"site"] <- "4Montana"
+ibm_demo_rms[which(ibm_demo_rms$site == "Idaho"),"site"] <- "5Idaho"
 
 ggplot(ibm_demo_rms, aes(x=expansion, y=avg_synch, color=site))+
-  geom_line(aes(linetype=experiment))+
+  # geom_hline(data=theoretical_preds_and_obs, aes(yintercept=envonly_pred), color="grey15", linetype=3)+
+  # geom_hline(data=theoretical_preds_and_obs, aes(yintercept=demonly_pred), color="grey15", linetype=2)+
+  geom_line(aes(group=experiment))+
   geom_point(aes(shape=experiment), size=3)+
   geom_errorbar(aes(ymin=lo_synch, ymax=up_synch), width=0.25)+
   facet_wrap("site", nrow=1)+
   scale_color_manual(values=site_colors, labels=site_labels, name="")+
   xlab(expression(paste("Simulated Area (", m^2,")")))+
-  ylab("Synchrony of Species' Percent Cover")+
+  ylab("Synchrony of Species' Growth Rates")+
   scale_y_continuous(limits=c(0,1))+
-  scale_shape_discrete(name="",labels=c("No E.S + No Comp.", "All Drivers"))+
-  scale_linetype_discrete(name="",labels=c("No E.S + No Comp.", "All Drivers"))+
+  scale_shape_discrete(name="",labels=c("D.S. Only", "D.S + E.S."))+
+  # scale_linetype_discrete(name="",labels=c("No E.S", "All Drivers"))+
   guides(color=FALSE)+
   theme_few()+
   theme(legend.position=c(0.1,0.2),
