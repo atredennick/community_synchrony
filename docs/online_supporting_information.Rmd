@@ -55,17 +55,22 @@ Derivation of limiting case predictions for synchrony of per capita growth rates
 Following @Loreau2013 and @DeMazancourt2013a, we define population growth, ignoring observation error, as
 
 \begin{align}
-\tilde{r_i}(t) = r_{mi} \left[ 1- \frac{\tilde{N_i}(t)+\sum_{j \neq i} \alpha_{ij}\tilde{N_j}(t)} {K_i} + \sigma_{ei}\mu_{ei}(t) + \frac{\sigma_{di}\mu_{di}(t)}{\sqrt{\tilde{N_i}(t)}} \right]
+r_i(t) = r_{mi} \left[ 1- \frac{N_i(t)+\sum_{j \neq i} \alpha_{ij}N_j(t)} {K_i} + \sigma_{ei}u_{ei}(t) + \frac{\sigma_{di}u_{di}(t)}{\sqrt{N_i(t)}} \right]
 \end{align}
 
-\noindent where $N_i(t)$ is the biomass of species *i* in year *t*, and $r_i(t)$ is its instantaneous growth rate in year *t*. 
+\noindent where $N_i(t)$ is the biomass of species *i* in year *t*, and $r_i(t)$ is its growth rate in year *t*. 
 $r_{mi}$ is species *i*'s intrinsic rate of increase, $K_i$ is its carrying capacity, and $\alpha_{ij}$ is the interspecific competition coefficient representing the effect of species *j* on species *i*. 
-Environmental stochasticity is incorporated as $\sigma_{ei}\mu_{ei}(t)$, where $\sigma_{ei}^2$ is the environmental variance and $\mu_{ei}$ are normal random variables with zero mean and unit variance that are independent through time but may be correlated.
+Environmental stochasticity is incorporated as $\sigma_{ei}u_{ei}(t)$, where $\sigma_{ei}^2$ is the environmental variance and $u_{ei}$ are normal random variables with zero mean and unit variance that are independent through time but may be correlated between species.
 Demographic stochasticity arises from variations in births and deaths among individuals (e.g., same states, different fates), and is included in the model as a first order, normal approximation [@Lande2003; @DeMazancourt2013a].
-$\sigma_{di}^2$ is the demographic variance and $\mu_{di}(t)$ are independent normal variables with zero mean and unit variance.
+$\sigma_{di}^2$ is the demographic variance and $u_{di}(t)$ are independent normal variables with zero mean and unit variance.
 
-In the general case, **C** is the variance-covariance matrix for population biomasses at steady state.
-It solves the Lyapunov equation $\textbf{C}^\infty = \textbf{A} \textbf{C}^\infty \textbf{A}^T + \textbf{B}$, where
+First-order approximations of the temporal variance of total community biomass are obtained as follows [@Ives1995; @Hughes2000; @Ives2002; @Loreau2008a; @DeMazancourt2013a]. Let $\delta N_i(t) = N_i(t) - N^*_i$ denote the deviation of observed species *i*’s biomass from its equilibrium value in the community, $N^*_i$, in the absence of stochasticity. Equation (S1) can be Taylor expanded around $\delta N_i(t) = u_{ei}(t) = u_{di}(t) = u^S_{oi}(t) = 0$ to yield, after dropping terms of order two and higher,
+
+\begin{equation}
+\boldsymbol{\delta}\textbf{N}(t+1) = \textbf{A}\boldsymbol{\delta}\textbf{N}(t) + \textbf{z}(t),
+\end{equation}
+
+\noindent where $\boldsymbol{\delta}\textbf{N}(t)$ is the vector of deviations of species biomasses from their deterministic equilibrium value, **A** is the community matrix, also known as the Jacobian matrix around the equilibrium, with elements $(a_{ij})_{1<i,j<S}$:
 
 \begin{align}
 A_{ij} = 
@@ -75,16 +80,56 @@ A_{ij} =
     \end{cases}
 \end{align}
 
-\noindent and
+\noindent and $\textbf{z}(t)$ is a vector that encapsulates the effects of environmental and demographic stochasticity whose elements are
 
 \begin{equation}
-B_{ij} = N_{i}^* N_{j}^* \sigma_{ei} \sigma_{ej} \text{cov}(\mu_{ei},\mu_{ej}) + \sqrt{N_{i}^* N_{j}^*} \sigma_{di}\sigma_{dj} \text{cov}(\mu_{di},\mu_{dj})
+z_i(t) = N^*_i \sigma_{ei} u_{ei}(t) + \sqrt{N^*_i} \sigma_{di} u_{di}(t)
+\end{equation}
+
+When the system reaches a stationary distribution, the variances and covariances between species biomass time series are: 
+
+\begin{equation}
+\big\langle \boldsymbol{\delta}\textbf{N}(t) \boldsymbol{\delta}\textbf{N}(t)^T \big\rangle = \textbf{C}^\infty = (\text{cov}(N_i,N_j))_{1<i,j<S} = (\text{cov}(\delta N_i, \delta N_j))_{1<i,j<S}
+\end{equation}
+
+\noindent where $\boldsymbol{\delta}\textbf{N}^T$ is the transpose of vector $\boldsymbol{\delta}\textbf{N}$, i.e. a row vector.
+
+Our assumptions listed above lead to the following correlation structure of **z**:
+
+\begin{equation}
+\big\langle \textbf{z}(t) \textbf{z}(t)^T \big\rangle = \textbf{B}
+\end{equation}
+
+\begin{equation}
+\big\langle \textbf{z}(t-s) \textbf{z}(t)^T \big\rangle = 0 \qquad \text{for} \: s>0
+\end{equation}
+
+We use Equation S2 to write a dynamical equation for the covariance **C**:
+
+\begin{footnotesize}
+\begin{align}
+\textbf{C}(t+1) =& \big\langle \boldsymbol{\delta}\textbf{N}(t+1) \boldsymbol{\delta}\textbf{N}(t+1)^T \big\rangle \\
+=& \textbf{A}\big\langle \boldsymbol{\delta}\textbf{N}(t) \boldsymbol{\delta}\textbf{N}(t)^T \big\rangle \textbf{A}^T + \textbf{A}\big\langle \boldsymbol{\delta}\textbf{N}(t) \boldsymbol{\delta}\textbf{N}(t)^T \big\rangle + \big\langle \textbf{z}(t) \boldsymbol{\delta}\textbf{N}(t)^T \big\rangle \textbf{A}^T + \big\langle \textbf{z}(t) \textbf{z}(t)^T \big\rangle \\
+=& \textbf{A} \textbf{C}(t) \textbf{A}^T + \textbf{Z}_0
+\end{align}
+\end{footnotesize}
+
+\noindent Taking the limit $t \rightarrow \infty$ on both sides, we get:
+
+\begin{equation}
+\textbf{C}^\infty = \textbf{A} \textbf{C}^\infty \textbf{A}^T + \textbf{B}
+\end{equation}
+
+\noindent where **A** is as in Equation S3 and **B** is:
+
+\begin{equation}
+B_{ij} = N_{i}^* N_{j}^* \sigma_{ei} \sigma_{ej} \text{cov}(u_{ei},u_{ej}) + \sqrt{N_{i}^* N_{j}^*} \sigma_{di}\sigma_{dj} \text{cov}(u_{di},u_{dj})
 \end{equation}
 
 \noindent Similarly, **R** is the variance-covariance matrix for population growth rates at steady state
 
 \begin{equation}
-R_{ij} = \frac{r_{mi}r_{mj}}{K_i K_j} \sum_{k,l} \alpha_{ik} \alpha_{jl} C_{kl} + \sigma_{ei} \sigma_{ej} \text{cov}(\mu_{ei},\mu_{ej}) + \frac{\sigma_{di}\sigma_{dj} \text{cov}(\mu_{di},\mu_{dj})}{\sqrt{N_{i}^* N_{j}^*}}.
+R_{ij} = \frac{r_{mi}r_{mj}}{K_i K_j} \sum_{k,l} \alpha_{ik} \alpha_{jl} C_{kl} + \sigma_{ei} \sigma_{ej} \text{cov}(u_{ei},u_{ej}) + \frac{\sigma_{di}\sigma_{dj} \text{cov}(u_{di},u_{dj})}{\sqrt{N_{i}^* N_{j}^*}}.
 \end{equation}
 
 \noindent Then, following the synchrony metric of @Loreau2008a, the sychrony of population biomasses is
@@ -105,22 +150,22 @@ Thus, we analyze a simplified case where interspecific interactions are zero.
 The variance-covariance matrix of population biomasses at steady state then becomes
 
 \begin{equation}
-c_{ij} = \frac{B_{ij}}{1-a_i a_j} = \frac{N_{i}^* N_{j}^* \sigma_{ei} \sigma_{ej} \text{cov}(\mu_{ei},\mu_{ej}) + \sqrt{N_{i}^* N_{j}^*} \sigma_{di}\sigma_{dj} \text{cov}(\mu_{di},\mu_{dj})}{1 - (1-r_{mi})(1-r_{mj})}
+c_{ij} = \frac{B_{ij}}{1-a_i a_j} = \frac{N_{i}^* N_{j}^* \sigma_{ei} \sigma_{ej} \text{cov}(u_{ei},u_{ej}) + \sqrt{N_{i}^* N_{j}^*} \sigma_{di}\sigma_{dj} \text{cov}(u_{di},u_{dj})}{1 - (1-r_{mi})(1-r_{mj})}
 \end{equation}
 
 and the variance-covariance matrix of population growth rates becomes
 
 \begin{equation}
-R_{ij} = \frac{r_{mi}r_{mj}}{K_i K_j} C_{ij} + \sigma_{ei} \sigma_{ej} \text{cov}(\mu_{ei},\mu_{ej}) + \frac{\sigma_{di}\sigma_{dj} \text{cov}(\mu_{di},\mu_{dj})}{\sqrt{N_{i}^* N_{j}^*}},
+R_{ij} = \frac{r_{mi}r_{mj}}{K_i K_j} C_{ij} + \sigma_{ei} \sigma_{ej} \text{cov}(u_{ei},u_{ej}) + \frac{\sigma_{di}\sigma_{dj} \text{cov}(u_{di},u_{dj})}{\sqrt{N_{i}^* N_{j}^*}},
 \end{equation}
 
 which simplifies to
 
 \begin{equation}
-R_{ij} = \frac{1}{1- \frac{r_{mi}r_{mj}}{r_{mi}+r_{mj}}} \left( \sigma_{ei} \sigma_{ej} \text{cov}(\mu_{ei},\mu_{ej}) + \frac{\sigma_{di}\sigma_{dj} \text{cov}(\mu_{di},\mu_{dj})}{\sqrt{N_{i}^* N_{j}^*}} \right)
+R_{ij} = \frac{1}{1- \frac{r_{mi}r_{mj}}{r_{mi}+r_{mj}}} \left( \sigma_{ei} \sigma_{ej} \text{cov}(u_{ei},u_{ej}) + \frac{\sigma_{di}\sigma_{dj} \text{cov}(u_{di},u_{dj})}{\sqrt{N_{i}^* N_{j}^*}} \right)
 \end{equation}
 
-\noindent This is still not a general result, however, because synchrony in population sizes and synchrony in growth rates use weighted factors of the environmental variances and covariances with species-specific parameters.
+\noindent Note that synchrony in population sizes and synchrony in growth rates use weighted factors of the environmental variances and covariances with species-specific parameters.
 So, we further assume that, along with interspecific interactions being zero, all species have identical growth rates, environmental stochasticity is absent, and all species have identical demographic variance.
 This represents a theoretical limiting case where the community consists of identical species coexisting in a constant environment where only demographic stochasticity causes temporal fluctuations.
 Under such conditions, synchrony of population biomasses is
@@ -136,7 +181,7 @@ Under such conditions, synchrony of population biomasses is
 \end{equation}
 
 \noindent where $p_i$ is the average frequency of species *i*, $p_i = N_i/N_T$.
-When all species have identical abundances and $p_i = 1/S$, where *S* is species richness, the both synchrony values equal 1/S [@Loreau2008a]. The prediction represented in Equation S11 is Equation 3 in the main text, which we refer to as $\phi_{R,\mathcal{M_D}}$.
+When all species have identical abundances and $p_i = 1/S$, where *S* is species richness, the both synchrony values equal 1/S [@Loreau2008a]. The prediction represented in Equation S20 is Equation 3 in the main text, which we refer to as $\phi_{R,\mathcal{M_D}}$.
 
 Another limiting case is where only environmental stochasticity is operating: no interspecific interactions, no demographic stochasticity, identical intrinsic growth rates, and environmental stochasticity with same standard deviation for all species.
 Under such constraints, the synchrony of of species' biomasses is
@@ -151,7 +196,7 @@ Under such constraints, the synchrony of of species' biomasses is
 \phi_R = \frac{\sum_{i,j} p_i p_j \text{cov}(u_{ei}, u_{ej})}{S^2}
 \end{equation}
 
-\noindent The prediction represented in Equation S13 is Equation 4 in the main text, which we refer to as $\phi_{R,\mathcal{M_E}}$. If we know the covariance matrix of the species environmental responses, we can calculate the above expectations directly. Note that the environmental responses are normalized in the above equations, therefore the covariances are correlations in the above equations.
+\noindent The prediction represented in Equation S22 is Equation 4 in the main text, which we refer to as $\phi_{R,\mathcal{M_E}}$. If we know the covariance matrix of the species environmental responses, we can calculate the above expectations directly. Note that the environmental responses are normalized in the above equations, therefore the covariances are correlations in the above equations.
 
 \newpage{}
 
@@ -266,14 +311,14 @@ Figures
 
 Tables
 ------
-```{r perc_diff_table, echo=FALSE, include=TRUE, results='asis', message=FALSE, eval=T, cache=FALSE, warning=FALSE}
+```{r perc_diff_table, echo=FALSE, include=TRUE, results='asis', message=FALSE, eval=F, cache=FALSE, warning=FALSE}
 library(reshape2)
 library(plyr)
 library(ggplot2)
 library(xtable)
 
 perc_changes <- read.csv("../results/synchsims_percent_diffs.csv")
-perc_changes <- perc_changes[which(perc_changes$simulation!="1All Drivers"), c("site", "simulation", "percent_diff")]
+perc_changes <- perc_changes[which(perc_changes$simulation!="3All Drivers"), c("site", "simulation", "percent_diff")]
 table_diff <- dcast(perc_changes, simulation~site, value.var = "percent_diff")
 
 diff_cap <- "Percent differences of synchrony of per capita growth rates between each removal simulation experiment and the 'All Drivers' simulation."
