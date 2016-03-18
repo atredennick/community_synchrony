@@ -5,8 +5,6 @@ header-includes:
    - \linenumbers
    - \usepackage{setspace}
    - \usepackage{todonotes}
-   - \doublespacing
-   - \usepackage[document]{ragged2e}
    - \usepackage{color}
    - \usepackage{rotating}
 bibliography: ~/Dropbox/Bibliography/CommunitySynchrony.bib
@@ -37,7 +35,9 @@ opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE,
 opts_chunk$set(dev='pdf')
 ```
 
+\begin{center} 
 \textbf{ONLINE SUPPORTING INFORMATION}
+\end{center}
 
 
 \renewcommand{\theequation}{S\arabic{equation}}
@@ -181,7 +181,7 @@ Under such conditions, synchrony of population biomasses is
 \end{equation}
 
 \noindent where $p_i$ is the average frequency of species *i*, $p_i = N_i/N_T$.
-When all species have identical abundances and $p_i = 1/S$, where *S* is species richness, the both synchrony values equal 1/S [@Loreau2008a]. The prediction represented in Equation S20 is Equation 3 in the main text, which we refer to as $\phi_{R,\mathcal{M_D}}$.
+When all species have identical abundances and $p_i = 1/S$, where *S* is species richness, the both synchrony values equal 1/S [@Loreau2008a]. The prediction represented in Equation S20 is Equation 3 in the main text, which we refer to as $\phi_{R,\mathcal{M}_D}$.
 
 Another limiting case is where only environmental stochasticity is operating: no interspecific interactions, no demographic stochasticity, identical intrinsic growth rates, and environmental stochasticity with same standard deviation for all species.
 Under such constraints, the synchrony of of species' biomasses is
@@ -196,7 +196,7 @@ Under such constraints, the synchrony of of species' biomasses is
 \phi_R = \frac{\sum_{i,j} p_i p_j \text{cov}(u_{ei}, u_{ej})}{S^2}
 \end{equation}
 
-\noindent The prediction represented in Equation S22 is Equation 4 in the main text, which we refer to as $\phi_{R,\mathcal{M_E}}$. If we know the covariance matrix of the species environmental responses, we can calculate the above expectations directly. Note that the environmental responses are normalized in the above equations, therefore the covariances are correlations in the above equations.
+\noindent The prediction represented in Equation S22 is Equation 4 in the main text, which we refer to as $\phi_{R,\mathcal{M}_E}$. If we know the covariance matrix of the species environmental responses, we can calculate the above expectations directly. Note that the environmental responses are normalized in the above equations, therefore the covariances are correlations in the above equations.
 
 \newpage{}
 
@@ -275,8 +275,8 @@ k_{j}(v_{j},u_{j},\bar{\bold{w_{j}}}) = S_j(u_j, \bar{\bold{w_{j}}}(u_{j}))G_j(v
 
 \newpage{}
 
-Figures
--------
+Supporting Figures
+------------------
 \begin{figure}[!ht]
   \centering
       \includegraphics[width=4in]{./components/figureS1.pdf}
@@ -309,8 +309,8 @@ Figures
 
 \newpage{}
 
-Tables
-------
+Supporting Tables
+-----------------
 ```{r perc_diff_table, echo=FALSE, include=TRUE, results='asis', message=FALSE, eval=F, cache=FALSE, warning=FALSE}
 library(reshape2)
 library(plyr)
