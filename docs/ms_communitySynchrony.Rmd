@@ -304,14 +304,14 @@ The theoretical population dynamical model we used here also successfully predic
 
 ### Demographic stochasticity decreases synchrony
 Demographic stochasticity partially counteracted the synchronizing effects of environmental fluctuations and interspecific interactions on per capita growth rates, but only when populations were small (Fig. 2), in agreement with theory [@Loreau2008a].
-Even in small populations, however, demographic stochasticity was not strong enough to completely counteract the synchronizing effects of environmental fluctuations and induce independent species fluctuations (Fig. 2).
+Even in small populations, however, demographic stochasticity was not strong enough to completely counteract the synchronizing effects of environmental fluctuations and match the analytical prediction where only demographic stochasticity is operating ($\mathcal{M}_D$ in Fig. 2).
 These results confirm the theoretical argument by @Loreau2008a that independent fluctuations among interacting species in a non-constant environment should be rare.
-Only in the Idaho community does synchrony of per capita growth rates approach independent fluctuations (1/*S*, where *S* is the number of species) in a non-constant environment (Fig. 2).
+Only in the Idaho community does synchrony of per capita growth rates approach $\mathcal{M}_D$ in a non-constant environment (Fig. 2).
 This is most likely due to the strong effect of demographic stochasticity on the shrub *Artemisia tripartita* since even a 5 $\text{m}^2$ quadrat would only contain a few individuals of that species.
 
 Our analysis of how demographic stochasticity affects synchrony across population sizes also demonstrates that synchrony depends on the observation area.
 As the observation area increases, population size increases and the desynchronizing effect of demographic stochasticity lessens (Fig. 2).
-Thus, our results suggest that community-wide species synchrony will increase as the observation area increases.
+Thus, our results suggest that community-wide species synchrony will increase as the observation area increases, rising from $\mathcal{M}_D$ to $\mathcal{M}_E$.
 Such a conclusion assumes, however, that species richness remains constant as observation area increases, which is unlikely [@Taylor1961].
 Recent theoretical work has begun to explore the linkage between ecosystem stability and spatial scale [@Wang2014; @Wang2016], and our results suggest that including demographic stochasticity in theoretical models of metacommunity dynamics may be important for understanding the role of species synchrony in determining ecosystem stability across spatial scales.
 
