@@ -7,7 +7,7 @@ library(plyr)
 library(synchrony)
 library(communitySynchrony)
 
-site_colors <- c("steelblue")
+site_colors <- c("purple")
 
 
 ##  Read in IPM results ---------
@@ -62,7 +62,7 @@ ibm_synch <- subset(ibm_synch_agg, expansion==5 & typesynch=="Per capita growth 
 
 ##  Combine results -----
 sim_names <- c("All Drivers", "No D.S.", "No E.S.", "No Comp.", "No Comp. + No D.S.", "No Comp. + No E.S.")
-sim_names_order <- paste0(1:length(sim_names),sim_names)
+sim_names_order <- paste0(c(3,1,5,4,2,6),sim_names)
 site_names <- unique(ipm_synch$site)
 nsites <- length(site_names)
 site_labels <- site_names
@@ -123,25 +123,25 @@ ggsave("../../docs/components/all_sims_supp_noARTR.png", width = 4, height = 4, 
 # write.csv(plot_df, "../results/synchsims_percent_diffs.csv")
 
 ##  Make demographic stochasiticty plot for all landscape sizes -----
-ibm_demo_rms <- subset(ibm_synch_agg, typesynch=="Per capita growth rate")
-ibm_demo_rms <- ibm_demo_rms[which(ibm_demo_rms$experiment %in% c("fluctinter", "constnointer")),]
-
-ggplot(ibm_demo_rms, aes(x=expansion, y=avg_synch, color=site))+
-  geom_line(aes(linetype=experiment))+
-  geom_point(aes(shape=experiment), size=3)+
-  geom_errorbar(aes(ymin=lo_synch, ymax=up_synch), width=0.25)+
-  scale_color_manual(values=site_colors, labels=site_labels, name="")+
-  xlab(expression(paste("Simulated Area (", m^2,")")))+
-  ylab("Synchrony of Species' Growth Rates")+
-  scale_y_continuous(limits=c(0,1))+
-  scale_shape_discrete(name="",labels=c("No E.S + No Comp.", "All Drivers"))+
-  scale_linetype_discrete(name="",labels=c("No E.S + No Comp.", "All Drivers"))+
-  guides(color=FALSE)+
-  theme_few()+
-  theme(legend.position=c(0.3,0.8),
-        legend.background = element_rect(fill = NA))
-
-ggsave("../../docs/components/ibm_across_landscape_supp_noARTR.png", width = 4, height = 4, units="in", dpi=75)
-
-
-
+# ibm_demo_rms <- subset(ibm_synch_agg, typesynch=="Per capita growth rate")
+# ibm_demo_rms <- ibm_demo_rms[which(ibm_demo_rms$experiment %in% c("fluctinter", "constnointer")),]
+# 
+# ggplot(ibm_demo_rms, aes(x=expansion, y=avg_synch, color=site))+
+#   geom_line(aes(linetype=experiment))+
+#   geom_point(aes(shape=experiment), size=3)+
+#   geom_errorbar(aes(ymin=lo_synch, ymax=up_synch), width=0.25)+
+#   scale_color_manual(values=site_colors, labels=site_labels, name="")+
+#   xlab(expression(paste("Simulated Area (", m^2,")")))+
+#   ylab("Synchrony of Species' Growth Rates")+
+#   scale_y_continuous(limits=c(0,1))+
+#   scale_shape_discrete(name="",labels=c("No E.S + No Comp.", "All Drivers"))+
+#   scale_linetype_discrete(name="",labels=c("No E.S + No Comp.", "All Drivers"))+
+#   guides(color=FALSE)+
+#   theme_few()+
+#   theme(legend.position=c(0.3,0.8),
+#         legend.background = element_rect(fill = NA))
+# 
+# ggsave("../../docs/components/ibm_across_landscape_supp_noARTR.png", width = 4, height = 4, units="in", dpi=75)
+# 
+# 
+# 

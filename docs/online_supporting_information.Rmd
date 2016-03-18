@@ -296,7 +296,7 @@ Supporting Figures
 \begin{figure}[!ht]
   \centering
       \includegraphics[width=6in]{./components/figureS3_ibmcover.png}
-  \caption{Synchrony of species' percent cover for each study area from IBM simulations across different landscape sizes when all drivers are present (``All Drivers'') and where only demographic stochasticity is present (``No E.S. + No Comp.''). The strength of demographic stochasticity decreases as landscape size increases. Error bars represent the upper and lower 95\% quantiles from model simulations.}
+  \caption{Synchrony of species' percent cover for each study area from IBM simulations across different landscape sizes when only demographic stochastcity is present (``D.S. Only'') and when environmental stochasticity is also present removed (``D.S. + E.S.''). The strength of demographic stochasticity decreases as landscape size increases because population sizes also increase. Error bars represent the upper and lower 95\% quantiles from model simulations.}
 \end{figure}
 
 \pagebreak{}

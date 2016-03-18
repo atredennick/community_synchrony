@@ -284,7 +284,7 @@ Removing environmental fluctuations ("No E.S" simulations) decreased synchrony b
 Only in Idaho did removing environmental fluctuations cause an increase in synchrony (Fig. 1), but the effect was small (9% increase; Table S1).
 Overall, species' temporal random effects in the statistical vital rate models are positively correlated (Table S2).
 Species interactions are weak in these communities [Table S3 and @Chu2015], and removing interspecific competition had little effect on synchrony (Fig. 1; "No Comp." simulations).
-Removing competition caused, at most, a 5% change in synchrony (Table S2).
+Removing competition caused, at most, a 5% change in synchrony (Fig. 1).
 Removing demographic stochasticity ("No D.S." simulations) caused synchrony to increase slightly in all communities (Fig. 1), with an average 6% increase over synchrony from IBM simulations on a five meter area.
 The desynchronizing effect of demographic stochasticity modestly counteracted the synchronizing force of the environment, but not enough to lower synchrony to the level observed when only demographic stochasticity is operating (Fig. 2).
 For all five communities, the synchrony of species' growth rates in monoculture almost perfectly matched species synchrony in polyculture (Fig. 3).
@@ -572,7 +572,7 @@ xtable_data <- table_data[myorder,]
 # table_data[,3] <- round(1/table_data[,ncol(table_data)],2) # reset expected sybchrony to 1/S
 # table_data[,4] <- table_data[,2] - table_data[,3] # calculate obs - exp synchrony
 
-synch_cap <- "Observed synchrony among species' per capita growth rates ($\\phi_{r}$), observed synchrony among species' percent cover ($\\phi_{C}$), the coefficient of variation of total community cover, and species richness for each community. Species richness values reflect the number of species analyzed from the community, not the actual richness."
+synch_cap <- "Observed synchrony among species' per capita growth rates ($\\phi_{R}$), observed synchrony among species' percent cover ($\\phi_{C}$), the coefficient of variation of total community cover, and species richness for each community. Species richness values reflect the number of species analyzed from the community, not the actual richness."
 print(xtable(xtable_data, caption = synch_cap),
       caption.placement="top",
       include.rownames = F, 
