@@ -152,7 +152,7 @@ saveRDS(plot_df, "../results/allsims_plot_data.RDS")
 
 ##  Make demographic stochasiticty plot for all landscape sizes -----
 ibm_demo_rms <- subset(ibm_synch_agg, typesynch=="Per capita growth rate")
-ibm_demo_rms <- ibm_demo_rms[which(ibm_demo_rms$experiment %in% c("fluctinter", "constinter")),]
+ibm_demo_rms <- ibm_demo_rms[which(ibm_demo_rms$experiment %in% c("fluctnointer", "constnointer")),]
 ibm_demo_rms[which(ibm_demo_rms$site == "NewMexico"),"site"] <- "1New Mexico"
 ibm_demo_rms[which(ibm_demo_rms$site == "Arizona"),"site"] <- "2Arizona"
 ibm_demo_rms[which(ibm_demo_rms$site == "Kansas"),"site"] <- "3Kansas"
@@ -170,7 +170,7 @@ ggplot(ibm_demo_rms, aes(x=expansion, y=avg_synch, color=site))+
   xlab(expression(paste("Simulated Area (", m^2,")")))+
   ylab("Synchrony of Species' Growth Rates")+
   scale_y_continuous(limits=c(0,1))+
-  scale_shape_discrete(name="",labels=c("No E.S", "All Drivers"))+
+  scale_shape_discrete(name="",labels=c("D.S. Only", "D.S + E.S."))+
   # scale_linetype_discrete(name="",labels=c("No E.S", "All Drivers"))+
   guides(color=FALSE)+
   theme_few()+
