@@ -60,7 +60,7 @@ opts_chunk$set(dev='pdf')
 
 \vspace{2em}
 
-\textit{Keywords}: synchrony, compensatory dynamics, environmental stochasticity, demographic stochasticity, interspecific competition, stability
+\textbf{Keywords}: synchrony, compensatory dynamics, environmental stochasticity, demographic stochasticity, interspecific competition, stability
 
 \vspace{2em}
 
@@ -72,7 +72,7 @@ opts_chunk$set(dev='pdf')
 
 \textbf{Number of Words}: Abstract = ; Main Text = 
 
-\textbf{Number of References}: 
+\textbf{Number of References}: 46
 
 \textbf{Number of Tables and Figures}:  3 Tables;  3 Figures
 
