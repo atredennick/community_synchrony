@@ -268,7 +268,8 @@ Parameterizing Equation 2 does not require simulation output because the only pa
 Second, simulations (5) and (6) represent the simulated version of our limiting case theoretical predictions.
 Thus, we directly test the theoretical predictions by comparing them to observed synchrony and simulated synchrony.
 
-### Results
+RESULTS
+-------
 Synchrony of species' per capita growth rates at our study sites ranged from 0.36 to 0.89 and synchrony of percent cover ranged from 0.15 to 0.92 (Table 2).
 Synchrony tended to be higher in communities with few species (Arizona and New Mexico) and/or with relatively high temporal variability in percent cover (e.g., Montana).
 Synchrony was lowest in Idaho, the only data set that includes two life forms: a shrub and three perennial grasses (Table 1).
