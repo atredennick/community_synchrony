@@ -279,8 +279,8 @@ Supporting Figures
 ------------------
 \begin{figure}[!ht]
   \centering
-      \includegraphics[width=4in]{./components/figureS1.pdf}
-  \caption{Observed (vertical dashed lines) and simulated (solid density curves) synchrony of species per capita growth rates at each site from the IPM (left panels) and the IBM (right panels). IPM density curves come from 100 random contiguous sections from 2,000 iteration IPM runs, where the length of each randomly selected section is equal to the numnber of observation years for each data set. IBM density curves come from 100 replicate simulations of 75 iterations each. Synchrony values come from simulations where environmental stochasticity and interspecific interactions are present. The IBM was run on a 5 by 5 meter landscape to reduce the effect of demographic stochasticity.}
+      \includegraphics[width=6in]{./components/figureS1.png}
+  \caption{Observed (vertical dashed lines) and simulated (solid density curves) synchrony of species per capita growth rates at each site from the IBM (top panels) and the IPM (bottom panels). IPM density curves come from 100 random contiguous sections from 2,000 iteration IPM runs, where the length of each randomly selected section is equal to the numnber of observation years for each data set. IBM density curves come from 100 replicate simulations of 75 iterations each. Synchrony values come from simulations where environmental stochasticity and interspecific interactions are present. The IBM was run on a 5 by 5 meter landscape to reduce the effect of demographic stochasticity.}
 \end{figure}
 
 \pagebreak{}
