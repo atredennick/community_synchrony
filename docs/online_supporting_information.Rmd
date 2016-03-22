@@ -15,7 +15,7 @@ csl: components/ecology.csl
 output:
   pdf_document:
     fig_caption: true
-    keep_tex: true
+    keep_tex: false
 fontsize: 12pt
 geometry: margin=1in
 linkcolor: black
@@ -670,14 +670,19 @@ df$vitalrate <- sapply(pieces, "[", 1)
 sites <- sapply(pieces, "[", 2)
 df$site <- substr(sites, start = 1, stop = nchar(sites)-1)
 df$interintra <- substr(sites, start = nchar(sites), stop = nchar(sites))
-avg_interintra <- ddply(df, .(site, interintra), summarise,
-                        avg_val = mean(value))
-avg_interintra[which(avg_interintra$interintra==1),"interintra"] <- "Interspecific Competition"
-avg_interintra[which(avg_interintra$interintra==2),"interintra"] <- "Intraspecific Competition"
-interintra_table <- dcast(avg_interintra, site~interintra, value.var = "avg_val")
 
-comp_cap <- "Average interaction coefficients across vital rates for each community."
-print(xtable(interintra_table, caption = comp_cap),
+dftable <- dcast(df, site+interintra~vitalrate, value.var = "value")
+colnames(dftable) <- c("Site", "Interaction Type", "Growth", "Recruitment", "Survival")
+dftable[which(dftable$`Interaction Type`==1),"Interaction Type"] <- "Interspecific"
+dftable[which(dftable$`Interaction Type`==2),"Interaction Type"] <- "Intraspecific"
+# avg_interintra <- ddply(df, .(site, interintra), summarise,
+#                         avg_val = mean(value))
+# avg_interintra[which(avg_interintra$interintra==1),"interintra"] <- "Interspecific Competition"
+# avg_interintra[which(avg_interintra$interintra==2),"interintra"] <- "Intraspecific Competition"
+# interintra_table <- dcast(avg_interintra, site~interintra, value.var = "avg_val")
+
+comp_cap <- "Average interaction coefficients for each vital rate for each community."
+print(xtable(dftable, caption = comp_cap, digits=4),
   caption.placement="top",
   include.rownames = FALSE, 
   sanitize.colnames.function = identity,
