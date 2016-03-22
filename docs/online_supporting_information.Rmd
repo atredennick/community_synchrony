@@ -15,7 +15,7 @@ csl: components/ecology.csl
 output:
   pdf_document:
     fig_caption: true
-    keep_tex: false
+    keep_tex: true
 fontsize: 12pt
 geometry: margin=1in
 linkcolor: black
@@ -198,7 +198,7 @@ Under such constraints, the synchrony of of species' biomasses is
 Materials and methods details
 -----------------------------
 ### Vital rate statistical models
-We modeled survival probability and growth on individual genets as a function of genet size, the crowding experienced by the focal genet from both heterospecific and conspecific genets in its neighborhood (described below), temporal varation among years, and spatial variation among quadrat groups. Groups are sets of quadrats located in close proximity within a pasture or grazing exclosure).
+We modeled survival probability and growth on individual genets as a function of genet size, the crowding experienced by the focal genet from both heterospecific and conspecific genets in its neighborhood (described below), temporal varation among years, and spatial variation among quadrat groups. Groups are sets of quadrats located in close proximity within a pasture or grazing exclosure.
 
 We follow the approach of @Chu2015 to estimate crowding, assuming that the crowding experienced by a focal genet depends on distance to each neighbor genet and the neighbor's size, _u_:
 
@@ -747,7 +747,8 @@ for(do_vital in names(vital_mat_list)){
   for(do_site in names(tmp_list)){
     site_list <- tmp_list[[do_site]]
     synch_cap <- paste0("Interaction coefficients for ", do_vital, " regressions in ", do_site, ".")
-    print(xtable(site_list, caption = synch_cap),
+    # digitvec <- rep(3,ncol(site_list))
+    print(xtable(site_list, caption = synch_cap, digits = 4),
       caption.placement="top",
       include.rownames = TRUE, 
       sanitize.colnames.function = identity,
