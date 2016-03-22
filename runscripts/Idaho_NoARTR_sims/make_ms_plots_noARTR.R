@@ -100,6 +100,7 @@ plot_df <- data.frame(site = rep(site_labels, times=length(sim_names)),
                       upper_synch = all_ups,
                       lower_synch = all_downs)
 
+sim_labels <- sim_names[order(sim_names_order)]
 ##  Make the main (all sims) plot -----
 ggplot(plot_df, aes(x=simulation, y=synchrony, fill=site, color=site))+
   geom_bar(stat="identity")+
@@ -109,14 +110,16 @@ ggplot(plot_df, aes(x=simulation, y=synchrony, fill=site, color=site))+
   scale_color_manual(values=site_colors, labels=site_labels, name="")+
   xlab("Simulation Experiment")+
   ylab("Synchrony of Species' Growth Rates")+
-  scale_x_discrete(labels=sim_names)+
+  scale_x_discrete(labels=sim_labels)+
   scale_y_continuous(limits=c(0,1))+
   theme_few()+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
   guides(fill=FALSE,color=FALSE)
 
 ggsave("../../docs/components/all_sims_supp_noARTR.png", width = 4, height = 4, units="in", dpi=75)
-  
+ggsave("../../docs/components/formatted_figures/formatted_figureS4.png", width = 4, height = 4, units="in", dpi=75)  
+
+
 ##  Calculate percent differences for Results
 # plot_df$control <- rep(plot_df[which(plot_df$simulation=="1All Drivers"),"synchrony"], times=nrow(plot_df)/nsites)
 # plot_df$percent_diff <- with(plot_df, abs(synchrony-control)/((synchrony+control)/2)*100)

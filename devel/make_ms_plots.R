@@ -10,6 +10,10 @@ library(communitySynchrony)
 site_colors <- c("grey45", "steelblue", "slateblue4", "darkorange", "purple")
 
 
+
+####
+####  MAIN TEXT FIGURES 1-2
+####
 ##  Read in IPM results ---------
 output_list <- readRDS("../results/ipm_comp_nocomp_sims.RDS")
 mlist <- melt(output_list)
@@ -159,12 +163,12 @@ ibm_demo_rms[which(ibm_demo_rms$site == "Kansas"),"site"] <- "3Kansas"
 ibm_demo_rms[which(ibm_demo_rms$site == "Montana"),"site"] <- "4Montana"
 ibm_demo_rms[which(ibm_demo_rms$site == "Idaho"),"site"] <- "5Idaho"
 
-ggplot(ibm_demo_rms, aes(x=expansion, y=avg_synch, color=site))+
+ggplot(ibm_demo_rms, aes(x=(expansion^2), y=avg_synch, color=site))+
   geom_hline(data=theoretical_preds_and_obs, aes(yintercept=envonly_pred), color="grey15", linetype=3)+
   geom_hline(data=theoretical_preds_and_obs, aes(yintercept=demonly_pred), color="grey15", linetype=2)+
   geom_line(aes(group=experiment))+
   geom_point(aes(shape=experiment), size=3)+
-  geom_errorbar(aes(ymin=lo_synch, ymax=up_synch), width=0.25)+
+  geom_errorbar(aes(ymin=lo_synch, ymax=up_synch), width=1.5)+
   facet_wrap("site", nrow=1)+
   scale_color_manual(values=site_colors, labels=site_labels, name="")+
   xlab(expression(paste("Simulated Area (", m^2,")")))+
@@ -177,10 +181,14 @@ ggplot(ibm_demo_rms, aes(x=expansion, y=avg_synch, color=site))+
   theme(legend.position=c(0.1,0.2),
         legend.background = element_rect(fill = NA))
 
-ggsave("../docs/components/ibm_sims_across_landscape.png", width = 10, height = 3, units="in", dpi=75)
+ggsave("../docs/components/ibm_sims_across_landscape.png", width = 12, height = 3, units="in", dpi=75)
 
 
 
+
+####
+####  SUPPLEMENTAL FIGURES 2-3
+####
 ##  Make supplement plots for percent cover ------------
 ipm_synch_all <- ddply(synch_df, .(site, experiment, typesynch), summarise,
                        mean_synch = mean(synch),
@@ -241,6 +249,16 @@ plot_df <- data.frame(site = rep(site_labels_order, times=length(sim_names)),
 site_labels <- site_labels[order(site_labels_order)]
 sim_labels <- sim_names[order(sim_names_order)]
 
+# Bring in theoretical predictions and observed values
+theory_env <- readRDS("../results/envstoch_predictions.RDS")
+theory_env <- theory_env[2:nrow(theory_env), c("site", "cover_prediction")]
+metrics <- readRDS("../results/calculate_site_metrics.RDS")
+theory_demo <- metrics[,c("demo_only_exp_coversynch", "obs_cover_synch", "site")]
+theory_demo[which(theory_demo$site=="New Mexico"),"site"] <- "NewMexico"
+theoretical_preds_and_obs <- merge(theory_env, theory_demo)
+colnames(theoretical_preds_and_obs) <- c("site", "envonly_pred", "demonly_pred", "obs")
+theoretical_preds_and_obs$site <- site_labels_order
+
 ##  Make the main (all sims) plot -----
 pointocols <- rep("grey25",3)
 ggplot(data=plot_df)+
@@ -251,11 +269,17 @@ ggplot(data=plot_df)+
                 color="white", size=1, width=0.25)+
   geom_errorbar(data=plot_df, aes(x=simulation, y=synchrony, fill=site, color=site, 
                                   ymin=lower_synch, ymax=upper_synch), width=0.25)+
+  geom_point(data=theoretical_preds_and_obs, aes(x=3, y=obs), size=3.5, color="white", shape=15)+
+  geom_point(data=theoretical_preds_and_obs, aes(x=3, y=obs), size=3, color=pointocols[1], shape=15)+
+  geom_point(data=theoretical_preds_and_obs, aes(x=2, y=envonly_pred), size=3.5, color="white", shape=16)+
+  geom_point(data=theoretical_preds_and_obs, aes(x=2, y=envonly_pred), size=3, color=pointocols[2], shape=16)+
+  geom_point(data=theoretical_preds_and_obs, aes(x=6, y=demonly_pred), size=3.5, color="white", shape=17)+
+  geom_point(data=theoretical_preds_and_obs, aes(x=6, y=demonly_pred), size=3, color=pointocols[3], shape=17)+
   facet_wrap("site", nrow=1)+
   scale_fill_manual(values=site_colors, labels=site_labels, name="")+
   scale_color_manual(values=site_colors, labels=site_labels, name="")+
   xlab("Simulation Experiment")+
-  ylab("Synchrony of Species' Growth Rates")+
+  ylab("Synchrony of Species' Percent Cover")+
   scale_x_discrete(labels=sim_labels)+
   scale_y_continuous(limits=c(0,1))+
   theme_few()+
@@ -274,16 +298,16 @@ ibm_demo_rms[which(ibm_demo_rms$site == "Kansas"),"site"] <- "3Kansas"
 ibm_demo_rms[which(ibm_demo_rms$site == "Montana"),"site"] <- "4Montana"
 ibm_demo_rms[which(ibm_demo_rms$site == "Idaho"),"site"] <- "5Idaho"
 
-ggplot(ibm_demo_rms, aes(x=expansion, y=avg_synch, color=site))+
-  # geom_hline(data=theoretical_preds_and_obs, aes(yintercept=envonly_pred), color="grey15", linetype=3)+
-  # geom_hline(data=theoretical_preds_and_obs, aes(yintercept=demonly_pred), color="grey15", linetype=2)+
+ggplot(ibm_demo_rms, aes(x=(expansion^2), y=avg_synch, color=site))+
+  geom_hline(data=theoretical_preds_and_obs, aes(yintercept=envonly_pred), color="grey15", linetype=3)+
+  geom_hline(data=theoretical_preds_and_obs, aes(yintercept=demonly_pred), color="grey15", linetype=2)+
   geom_line(aes(group=experiment))+
   geom_point(aes(shape=experiment), size=3)+
-  geom_errorbar(aes(ymin=lo_synch, ymax=up_synch), width=0.25)+
+  geom_errorbar(aes(ymin=lo_synch, ymax=up_synch), width=2)+
   facet_wrap("site", nrow=1)+
   scale_color_manual(values=site_colors, labels=site_labels, name="")+
   xlab(expression(paste("Simulated Area (", m^2,")")))+
-  ylab("Synchrony of Species' Growth Rates")+
+  ylab("Synchrony of Species' Percent Cover")+
   scale_y_continuous(limits=c(0,1))+
   scale_shape_discrete(name="",labels=c("D.S. Only", "D.S + E.S."))+
   # scale_linetype_discrete(name="",labels=c("No E.S", "All Drivers"))+

@@ -275,15 +275,15 @@ Synchrony was lowest in Idaho, the only data set that includes two life forms: a
 For all five communities, species synchrony from IPM and IBM simulations closely approximated observed synchrony (Fig. S1).
 IBM-simulated synchrony is consistently, but only slightly, lower than IPM-simulated synchrony (Fig. S1), likely due to the desynchronizing effect of demographic stochasticity.
 
-Across the five communities, our limiting case predictions closely matched synchrony from the corresponding simulation experiment (Table 3).
+Across the five communities, our limiting case predictions closely matched synchrony from the corresponding simulation experiment (Table S1).
 The correlation between our analytical predictions and simulated synchrony was 0.97 for $\phi_{R,\mathcal{M}_D}$ and 0.997 for $\phi_{R,\mathcal{M}_E}$.
 The largest difference between predicted and simulated synchrony was 0.05 in New Mexico for $\phi_{R,\mathcal{M}_D}$ (Table 3).
 
 Simulation experiments revealed that removing environmental fluctuations has the largest impact on synchrony, leading to a reduction in synchrony of species growth rates in four out of five communities (Fig. 1).
 Removing environmental fluctuations ("No E.S" simulations) decreased synchrony by 33% in Arizona, 48% in Kansas, 39% in Montana, and 40% in New Mexico.
-Only in Idaho did removing environmental fluctuations cause an increase in synchrony (Fig. 1), but the effect was small (9% increase; Table S1).
-Overall, species' temporal random effects in the statistical vital rate models are positively correlated (Table S2).
-Species interactions are weak in these communities [Table S3 and @Chu2015], and removing interspecific competition had little effect on synchrony (Fig. 1; "No Comp." simulations).
+Only in Idaho did removing environmental fluctuations cause an increase in synchrony (Fig. 1), but the effect was small (9% increase; Table S2).
+Overall, species' temporal random effects in the statistical vital rate models are positively correlated (Table S3).
+Species interactions are weak in these communities [Table S4 and @Chu2015], and removing interspecific competition had little effect on synchrony (Fig. 1; "No Comp." simulations).
 Removing competition caused, at most, a 5% change in synchrony (Fig. 1).
 Removing demographic stochasticity ("No D.S." simulations) caused synchrony to increase slightly in all communities (Fig. 1), with an average 6% increase over synchrony from IBM simulations on a five meter area.
 The desynchronizing effect of demographic stochasticity, which increases as population size decreases, modestly counteracted the synchronizing force of the environment, but not enough to lower synchrony to the level observed when only demographic stochasticity is operating (Fig. 2).
@@ -584,39 +584,6 @@ print(xtable(xtable_data, caption = synch_cap),
 
 \pagebreak{}
 
-```{r prediction_table, echo=FALSE, include=TRUE, results='asis', message=FALSE, eval=T, cache=FALSE}
-exp_synchrony_env <- readRDS("../results/envstoch_predictions.RDS")
-exp_synchrony_env <- exp_synchrony_env[complete.cases(exp_synchrony_env),]
-exp_synchrony_demo <- alltable_data[,c("V2","V5")]
-exp_synchrony_demo$site <- table_data$Site
-colnames(exp_synchrony_demo) <- c("pgr", "cover", "site")
-sims_output <- readRDS("../results/allsims_plot_data.RDS")
-
-pred_table <- data.frame(site = table_data$Site,
-                         exp_demo = exp_synchrony_demo$pgr,
-                         sim_demo = round(subset(sims_output, simulation=="6No Comp. + No E.S.")["synchrony"],2),
-                         exp_env = round(exp_synchrony_env$growthrate_prediction,2),
-                         sim_env = round(subset(sims_output, simulation=="2No Comp. + No D.S.")["synchrony"],2))
-
-colnames(pred_table) <- c("Site", 
-                          "Predicted $\\phi_{R,\\mathcal{M}_D}$",
-                          "Simulated $\\phi_{R,\\mathcal{M}_D}$",
-                          "Predicted $\\phi_{R,\\mathcal{M}_E}$",
-                          "Simulated $\\phi_{R,\\mathcal{M}_E}$")
-
-myorder <- c(5,1,3,4,2)
-xpred_table <- pred_table[myorder,]
-pred_cap <- "Comparisons between our analytical predictions and simulation results for synchrony of species' per capita growth rates. Analytical predictions represent two limiting cases where only demographic stochasticity is operating ($\\phi_{R,\\mathcal{M}_D}$) and where only environmental stochasticity is operating ($\\phi_{R,\\mathcal{M}_E}$). Simulated synchrony values come from our empirically-based, multi-species population models when simulated under conditions that match the limiting case conditions (e.g., environmental stochasticity and competition removed for $\\mathcal{M}_D$)."
-print(xtable(xpred_table, caption = pred_cap),
-      caption.placement="top",
-      include.rownames = F, 
-      sanitize.colnames.function = identity,
-      comment=FALSE,
-      size="normalsize")
-```
-
-\pagebreak{}
-
 Figures
 -------
 
@@ -817,7 +784,7 @@ grid.arrange(g1,g2,ncol=2)
 \begin{figure}[!ht]
   \centering
       \includegraphics[width=6in]{./components/formatted_figures/formatted_figure1.png}
-  \caption{Community-wide species synchrony of per capita growth rates from model simulation experiments. Synchrony of species' growth rates for each study area are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific competition present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific competition removed (``No Comp.''), interspecific competition and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific competition and environmental stochasticity removed (``No Comp. + No E.S.''). Abbreviations within the bars for the Arizona site indicate whether the IBM or IPM was used for a particular simulation. Error bars represent the upper and lower 95\% quantiles from model simulations. Points show observed and predicted synchrony aligned with the model simulation that corresponds with each observation or analytical predicion.}
+  \caption{Community-wide species synchrony of per capita growth rates from model simulation experiments. Synchrony of species' growth rates for each study area are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific competition present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific competition removed (``No Comp.''), interspecific competition and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific competition and environmental stochasticity removed (``No Comp. + No E.S.''). Abbreviations within the bars for the New Mexico site indicate whether the IBM or IPM was used for a particular simulation. Error bars represent the upper and lower 95\% quantiles from model simulations. Points show observed and predicted synchrony aligned with the model simulation that corresponds with each observation or analytical predicion.}
 \end{figure}
 
 \pagebreak{}
