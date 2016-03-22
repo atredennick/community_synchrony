@@ -42,7 +42,7 @@ opts_chunk$set(dev='pdf')
 \begin{singlespace}
 
 \begin{center}
-\large{\textbf{Environmental responses, not species interactions, determine species synchrony in five natural plant communities}}
+\large{\textbf{Environmental responses, not species interactions, determine species synchrony in natural plant communities}}
 
 \renewcommand*{\thefootnote}{\fnsymbol{footnote}}
 
@@ -242,8 +242,8 @@ This retains intraspecific interactions, and thus density-dependence, and result
 To remove the effect of a fluctuating environment, we removed the temporal (interannual) random effects from the regression equations.
 To remove the effect of demographic stochasticity, we use the IPM rather than the IBM because the IPM does not include demographic stochasticity (demographic stochasticity cannot be removed from the IBM).
 Since the effect of demographic stochasticity on population dynamics depends on population size [@Lande2003], we can control the strength of demographic stochasticity by simulating the IBM on areas (e.g. plots) of different size.
-\textcolor{red}{Indeed, results from an IBM with infinite population size would equal results from the IPM.
-Given computational constraints, the largest landscape we simulate is a 5 square meter plot.}
+Indeed, results from an IBM with infinite population size would equal results from the IPM.
+Given computational constraints, the largest landscape we simulate is a 25 $\text{m}^2$ plot.
 
 We conducted the following six simulation experiments:
 (1) IBM: All drivers (environmental stochasticity, demographic stochasticity, or interspecific competition) present;
@@ -286,8 +286,8 @@ Overall, species' temporal random effects in the statistical vital rate models a
 Species interactions are weak in these communities [Table S3 and @Chu2015], and removing interspecific competition had little effect on synchrony (Fig. 1; "No Comp." simulations).
 Removing competition caused, at most, a 5% change in synchrony (Fig. 1).
 Removing demographic stochasticity ("No D.S." simulations) caused synchrony to increase slightly in all communities (Fig. 1), with an average 6% increase over synchrony from IBM simulations on a five meter area.
-\textcolor{red}{The desynchronizing effect of demographic stochasticity, which increases as population size decreases, modestly counteracted the synchronizing force of the environment, but not enough to lower synchrony to the level observed when only demographic stochasticity is operating (Fig. 2).
-Synchrony from simulations with demographic and environmental stochasticity decreased as the simulated area decreased, representing a shift from synchrony being driven by environmental responses (e.g., $\mathcal{M}_E$) to being driven by a combination of demographic and environmental stochasticity (e.g., between $\mathcal{M}_E$ and $\mathcal{M}_D$).}
+The desynchronizing effect of demographic stochasticity, which increases as population size decreases, modestly counteracted the synchronizing force of the environment, but not enough to lower synchrony to the level observed when only demographic stochasticity is operating (Fig. 2).
+Synchrony from simulations with demographic and environmental stochasticity decreased as the simulated area decreased, representing a shift from synchrony being driven by environmental responses (e.g., $\mathcal{M}_E$) to being driven by a combination of demographic and environmental stochasticity (e.g., between $\mathcal{M}_E$ and $\mathcal{M}_D$).
 For all five communities, the synchrony of species' growth rates in monoculture almost perfectly matched species synchrony in polyculture (Fig. 3).
 Results for synchrony of percent cover are qualitatively similar (Figs. S2-S3) but more variable, as expected by theory [@Loreau2008a].
 
@@ -309,11 +309,11 @@ These results confirm the theoretical argument by @Loreau2008a that independent 
 Only in the Idaho community does synchrony of per capita growth rates approach $\mathcal{M}_D$ in a non-constant environment (Fig. 2).
 This is most likely due to the strong effect of demographic stochasticity on the shrub *Artemisia tripartita* since even a 5 $\text{m}^2$ quadrat would only contain a few individuals of that species.
 
-\textcolor{red}{Our analysis of how demographic stochasticity affects synchrony across population sizes also demonstrates that synchrony depends on the observation area.
+Our analysis of how demographic stochasticity affects synchrony across population sizes also demonstrates that synchrony depends on the observation area.
 As the observation area increases, population size increases and the desynchronizing effect of demographic stochasticity lessens (Fig. 2).
 Thus, our results suggest that community-wide species synchrony will increase as the observation area increases, rising from $\mathcal{M}_D$ to $\mathcal{M}_E$.
 Such a conclusion assumes, however, that species richness remains constant as observation area increases, which is unlikely [@Taylor1961].
-Recent theoretical work has begun to explore the linkage between ecosystem stability and spatial scale [@Wang2014; @Wang2016], and our results suggest that including demographic stochasticity in theoretical models of metacommunity dynamics may be important for understanding the role of species synchrony in determining ecosystem stability across spatial scales.}
+Recent theoretical work has begun to explore the linkage between ecosystem stability and spatial scale [@Wang2014; @Wang2016], and our results suggest that including demographic stochasticity in theoretical models of metacommunity dynamics may be important for understanding the role of species synchrony in determining ecosystem stability across spatial scales.
 
 
 ### Environmental fluctuations drive community synchrony
@@ -366,10 +366,10 @@ CONCLUSIONS
 -----------
 Species-specific responses to temporally fluctuating environmental conditions is an important mechanism underlying asynchronous population dynamics and, in turn, ecosystem stability [@Loreau2013].
 When we removed environmental variation, we found that synchrony decreased in four out of the five grassland communities we studied (Fig. 2).
-\textcolor{blue}{A tempting conclusion is that our study confirms that compensatory dynamics are rare in natural communities, and that ecologically-similar species will exhibit synchronous dynamics [e.g., @Houlahan2007].
+A tempting conclusion is that our study confirms that compensatory dynamics are rare in natural communities, and that ecologically-similar species will exhibit synchronous dynamics [e.g., @Houlahan2007].
 Such a conclusion is only half correct.
 The perennial grasses we studied do have similar responses to the environment (Table S2), which will tend to synchronize dynamics.
-However, if community-wide species synchrony is less than 1, as it is in all our focal communities, some degree of compensatory dynamics must be present [@Loreau2008a].}
+However, if community-wide species synchrony is less than 1, as it is in all our focal communities, some degree of compensatory dynamics must be present [@Loreau2008a].
 In agreement with other studies [@Rocha2011; @Vasseur2014], we find that environmental responses are primarily responsible for the degree of synchrony among ecologically-similar species.
 Such a conclusion is in contrast to a recent analysis of several biodiversity-ecosystem functioning experiments showing that competition drives community synchrony [@Gross2014].
 Recently assembled communities, such as experimental plots, may exhibit strong species interactions that will weaken over time [@Kokkoris1999].
@@ -378,7 +378,7 @@ Future research on the influence of community assembly on synchrony could reconc
 
 ACKNOWLEDGMENTS
 ---------------
-This work was funded by the National Science Foundation through a Postdoctoral Research Fellowship in Biology to ATT (DBI-1400370) and a CAREER award to PBA (DEB-1054040). CdM and ML were supported by the TULIP Laboratory of Excellence (ANR-10-LABX-41). We thank the original mappers of the permanent quadrats at each site and the digitizers in the Adler lab, without whom this work would not have been possible. Compute, storage and other resources from the Division of Research Computing in the Office of Research and Graduate Studies at Utah State University are gratefully acknowledged.
+This work was funded by the National Science Foundation through a Postdoctoral Research Fellowship in Biology to ATT (DBI-1400370) and a CAREER award to PBA (DEB-1054040). CdM and ML were supported by the TULIP Laboratory of Excellence (ANR-10-LABX-41). We thank the original mappers of the permanent quadrats at each site and the digitizers in the Adler lab, without whom this work would not have been possible. Compute, storage, and other resources from the Division of Research Computing in the Office of Research and Graduate Studies at Utah State University are gratefully acknowledged.
 
 \setlength{\parindent}{0ex}
 \newpage{}
