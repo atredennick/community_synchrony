@@ -1,24 +1,23 @@
 ---
-layout: 12pt
-header-includes:
-   - \usepackage{lineno}
-   - \linenumbers
-   - \usepackage{setspace}
-   - \usepackage{todonotes}
-   - \doublespacing
-   - \usepackage{color}
-   - \usepackage{rotating}
 bibliography: ~/Dropbox/Bibliography/CommunitySynchrony.bib
 csl: components/ecology.csl
-
-## rmarkdown render options
-output:
-  pdf_document:
-    fig_caption: true
-    keep_tex: false
 fontsize: 12pt
 geometry: margin=1in
+header-includes:
+- \usepackage{lineno}
+- \linenumbers
+- \usepackage{setspace}
+- \usepackage{todonotes}
+- \doublespacing
+- \usepackage{color}
+- \usepackage{rotating}
+layout: 12pt
 linkcolor: black
+output:
+  pdf_document:
+    fig_caption: yes
+    keep_tex: yes
+  word_document: default
 urlcolor: black
 ---
 
@@ -70,7 +69,7 @@ opts_chunk$set(dev='pdf')
 
 \textbf{Article Type}: Letter
 
-\textbf{Number of Words}: Abstract = ; Main Text = 
+\textbf{Number of Words}: Abstract = 138; Main Text = 4929 (including section titles and in-line citations)
 
 \textbf{Number of References}: 46
 
