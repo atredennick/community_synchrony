@@ -74,7 +74,7 @@ opts_chunk$set(dev='pdf')
 
 \textbf{Number of References}: 46
 
-\textbf{Number of Tables and Figures}:  3 Tables;  3 Figures
+\textbf{Number of Tables and Figures}:  2 Tables;  3 Figures
 
 \textbf{Corresponding Author}: \\
 \hspace{2em}Andrew Tredennick \\  
@@ -275,9 +275,9 @@ Synchrony was lowest in Idaho, the only data set that includes two life forms: a
 For all five communities, species synchrony from IPM and IBM simulations closely approximated observed synchrony (Fig. S1).
 IBM-simulated synchrony is consistently, but only slightly, lower than IPM-simulated synchrony (Fig. S1), likely due to the desynchronizing effect of demographic stochasticity.
 
-Across the five communities, our limiting case predictions closely matched synchrony from the corresponding simulation experiment (Table S1).
+Across the five communities, our limiting case predictions closely matched synchrony from the corresponding simulation experiment (Fig. 1 and Table S1).
 The correlation between our analytical predictions and simulated synchrony was 0.97 for $\phi_{R,\mathcal{M}_D}$ and 0.997 for $\phi_{R,\mathcal{M}_E}$.
-The largest difference between predicted and simulated synchrony was 0.05 in New Mexico for $\phi_{R,\mathcal{M}_D}$ (Table 3).
+The largest difference between predicted and simulated synchrony was 0.05 in New Mexico for $\phi_{R,\mathcal{M}_D}$ (Table S1).
 
 Simulation experiments revealed that removing environmental fluctuations has the largest impact on synchrony, leading to a reduction in synchrony of species growth rates in four out of five communities (Fig. 1).
 Removing environmental fluctuations ("No E.S" simulations) decreased synchrony by 33% in Arizona, 48% in Kansas, 39% in Montana, and 40% in New Mexico.
@@ -299,7 +299,7 @@ Results for synchrony of percent cover are qualitatively similar, but simulation
 DISCUSSION
 ----------
 Our study produced four main findings that were generally consistent across five natural plant communities: (1) limiting-case predictions from the theoretical model were well-supported by simulations from the empirical models; (2) demographic stochasticity decreased community synchrony, as expected by theory, and its effect was largest in small populations; (3) environmental fluctuations increased community synchrony relative to simulations in constant environments because species-specific responses to the environment were positively, though not perfectly, correlated; and (4) interspecific interactions were weak and therefore had little impact on community synchrony.
-We also found that analyses based on synchrony of species' percent cover were uninformative (Online Supporting Information), implying that it is difficult to decipher mechanisms of species synchrony from abundance time series, as expected by theory [@Loreau2008a].
+We also found that analyses based on synchrony of species' percent cover were uninformative (Figs. S2-S3), implying that it is difficult to decipher mechanisms of species synchrony from abundance time series, as expected by theory [@Loreau2008a].
 
 ### Simulations support theoretical predictions
 Our theoretical predictions were derived from a simple model of population dynamics and required several simplifying assumptions, raising questions about their relevance to natural communities.
@@ -331,11 +331,13 @@ Our results lead us to conclude that environmental fluctuations, not species int
 Given accumulating evidence that niche differences in natural communities are large [reviewed in @Chu2015], and thus species interactions are likely to be weak, our results may be general in natural plant communities.
 
 In the Idaho community, removing environmental fluctuations did not cause a large decrease in synchrony.
-However, that result appears to be an artifact. Removing environmental variation results in a negative invasion growth rate for *A. tripartita*. Although we only analyzed IBM runs in which *A. tripartita* had not yet gone extinct, it was at much lower abundance than in the other simulation runs.
+However, that result appears to be an artifact. 
+Removing environmental variation results in a negative invasion growth rate for *A. tripartita*. 
+Although we only analyzed IBM runs in which *A. tripartita* had not yet gone extinct, it was at much lower abundance than in the other simulation runs.
 When we removed *A. tripartita* from all simulations, the Idaho results conformed with results from all other sites: removing environmental stochasticity caused a significant reduction in species synchrony (Fig. S4).
 Our main results for Idaho (Fig. 2), with *A. tripartita* included, demonstrate how the processes that determine species synchrony interact in complex ways.
-*A. tripartita* has a facilitative effect on each grass species across all vital rates, except for a small competitive effect on *H. comata*'s survival probability (Tables S4, S9, S14).
-At the same time, all the perennial grasses have negative effects on each other for each vital rate (Tables S4, S9, S14).
+*A. tripartita* has a facilitative effect on each grass species across all vital rates, except for a small competitive effect on *H. comata*'s survival probability (Tables S8-S10).
+At the same time, all the perennial grasses have negative effects on each other for each vital rate (Tables S8-S10).
 We know synchrony is affected by interspecific competition [@Loreau2008a], but how facilitative effects manifest themselves is unknown.
 The interaction of facilitation and competition is clearly capable of having a large effect on species synchrony, and future theoretical efforts should aim to include a wider range of species interactions.
 
