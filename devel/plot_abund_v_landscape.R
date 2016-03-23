@@ -3,6 +3,9 @@
 ##  From IBM simulations
 ##
 
+library(plyr)
+library(reshape2)
+
 rm(list=ls())
 
 totSims <- 50      # number of simulations per site 
@@ -37,7 +40,7 @@ rm(stringlist)
 
 
 output_df <- data.frame(experiment=NA, site=NA, expansion=NA, 
-                        run=NA, meanabund=NA)
+                        run=NA, meannum=NA)
 
 for(do_exp in unique(files_df$experiment)){
   exp_files <- files_df[which(files_df$experiment==do_exp),"filename"]
@@ -49,7 +52,7 @@ for(do_exp in unique(files_df$experiment)){
     for(i in 1:nsims){ # loop over plot size simulations
       tmp <- readRDS(as.character(tmp_files[i]))
       tmp <- as.data.frame(tmp, row.names = c(1:nrow(tmp)))
-      cover.columns <- grep("Cov.", colnames(tmp))
+      plantnum.columns <- grep("N.", colnames(tmp))
       
       # Get rid of ARTR column for Idaho, for now
       # if(do_site=="Idaho"){cover.columns <- cover.columns[2:length(cover.columns)]}
@@ -60,14 +63,14 @@ for(do_exp in unique(files_df$experiment)){
       
       for(jj in 1:nrow(end.tmp)){ # loop over simulations within plot size
         tmpjj <- subset(end.tmp, run==jj)
-        endcover <- tmpjj[,cover.columns]
+        endplantnum <- tmpjj[,plantnum.columns]
         
         # Set extinct to "yes" if no runs coexist
-        if(nrow(endcover)==0){extinct[jj]<-"yes"}
+        if(nrow(endplantnum)==0){extinct[jj]<-"yes"}
         
         # Nested if/then for coexistence runs
-        if(nrow(endcover)>0){
-          if(length(which(endcover==0))>0){extinct[jj]<-"yes"} 
+        if(nrow(endplantnum)>0){
+          if(length(which(endplantnum==0))>0){extinct[jj]<-"yes"} 
         } # end if/then for extinction flagging
         
       } # end loop for sims within plot size
@@ -88,15 +91,15 @@ for(do_exp in unique(files_df$experiment)){
         
         for(k in runs){ # loop over coexistence runs
           tmpsynch <- subset(tmp4synch, run==k)
-          ts.tmp <- tmpsynch[burn.in:totT,cover.columns]
+          ts.tmp <- tmpsynch[burn.in:totT,plantnum.columns]
           species_names <- unlist(strsplit(colnames(ts.tmp), "[.]"))
-          species_names <- species_names[species_names!="Cov"]
+          species_names <- species_names[species_names!="N"]
           num_spp <- ncol(ts.tmp)
           ts.tmp$timestep <- c(1:nrow(ts.tmp))
-          colids <- which(colnames(tmpsynch) %in% paste0("Cov.",species_names))
-          mean.abund <- colMeans(tmpsynch[burn.in:totT,colids])
+          colids <- which(colnames(tmpsynch) %in% paste0("N.",species_names))
+          mean.plantnum <- colMeans(tmpsynch[burn.in:totT,colids])
           tmpD <- data.frame(experiment=do_exp, site=do_site, expansion=i, 
-                             run=count, meanabund=mean.abund)
+                             run=count, meannum=mean.plantnum)
           output_df <- rbind(output_df, tmpD)
           count <- count+1
         } # end loop over coexistence runs
@@ -109,7 +112,14 @@ for(do_exp in unique(files_df$experiment)){
   
 }# end experiment loop
 
+output_df <- output_df[2:nrow(output_df),]
+output_df$N <- output_df$meannum*(output_df$expansion^2)
+avg_plantnum <- ddply(output_df, .(site, expansion), summarise,
+                      value = mean(N))
+library(ggplot2)
+ggplot(avg_plantnum, aes(x=(expansion^2), y=value, color=site))+
+  geom_line()+
+  geom_point()
 
-
-
-
+avg_plantnum_oversite <- ddply(avg_plantnum, .(expansion), summarise,
+                               avg_value = mean(value))
