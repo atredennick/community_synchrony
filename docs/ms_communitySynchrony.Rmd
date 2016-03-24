@@ -174,7 +174,7 @@ Our second limiting case assumes only environmental stochasticity is operating. 
 Our prediction for this limiting case, $\mathcal{M}_{E}$, is 
 
 \begin{equation}
-\phi_{R,\mathcal{M}_{E}} = \frac{\sum_{i,j}p_ip_j\text{cov}(u_{ei},u_{ej})}{S^2}
+\phi_{R,\mathcal{M}_{E}} = \frac{\sum_{i,j}\text{cov}(u_{ei},u_{ej})}{S^2}
 \end{equation}
 
 \noindent{} for synchrony of per capita growth rates, where $\text{cov}(u_{ei},u_{ej})$ is the standardized covariance of environmental responses between species *i* and species *j*.

@@ -313,7 +313,7 @@ environmental variance is identical for all species. Our prediction for
 this limiting case, \(\mathcal{M}_{E}\), is
 
 \begin{equation}
-\phi_{R,\mathcal{M}_{E}} = \frac{\sum_{i,j}p_ip_j\text{cov}(u_{ei},u_{ej})}{S^2}
+\phi_{R,\mathcal{M}_{E}} = \frac{\sum_{i,j}\text{cov}(u_{ei},u_{ej})}{S^2}
 \end{equation}
 
 \noindent{} for synchrony of per capita growth rates, where
@@ -779,14 +779,6 @@ gratefully acknowledged.
 
 \setlength{\parindent}{0ex} \newpage{}
 
-\subsection{Table Titles}
-
-TABLE 1: Site descriptions and focal species.
-
-TABLE 2: Observed synchrony among species' per capita growth rates ($\phi_{R}$), observed synchrony among species' percent cover ($\phi_{C}$), the coefficient of variation of total community cover, and species richness for each community. Species richness values reflect the number of species analyzed from the community, not the actual richness.
-
-\newpage{}
-
 \subsection{Tables}\label{tables}
 
 \singlespacing
@@ -846,24 +838,12 @@ New Mexico & 0.86 & 0.92 & 0.51 &   2 \\
 
 \pagebreak{}
 
-\doublespacing
-\subsection{Figure Legends}
-
-FIGURE 1: Community-wide species synchrony of per capita growth rates from model simulation experiments. Synchrony of species' growth rates for each study area are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific competition present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific competition removed (``No Comp.''), interspecific competition and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific competition and environmental stochasticity removed (``No Comp. + No E.S.''). Abbreviations within the bars for the New Mexico site indicate whether the IBM or IPM was used for a particular simulation. Error bars represent the upper and lower 95\% quantiles from model simulations. All IBM simulations shown in this figure were run on a 25 $\text{m}^2$ virtual landscape. Points show observed and predicted synchrony aligned with the model simulation that corresponds with each observation or analytical prediction.
-
-FIGURE 2: Synchrony of species' growth rates for each study area from IBM simulations across different landscape sizes when only demographic stochastcity is present (``D.S. Only'') and when environmental stochasticity is also present removed (``D.S. + E.S.''). The horizontal lines show the analytical predictions $\mathcal{M}_D$ (dashed line) and $\mathcal{M}_E$ (dotted line). The strength of demographic stochasticity decreases as landscape size increases because population sizes also increase. Theoretically, ``D.S. Only'' simulations should remain constant across landscape size, whereas ``D.S. + E.S.'' simulations should shift from the $\mathcal{M}_D$ prediction to the $\mathcal{M}_E$ prediction as landscape size, and thus population size, increases, but only if demographic stochasticity it strong enough to counteract environmental forcing. Error bars represent the upper and lower 95\% quantiles from model simulations.
-
-FIGURE 3: Synchrony of species per capita growth rates simulated in large monocultures (IPM without species interactions) versus synchrony in large polycultures (IPM with species interactions). We used the same sequence of random year effects for both simulations (monoculture and polyculture) to mimic biodiversity-ecosystem functioning experiments. The dashed line is the line of equality. Simulation results in this figure are analogous to ``No Comp. + No D.S.'' (monocultures) and ``No D.S.'' (polycultures) in Fig. 1, but here we control the time series of random year effects.
-
-\newpage{}
-\singlespacing
-
 \subsection{Figures}\label{figures}
 
 \begin{figure}[!ht]
   \centering
       \includegraphics[width=6in]{./components/formatted_figures/formatted_figure1.png}
-  \caption{Community-wide species synchrony of per capita growth rates from model simulation experiments. Synchrony of species' growth rates for each study area are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific competition present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific competition removed (``No Comp.''), interspecific competition and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific competition and environmental stochasticity removed (``No Comp. + No E.S.''). Abbreviations within the bars for the New Mexico site indicate whether the IBM or IPM was used for a particular simulation. Error bars represent the upper and lower 95\% quantiles from model simulations. All IBM simulations shown in this figure were run on a 25 $\text{m}^2$ virtual landscape. Points show observed and predicted synchrony aligned with the model simulation that corresponds with each observation or analytical prediction.}
+  \caption{Community-wide species synchrony of per capita growth rates from model simulation experiments. Synchrony of species' growth rates for each study area are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific competition present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific competition removed (``No Comp.''), interspecific competition and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific competition and environmental stochasticity removed (``No Comp. + No E.S.''). Abbreviations within the bars for the New Mexico site indicate whether the IBM or IPM was used for a particular simulation. Error bars represent the upper and lower 95\% quantiles from model simulations. All IBM simulations shown in this figure were run on a 25 $\text{m}^2$ virtual landscape. Points show observed and predicted synchrony aligned with the model simulation that corresponds with each observation or analytical predicion.}
 \end{figure}
 
 \pagebreak{}
@@ -879,7 +859,7 @@ FIGURE 3: Synchrony of species per capita growth rates simulated in large monocu
 \begin{figure}[!ht]
   \centering
       \includegraphics[width=4in]{./components/formatted_figures/formatted_figure3.png}
-  \caption{Synchrony of species per capita growth rates simulated in large monocultures (IPM without species interactions) versus synchrony in large polycultures (IPM with species interactions). We used the same sequence of random year effects for both simulations (monoculture and polyculture) to mimic biodiversity-ecosystem functioning experiments. The dashed line is the line of equality. Simulation results in this figure are analogous to ``No Comp. + No D.S.'' (monocultures) and ``No D.S.'' (polycultures) in Fig. 1, but here we control the time series of random year effects.}
+  \caption{Synchrony of species per capita growth rates simulated in large monocultures (IPM without species interactions) versus synchrony in large polycultures (IPM with species interactions). We used the same sequence of random year effects for both simulations (monoculture and polyculture) to mimic biodiversity-ecosystem functioning experiments. The dashed line is the line of equality. Simulation results in this figure are analagous to ``No Comp. + No D.S.'' (monocultures) and ``No D.S.'' (polycultures) in Fig. 1, but here we control the time series of random year effects.}
 \end{figure}
 
 \pagebreak{}
@@ -978,7 +958,7 @@ Lehman, C. L., and D. Tilman. 2000. Biodiversity, Stability, and
 Productivity in Competitive Communities. The American Naturalist
 156:534--552.
 
-Loreau, M. 2010. From Polutations to Ecosystems: Theoretical Fondations
+Loreau, M. 2010. From Populations to Ecosystems: Theoretical Fondations
 for a New Ecological Synthesis.
 
 Loreau, M., and C. {{de Mazancourt}}. 2008. Species synchrony and its
@@ -1071,8 +1051,8 @@ temperate lake ecosystems. Proceedings. Biological sciences / The Royal
 Society 281:20140633.
 
 Vellend, M., L. Baeten, I. H. Myers-Smith, S. C. Elmendorf, R.
-Beauséjour, C. D. Brown, P. {De Frenne}, K. Verheyen, and S. Wipf. 2013.
-Global meta-analysis reveals no net change in local-scale plant
+Beaus{é}jour, C. D. Brown, P. {De Frenne}, K. Verheyen, and S. Wipf.
+2013. Global meta-analysis reveals no net change in local-scale plant
 biodiversity over time. Proceedings of the National Academy of Sciences
 of the United States of America 110:19456--9.
 

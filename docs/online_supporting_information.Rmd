@@ -176,7 +176,7 @@ Under such conditions, synchrony of population biomasses is
 \end{equation}
 
 \noindent where $p_i$ is the average frequency of species *i*, $p_i = N_i/N_T$.
-When all species have identical abundances and $p_i = 1/S$, where *S* is species richness, the both synchrony values equal 1/S [@Loreau2008a]. The prediction represented in Equation S20 is Equation 3 in the main text, which we refer to as $\phi_{R,\mathcal{M}_D}$.
+When all species have identical abundances and $p_i = 1/S$, where *S* is species richness, the both synchrony values equal 1/S [@Loreau2008a]. The prediction represented in Equation S19 is Equation 3 in the main text, which we refer to as $\phi_{R,\mathcal{M}_D}$.
 
 Another limiting case is where only environmental stochasticity is operating: no interspecific interactions, no demographic stochasticity, identical intrinsic growth rates, and environmental stochasticity with same standard deviation for all species.
 Under such constraints, the synchrony of of species' biomasses is
@@ -188,10 +188,10 @@ Under such constraints, the synchrony of of species' biomasses is
 \noindent{} and the synchrony of species' growth rates is
 
 \begin{equation}
-\phi_R = \frac{\sum_{i,j} p_i p_j \text{cov}(u_{ei}, u_{ej})}{S^2}
+\phi_R = \frac{\sum_{i,j} \text{cov}(u_{ei}, u_{ej})}{S^2}
 \end{equation}
 
-\noindent The prediction represented in Equation S22 is Equation 4 in the main text, which we refer to as $\phi_{R,\mathcal{M}_E}$. If we know the covariance matrix of the species environmental responses, we can calculate the above expectations directly. Note that the environmental responses are normalized in the above equations, therefore the covariances are correlations in the above equations.
+\noindent The prediction represented in Equation S21 is Equation 4 in the main text, which we refer to as $\phi_{R,\mathcal{M}_E}$. If we know the covariance matrix of the species environmental responses, we can calculate the above expectations directly. Note that the environmental responses are normalized in the above equations, therefore the covariances are correlations in the above equations.
 
 \newpage{}
 

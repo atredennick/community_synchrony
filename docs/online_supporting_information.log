@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  24 MAR 2016 10:31
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  24 MAR 2016 10:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1373,7 +1373,7 @@ mri12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmss8.pfb><
 /usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local
 /texlive/2013/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></usr/local/texlive/20
 13/texmf-dist/fonts/type1/public/lm/lmsy8.pfb>
-Output written on online_supporting_information.pdf (24 pages, 506326 bytes).
+Output written on online_supporting_information.pdf (24 pages, 506314 bytes).
 PDF statistics:
  456 PDF objects out of 1000 (max. 8388607)
  398 compressed objects within 4 object streams
