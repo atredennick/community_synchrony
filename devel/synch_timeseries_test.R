@@ -35,7 +35,7 @@ do_file <- fluctnointerfiles[grep("Idaho", fluctnointerfiles)][5]
 
 tmp <- readRDS(as.character(do_file))
 tmp <- as.data.frame(tmp, row.names = c(1:nrow(tmp)))
-cover.columns <- grep("Cov.", colnames(tmp))
+# cover.columns <- grep("Cov.", colnames(tmp))
 
 output_df <- data.frame(tslength=NA, run=NA, abund_synch=NA)
 
@@ -43,6 +43,7 @@ for(totT in totTvec){
   end.tmp <- subset(tmp, time==totT)
   extinct <- character(nrow(end.tmp))
   extinct[] <- "no" # creates extinct storage vector 
+  cover.columns <- grep("Cov.", colnames(tmp))
   
   for(jj in 1:nrow(end.tmp)){ # loop over simulations within plot size
     tmpjj <- subset(end.tmp, run==jj)
@@ -73,6 +74,7 @@ for(totT in totTvec){
     count <- 1 # set counter for indexing
     for(k in runs){ # loop over coexistence runs
       tmpsynch <- subset(tmp4synch, run==k)
+      cover.columns <- grep("Cov.", colnames(tmpsynch))
       ts.tmp <- tmpsynch[burn.in:totT,cover.columns]
       species_names <- unlist(strsplit(colnames(ts.tmp), "[.]"))
       species_names <- species_names[species_names!="Cov"]
@@ -87,6 +89,8 @@ for(totT in totTvec){
     } # end loop over coexistence runs
   } # end if/then for coexistence runs
 }
+
+matplot(tmpsynch[burn.in:totT,colids],type="l")
 
 output_df <- output_df[2:nrow(output_df),]
 
