@@ -14,10 +14,10 @@ header-includes:
 layout: 12pt
 linkcolor: black
 output:
+  word_document: default
   pdf_document:
     fig_caption: yes
     keep_tex: yes
-  word_document: default
 urlcolor: black
 ---
 
@@ -593,7 +593,6 @@ print(xtable(xtable_data, caption = synch_cap),
 
 Figures
 -------
-
 ```{r time_series_fig, echo=FALSE, include=TRUE, fig.width=8.5, fig.height=4, fig.cap="Observed time series of mean percent cover (averaged over quadrats for each year) and per capita growth rates for each species at each site. Panels are labeled by site codes: AZ = Arizona, ID = Idaho, KS = Kansas, MT = Montana, and NM = New Mexico.", eval=F}
 out_ks$percent_cover$site <- "Kansas"
 out_id$percent_cover$site <- "Idaho"

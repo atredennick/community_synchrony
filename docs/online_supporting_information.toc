@@ -2,11 +2,12 @@
 \contentsline {subsection}{Materials and methods details}{8}{section*.5}
 \contentsline {subsubsection}{Vital rate statistical models}{8}{section*.6}
 \contentsline {subsubsection}{Multi-species populations models}{9}{section*.7}
-\contentsline {subsection}{Supporting Figures}{11}{section*.8}
-\contentsline {subsection}{Supporting Tables}{15}{section*.9}
-\contentsline {subsubsection}{Interaction Coefficients for Vital Rates in Arizona}{19}{section*.10}
-\contentsline {subsubsection}{Interaction Coefficients for Vital Rates in Idaho}{20}{section*.11}
-\contentsline {subsubsection}{Interaction Coefficients for Vital Rates in Kansas}{21}{section*.12}
-\contentsline {subsubsection}{Interaction Coefficients for Vital Rates in Montana}{22}{section*.13}
-\contentsline {subsubsection}{Interaction Coefficients for Vital Rates in New Mexico}{23}{section*.14}
-\contentsline {subsection}{References}{24}{section*.15}
+\contentsline {subsection}{Results for synchrony of percent cover}{11}{section*.8}
+\contentsline {subsection}{Supporting Figures}{12}{section*.9}
+\contentsline {subsection}{Supporting Tables}{16}{section*.10}
+\contentsline {subsubsection}{Interaction Coefficients for Vital Rates in Arizona}{20}{section*.11}
+\contentsline {subsubsection}{Interaction Coefficients for Vital Rates in Idaho}{21}{section*.12}
+\contentsline {subsubsection}{Interaction Coefficients for Vital Rates in Kansas}{22}{section*.13}
+\contentsline {subsubsection}{Interaction Coefficients for Vital Rates in Montana}{23}{section*.14}
+\contentsline {subsubsection}{Interaction Coefficients for Vital Rates in New Mexico}{24}{section*.15}
+\contentsline {subsection}{References}{25}{section*.16}
