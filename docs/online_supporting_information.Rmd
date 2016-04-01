@@ -270,6 +270,24 @@ k_{j}(v_{j},u_{j},\bar{\bold{w_{j}}}) = S_j(u_j, \bar{\bold{w_{j}}}(u_{j}))G_j(v
 
 \newpage{}
 
+Results for synchrony of percent cover
+--------------------------------------
+Synchrony of percent cover from population model simulations did not compare well with observed synchrony of cover or analytical predictions for synchrony cover (Fig. S2, S3).
+We did not expect synchrony of percent cover from simulations to compare well with observed synchrony of cover because our models represent equilibrium dynamics rather than a specific set of observed years.
+Also, unlike growth rates, synchrony in cover is highly influenced by drift and legacy effects [@Loreau2008a].
+
+More interesting is that our simulation results did not compare well with analytical predictions.
+One issue is that some species are not well-regulated around their equilibrium cover, so that our linear approximation required for anayltical predictions is likely to fail.
+Analytical predictions for synchrony of growth rates are more informative than synchrony in population sizes because the linear approximation is more proximate.
+
+Another issue is the influence of demographic stochasticity in some communities, for example, in Idaho where our simulations with only demographic stochasticity yielded results far different from analytical predicitons (Fig. S2).
+Our analytical predictions require the unrealistic assumption that demographic variances among species are equal.
+However, in Idaho, *A. tripartita* has much higher demographic stochasticity than the other species, so that variation in its abundance dominates.
+Thus, the assumption that all species have similar stochasticity fails.
+In combination, our results from analyzing synchrony of percent cover indicate that the best way to decipher the mechanisms contributing to community synchrony is to analyze growth rates, in agreement with the theoretical arguments of @Loreau2008a.
+
+\newpage{}
+
 Supporting Figures
 ------------------
 \begin{figure}[!ht]
@@ -299,7 +317,7 @@ Supporting Figures
 \begin{figure}[!ht]
   \centering
       \includegraphics[width=3in]{./components/formatted_figures/formatted_figureS4.png}
-  \caption{Community-wide synchrony of species percent cover from model simulation experiments for the Idaho community with \textit{Artemisia tripartita} removed. Synchrony of species' percent cover for each study area are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific competition present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific competition removed (``No Comp.''), interspecific competition and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific competition and environmental stochasticity removed (``No Comp. + No E.S.''). Error bars represent the upper and lower 95\% quantiles from model simulations.}
+  \caption{Community-wide synchrony of species' growth rates from model simulation experiments for the Idaho community with \textit{Artemisia tripartita} removed. Synchrony of species' growth rates are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific competition present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific competition removed (``No Comp.''), interspecific competition and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific competition and environmental stochasticity removed (``No Comp. + No E.S.''). Error bars represent the upper and lower 95\% quantiles from model simulations.}
 \end{figure}
 
 \newpage{}

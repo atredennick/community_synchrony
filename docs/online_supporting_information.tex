@@ -233,7 +233,7 @@ The variance-covariance matrix of population biomasses at steady state
 then becomes
 
 \begin{equation}
-c_{ij} = \frac{B_{ij}}{1-A_{ii} A_{jj}} = \frac{N_{i}^* N_{j}^* \sigma_{ei} \sigma_{ej} \text{cov}(u_{ei},u_{ej}) + \sqrt{N_{i}^* N_{j}^*} \sigma_{di}\sigma_{dj} \text{cov}(u_{di},u_{dj})}{1 - (1-r_{mi})(1-r_{mj})}
+c_{ij} = \frac{B_{ij}}{1-A_ii A_jj} = \frac{N_{i}^* N_{j}^* \sigma_{ei} \sigma_{ej} \text{cov}(u_{ei},u_{ej}) + \sqrt{N_{i}^* N_{j}^*} \sigma_{di}\sigma_{dj} \text{cov}(u_{di},u_{dj})}{1 - (1-r_{mi})(1-r_{mj})}
 \end{equation}
 
 and the variance-covariance matrix of population growth rates simplifies
@@ -436,6 +436,42 @@ to incorporate the recruitment function in the spatially-implicit IPM.
 
 \newpage{}
 
+\subsection{Results for synchrony of percent
+cover}\label{results-for-synchrony-of-percent-cover}
+
+Synchrony of percent cover from population model simulations did not
+compare well with observed synchrony of cover or analytical predictions
+for synchrony cover (Fig. S2, S3). We did not expect synchrony of
+percent cover from simulations to compare well with observed synchrony
+of cover because our models represent equilibrium dynamics rather than a
+specific set of observed years. Also, unlike growth rates, synchrony in
+cover is highly influenced by drift and legacy effects (Loreau and {{de
+Mazancourt}} 2008).
+
+More interesting is that our simulation results did not compare well
+with analytical predictions. One issue is that some species are not
+well-regulated around their equilibrium cover, so that our linear
+approximation required for anayltical predictions is likely to fail.
+Analytical predictions for synchrony of growth rates are more
+informative than synchrony in population sizes because the linear
+approximation is more proximate.
+
+Another issue is the influence of demographic stochasticity in some
+communities, for example, in Idaho where our simulations with only
+demographic stochasticity yielded results far different from analytical
+predicitons (Fig. S2). Our analytical predictions require the
+unrealistic assumption that demographic variances among species are
+equal. However, in Idaho, \emph{A. tripartita} has much higher
+demographic stochasticity than the other species, so that variation in
+its abundance dominates. Thus, the assumption that all species have
+similar stochasticity fails. In combination, our results from analyzing
+synchrony of percent cover indicate that the best way to decipher the
+mechanisms contributing to community synchrony is to analyze growth
+rates, in agreement with the theoretical arguments of Loreau and {{de
+Mazancourt}} (2008).
+
+\newpage{}
+
 \subsection{Supporting Figures}\label{supporting-figures}
 
 \begin{figure}[!ht]
@@ -465,7 +501,7 @@ to incorporate the recruitment function in the spatially-implicit IPM.
 \begin{figure}[!ht]
   \centering
       \includegraphics[width=3in]{./components/formatted_figures/formatted_figureS4.png}
-  \caption{Community-wide synchrony of species' per capita growth rates from model simulation experiments for the Idaho community with \textit{Artemisia tripartita} removed. Synchrony of species' percent cover for each study area are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific competition present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific competition removed (``No Comp.''), interspecific competition and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific competition and environmental stochasticity removed (``No Comp. + No E.S.''). Error bars represent the upper and lower 95\% quantiles from model simulations.}
+  \caption{Community-wide synchrony of species' growth rates from model simulation experiments for the Idaho community with \textit{Artemisia tripartita} removed. Synchrony of species' growth rates are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific competition present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific competition removed (``No Comp.''), interspecific competition and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific competition and environmental stochasticity removed (``No Comp. + No E.S.''). Error bars represent the upper and lower 95\% quantiles from model simulations.}
 \end{figure}
 
 \newpage{}
@@ -480,17 +516,15 @@ to incorporate the recruitment function in the spatially-implicit IPM.
   \hline
 Site & Predicted $\phi_{R,\mathcal{M}_D}$ & Simulated $\phi_{R,\mathcal{M}_D}$ & Predicted $\phi_{R,\mathcal{M}_E}$ & Simulated $\phi_{R,\mathcal{M}_E}$ \\ 
   \hline
-New Mexico & 0.56 & 0.51 & 0.86 & 0.85 \\ 
-  Arizona & 0.51 & 0.52 & 0.82 & 0.81 \\ 
-  Kansas & 0.35 & 0.39 & 0.62 & 0.63 \\ 
+New Mexico & 0.56 & 0.51 & 0.86 & 0.86 \\ 
+  Arizona & 0.51 & 0.52 & 0.82 & 0.82 \\ 
+  Kansas & 0.35 & 0.39 & 0.62 & 0.62 \\ 
   Montana & 0.31 & 0.33 & 0.47 & 0.49 \\ 
   Idaho & 0.29 & 0.31 & 0.43 & 0.41 \\ 
    \hline
 \end{tabular}
 }
 \end{table}
-
-\newpage{}
 
 \begin{table}[ht]
 \centering
@@ -499,16 +533,14 @@ New Mexico & 0.56 & 0.51 & 0.86 & 0.85 \\
   \hline
 simulation & 1New Mexico & 2Arizona & 3Kansas & 4Montana & 5Idaho \\ 
   \hline
-1No D.S. & 5.00 & 4.94 & 7.13 & 4.42 & 10.10 \\ 
-  2No Comp. + No D.S. & 4.25 & 2.08 & 7.61 & 4.39 & 8.10 \\ 
+1No D.S. & 4.82 & 3.99 & 7.19 & 5.37 & 9.53 \\ 
+  2No Comp. + No D.S. & 4.74 & 2.70 & 6.81 & 4.53 & 7.69 \\ 
   4No Comp. & 0.98 & 0.06 & 4.84 & 1.01 & 0.11 \\ 
   5No E.S. & 40.14 & 33.20 & 47.84 & 38.52 & 9.28 \\ 
   6No Comp. + No E.S. & 45.95 & 41.48 & 38.21 & 33.07 & 20.33 \\ 
    \hline
 \end{tabular}
 \end{table}
-
-\newpage{}
 
 \begin{table}[ht]
 \centering
@@ -531,8 +563,6 @@ Arizona & intercept & 0.49 & -0.05 & 0.45 \\
 \end{tabular}
 \end{table}
 
-\newpage{}
-
 \begin{table}[ht]
 \centering
 \caption{Average interaction coefficients for each vital rate for each community.} 
@@ -554,10 +584,6 @@ Arizona & Interspecific & -0.0111 & -0.4430 & -0.0508 \\
 \end{tabular}
 \end{table}
 
-\newpage{}
-
-\subsubsection{Interaction Coefficients for Vital Rates in Arizona}
-
 \begin{table}[ht]
 \centering
 \caption{Interaction coefficients for growth regressions in Arizona.} 
@@ -569,39 +595,7 @@ BOER & -0.0033 & -0.0171 \\
   BORO & -0.0050 & -0.0772 \\ 
    \hline
 \end{tabular}
-\end{table}
-
-\begin{table}[ht]
-\centering
-\caption{Interaction coefficients for survival regressions in Arizona.} 
-\begin{tabular}{rrr}
-  \hline
- & BOER & BORO \\ 
-  \hline
-BOER & -0.2791 & -0.0816 \\ 
-  BORO & -0.0200 & -0.6101 \\ 
-   \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[ht]
-\centering
-\caption{Interaction coefficients for recruitment regressions in Arizona.} 
-\begin{tabular}{rrr}
-  \hline
- & BOER & BORO \\ 
-  \hline
-BOER & -0.5304 & -0.3063 \\ 
-  BORO & -0.5798 & -2.3237 \\ 
-   \hline
-\end{tabular}
-\end{table}
-
-\newpage{}
-
-\subsubsection{Interaction Coefficients for Vital Rates in Idaho}
-
-\begin{table}[ht]
+\end{table}\begin{table}[ht]
 \centering
 \caption{Interaction coefficients for growth regressions in Idaho.} 
 \begin{tabular}{rrrrr}
@@ -614,44 +608,7 @@ ARTR & -0.0300 & 0.0129 & 0.0117 & 0.0003 \\
   PSSP & -0.0003 & -0.0027 & -0.0004 & -0.0448 \\ 
    \hline
 \end{tabular}
-\end{table}
-
-\begin{table}[ht]
-\centering
-\caption{Interaction coefficients for survival regressions in Idaho.} 
-\begin{tabular}{rrrrr}
-  \hline
- & ARTR & HECO & POSE & PSSP \\ 
-  \hline
-ARTR & -0.0236 & -0.0202 & 0.0314 & 0.0158 \\ 
-  HECO & -0.0005 & -1.0206 & -0.0052 & 0.0125 \\ 
-  POSE & 0.0001 & 0.0006 & -0.9091 & 0.0121 \\ 
-  PSSP & 0.0009 & -0.0013 & 0.0246 & -0.1543 \\ 
-   \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[ht]
-\centering
-\caption{Interaction coefficients for recruitment regressions in Idaho.} 
-\begin{tabular}{rrrrr}
-  \hline
- & ARTR & HECO & POSE & PSSP \\ 
-  \hline
-ARTR & -0.4054 & 0.2132 & 0.0120 & 0.2389 \\ 
-  HECO & -0.5674 & -1.7722 & -0.1476 & -0.3184 \\ 
-  POSE & -0.2499 & -0.0328 & -2.2873 & -0.1448 \\ 
-  PSSP & -0.2580 & -0.1687 & 0.0365 & -1.7675 \\ 
-   \hline
-\end{tabular}
-\end{table}
-
-
-\newpage{}
-
-\subsubsection{Interaction Coefficients for Vital Rates in Kansas}
-
-\begin{table}[ht]
+\end{table}\begin{table}[ht]
 \centering
 \caption{Interaction coefficients for growth regressions in Kansas.} 
 \begin{tabular}{rrrr}
@@ -663,43 +620,7 @@ BOCU & -0.0017 & 0.0011 & 0.0010 \\
   SCSC & -0.0003 & 0.0007 & -0.0124 \\ 
    \hline
 \end{tabular}
-\end{table}
-
-\begin{table}[ht]
-\centering
-\caption{Interaction coefficients for survival regressions in Kansas.} 
-\begin{tabular}{rrrr}
-  \hline
- & BOCU & BOHI & SCSC \\ 
-  \hline
-BOCU & -0.1087 & 0.0006 & 0.0010 \\ 
-  BOHI & 0.0021 & -0.0403 & -0.0153 \\ 
-  SCSC & -0.0064 & -0.0066 & -0.0270 \\ 
-   \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[ht]
-\centering
-\caption{Interaction coefficients for recruitment regressions in Kansas.} 
-\begin{tabular}{rrrr}
-  \hline
- & BOCU & BOHI & SCSC \\ 
-  \hline
-BOCU & -1.1584 & -0.0242 & -0.0524 \\ 
-  BOHI & 0.3387 & -0.8620 & 0.0123 \\ 
-  SCSC & 0.0615 & -0.0308 & -0.9543 \\ 
-   \hline
-\end{tabular}
-\end{table}
-
-
-
-\newpage{}
-
-\subsubsection{Interaction Coefficients for Vital Rates in Montana}
-
-\begin{table}[ht]
+\end{table}\begin{table}[ht]
 \centering
 \caption{Interaction coefficients for growth regressions in Montana.} 
 \begin{tabular}{rrrrr}
@@ -712,9 +633,54 @@ BOGR & -0.0121 & -0.0002 & -0.0229 & -0.0014 \\
   POSE & 0.0005 & -0.0101 & -0.0404 & -0.1431 \\ 
    \hline
 \end{tabular}
-\end{table}
-
-\begin{table}[ht]
+\end{table}\begin{table}[ht]
+\centering
+\caption{Interaction coefficients for growth regressions in NewMexico.} 
+\begin{tabular}{rrr}
+  \hline
+ & BOER & SPFL \\ 
+  \hline
+BOER & -0.0045 & -0.0013 \\ 
+  SPFL & -0.0041 & -0.0176 \\ 
+   \hline
+\end{tabular}
+\end{table}\begin{table}[ht]
+\centering
+\caption{Interaction coefficients for survival regressions in Arizona.} 
+\begin{tabular}{rrr}
+  \hline
+ & BOER & BORO \\ 
+  \hline
+BOER & -0.2791 & -0.0816 \\ 
+  BORO & -0.0200 & -0.6101 \\ 
+   \hline
+\end{tabular}
+\end{table}\begin{table}[ht]
+\centering
+\caption{Interaction coefficients for survival regressions in Idaho.} 
+\begin{tabular}{rrrrr}
+  \hline
+ & ARTR & HECO & POSE & PSSP \\ 
+  \hline
+ARTR & -0.0236 & -0.0202 & 0.0314 & 0.0158 \\ 
+  HECO & -0.0005 & -1.0206 & -0.0052 & 0.0125 \\ 
+  POSE & 0.0001 & 0.0006 & -0.9091 & 0.0121 \\ 
+  PSSP & 0.0009 & -0.0013 & 0.0246 & -0.1543 \\ 
+   \hline
+\end{tabular}
+\end{table}\begin{table}[ht]
+\centering
+\caption{Interaction coefficients for survival regressions in Kansas.} 
+\begin{tabular}{rrrr}
+  \hline
+ & BOCU & BOHI & SCSC \\ 
+  \hline
+BOCU & -0.1087 & 0.0006 & 0.0010 \\ 
+  BOHI & 0.0021 & -0.0403 & -0.0153 \\ 
+  SCSC & -0.0064 & -0.0066 & -0.0270 \\ 
+   \hline
+\end{tabular}
+\end{table}\begin{table}[ht]
 \centering
 \caption{Interaction coefficients for survival regressions in Montana.} 
 \begin{tabular}{rrrrr}
@@ -727,9 +693,54 @@ BOGR & -0.1280 & 0.0211 & 0.1243 & 0.0173 \\
   POSE & 0.0010 & 0.0085 & 0.1198 & -1.2434 \\ 
    \hline
 \end{tabular}
-\end{table}
-
-\begin{table}[ht]
+\end{table}\begin{table}[ht]
+\centering
+\caption{Interaction coefficients for survival regressions in NewMexico.} 
+\begin{tabular}{rrr}
+  \hline
+ & BOER & SPFL \\ 
+  \hline
+BOER & -0.1575 & -0.0040 \\ 
+  SPFL & -0.0120 & -0.2807 \\ 
+   \hline
+\end{tabular}
+\end{table}\begin{table}[ht]
+\centering
+\caption{Interaction coefficients for recruitment regressions in Arizona.} 
+\begin{tabular}{rrr}
+  \hline
+ & BOER & BORO \\ 
+  \hline
+BOER & -0.5304 & -0.3063 \\ 
+  BORO & -0.5798 & -2.3237 \\ 
+   \hline
+\end{tabular}
+\end{table}\begin{table}[ht]
+\centering
+\caption{Interaction coefficients for recruitment regressions in Idaho.} 
+\begin{tabular}{rrrrr}
+  \hline
+ & ARTR & HECO & POSE & PSSP \\ 
+  \hline
+ARTR & -0.4054 & 0.2132 & 0.0120 & 0.2389 \\ 
+  HECO & -0.5674 & -1.7722 & -0.1476 & -0.3184 \\ 
+  POSE & -0.2499 & -0.0328 & -2.2873 & -0.1448 \\ 
+  PSSP & -0.2580 & -0.1687 & 0.0365 & -1.7675 \\ 
+   \hline
+\end{tabular}
+\end{table}\begin{table}[ht]
+\centering
+\caption{Interaction coefficients for recruitment regressions in Kansas.} 
+\begin{tabular}{rrrr}
+  \hline
+ & BOCU & BOHI & SCSC \\ 
+  \hline
+BOCU & -1.1584 & -0.0242 & -0.0524 \\ 
+  BOHI & 0.3387 & -0.8620 & 0.0123 \\ 
+  SCSC & 0.0615 & -0.0308 & -0.9543 \\ 
+   \hline
+\end{tabular}
+\end{table}\begin{table}[ht]
 \centering
 \caption{Interaction coefficients for recruitment regressions in Montana.} 
 \begin{tabular}{rrrrr}
@@ -742,43 +753,9 @@ BOGR & -0.8916 & -0.2522 & -0.1334 & 0.0610 \\
   POSE & 0.1577 & 0.4906 & 0.0709 & -1.7065 \\ 
    \hline
 \end{tabular}
-\end{table}
-
-
-
-\newpage{}
-
-\subsubsection{Interaction Coefficients for Vital Rates in New Mexico}
-
-\begin{table}[ht]
+\end{table}\begin{table}[ht]
 \centering
-\caption{Interaction coefficients for growth regressions in New Mexico.} 
-\begin{tabular}{rrr}
-  \hline
- & BOER & SPFL \\ 
-  \hline
-BOER & -0.0045 & -0.0013 \\ 
-  SPFL & -0.0041 & -0.0176 \\ 
-   \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[ht]
-\centering
-\caption{Interaction coefficients for survival regressions in New Mexico.} 
-\begin{tabular}{rrr}
-  \hline
- & BOER & SPFL \\ 
-  \hline
-BOER & -0.1575 & -0.0040 \\ 
-  SPFL & -0.0120 & -0.2807 \\ 
-   \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[ht]
-\centering
-\caption{Interaction coefficients for recruitment regressions in New Mexico.} 
+\caption{Interaction coefficients for recruitment regressions in NewMexico.} 
 \begin{tabular}{rrr}
   \hline
  & BOER & SPFL \\ 
@@ -788,8 +765,6 @@ BOER & -0.7631 & -0.6198 \\
    \hline
 \end{tabular}
 \end{table}
-
-
 
 \newpage{}
 
