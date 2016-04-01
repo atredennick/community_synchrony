@@ -292,13 +292,14 @@ At 1 $\text{m}^2$, synchrony reflected demographic stochasticity and environment
 For context, population sizes increased from an average of 17 individuals per community in 1 $\text{m}^2$ IBM simulations to an average of 357 individuals per community in 25 $\text{m}^2$ IBM simulations.
 
 For all five communities, the synchrony of species' growth rates in monoculture almost perfectly matched species synchrony in polyculture (Fig. 3).
-Results for synchrony of percent cover are qualitatively similar, but simulation results were more variable and less consistent with analytical predictions and observed synchrony (Figs. S2-S3).
+Results for synchrony of percent cover are qualitatively similar, but simulation results were more variable and less consistent with analytical predictions and observed synchrony (Online Supporting Information, Figs. S2-S3).
 
 
 DISCUSSION
 ----------
 Our study produced four main findings that were generally consistent across five natural plant communities: (1) limiting-case predictions from the theoretical model were well-supported by simulations from the empirical models; (2) demographic stochasticity decreased community synchrony, as expected by theory, and its effect was largest in small populations; (3) environmental fluctuations increased community synchrony relative to simulations in constant environments because species-specific responses to the environment were positively, though not perfectly, correlated; and (4) interspecific interactions were weak and therefore had little impact on community synchrony.
-We also found that analyses based on synchrony of species' percent cover were uninformative (Figs. S2-S3), implying that it is difficult to decipher mechanisms of species synchrony from abundance time series, as expected by theory [@Loreau2008a].
+We also found that analyses based on synchrony of species' percent cover, rather than growth rates, were uninformative (Figs. S2-S3) since the linear approximation required for analytical predictions is a stronger assumption for abundance than growth rates, especially given relatively short time-series (Online Supporting Information).
+Thus, our results provide further evidence that it is difficult to decipher mechanisms of species synchrony from abundance time series, as expected by theory [@Loreau2008a].
 
 ### Simulations support theoretical predictions
 Our theoretical predictions were derived from a simple model of population dynamics and required several simplifying assumptions, raising questions about their relevance to natural communities.
