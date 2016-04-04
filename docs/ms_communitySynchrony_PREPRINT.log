@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  4 APR 2016 09:57
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  4 APR 2016 10:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1283,6 +1283,16 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 98.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 102.
+LaTeX Font Info:    Try loading font information for T1+lmss on input line 149.
+
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/lm/t1lmss.fd
+File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+Package microtype Info: Loading generic settings for font family
+(microtype)             `lmss' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1433,7 +1443,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [21]
-<./components/formatted_figures/formatted_figure1.png, id=209, 754.82pt x 302.1
+<./components/formatted_figures/formatted_figure1.png, id=210, 754.82pt x 302.1
 2875pt>
 File: ./components/formatted_figures/formatted_figure1.png Graphic file (type p
 ng)
@@ -1449,7 +1459,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [22 <./components/formatted_figures/formatted_figure1.png>]
-<./components/formatted_figures/formatted_figure2.png, id=217, 903.375pt x 233.
+<./components/formatted_figures/formatted_figure2.png, id=218, 903.375pt x 233.
 87375pt>
 File: ./components/formatted_figures/formatted_figure2.png Graphic file (type p
 ng)
@@ -1465,7 +1475,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [23 <./components/formatted_figures/formatted_figure2.png>]
-<./components/formatted_figures/formatted_figure3.png, id=224, 370.38374pt x 32
+<./components/formatted_figures/formatted_figure3.png, id=225, 370.38374pt x 32
 0.19624pt>
 File: ./components/formatted_figures/formatted_figure3.png Graphic file (type p
 ng)
@@ -1498,11 +1508,11 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1086.
  ) 
 Here is how much of TeX's memory you used:
- 21477 strings out of 493315
- 360609 string characters out of 6137904
- 443258 words of memory out of 5000000
- 24321 multiletter control sequences out of 15000+600000
- 87774 words of font info for 139 fonts, out of 8000000 for 9000
+ 21517 strings out of 493315
+ 361376 string characters out of 6137904
+ 443264 words of memory out of 5000000
+ 24352 multiletter control sequences out of 15000+600000
+ 90790 words of font info for 142 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  63i,12n,57p,1221b,351s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exi
@@ -1525,12 +1535,12 @@ al/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2
 013/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2013/texmf-
 dist/fonts/type1/public/lm/lmri12.pfb></usr/local/texlive/2013/texmf-dist/fonts
 /type1/public/lm/lmri8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/publ
-ic/lm/lmsy10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsy
-8.pfb>
-Output written on ms_communitySynchrony_PREPRINT.pdf (24 pages, 367706 bytes).
+ic/lm/lmss12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsy
+10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsy8.pfb>
+Output written on ms_communitySynchrony_PREPRINT.pdf (24 pages, 382452 bytes).
 PDF statistics:
- 306 PDF objects out of 1000 (max. 8388607)
- 256 compressed objects within 3 object streams
+ 310 PDF objects out of 1000 (max. 8388607)
+ 259 compressed objects within 3 object streams
  61 named destinations out of 1000 (max. 500000)
- 20668 words of extra memory for PDF output out of 20736 (max. 10000000)
+ 22716 words of extra memory for PDF output out of 24883 (max. 10000000)
 
