@@ -1,7 +1,7 @@
 # community_synchrony
 [![Build Status](https://travis-ci.org/atredennick/community_synchrony.svg?branch=master)](https://travis-ci.org/atredennick/community_synchrony)
 
-This is a 'read me' file for data and code associated with "Environmental responses, not species interactions, determine species synchrony in five natural plant communities" by Andrew T. Tredennick, Claire de Mazancourt, Michel Loreau, and Peter B. Adler (in prep).
+This is a 'read me' file for data and code associated with "Environmental responses, not species interactions, determine species synchrony in five natural plant communities" by Andrew T. Tredennick, Claire de Mazancourt, Michel Loreau, and Peter B. Adler (under review).
 
 ### Paper abstract
 >Temporal asynchrony among species is an important mechanism through which diversity can stabilize ecosystem functioning, but identifying the mechanisms that determine synchrony remains a challenge.
