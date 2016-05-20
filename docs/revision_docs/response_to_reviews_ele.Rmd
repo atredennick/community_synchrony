@@ -1,0 +1,104 @@
+---
+fontsize: 12pt
+geometry: margin=1in
+header-includes:
+- \usepackage{setspace}
+- \usepackage{color}
+- \usepackage{rotating}
+layout: 12pt
+linkcolor: black
+output:
+  pdf_document:
+    fig_caption: yes
+    keep_tex: no
+urlcolor: black
+---
+
+Dr. Thrall,
+
+Thank you for the opportunity to submit a revised version of our manuscript "Environmental responses, not species interactions, determine species synchrony in natural plant communities" for consideration for publication in *Ecology Letters* as a Letter.
+
+## Point-by-Point Responses to Reviewers
+### Reviewer 1: Major Comments
+1. \emph{Low species richness: The results focus on species-poor communities (N <= 4). However, the introduction and the discussion are framed in terms of the biodiversity loss due to global change, which generally refers to relatively species-rich communities. Some of these same authors have shown that species richness typically has a strong negative effect on the synchrony of species’ response to the environment and a weak positive effect on demographic stochasticity (e.g., Fig. 5 of de Mazancourt et al. 2013). Overall, these results suggest that in more species-rich communities, the role of species’ synchronous response to the environment might be greatly reduced and that of species interactions and/or demographic stochasticity increased, thus upending the authors’ conclusions. Hence, I think the authors need to mention this important caveat in the discussion section and potentially change their title to something more specific (e.g., “Environmental responses, not species interactions, determine species synchrony in **depauperate** plant communities”).}
+
+We agree with the reviewer that our study is limited by the fact that we can only model common, co-occuring species due to sample size constraints.
+
+2. \emph{Limited novelty: The main novelty in this manuscript is the derivation of two limiting cases using an existing model (Loreau and de Mazancourt 2008). The models fit to the data (IPMs and IBMs) have already been published elsewhere and are thus not novel. Hence, I'm left wondering if the novelty of the limiting cases is sufficiently high to warrant publication in Ecology Letters. One could argue that identifying the relative importance of demographic stochasticity, environmental variation and competition on species synchrony in natural communities is novel. However, given the issue raised in point 1 (potential biases due to low species richness), the generality of these results is likely to be limited to species-poor systems.}
+
+While we are pleased the reviewer appreciates the novelty of the derivation of the limiting case predictions, we disagree that the empirical analysis (``models fit to the data'') is not novel.
+The reviewer is of course correct that the data and models have been used elsewhere (Chu and Adler 2015, Adler et al. 2010), we contend that the novelty lies in how the models are applied, rather than the models in and of themselves. In particular, this is the first use of the Chu and Adler (2015) models and data to investigate the processes that determine ecosystem functioning (Chu and Adler focus on the maintenance of coexistence). More generally, to our knowledge, our paper represents the first instance of applying the tools of demographic population modeling to answer questions about ecosystem functioning.
+
+The reviewer makes a good point about the generality of our results given the relatively low number of species we were able to model. But, please see our response above on the generality of our results despite the low species richness represented in our dynamic multi-species population models.
+
+3. \emph{Independence of drivers: Do species interactions, demographic stochasticity and environmental variation have purely additive effects on species synchrony? Figure 1 suggests not. For instance, in the first panel (New Mexico), the height of the second bar (No comp + No DS = ES) plus the height of the last bar (No comp + No ES = DS) do not add up to the height of the fourth bar (No comp = DS + ES). Hence, there is a subadditive or antagonistic effect of these drivers (ES and DS) on species synchrony. In the presence of such interactions, identifying the relative contribution of each driver based on their independent effect when operating in isolation is likely to yield poor results. The only way to infer the relative importance of the drivers is to conduct an in silico factorial experiment on field-based IBM/IPM models (e.g., Figure 1). Hence, although the analytical approximations can be used to generate some interesting baseline results, they do not really provide insights about the drivers of synchrony in natural communities. If in the end we have to rely on digital experiments applied to field-parameterized models, what do the approximations really provide? The authors should feel free to push back here as I may very well be wrong…}
+
+4. \emph{Linear approximation: The species appear to fluctuate significantly over time (0.19 < CV < 0.54 in Table 1) yet a linear approximation was used via Taylor expansion to estimate species synchrony under one of the limiting cases (pure environmental stochasticity; equation 4 and S21). Although linearization around the equilibrium is only expected to work for infinitesimally small deviations, the authors show remarkably good agreement between the synchrony values obtained from their field-based IPMs/IBMs and those predicted by their linear approximation. I think it’s important to discuss (1) the robustness of this approach for systems that experience mild perturbations from the equilibrium [I’m surprised it worked so well in this case] and (2) the potential limitations of this approximation for systems exhibiting stronger perturbations away from the equilibrium (e.g., CV > 1?). This point is briefly addressed when describing the applicability of the approximations for predicting the synchrony of species abundance (lines 318-321), but I think expanding the discussion would be worthwhile.}
+
+### Reviewer 1: Minor Comments
+1. \emph{Line 371-372: I would qualify this statement by mentioning that the results are unlikely to apply to species-rich plant communities. They may be broadly applicable to species-poor communities though.}
+
+2. \emph{Figure 1 caption: Awkward phrasing for the sentence beginning with ``Error bars represent the upper and lower 95\% quantiles from the model simulations''. It should read something like ``Error bars represent the 2.5\% and the 97.5\% quantiles from the model simulations'', as there is no such as thing as ‘lower’ and ‘upper’ 95\% quantiles.}
+
+Good catch. We have edited the phrasing.
+
+### Reviewer 2: Major Comments
+1. \emph{How does the oversimplification of these plant systems into 2, 3 and 4 species communities affect the accuracy and the relevance of the models? The authors admit this constraint and discuss some potential biases this may have created in their results in lns 389-401. The authors could expand this discussion even more more by speculating how synchrony and the importance of environmental stochasticity might change in communities that have more species, and also in communities where additional the additional species richness is not just due to rare species. For example, if communities have 8 species that are all relatively equally abundant, is interspecific competition likely to become more important, and will environmental stochasticity have a similar effect or different effect in more diverse and complex systems?}
+
+2. \emph{The results are rather obvious that environmental stochasticity will be the major driver of synchrony in these systems because the common species in these communities appear to have very weak interspecific interactions (and the authors admit to this, e.g. lns 417-418). The somewhat obvious result may make the complex modeling almost seem unnecessary. However, the approach the authors take is one that can be applied to other systems and other long-term data sets. And the models help clarify and quantify the relative importance of the different factors in an elegant way. Finally, the congruence between the IPM and IBM simulations and the observed synchrony in real systems is very compelling and suggests that the simulation experiments are an effective way to assess the relative importance of these various factors for synchrony in these systems (Fig 1, Table S1).}
+
+3. \emph{What do these results mean for communities that do not resemble these plant communities? The authors are careful to not overgeneralize their results and they consistently discuss how their results are applicable to plant communities that resemble these systems (e.g. lns 368-372). However, the authors also explain how this study is applicable and of broader interest for understanding synchrony in communities that differ from these plant communities, e.g. consumer-resource models (lns 415-417) and rapidly assembled experimental plant communities, (lns 419-430) where interspecific interactions are much stronger. But more might be discussed here (see comment \#4 below).}
+
+4. \emph{In the plant systems studied here, niche differentiation is strong (Chu and Adler 2015), resulting in weak interspecific competition (e.g. Table S4). Thus, species growth rates reflect environmental stochasticity because growth is influenced more by abiotic forces such as precipitation and temperature as opposed to competition for resources, or predation. How common is this scenario in other communities? In many other systems, biotic interactions are likely to be much more important in driving population dynamics (e.g. predator-prey, consumer-resource oscillations). In communities where biotic interactions are strong, abiotic forces such as environmental stochasticity may have a different effect on synchrony. Can the authors comment on this?}
+
+5. \emph{Most discussions of synchrony are presented in the context of how synchrony contributes to ecological stability. In this study, synchrony was expressed in terms of growth rates rather than abundance or biomass, making a clear connection between synchrony of different species to overall stability of plant communities more difficult. Based on the role of synchronous dynamics for ecological stability, one would predict that as plant synchrony goes up, the stability of these systems should decrease. In this study, the only measure of ecological stability that was presented was the CV of above ground plant biomass (Table 2), and the authors do not discuss this data in any detail. From the data, it appears there is no connection between synchrony and plant above ground biomass stability, but the authors do not raise this issue anywhere in the manuscript, other than to say that using abundance data to detect synchrony is difficult and uninformative. (lns 317-323). Can the authors provide any additional commentary or explanation of the apparent lack of relationship between synchrony of plant growth rates and CV of above ground plant biomass?}
+
+### Reviewer 2: Minor Comments
+1. \emph{Ln 142-132, Equn 3.  It would be helpful to define $phi_R$ as synchrony in the text.
+Lns 263-264. It should be Equations 4 and Equations 3 (not Equn 3 and Equn 2).}
+
+2. \emph{Extra period (.) on line 52.}
+
+Period is removed.
+
+3. \emph{Last sentence paragraph 1, lns 58-59. Perhaps you want to focus this sentence a little ‘Predicting the impacts of global changes for the stability of ecosystems requires a mechanistic ….’}
+
+4. \emph{In Online Supporting Information: Lns 22, ‘number’ is misspelled.}
+
+Thanks for taking the time to review the supporting information! Spelling fixed.
+
+5. \emph{Figure S3. It would be helpful to have a fuller figure legend here that includes reference to ‘the horizontal dashed and dotted lines …’ like you have in Figure 2 in the main text.}
+
+We have added a fuller figure legend.
+
+6. \emph{Table S5-S19. You do not define the shorthand species names anywhere, e.g. BOER, BORO, etc. It would be helpful to have a legend somewhere, or refer the reader to Table 1 for the full species names.}
+
+Good catch. We have added a guide for readers before the tables and refer the reader to Table 1.
+
+
+### Reviewer 3: Major Comments
+1. \emph{First, I question the validity of virtual experiments where, unrealistically, species interactions and other sources of stochasticity are deactivated by setting some parameters to zero while leaving the others unchanged. Because the survival, growth and recruitment models are GLMs fitted to empirical data, one can expect the parameters to exhibit some correlation: changing the magnitude of some parameters would affect that of other parameters. A more credible analysis could be conducted by refitting the models, for example, without species interactions. This however would not solve the problem, because the mere presence of a species can influence the parameters of another species even if they do not interact directly. For example, if a bush overshadows a grass, it could have a detrimental effect on the growth of the grass but mitigate the effect of dry years on the grass, therefore changing the way it responds to environmental fluctuations. Indeed, there are many examples in the literature where species interactions are competitive in some way and facilitative in other ways. Unfortunately the only way to assess the response of a species to environmental fluctuations when grown in isolation is to grow it in isolation. I think this is a major flaw of the study that can be addressed only by providing some empirical evidence of the validity of the approach.}
+
+This is a valid concern, and we thank the reviewer for bringing it to our attention. As the reviewer notes, the only way to disentangle the determinants of species synchrony in natural communities is with in silico simulations from empirically-based models. Thus, to gain any understanding of synchrony in natural communities means we must accept certain limitations of the approach. That said, we are in effect performing a sensitivity analysis: how much does synchrony change when we alter a given parameter? In our case, instead of slightly perturbing parameters, as is the case in many sensitivity analyses, we simply "turn them off". The reviewer's concern did prompt us to investigate the correlation between key parameters in our model. Fortunately, most parameters are uncorrelated, meaning that the magnitude of one coefficient does not affect the magnitude of another coefficient. Thus, our in silico experiments are valid and robust. We have added text about this to the Results section.
+
+2. \emph{Second, the role of demographic stochasticity, although weak, is very likely overestimated in these analyses. This is because the intensity of demographic stochasticity is not estimated from empirical data, but from simulations on an arbitrary quadrat size of 25 m2. Demographic stochasticity is stronger in small populations and the population in a quadrat of 25m2 is very likely small compared to the actual population size. There is a simple way to check for this: using the parameters for survival and recruitment estimated from the data, in conjunction with the stable size distribution estimated by the IPM, one could calculate the intensity of demographic stochasticity as a function of quadrat size. This analysis should be conducted, and I expect it to show that the influence of demographic stochasticity on community stability is negligible in realistically sized grassland populations.}
+
+We are a little confused by this comment. In fact, we show that demographic stochasticity is a function of quadrat size in Figure 2 (as suggested by the reviewer). Likewise, given the close correspondence between synchrony from IPM simulations (which approximate an infinitely large population with no demographic stochasticity) and synchrony from IBM simulations in a 25m2 quadrat (Fig. S1), we conclude that demographic is not overestimated.
+
+3. \emph{Third, the nearly perfect match between the simplified synchrony metrics and the simulated community synchrony might be an artefact due to the way the data has been simulated and the metrics calculated. Specifically, eq. 4 defines the “environmental stochasticity only” synchrony index. To calculate this index the correlations of responses to environmental fluctuations, cov(uei, uej) between species pairs are needed. However this quantities are unknown, and cannot be estimated easily from empirical data, as acknowledged by the authors. Consequently, they used the correlations of growth rates from the IPM simulation with environmental stochasticity only to
+parametrize the equations. In a second step, they use the same simulated growth rates correlations to calculate the community synchrony index (eq. 5). A quick look at eq 4. and eq 5. shows that these two values are inevitably very similar when calculated on the same data, unless there is extreme unevenness in environmental variances among species. Indeed when all the species have the same environmental variance, the two indices are equal. The problem, of course, is that eq. 4 needs to be parametrized with the covariance of the responses of environmental fluctuations instead and that these are unknown.}
+
+4. \emph{A similar reasoning can be applied to eq. 3, which can be derived directly from eq. 5 by assuming that all species have the same demographic variance, except for a factor proportional to the inverse of species abundance. This normal assumption, derived by Lande, will necessarily be met in IBM simulations, as a consequence of the central limit theorem: demographic variance results from the sum of the variances of a large number of individuals. Therefore, in a similar way that the environmental synchrony index, the demographic synchrony index and community synchrony index will be very similar unless strong unevenness in demographic variance among species is present. In a nutshell, the match of the limiting case indices and synchrony indices on simulated data is a statistical inevitability.}
+
+### Reviewer 3: Minor Comments
+1. \emph{P3, line61: interspecific interactions are not limited to competition, and both predator-prey and facilitation have been shown to potentially play a role in community synchrony (Ives 2001)}
+
+2. \emph{P4, line 70: I know at least of two studies that have addressed this exact question: (Mutshinda et al. 2009, Thibaut et al. 2012).}
+
+3. \emph{P 4. L 76-77: this is unnecessarily controversial. Estimating the relative strength of each driver from time-series is indeed possible by fitting a community dynamics model to the data. What is impossible, as argued by Ranta, is to do so from the covariance matrix of species abundances as Houlahan did.}
+
+Fair point. We have replace this sentence.
+
+4. \emph{P 15 L 338-339: demographic stochasticity can never counteract the effects of environmental fluctuations, because demographic fluctuations are independent among species. Adding a positive value to the diagonal of a covariance matrix can reduce correlations but not eliminate them.}
+
+Good catch. 
