@@ -73,7 +73,8 @@ for(do_site in site_list){
   } # end species loop
   D[is.na(D)] <- 0  # replace missing values
   
-  recruit_params <- recruit_mcmc(dataframe = D, sppList = species_list)
+  outfile_now <- paste0("../results/param_covariance/recruitment_",do_site,"_",do_species,"_paramcorrs.png")
+  recruit_params <- recruit_mcmc(dataframe = D, sppList = species_list, fig_outfile = outfile_now)
   recruit_params_site_list[[do_site]] <- recruit_params
 } # end site loop
 

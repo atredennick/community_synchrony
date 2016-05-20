@@ -1,0 +1,27 @@
+---
+fontsize: 12pt
+geometry: margin=1in
+header-includes:
+- \usepackage{setspace}
+- \usepackage{color}
+- \usepackage{rotating}
+layout: 12pt
+linkcolor: black
+output:
+  pdf_document:
+    fig_caption: yes
+    keep_tex: no
+urlcolor: black
+---
+
+Dr. Thrall,
+
+Thank you for the opportunity to submit a revised version of our manuscript "Environmental responses, not species interactions, determine species synchrony in natural plant communities" for consideration for publication in *Ecology Letters* as a Letter.
+
+## Point-by-Point Responses to Reviewers
+### Reviewer 1
+1. \emph{Low species richness: The results focus on species-poor communities (N <= 4). However, the introduction and the discussion are framed in terms of the biodiversity loss due to global change, which generally refers to relatively species-rich communities. Some of these same authors have shown that species richness typically has a strong negative effect on the synchrony of species’ response to the environment and a weak positive effect on demographic stochasticity (e.g., Fig. 5 of de Mazancourt et al. 2013). Overall, these results suggest that in more species-rich communities, the role of species’ synchronous response to the environment might be greatly reduced and that of species interactions and/or demographic stochasticity increased, thus upending the authors’ conclusions. Hence, I think the authors need to mention this important caveat in the discussion section and potentially change their title to something more specific (e.g., “Environmental responses, not species interactions, determine species synchrony in **depauperate** plant communities”).}
+
+We agree with the reviewer that our study is limited by the fact that we can only model common, co-occuring species due to sample size constraints.
+
+

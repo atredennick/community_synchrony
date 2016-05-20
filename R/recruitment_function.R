@@ -10,7 +10,8 @@
 #' @return Matrix of statistical results by fitted parameter.
 
 recruit_mcmc <- function(dataframe, n_adapt=5000, n_update=10000, 
-                         n_samples=20000, n_thin=50, sppList){
+                         n_samples=20000, n_thin=50, sppList,
+                         fig_outfile){
   D <- dataframe
   # Calculate mean cover by group and year
   tmpD <- D[,c("quad","year","Group",paste("cov.",sppList,sep=""))]
@@ -91,6 +92,40 @@ recruit_mcmc <- function(dataframe, n_adapt=5000, n_update=10000,
                    inits = inits, n.adapt = n.Adapt)
   update(jm, n.iter=n.Up)
   out <- coda.samples(jm, variable.names=params, n.iter=n.Samp, n.thin=n.Thin)
+  out1 <- rbind(out[[1]],out[[2]],out[[3]])
+  toget1 <- grep("dd", colnames(out1))
+  toget2 <- grep("intcpt.mu", colnames(out1))
+  out.corrs <- out1[,c(toget1,toget2)]
+  library(IDPmisc)
+  
+  panel.hist <- function(x, ...)
+  {
+    usr <- par("usr"); on.exit(par(usr))
+    par(usr = c(usr[1:2], 0, 1.5) )
+    h <- hist(x, plot = FALSE)
+    breaks <- h$breaks; nB <- length(breaks)
+    y <- h$counts; y <- y/max(y)
+    rect(breaks[-nB], 0, breaks[-1], y, col="blue4", ...)
+  }
+  
+  panel.cor <- function(x, y, digits=2, prefix="", cex.cor)
+  {
+    usr <- par("usr"); on.exit(par(usr))
+    par(usr = c(0, 1, 0, 1))
+    r <- abs(cor(x, y, method = "spearman"))
+    txt <- format(c(r, 0.123456789), digits=digits)[1]
+    txt <- paste(prefix, txt, sep="")
+    if(missing(cex.cor)) cex <- 0.8/strwidth(txt)
+    text(0.5, 0.5, txt, cex = cex * r)
+  }
+  
+  betterPairs <- function(YourData){
+    return(pairs(YourData, lower.panel=function(...) {par(new=TRUE);ipanel.smooth(...)}, diag.panel=panel.hist, upper.panel=panel.cor))
+  }
+  
+  png(filename = fig_outfile)
+  betterPairs(data.frame(out.corrs))
+  dev.off()
 
   zmStat <- summary(out)$stat
   return(zmStat)

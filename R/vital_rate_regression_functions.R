@@ -34,7 +34,10 @@ get_growth_params <- function(dataframe, crowd_mat, alpha){
                   family=c("gaussian"), verbose=FALSE,
                   control.predictor = list(link = 1),
                   control.compute=list(dic=T,mlik=T),
-                  control.inla = list(h = 1e-10))
+                  control.inla = list(h = 1e-10),
+                  control.fixed = list(correlation.matrix=TRUE))
+  
+  tmp_fixed_covariance <- outINLA$misc$lincomb.derived.covariance.matrix
   
   # Fit variance
   x <- outINLA$summary.fitted.values$mean #fitted values from INLA
@@ -64,7 +67,7 @@ get_growth_params <- function(dataframe, crowd_mat, alpha){
   params$sigma.a=NA; params$sigma.a[1]=coef(outVar)[1] 
   params$sigma.b=NA; params$sigma.b[1]=coef(outVar)[2]
   
-  return(params)
+  return(list(params=params, covariance=tmp_fixed_covariance))
 }
 
 
@@ -106,7 +109,10 @@ get_survival_params <- function(dataframe, crowd_mat, alpha){
                   control.compute=list(dic=T,mlik=T),
                   control.predictor = list(link = 1),
                   control.inla = list(h = 1e-10),
-                  Ntrials=rep(1,nrow(D)))
+                  Ntrials=rep(1,nrow(D)),
+                  control.fixed = list(correlation.matrix=TRUE))
+  
+  tmp_fixed_covariance <- outINLA$misc$lincomb.derived.covariance.matrix
   
   #Collect parameters
   #random year and group effects
@@ -125,7 +131,7 @@ get_survival_params <- function(dataframe, crowd_mat, alpha){
   params$alpha=NA; params$alpha[1:length(alpha)]=alpha
   colnames(params)[5] <- "Intercept"
   
-  return(params)
+  return(list(params=params, covariance=tmp_fixed_covariance))
 }
 
 

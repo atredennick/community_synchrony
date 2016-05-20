@@ -93,6 +93,13 @@ for(do_site in site_list){
                              crowd_mat = crowd_growth_now,
                              alpha = alpha_now)
     
+    # Save the parameter covariance matrix
+    tmp_fixed_covariance <- tmp[[2]]
+    tmp_file <- paste0(do_site,"_",do_species,"_fixedcovariance")
+    saveRDS(tmp_fixed_covariance, paste0("../results/param_covariance/growth_", tmp_file, ".RDS"))
+    
+    tmp <- tmp[[1]] # get just the parameter estimates
+    
     # Save in temporary list
     growth_params[[do_species]] <- tmp
   } #end species loop
@@ -174,6 +181,13 @@ for(do_site in site_list){
     tmp <- get_survival_params(dataframe = D,
                                crowd_mat = crowd_surv_now,
                                alpha = alpha_now)
+    
+    # Save the parameter covariance matrix
+    tmp_fixed_covariance <- tmp[[2]]
+    tmp_file <- paste0(do_site,"_",do_species,"_fixedcovariance")
+    saveRDS(tmp_fixed_covariance, paste0("../results/param_covariance/surv_", tmp_file, ".RDS"))
+    
+    tmp <- tmp[[1]] # get just the parameter estimates
     
     # Save in temporary list
     surv_params[[do_species]] <- tmp
