@@ -499,7 +499,8 @@ library(xtable)
 ####  Read in regression fits --------------------------------------------------
 ####
 all_files <- list.files("../results/")
-param_files <- all_files[grep("param*", all_files)]
+param_files1 <- all_files[grep("param*", all_files)]
+param_files <- param_files1[grep("RDS", param_files1)]
 num_vitals <- length(param_files)
 
 list_yr_effects <- list()
@@ -614,8 +615,9 @@ library(xtable)
 ####
 vital_rates <- c("growth", "surv", "recruit")
 result_files <- list.files("../results/")
-vr_files <-result_files[grep(paste(vital_rates,collapse="|"), 
+vr_files1 <-result_files[grep(paste(vital_rates,collapse="|"), 
                               list.files("../results/"))]
+vr_files <- vr_files1[grep("RDS", vr_files1)]
 
 
 
