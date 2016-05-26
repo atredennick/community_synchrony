@@ -37,7 +37,7 @@ get_growth_params <- function(dataframe, crowd_mat, alpha){
                   control.inla = list(h = 1e-10),
                   control.fixed = list(correlation.matrix=TRUE))
   
-  tmp_fixed_covariance <- outINLA$misc$lincomb.derived.covariance.matrix
+  tmp_fixed_covariance <- outINLA$misc$lincomb.derived.correlation.matrix
   
   # Fit variance
   x <- outINLA$summary.fitted.values$mean #fitted values from INLA
@@ -112,7 +112,7 @@ get_survival_params <- function(dataframe, crowd_mat, alpha){
                   Ntrials=rep(1,nrow(D)),
                   control.fixed = list(correlation.matrix=TRUE))
   
-  tmp_fixed_covariance <- outINLA$misc$lincomb.derived.covariance.matrix
+  tmp_fixed_covariance <- outINLA$misc$lincomb.derived.correlation.matrix
   
   #Collect parameters
   #random year and group effects
