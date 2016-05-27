@@ -317,3 +317,72 @@ ggplot(ibm_demo_rms, aes(x=(expansion^2), y=avg_synch, color=site))+
         legend.background = element_rect(fill = NA))
 
 ggsave("../docs/components/figureS3_ibmcover.png", width = 10, height = 3, units="in", dpi=75)
+
+
+
+
+####
+####  VARIABILITY v. SYNCHRONY PLOTS -- ALL SIMULATION EXPERIMENTS (Fig. S4)
+####
+
+##  Read in IPM results ---------
+output_list <- readRDS("../results/ipm_comp_nocomp_sims.RDS")
+mlist <- melt(output_list)
+colnames(mlist)[1:3] <- c("year", "species", "cover")
+sites <- unique(mlist$L1)
+sims <- unique(mlist$L2)
+synch_df <- list() # empty storage
+boots <- 100
+num_iters <- 50
+
+for(dosite in sites){
+  tmp_data <- subset(mlist, L1==dosite)
+  for(dosim in sims){
+    tmpsim <- subset(tmp_data, L2==dosim)[c("year", "species", "cover")]
+    for(i in 1:boots){
+      begin_year <- sample(x = 1:(max(tmpsim$year)-num_iters), 1)
+      end_year <- begin_year+num_iters
+      tmp <- subset(tmpsim, year %in% begin_year:end_year)
+      tmpsynch <- get_ipm_synchrony(tmp)
+      tmp_pgr_synch <- as.numeric(tmpsynch$pgr_synchrony["obs"])
+      tmpcast <- dcast(tmp, year~species, value.var = "cover")
+      tmp_abund_synch <- as.numeric(community.sync(tmpcast[2:ncol(tmpcast)])[1])
+      tmp_abund_cv <- sd(rowSums(tmpcast[2:ncol(tmpcast)])) / mean(rowSums(tmpcast[2:ncol(tmpcast)]))
+      tmp_df <- data.frame(site=dosite, experiment=dosim, 
+                           bootnum=i, pgr_synch=tmp_pgr_synch, 
+                           abund_synch=tmp_abund_synch,
+                           abund_cv=tmp_abund_cv)
+      synch_df <- rbind(synch_df, tmp_df)
+    }# end boots loop
+  }# end experiment/sim loop
+}# end site loop
+
+g1 <- ggplot(synch_df, aes(x=abund_synch, y=abund_cv, color=site))+
+  geom_point(shape=19, alpha=0.1)+
+  geom_point(shape=1, alpha=0.4)+
+  stat_smooth(method="lm", se=FALSE, size=1)+
+  facet_wrap("experiment")+
+  scale_x_continuous(limits=c(0,1))+
+  scale_color_manual(values=site_colors, name="")+
+  xlab("Synchrony of percent cover")+
+  ylab("CV of total community cover")+
+  theme_few()+
+  theme(legend.position=c(0.1,0.8),
+        legend.background = element_rect(fill = NA))+
+  theme(legend.key=element_rect(size=1),
+        legend.key.size = unit(0.5, "lines"))
+
+g2 <- ggplot(synch_df, aes(x=pgr_synch, y=abund_cv, color=site))+
+  geom_point(shape=19, alpha=0.1)+
+  geom_point(shape=1, alpha=0.4)+
+  stat_smooth(method="lm", se=FALSE, size=1)+
+  facet_wrap("experiment")+
+  scale_x_continuous(limits=c(0,1))+
+  scale_color_manual(values=site_colors, name="")+
+  xlab("Synchrony of per capita growth rates")+
+  ylab("CV of total community cover")+
+  theme_few()+
+  guides(color=FALSE)
+
+library(gridExtra)
+grid.arrange(g1, g2, nrow=2)
