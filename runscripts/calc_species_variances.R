@@ -25,6 +25,7 @@ sims <- unique(mlist$L2)
 synch_df <- list()
 
 num_iters <- 50
+boots <- 100
 site_species_variances <- list()
 png("../docs/components/environmental_variances_cover.png", width = 10, height=3, units="in", res=100)
 par(mfrow=c(1,5), las=3)
@@ -42,7 +43,7 @@ for(dosite in sites){
     }# end boots loop
     site_species_variances[[dosite]][[dosim]] <- tmp_abund_vars
     colnames(tmp_abund_vars) <- unique(tmpsim$species)
-    if(dosim=="ENVNOINTER") { boxplot(tmp_abund_vars, main=dosite,  ylab="environmental variance", outline=F) }
+    if(dosim=="ENVNOINTER") { boxplot(tmp_abund_vars, main=dosite,  ylab="variance of percent cover", outline=F) }
   }# end experiment/sim loop
 }# end site loop
 dev.off()
@@ -82,7 +83,7 @@ for(dosite in sites){
     }# end boots loop
     site_species_variances[[dosite]][[dosim]] <- tmp_pgr_vars
     colnames(tmp_pgr_vars) <- unique(tmpsim$species)
-    if(dosim=="ENVNOINTER") { boxplot(tmp_pgr_vars, main=dosite,  ylab="environmental variance", outline=F) }
+    if(dosim=="ENVNOINTER") { boxplot(tmp_pgr_vars, main=dosite,  ylab="variance of growth rates", outline=F) }
   }# end experiment/sim loop
 }# end site loop
 dev.off()
@@ -191,7 +192,7 @@ for(do_exp in "constnointer"){
     }# end plot size sim loop
     
     colnames(tmp_vars) <- species_names
-    boxplot(tmp_vars, main=do_site,  ylab="demographic variance", outline=F)
+    boxplot(tmp_vars, main=do_site,  ylab="variance of percent cover", outline=F)
     
   }# end site loop
   
@@ -317,7 +318,7 @@ for(do_exp in "constnointer"){
     }# end plot size sim loop
     
     colnames(tmp_vars) <- species_names
-    boxplot(tmp_vars, main=do_site,  ylab="demographic variance", outline=F)
+    boxplot(tmp_vars, main=do_site,  ylab="variance of growth rates", outline=F)
     
   }# end site loop
   
