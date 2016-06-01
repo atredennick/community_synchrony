@@ -322,6 +322,14 @@ Supporting Figures
 
 \newpage{}
 
+\begin{figure}[!ht]
+  \centering
+      \includegraphics[width=6in]{./components/cv_vs_synchrony.png}
+  \caption{Relationship between species synchrony (percent cover, top panels; growth rates, bottom panels) and the coefficient of variation of summed community cover. Each point represents a single time series from simulations and is color coded according to simulation experiment. Results from IBM simulations are from 25$\text{m}^2$ landscapes. Within experiments, the CV of total cover increases with synchrony of percent cover. The relationship between CV of total cover and synchrony of per capita growth rates within experiments is weaker. Among experiments, CV of total cover is lowest when the synchrony of per capita growth rates is lowest, confirming the link between species synchrony and ecosystem stability. Because our main focus is on species synchrony, we simply removed environmental variation rather than breaking the covariance structure of species environmental responses. Therefore, CV of total cover is drastically reduced when we remove environmental variation (``No E.S.'' points). However, regardless of environmental variance, CV of total cover is always reduced when synhrony is reduced.}
+\end{figure}
+
+\newpage{}
+
 Supporting Tables
 -----------------
 ```{r prediction_table, echo=FALSE, include=TRUE, results='asis', message=FALSE, eval=T, cache=FALSE}
