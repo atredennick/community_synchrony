@@ -49,6 +49,10 @@ for(do_site in site_list){
       D$Group=as.numeric(D$Group)-1
     
     if(do_site=="Montana"){
+      quadyrs_to_remove <- read.csv("../data/Montana/BOGR/suspect_BOGR_quads.csv")
+      quadyrs_to_remove$year <- quadyrs_to_remove$year - 1900
+      colnames(quadyrs_to_remove) <- c("quad", "year")
+      tmp_for_removal <- merge(quadyrs_to_remove, D)
       ##then we moved some specific points:
       tmp2<-which(D$quad=="A12" & D$year==44)
       tmp3<-which(D$quad=="B1"  & D$year==44)
@@ -56,6 +60,8 @@ for(do_site in site_list){
       tmp42<-which(D$quad=="E4" & D$year==34) 
       tmp43<-which(D$quad=="E4" & D$year==43)
       tmp44<-which(D$quad=="E4" & D$year==44)
+      tmpONE<-c(tmp2,tmp3,tmp41,tmp42,tmp43,tmp44)
+      if(length(tmpONE)>0) D<-D[-tmpONE,]
       D$Group=as.factor(substr(D$quad,1,1)) 
     }
     

@@ -44,6 +44,8 @@ estimate_crowding <- function(site, data_path, alphas, vital_rate){
       tmp42<-which(D$quad=="E4" & D$year==34) 
       tmp43<-which(D$quad=="E4" & D$year==43)
       tmp44<-which(D$quad=="E4" & D$year==44)
+      tmpONE<-c(tmp2,tmp3,tmp41,tmp42,tmp43,tmp44)
+      if(length(tmpONE)>0) D<-D[-tmpONE,]
       D$Group=as.factor(substr(D$quad,1,1)) 
     }
     if(do_site=="NewMexico")

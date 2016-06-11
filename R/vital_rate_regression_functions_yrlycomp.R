@@ -20,12 +20,6 @@ get_growth_params_yrlcomp <- function(dataframe, crowd_mat, alpha){
   crowd = crowd_mat 
   crowd[crowd<1e-99]=0 # make really small crowding indices 0
   
-  D$yearW1 <- 100+D$yearID # for random year effect on crowding
-  D$yearW2 <- 100+D$yearW1 # for random year effect on crowding
-  D$yearW3 <- 100+D$yearW2 # for random year effect on crowding
-  D$yearW4 <- 100+D$yearW3 # for random year effect on crowding
-  
-  
   library(INLA)
   # Set up ID variables for INLA random effects
   D$yearID <- D$year+max(D$year) # for random year offset on intercept
