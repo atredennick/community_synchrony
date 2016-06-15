@@ -14,6 +14,10 @@
 estimate_crowding <- function(site, data_path, alphas, vital_rate){
   path_to_files <- paste(data_path, site, "/", sep="")
   species_list <- sort(list.files(path_to_files))
+  if(length(grep("_", species_list)) > 0){
+    rms <- grep("_", species_list)
+    species_list <- species_list[-rms]
+  }
   num_species <- length(species_list)
   alpha.effect <- alphas
   all_crowding <- list()
