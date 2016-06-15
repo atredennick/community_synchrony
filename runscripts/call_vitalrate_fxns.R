@@ -26,6 +26,10 @@ surv_alphas <- read.csv(paste(path_to_data, "alpha_list_survival.csv", sep=""))
 growth_params_biglist <- list()
 for(do_site in site_list){
   species_list <- list.files(paste(path_to_data, do_site, "/", sep=""))
+  if(length(grep("_", species_list)) > 0){
+    rms <- grep("_", species_list)
+    species_list <- species_list[-rms]
+  }
   alpha_now <- subset(grow_alphas, Site==do_site)
   alpha_now <- as.numeric(alpha_now$Alpha)
   
@@ -49,11 +53,15 @@ for(do_site in site_list){
       D$Group=as.numeric(D$Group)-1
     
     if(do_site=="Montana"){
-      quadyrs_to_remove <- read.csv("../data/Montana/BOGR/suspect_BOGR_quads.csv")
+      # Remove suspect quadrat years
+      quadyears <- with(D, paste0(quad, year))
+      quadyrs_to_remove <- read.csv("../data/Montana/BOGR_edited/suspect_BOGR_quads.csv")
       quadyrs_to_remove$year <- quadyrs_to_remove$year - 1900
-      colnames(quadyrs_to_remove) <- c("quad", "year")
-      tmp_for_removal <- merge(quadyrs_to_remove, D)
-      ##then we moved some specific points:
+      bad_quadyears <- with(quadyrs_to_remove, paste0(quadrat,year))
+      torms <- which(quadyears %in% bad_quadyears)
+      if(length(torms)>0) { D <- D[-torms,] }
+      
+      # Then we moved some specific points:
       tmp2<-which(D$quad=="A12" & D$year==44)
       tmp3<-which(D$quad=="B1"  & D$year==44)
       tmp41<-which(D$quad=="E4" & D$year==33) 
@@ -125,6 +133,10 @@ saveRDS(growth_params_biglist, "../results/growth_params_list.RDS")
 surv_params_biglist <- list()
 for(do_site in site_list){
   species_list <- list.files(paste(path_to_data, do_site, "/", sep=""))
+  if(length(grep("_", species_list)) > 0){
+    rms <- grep("_", species_list)
+    species_list <- species_list[-rms]
+  }
   alpha_now <- subset(surv_alphas, Site==do_site)
   alpha_now <- as.numeric(alpha_now$Alpha)
   
@@ -145,13 +157,23 @@ for(do_site in site_list){
     if(do_site=="Kansas")
       D$Group=as.numeric(D$Group)-1
     if(do_site=="Montana"){
-      ##then we moved some specific points:
+      # Remove suspect quadrat years
+      quadyears <- with(D, paste0(quad, year))
+      quadyrs_to_remove <- read.csv("../data/Montana/BOGR_edited/suspect_BOGR_quads.csv")
+      quadyrs_to_remove$year <- quadyrs_to_remove$year - 1900
+      bad_quadyears <- with(quadyrs_to_remove, paste0(quadrat,year))
+      torms <- which(quadyears %in% bad_quadyears)
+      if(length(torms)>0) { D <- D[-torms,] }
+      
+      # Then we moved some specific points:
       tmp2<-which(D$quad=="A12" & D$year==44)
       tmp3<-which(D$quad=="B1"  & D$year==44)
       tmp41<-which(D$quad=="E4" & D$year==33) 
       tmp42<-which(D$quad=="E4" & D$year==34) 
       tmp43<-which(D$quad=="E4" & D$year==43)
       tmp44<-which(D$quad=="E4" & D$year==44)
+      tmpONE<-c(tmp2,tmp3,tmp41,tmp42,tmp43,tmp44)
+      if(length(tmpONE)>0) D<-D[-tmpONE,]
       D$Group=as.factor(substr(D$quad,1,1)) 
     }
     if(do_site=="NewMexico")
