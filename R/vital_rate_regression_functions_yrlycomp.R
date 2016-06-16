@@ -184,7 +184,7 @@ get_survival_params_yrlcomp <- function(dataframe, crowd_mat, alpha){
   if(ncol(crowd)==3){
     W1 <- crowd[,1]
     W2 <- crowd[,2]
-    W2 <- crowd[,3]
+    W3 <- crowd[,3]
     D$yearW1 <- 100+D$yearID # for random year effect on crowding
     D$yearW2 <- 100+D$yearW1 # for random year effect on crowding
     D$yearW3 <- 100+D$yearW2 # for random year effect on crowding
