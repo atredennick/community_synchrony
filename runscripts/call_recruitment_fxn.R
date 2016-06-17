@@ -11,9 +11,15 @@ removes <- c(grep("*.csv", site_list),
              grep("Crowding", site_list))
 site_list <- site_list[-removes]
 
+site_list <- "Montana"
+
 recruit_params_site_list <- list()
 for(do_site in site_list){
   species_list <- list.files(paste(path_to_data, do_site, "/", sep=""))
+  if(length(grep("_", species_list)) > 0){
+    rms <- grep("_", species_list)
+    species_list <- species_list[-rms]
+  }
   
   i <- 1 #counter
   for(do_species in species_list){
@@ -28,14 +34,24 @@ for(do_site in site_list){
     if(do_site=="Kansas")
       tmpD$Group=as.numeric(tmpD$Group)-1
     if(do_site=="Montana"){
-      ##then we moved some specific points:
+      # Remove suspect quadrat years
+      quadyears <- with(tmpD, paste0(quad, year))
+      quadyrs_to_remove <- read.csv("../data/Montana/BOGR_edited/suspect_BOGR_quads.csv")
+      quadyrs_to_remove$year <- quadyrs_to_remove$year - 1900
+      bad_quadyears <- with(quadyrs_to_remove, paste0(quadrat,year))
+      torms <- which(quadyears %in% bad_quadyears)
+      if(length(torms)>0) { tmpD <- tmpD[-torms,] }
+      
+      # Then we moved some specific points:
       tmp2<-which(tmpD$quad=="A12" & tmpD$year==44)
       tmp3<-which(tmpD$quad=="B1"  & tmpD$year==44)
       tmp41<-which(tmpD$quad=="E4" & tmpD$year==33) 
       tmp42<-which(tmpD$quad=="E4" & tmpD$year==34) 
       tmp43<-which(tmpD$quad=="E4" & tmpD$year==43)
       tmp44<-which(tmpD$quad=="E4" & tmpD$year==44)
-      tmpD$Group=as.factor(substr(tmpD$quad,1,1)) 
+      tmpONE<-c(tmp2,tmp3,tmp41,tmp42,tmp43,tmp44)
+      if(length(tmpONE)>0) tmpD<-tmpD[-tmpONE,]
+      tmpD$Group=as.factor(substr(tmpD$quad,1,1))
     }
     if(do_site=="NewMexico")
       tmpD$Group=as.factor(substr(tmpD$quad,1,1))
@@ -79,5 +95,4 @@ for(do_site in site_list){
 } # end site loop
 
 # Save the output
-saveRDS(recruit_params_site_list, "../results/recruit_parameters.RDS")
-
+saveRDS(recruit_params_site_list, "../results/recruit_parameters_MONTANTAupdate.RDS")

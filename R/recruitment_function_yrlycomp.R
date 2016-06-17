@@ -9,7 +9,7 @@
 #' @param sppList Character vector of species code names for the site.
 #' @return Matrix of statistical results by fitted parameter.
 
-recruit_mcmc <- function(dataframe, n_adapt=5000, n_update=10000, 
+recruit_mcmc_yrlr <- function(dataframe, n_adapt=5000, n_update=10000, 
                          n_samples=20000, n_thin=50, sppList,
                          fig_outfile){
   D <- dataframe
