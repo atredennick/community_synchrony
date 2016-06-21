@@ -130,8 +130,8 @@ get_growth_params_yrlcomp <- function(dataframe, crowd_mat, alpha){
   colnames(tmp)=rownames(fixed)
   tmp[1,]=fixed[,1]
   params=cbind(params,tmp)
-  colnames(params)[6] <- "Intercept"
   params$alpha=NA; params$alpha[1:length(alpha)]=alpha
+  colnames(params)[which(colnames(params)=="(Intercept)")] <- "Intercept"
 #   #variance 
 #   params$sigma.a=NA; params$sigma.a[1]=coef(outVar)[1] 
 #   params$sigma.b=NA; params$sigma.b[1]=coef(outVar)[2]
