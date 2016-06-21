@@ -567,6 +567,11 @@ colnames(table_data) <- c("Site",
                           "Species richness")
 myorder <- c(5,1,3,4,2)
 xtable_data <- table_data[myorder,]
+sink(file = "../results/correlation_Rsynch_cv.txt")
+cat("correlation between synchrony of growth rates and cover CV is:")
+cor(table_data$`CV of Total Cover`, table_data[,2])
+Sys.Date()
+sink()
 # colnames(table_data) <- c("Site",
 #                           "$\\phi_{r}$", 
 #                           "$\\text{E}(\\phi_{r})$", 
