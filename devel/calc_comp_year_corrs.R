@@ -163,3 +163,9 @@ for(do_site in sites){
 print(paste("Maximum absolute correlation for survival:", round(surv_max_cor,2)))
 print(paste("Maximum absolute correlation for growth:", round(grow_max_cor,2)))
 print(paste("Maximum absolute correlation for recruitment:", round(rec_max_cor,2)))
+
+
+
+####
+####  PLOT COMPETITION YEAR EFFECTS 
+####

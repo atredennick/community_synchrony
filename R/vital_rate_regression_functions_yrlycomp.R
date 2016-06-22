@@ -80,7 +80,7 @@ get_growth_params_yrlcomp <- function(dataframe, crowd_mat, alpha){
                   control.compute=list(dic=T,mlik=T),
                   control.inla = list(h = 1e-10),
                   control.fixed = list(correlation.matrix=TRUE))
-  
+  rand_eff_summaries <- outINLA$summary.random
 #   tmp_fixed_covariance <- outINLA$misc$lincomb.derived.correlation.matrix
 #   
 #   # Fit variance
@@ -136,7 +136,7 @@ get_growth_params_yrlcomp <- function(dataframe, crowd_mat, alpha){
 #   params$sigma.a=NA; params$sigma.a[1]=coef(outVar)[1] 
 #   params$sigma.b=NA; params$sigma.b[1]=coef(outVar)[2]
   
-  return(params)
+  return(list(params=params, rand_eff_summaries=rand_eff_summaries))
 }
 
 
@@ -224,7 +224,7 @@ get_survival_params_yrlcomp <- function(dataframe, crowd_mat, alpha){
                   control.inla = list(h = 1e-10),
                   Ntrials=rep(1,nrow(D)),
                   control.fixed = list(correlation.matrix=TRUE))
-  
+  rand_eff_summaries <- outINLA$summary.random
   # tmp_fixed_covariance <- outINLA$misc$lincomb.derived.correlation.matrix
   
   #Collect parameters
@@ -272,7 +272,7 @@ get_survival_params_yrlcomp <- function(dataframe, crowd_mat, alpha){
   params$alpha=NA; params$alpha[1:length(alpha)]=alpha
   colnames(params)[which(colnames(params)=="(Intercept)")] <- "Intercept"
   
-  return(params)
+  return(list(params=params, rand_eff_summaries=rand_eff_summaries))
 }
 
 
