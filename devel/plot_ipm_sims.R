@@ -109,8 +109,8 @@ g1 <- ggplot(plot_df, aes(x=ENVNOINTER, y=ENVINTER))+
   geom_point(size=3, aes(color=site))+
   scale_y_continuous(limits=c(0,1))+
   scale_x_continuous(limits=c(0,1))+
-  ylab("Species synchrony in polyculture")+
-  xlab("Species synchrony in monoculture")+
+  ylab("Species synchrony in competition")+
+  xlab("Species synchrony in isolation")+
   # scale_shape_discrete(name="Temporal Variable", labels=c("Per capita growth rate", "Percent cover"))+
   scale_color_manual(values = c("grey45", "steelblue", "slateblue4", "darkorange", "purple"),
                      name = "",
