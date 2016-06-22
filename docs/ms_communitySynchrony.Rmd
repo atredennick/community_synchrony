@@ -14,10 +14,9 @@ header-includes:
 layout: 12pt
 linkcolor: black
 output:
-  word_document: default
   pdf_document:
     fig_caption: yes
-    keep_tex: yes
+    keep_tex: no
 urlcolor: black
 ---
 
