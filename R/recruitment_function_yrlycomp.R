@@ -10,8 +10,7 @@
 #' @return Matrix of statistical results by fitted parameter.
 
 recruit_mcmc_yrlr <- function(dataframe, n_adapt=5000, n_update=10000, 
-                         n_samples=20000, n_thin=50, sppList,
-                         fig_outfile){
+                         n_samples=20000, n_thin=50, sppList){
   D <- dataframe
   # Calculate mean cover by group and year
   tmpD <- D[,c("quad","year","Group",paste("cov.",sppList,sep=""))]
@@ -91,7 +90,8 @@ recruit_mcmc_yrlr <- function(dataframe, n_adapt=5000, n_update=10000,
   out <- coda.samples(jm, variable.names=params, n.iter=n.Samp, n.thin=n.Thin)
 
   zmStat <- summary(out)$stat
-  return(zmStat)
+  zmQuants <- summary(out)$quantile
+  return(list(stats=zmStat,quants=zmQuants))
 } # end function
   
 

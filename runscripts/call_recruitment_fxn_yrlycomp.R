@@ -11,7 +11,8 @@ removes <- c(grep("*.csv", site_list),
              grep("Crowding", site_list))
 site_list <- site_list[-removes]
 
-recruit_params_site_list <- list()
+recruit_params_stat_list <- list()
+recruit_params_quant_list <- list()
 for(do_site in site_list){
   species_list <- list.files(paste(path_to_data, do_site, "/", sep=""))
   if(length(grep("_", species_list)) > 0){
@@ -87,10 +88,11 @@ for(do_site in site_list){
   } # end species loop
   D[is.na(D)] <- 0  # replace missing values
   
-  outfile_now <- paste0("../results/param_covariance/recruitment_",do_site,"_",do_species,"_paramcorrs.png")
-  recruit_params <- recruit_mcmc_yrlr(dataframe = D, sppList = species_list, fig_outfile = outfile_now)
-  recruit_params_site_list[[do_site]] <- recruit_params
+  recruit_params <- recruit_mcmc_yrlr(dataframe = D, sppList = species_list)
+  recruit_params_stat_list[[do_site]] <- recruit_params[[1]]
+  recruit_params_quant_list[[do_site]] <- recruit_params[[2]]
 } # end site loop
 
 # Save the output
-saveRDS(recruit_params_site_list, "../results/recruit_parameters_yrlycomp.RDS")
+saveRDS(recruit_params_stat_list, "../results/recruit_parameters_yrlycomp.RDS")
+saveRDS(recruit_params_quant_list, "../results/recruit_quants_yrlycomp.RDS")
