@@ -288,7 +288,7 @@ Removing environmental fluctuations ("No E.S" simulations) decreased synchrony b
 Only in Idaho did removing environmental fluctuations cause an increase in synchrony (Fig. 1), but the effect was small (9% increase; Table S2).
 Overall, species' temporal random effects in the statistical vital rate models are positively correlated (Table S3).
 Species interactions are weak in these communities [Table S4 and @Chu2015], and removing \hl{interspecific interactions} had little effect on synchrony (Fig. 1; "No Comp." simulations).
-Removing competition caused, at most, a 5% change in synchrony (Fig. 1).
+Removing \hl{interspecific interactions} caused, at most, a 5% change in synchrony (Fig. 1).
 Removing demographic stochasticity ("No D.S." simulations) caused synchrony to increase slightly in all communities (Fig. 1), with an average 6% increase over synchrony from IBM simulations on a five meter area.
 
 The desynchronizing effect of demographic stochasticity, which increases as population size decreases, modestly counteracted the synchronizing force of the environment, but not enough to lower synchrony to the level observed when only demographic stochasticity is operating (Fig. 2).
@@ -309,7 +309,7 @@ Thus, our results provide further evidence that it is difficult to decipher mech
 
 ### Simulations support theoretical predictions
 Our theoretical predictions were derived from a simple model of population dynamics and required several simplifying assumptions, raising questions about their relevance to natural communities.
-\hl{For example, the species in our communities do not have equivalent environmental and demographic variances (Figs. Sx-Sx), as required by our predictions.}
+\hl{For example, the species in our communities do not have equivalent environmental and demographic variances (Figs. S4-S7), as required by our predictions.}
 However, the theoretical predictions were strongly supported by simulations of population models fit to long-term data from natural plant communities (Table 3).
 Such a close match between our analytical predictions and the simulation results should inspire confidence in the ability of simple models to inform our understanding of species synchrony, \hl{and allows us to place our simulation results within the context of contemporary theory}.
 
@@ -340,7 +340,7 @@ In the Idaho community, removing environmental fluctuations did not cause a larg
 However, that result appears to be an artifact. 
 Removing environmental variation results in a negative invasion growth rate for *A. tripartita*. 
 Although we only analyzed IBM runs in which *A. tripartita* had not yet gone extinct, it was at much lower abundance than in the other simulation runs.
-When we removed *A. tripartita* from all simulations, the Idaho results conformed with results from all other sites: removing environmental stochasticity caused a significant reduction in species synchrony (Fig. S4).
+When we removed *A. tripartita* from all simulations, the Idaho results conformed with results from all other sites: removing environmental stochasticity caused a significant reduction in species synchrony (Fig. S8).
 Our main results for Idaho (Fig. 2), with *A. tripartita* included, demonstrate how the processes that determine species synchrony interact in complex ways.
 *A. tripartita* has a facilitative effect on each grass species across all vital rates, except for a small competitive effect on *H. comata*'s survival probability (Tables S8-S10).
 At the same time, all the perennial grasses have negative effects on each other for each vital rate (Tables S8-S10).
@@ -825,7 +825,7 @@ grid.arrange(g1,g2,ncol=2)
 
 \begin{figure}[!ht]
   \centering
-      \includegraphics[width=4in]{./components/formatted_figures/formatted_figure3.png}
+      \includegraphics[width=3in]{./components/formatted_figures/formatted_figure3.png}
   \caption{Synchrony of species per capita growth rates when species are growing in isolation (IPM without species interactions) versus synchrony in polycultures (IPM with species interactions). We used the same sequence of random year effects for both simulations (with and without species interactions) to mimic biodiversity-ecosystem functioning experiments. The dashed line is the line of equality. Simulation results in this figure are analagous to ``No Comp. + No D.S.'' (species in isolation) and ``No D.S.'' (species in competition) in Fig. 1, but here we control the time series of random year effects.}
 \end{figure}
 

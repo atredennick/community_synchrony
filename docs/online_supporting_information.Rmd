@@ -316,12 +316,41 @@ Supporting Figures
 
 \begin{figure}[!ht]
   \centering
+      \includegraphics[width=6in]{./components/formatted_figures/environmental_variances_cover.png}
+  \caption{Variance of percent cover for each species (along x-axes) in each site through time from simulations with only environmental stochasticity operating (IPM with no species interactions).}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+      \includegraphics[width=6in]{./components/formatted_figures/environmental_variances_pgr.png}
+  \caption{Variance of per capita growth rates for each species (along x-axes) in each site through time from simulations with only environmental stochasticity operating (IPM with no species interactions).}
+\end{figure}
+
+\newpage{}
+
+\begin{figure}[!ht]
+  \centering
+      \includegraphics[width=6in]{./components/formatted_figures/demographic_variances_cover.png}
+  \caption{Variance of percent cover for each species (along x-axes) in each site through time from simulations with only demographic stochasticity operating (IBM simulated on 5 by 5 meter landscape).}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+      \includegraphics[width=6in]{./components/formatted_figures/demographic_variances_pgr.png}
+  \caption{Variance of per capita growth rates for each species (along x-axes) in each site through time from simulations with only demographic stochasticity operating (IBM simulated on 5 by 5 meter landscape).}
+\end{figure}
+
+\pagebreak{}
+
+\begin{figure}[!ht]
+  \centering
       \includegraphics[width=3in]{./components/formatted_figures/formatted_figureS4.png}
   \caption{Community-wide synchrony of species' growth rates from model simulation experiments for the Idaho community with \textit{Artemisia tripartita} removed. Synchrony of species' growth rates are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific competition present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific competition removed (``No Comp.''), interspecific competition and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific competition and environmental stochasticity removed (``No Comp. + No E.S.''). Error bars represent the 2.5\% and 97.5\% quantiles from model simulations.}
 \end{figure}
 
 \newpage{}
 
+<!---
 \begin{figure}[!ht]
   \centering
       \includegraphics[width=6in]{./components/cv_vs_synchrony.png}
@@ -329,6 +358,7 @@ Supporting Figures
 \end{figure}
 
 \newpage{}
+--->
 
 Supporting Tables
 -----------------
@@ -651,6 +681,8 @@ vr_files <- vr_files1[grep("RDS", vr_files1)]
 vital_mat_list <- list()
 for(do_vital in vital_rates[c(1,2)]){
   vr_do <- vr_files[grep(do_vital,vr_files)]
+  torms <- grep("yr", vr_do)
+  vr_do <- vr_do[-torms]
   tmp_vital <- readRDS(paste0("../results/",vr_do))
   sites <- names(tmp_vital)
   mat_list <- list()
@@ -673,6 +705,8 @@ for(do_vital in vital_rates[c(1,2)]){
 
 # Recruitment
 vr_do <- vr_files[grep("recruit",vr_files)]
+torms <- c(grep("yr", vr_do), grep("MONT", vr_do))
+vr_do <- vr_do[-torms]
 tmp_vital <- readRDS(paste0("../results/",vr_do))
 names_vital <- readRDS(paste0("../results/",vr_files[1]))
 sites <- names(tmp_vital)
