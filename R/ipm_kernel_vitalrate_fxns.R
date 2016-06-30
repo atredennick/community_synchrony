@@ -11,7 +11,7 @@
 G <- function(v,u,W,Gpars,doYear,doSpp){
   mu <- Gpars$intcpt[doSpp]+Gpars$intcpt.yr[doYear,doSpp]+
     (Gpars$slope[doSpp]+Gpars$slope.yr[doYear,doSpp])*u+
-    W%*%(Gpars$nb[doSpp,])
+    W%*%(Gpars$nb[doSpp,]+Gpars$nb.yr[doYear,,doSpp])
   sigma2 <- Gpars$sigma2.a[doSpp]*exp(Gpars$sigma2.b[doSpp]*mu)
   out <- dnorm(v,mu,sqrt(sigma2))
   return(out)
