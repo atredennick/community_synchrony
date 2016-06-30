@@ -14,6 +14,7 @@ library(gridExtra)
 surv_param_summaries <- readRDS("../results/surv_summaries_yrlycomp_list.RDS")
 sites <- names(surv_param_summaries)
 plot_list <- list()
+surv_sig_yrs <- list()
 for(do_site in sites){
   site_summary <- surv_param_summaries[[do_site]]
   species <- names(site_summary)
@@ -33,6 +34,15 @@ for(do_site in sites){
         theme(plot.title = element_text(size = 12),
               axis.title = element_text(size=8))
       plot_list <- c(plot_list, list(new_plot))
+      
+      tmp_count <- length(which(sign(comp_summary$low)==sign(comp_summary$high)))
+      surv_sig_yrs <- rbind(surv_sig_yrs,
+                             data.frame(site=do_site,
+                                        species=do_species,
+                                        species_order=which(species==do_species),
+                                        param=names(species_summary)[i],
+                                        num_sig=tmp_count,
+                                        tot_num=nrow(comp_summary)))
     } # end competition coefficient loop
   } # end species loop
 } # end site loop
@@ -40,6 +50,11 @@ for(do_site in sites){
 png(filename = "randyear_compCIs_survival.png", width = 1280, height = 960, units = "px")
 do.call(grid.arrange, c(plot_list, list(ncol = 7)))
 dev.off()
+
+surv_sig_yrs$comp_species <- as.numeric(sapply(strsplit(as.character(surv_sig_yrs$param), "W"), "[[", 2))
+surv_sig_yrs$interaction_type <- "intraspecific"
+surv_sig_yrs[which(surv_sig_yrs$species_order!=surv_sig_yrs$comp_species), "interaction_type"] <- "interspecific"
+saveRDS(surv_sig_yrs, "survival_num_compyrs_sig.RDS")
 
 
 
@@ -49,6 +64,7 @@ dev.off()
 grow_param_summaries <- readRDS("../results/growth_summaries_yrlycomp_list.RDS")
 sites <- names(grow_param_summaries)
 plot_list <- list()
+grow_sig_yrs <- list()
 for(do_site in sites){
   site_summary <- grow_param_summaries[[do_site]]
   species <- names(site_summary)
@@ -68,6 +84,15 @@ for(do_site in sites){
         theme(plot.title = element_text(size = 12),
               axis.title = element_text(size=8))
       plot_list <- c(plot_list, list(new_plot))
+      
+      tmp_count <- length(which(sign(comp_summary$low)==sign(comp_summary$high)))
+      grow_sig_yrs <- rbind(grow_sig_yrs,
+                            data.frame(site=do_site,
+                                       species=do_species,
+                                       species_order=which(species==do_species),
+                                       param=names(species_summary)[i],
+                                       num_sig=tmp_count,
+                                       tot_num=nrow(comp_summary)))
     } # end competition coefficient loop
   } # end species loop
 } # end site loop
@@ -75,6 +100,11 @@ for(do_site in sites){
 png(filename = "randyear_compCIs_growth.png", width = 1280, height = 960, units = "px")
 do.call(grid.arrange, c(plot_list, list(ncol = 7)))
 dev.off()
+
+grow_sig_yrs$comp_species <- as.numeric(sapply(strsplit(as.character(grow_sig_yrs$param), "W"), "[[", 2))
+grow_sig_yrs$interaction_type <- "intraspecific"
+grow_sig_yrs[which(grow_sig_yrs$species_order!=grow_sig_yrs$comp_species), "interaction_type"] <- "interspecific"
+saveRDS(grow_sig_yrs, "growth_num_compyrs_sig.RDS")
 
 
 
@@ -85,6 +115,7 @@ dev.off()
 rec_param_summaries <- readRDS("../results/recruit_quants_yrlycomp.RDS")
 sites <- names(rec_param_summaries)
 plot_list <- list()
+rec_sig_yrs <- list()
 for(do_site in sites){
   site_summary <- rec_param_summaries[[do_site]]
   comp_summary <- site_summary[grep("dd\\[",rownames(site_summary)),]
@@ -109,9 +140,23 @@ for(do_site in sites){
       theme(plot.title = element_text(size = 12),
             axis.title = element_text(size=8))
     plot_list <- c(plot_list, list(new_plot))
+    
+    tmp_inter <- subset(tmp_densdep, intra=="no")
+    tmp_count <- length(which(sign(tmp_inter$low)==sign(tmp_inter$high)))
+    rec_sig_yrs <- rbind(rec_sig_yrs,
+                          data.frame(site=do_site,
+                                     species=species_names[i],
+                                     species_order=i,
+                                     param="dd",
+                                     num_sig=tmp_count,
+                                     tot_num=nrow(tmp_inter),
+                                     comp_species=NA,
+                                     interaction_type="interspecific"))
   } # end focal species loop
 } # end site loop
 
 png(filename = "randyear_compCIs_rec.png", width = 1280, height = 960, units = "px")
 do.call(grid.arrange, c(plot_list, list(ncol = 4)))
 dev.off()
+
+saveRDS(rec_sig_yrs, "recruitment_num_compyrs_sig.RDS")
