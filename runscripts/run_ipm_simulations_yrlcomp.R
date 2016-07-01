@@ -34,7 +34,7 @@ library(statmod)
 ## Make combined kernel
 make.K.values=function(v,u,muWG,muWS, #state variables
                        Rpars,rpa,Gpars,Spars,doYear,doSpp){  #growth arguments
-  f(v,u,Rpars,rpa,doSpp)+S(u,muWS,Spars,doYear,doSpp)*G(v,u,muWG,Gpars,doYear,doSpp) 
+  f_yr(v,u,Rpars,rpa,doSpp)+S_yr(u,muWS,Spars,doYear,doSpp)*G_yr(v,u,muWG,Gpars,doYear,doSpp) 
 }
 
 ## Function to make iteration matrix based only on mean crowding
@@ -115,11 +115,11 @@ for(do_site in "Montana"){
   
   #Import and format parameters
   site_path <- paste("../data/", do_site, sep="")
-  Gpars <- format_growth_params(do_site = do_site, species_list = spp_list, 
+  Gpars <- format_growth_params_yrly(do_site = do_site, species_list = spp_list, 
                                 Nyrs = Nyrs, Gdata_species = Gpars_tmp)
-  Spars <- format_survival_params(do_site = do_site, species_list = spp_list, 
+  Spars <- format_survival_params_yrly(do_site = do_site, species_list = spp_list, 
                                   Nyrs = Nyrs, Sdata_species = Spars_tmp)
-  Rpars <- format_recruitment_params(do_site = do_site, species_list = spp_list, 
+  Rpars <- format_recruitment_params_yrly(do_site = do_site, species_list = spp_list, 
                                      Nyrs = Nyrs, Rdata_species = Rpars_tmp,
                                      path_to_site_data = site_path)
   
@@ -170,24 +170,41 @@ for(do_site in "Montana"){
     
     # Turn off competition if spp_interact==FALSE
     if(spp_interact==FALSE){
-      rnbtmp <- Rpars$dd
+      rnbtmp <- Rpars$dd.yr
       rnbtmp[] <- 0
-      diag(rnbtmp) <- diag(Rpars$dd)
-      Rpars$dd <- rnbtmp
+      for(ispp in 1:Nspp){
+        rtmp_intra <- Rpars$dd.yr[,ispp,ispp]
+        rnbtmp[,ispp,ispp] <- rtmp_intra
+      }
+      Rpars$dd.yr <- rnbtmp
       
       gnbtmp <- Gpars$nb
       gnbtmp[] <- 0
       diag(gnbtmp) <- diag(Gpars$nb)
       Gpars$nb <- gnbtmp
+      gnbyrtmp <- Gpars$nb.yr
+      gnbyrtmp[] <- 0
+      for(ispp in 1:Nspp){
+        gtmp_intra <- Gpars$nb.yr[,ispp,ispp]
+        gnbyrtmp[,ispp,ispp] <- gtmp_intra
+      }
+      Gpars$nb.yr <- gnbyrtmp
       
       snbtmp <- Spars$nb
       snbtmp[] <- 0
       diag(snbtmp) <- diag(Spars$nb)
-      Spars$nb <- snbtmp    
+      Spars$nb <- snbtmp  
+      snbyrtmp <- Spars$nb.yr
+      snbyrtmp[] <- 0
+      for(ispp in 1:Nspp){
+        stmp_intra <- Spars$nb.yr[,ispp,ispp]
+        snbyrtmp[,ispp,ispp] <- stmp_intra
+      }
+      Spars$nb.yr <- snbyrtmp
     } # end interspecific competition if/then
     
     ## Run the IPM from a source script
-    source("run_ipm_source.R") 
+    source("run_ipm_source_yrlycomp.R") 
     
     ##  Formate and save output in list
     colnames(covSave) <- spp_list
@@ -197,18 +214,18 @@ for(do_site in "Montana"){
     sim_count <- sim_count+1
     
     ##  Save stable size distribution IF spp interact == TRUE
-    if(spp_interact==TRUE){
-      outfile <- "stable_size.csv"
-      for(i in 1:Nspp){
-        outdir <- "../results/stable_size_dists/"
-        if(file.exists(outdir)==FALSE){dir.create(outdir)}
-        filename <- paste0(outdir,do_site,"_",spp_list[i],"_",outfile)
-        tmp <- rowMeans(sizeSave[[i]][,(burn_in+1):tlimit])
-        output <- data.frame(v[[i]],tmp)
-        names(output) <- c("size","freq")
-        write.table(output,filename,row.names=F,sep=",")
-      } # end species loop
-    } # end spp_interact IF/THEN for stable size saving
+#     if(spp_interact==TRUE){
+#       outfile <- "stable_size.csv"
+#       for(i in 1:Nspp){
+#         outdir <- "../results/stable_size_dists/"
+#         if(file.exists(outdir)==FALSE){dir.create(outdir)}
+#         filename <- paste0(outdir,do_site,"_",spp_list[i],"_",outfile)
+#         tmp <- rowMeans(sizeSave[[i]][,(burn_in+1):tlimit])
+#         output <- data.frame(v[[i]],tmp)
+#         names(output) <- c("size","freq")
+#         write.table(output,filename,row.names=F,sep=",")
+#       } # end species loop
+#     } # end spp_interact IF/THEN for stable size saving
     
   } # end species interaction loop
   
@@ -219,5 +236,5 @@ for(do_site in "Montana"){
 } # end site loop
 
 ## Save the output
-saveRDS(output_list, "../results/ipm_comp_nocomp_sims.RDS")
+saveRDS(output_list, "../results/ipm_comp_nocomp_sims_yearlycomp_Montana.RDS")
 

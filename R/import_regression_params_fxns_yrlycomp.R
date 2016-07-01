@@ -35,8 +35,8 @@ format_growth_params_yrly <- function(do_site, species_list, Nyrs, Gdata_species
     if(length(tmp2)>0) Gpars$nb.yr[,,i]=as.matrix(Gdata[,tmp2])
     
     Gpars$alpha[i,]=Gdata$alpha[1:length(species_list)]
-    Gpars$sigma2.a[i]=0#Gdata$sigma.a[1]
-    Gpars$sigma2.b[i]=0#Gdata$sigma.b[1]
+    Gpars$sigma2.a[i]=Gdata$sigma.a[1]
+    Gpars$sigma2.b[i]=Gdata$sigma.b[1]
   } # next i
   return(Gpars)
 } # end function
@@ -83,11 +83,11 @@ format_survival_params_yrly <- function(do_site, species_list, Nyrs, Sdata_speci
     # get competition coefficients
     # get competition coefficients
     tmp=paste("W",1:length(species_list),sep="")
-    tmp=which(is.element(names(Gdata),tmp))
-    if(length(tmp)>0) Gpars$nb[i,]=as.numeric(Gdata[1,tmp])
+    tmp=which(is.element(names(Sdata),tmp))
+    if(length(tmp)>0) Spars$nb[i,]=as.numeric(Sdata[1,tmp])
     tmp2=paste("W",1:length(species_list), ".yr",sep="")
-    tmp2=which(is.element(names(Gdata),tmp2))
-    if(length(tmp2)>0) Gpars$nb.yr[,,i]=as.matrix(Gdata[,tmp2])
+    tmp2=which(is.element(names(Sdata),tmp2))
+    if(length(tmp2)>0) Spars$nb.yr[,,i]=as.matrix(Sdata[,tmp2])
     
     Spars$alpha[i,]=Sdata$alpha[1:length(species_list)]
   } # next i
@@ -113,17 +113,23 @@ format_recruitment_params_yrly <- function(do_site, species_list, Nyrs,
   Rpars <- list(intcpt.mu=rep(0,Nspp),intcpt.yr=matrix(0,Nyrs,Nspp),
                 intcpt.tau=rep(100,Nspp),
                 intcpt.gr=matrix(NA,Ngrp,Nspp),g.tau=rep(NA,Nspp),
-                dd=matrix(NA,Nspp,Nspp),theta=rep(NA,Nspp),
+                dd=matrix(NA,Nspp,Nspp),dd.yr=array(NA, dim=c(Nyrs,Nspp,Nspp)),theta=rep(NA,Nspp),
                 sizeMean=rep(NA,Nspp),sizeVar=rep(NA,Nspp),
                 recSizes=list(1))
   
   # subset out non-essential parameters
   tmp <- c(grep("lambda",row.names(Rdata_species)),
            grep("deviance",row.names(Rdata_species)),
-           grep("DIC",row.names(Rdata_species)))   #group stuff?
-  Rdata_species <- Rdata_species[-tmp,]
-  tmp <- paste("Rpars$",row.names(Rdata_species),"<-",Rdata_species[,1],sep="")
+           grep("DIC",row.names(Rdata_species)),
+           grep("dd",row.names(Rdata_species)))   #group stuff?
+  Rdata_species_tmp <- Rdata_species[-tmp,]
+  tmp <- paste("Rpars$",row.names(Rdata_species_tmp),"<-",Rdata_species_tmp[,1],sep="")
   eval(parse(n=dim(Rdata_species)[1],text=tmp))
+  
+  # density-dependence (dd) is a 3-D array: i focal species, j competing species, k year
+  Rdata_species_dd <- as.data.frame(Rdata_species[grep("dd\\[",row.names(Rdata_species)),])
+  Rdata_species_dd$focal_species <- as.numeric((substr(rownames(Rdata_species_dd), 4, 4)))
+  Rdata_species_dd$comp_species <- as.numeric((substr(rownames(Rdata_species_dd), 6, 6)))
   
   for(i in 1:Nspp){
     infile <- paste(path_to_site_data,"/",species_list[i],"/recSize.csv",sep="")
@@ -131,8 +137,12 @@ format_recruitment_params_yrly <- function(do_site, species_list, Nyrs,
     Rpars$sizeMean[i] <- mean(log(recSize$area))
     Rpars$sizeVar[i] <- var(log(recSize$area))
     #Rpars$recSizes[[i]]=recSize$area
+    
+    tmp_dd <- subset(Rdata_species_dd, focal_species==i)
+    tmp_dd_mat <- matrix(tmp_dd$Mean, nrow = Nyrs, ncol = Nspp, byrow = TRUE)
+    Rpars$dd.yr[,,i] <- tmp_dd_mat
   }
-  Rpars$dd=t(Rpars$dd) # c[i,j] = effect of j on i
+  # Rpars$dd=t(Rpars$dd) # c[i,j] = effect of j on i
   return(Rpars)
 } # end function
 
