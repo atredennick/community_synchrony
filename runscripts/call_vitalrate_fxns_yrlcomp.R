@@ -127,97 +127,97 @@ saveRDS(growth_summaries_biglist, "../results/growth_summaries_yrlycomp_list.RDS
 #### SURVIVAL -----------------------------------------------------------------
 ####
 # Loop through sites and then species
-surv_params_biglist <- list()
-surv_summaries_biglist <- list()
-for(do_site in site_list){
-  species_list <- list.files(paste(path_to_data, do_site, "/", sep=""))
-  if(length(grep("_", species_list)) > 0){
-    rms <- grep("_", species_list)
-    species_list <- species_list[-rms]
-  }
-  alpha_now <- subset(surv_alphas, Site==do_site)
-  alpha_now <- as.numeric(alpha_now$Alpha)
-  
-  surv_params <- list()
-  surv_summaries <- list()
-  for(do_species in species_list){
-    survDfile <- paste(path_to_data, do_site, "/", do_species,"/survD.csv",sep="")
-    survD <- read.csv(survDfile)
-    #TODO -- check with Peter about this allEdge subset
-    D <- survD  #subset(growD,allEdge==0)
-    D$logarea <- log(D$area)
-    D$quad <- as.character(D$quad)
-    
-    # Add group info for each site individually, as needed
-    if(do_site=="Arizona"){
-      D$Group=as.factor(substr(D$quad,1,1))
-      D=subset(D,year>=17)
-    }
-    if(do_site=="Kansas")
-      D$Group=as.numeric(D$Group)-1
-    if(do_site=="Montana"){
-      # Remove suspect quadrat years
-      quadyears <- with(D, paste0(quad, year))
-      quadyrs_to_remove <- read.csv("../data/Montana/BOGR_edited/suspect_BOGR_quads.csv")
-      quadyrs_to_remove$year <- quadyrs_to_remove$year - 1900
-      bad_quadyears <- with(quadyrs_to_remove, paste0(quadrat,year))
-      torms <- which(quadyears %in% bad_quadyears)
-      if(length(torms)>0) { D <- D[-torms,] }
-      
-      # Then we moved some specific points:
-      tmp2<-which(D$quad=="A12" & D$year==44)
-      tmp3<-which(D$quad=="B1"  & D$year==44)
-      tmp41<-which(D$quad=="E4" & D$year==33) 
-      tmp42<-which(D$quad=="E4" & D$year==34) 
-      tmp43<-which(D$quad=="E4" & D$year==43)
-      tmp44<-which(D$quad=="E4" & D$year==44)
-      tmpONE<-c(tmp2,tmp3,tmp41,tmp42,tmp43,tmp44)
-      if(length(tmpONE)>0) D<-D[-tmpONE,]
-      D$Group=as.factor(substr(D$quad,1,1)) 
-    }
-    if(do_site=="NewMexico")
-      D$Group=as.factor(substr(D$quad,1,1))
-    
-    # Get the years right for Kansas
-    if(do_site=="Kansas"){
-      D <- subset(D, year<68)
-      ##to remove some points:
-      #for q25
-      tmp1<-which(D$quad=="q25")
-      #for q27
-      tmp2<-which(D$quad=="q27")
-      #for q28
-      tmp3<-which(D$quad=="q28")
-      #for q30
-      tmp4<-which(D$quad=="q30")
-      #for q31
-      tmp5<-which(D$quad=="q31" & (D$year<35 | D$year>39))
-      #for q32
-      tmp6<-which(D$quad=="q32" & (D$year<35 | D$year>41))
-      tmp<-c(tmp1,tmp2,tmp3,tmp4,tmp5,tmp6)
-      D<-D[-tmp,]
-    }
-    
-    # Get correct crowding matrix
-    crowd_surv_now <- crowd_surv[[do_site]][[do_species]]
-    tmpmerge <- merge(D, crowd_surv_now, by.x="X", by.y="xID")
-    tokeep <- grep("V", colnames(tmpmerge))
-    crowd_surv_now <- as.matrix(tmpmerge[,tokeep])
-    
-    # Run through the function
-    tmp <- get_survival_params_yrlcomp(dataframe = D,
-                                       crowd_mat = crowd_surv_now,
-                                       alpha = alpha_now)
-    
-    # Save in temporary list
-    surv_params[[do_species]] <- tmp[[1]] # parameters
-    surv_summaries[[do_species]] <- tmp[[2]] # summaries
-  } #end species loop
-  # Save to the big list
-  surv_params_biglist[[do_site]] <- surv_params
-  surv_summaries_biglist[[do_site]] <- surv_summaries
-} #end site loop
-
-# Save the big parameter list
-saveRDS(surv_params_biglist, "../results/surv_params_yrlycomp_list.RDS")
-saveRDS(surv_summaries_biglist, "../results/surv_summaries_yrlycomp_list.RDS")
+# surv_params_biglist <- list()
+# surv_summaries_biglist <- list()
+# for(do_site in site_list){
+#   species_list <- list.files(paste(path_to_data, do_site, "/", sep=""))
+#   if(length(grep("_", species_list)) > 0){
+#     rms <- grep("_", species_list)
+#     species_list <- species_list[-rms]
+#   }
+#   alpha_now <- subset(surv_alphas, Site==do_site)
+#   alpha_now <- as.numeric(alpha_now$Alpha)
+#   
+#   surv_params <- list()
+#   surv_summaries <- list()
+#   for(do_species in species_list){
+#     survDfile <- paste(path_to_data, do_site, "/", do_species,"/survD.csv",sep="")
+#     survD <- read.csv(survDfile)
+#     #TODO -- check with Peter about this allEdge subset
+#     D <- survD  #subset(growD,allEdge==0)
+#     D$logarea <- log(D$area)
+#     D$quad <- as.character(D$quad)
+#     
+#     # Add group info for each site individually, as needed
+#     if(do_site=="Arizona"){
+#       D$Group=as.factor(substr(D$quad,1,1))
+#       D=subset(D,year>=17)
+#     }
+#     if(do_site=="Kansas")
+#       D$Group=as.numeric(D$Group)-1
+#     if(do_site=="Montana"){
+#       # Remove suspect quadrat years
+#       quadyears <- with(D, paste0(quad, year))
+#       quadyrs_to_remove <- read.csv("../data/Montana/BOGR_edited/suspect_BOGR_quads.csv")
+#       quadyrs_to_remove$year <- quadyrs_to_remove$year - 1900
+#       bad_quadyears <- with(quadyrs_to_remove, paste0(quadrat,year))
+#       torms <- which(quadyears %in% bad_quadyears)
+#       if(length(torms)>0) { D <- D[-torms,] }
+#       
+#       # Then we moved some specific points:
+#       tmp2<-which(D$quad=="A12" & D$year==44)
+#       tmp3<-which(D$quad=="B1"  & D$year==44)
+#       tmp41<-which(D$quad=="E4" & D$year==33) 
+#       tmp42<-which(D$quad=="E4" & D$year==34) 
+#       tmp43<-which(D$quad=="E4" & D$year==43)
+#       tmp44<-which(D$quad=="E4" & D$year==44)
+#       tmpONE<-c(tmp2,tmp3,tmp41,tmp42,tmp43,tmp44)
+#       if(length(tmpONE)>0) D<-D[-tmpONE,]
+#       D$Group=as.factor(substr(D$quad,1,1)) 
+#     }
+#     if(do_site=="NewMexico")
+#       D$Group=as.factor(substr(D$quad,1,1))
+#     
+#     # Get the years right for Kansas
+#     if(do_site=="Kansas"){
+#       D <- subset(D, year<68)
+#       ##to remove some points:
+#       #for q25
+#       tmp1<-which(D$quad=="q25")
+#       #for q27
+#       tmp2<-which(D$quad=="q27")
+#       #for q28
+#       tmp3<-which(D$quad=="q28")
+#       #for q30
+#       tmp4<-which(D$quad=="q30")
+#       #for q31
+#       tmp5<-which(D$quad=="q31" & (D$year<35 | D$year>39))
+#       #for q32
+#       tmp6<-which(D$quad=="q32" & (D$year<35 | D$year>41))
+#       tmp<-c(tmp1,tmp2,tmp3,tmp4,tmp5,tmp6)
+#       D<-D[-tmp,]
+#     }
+#     
+#     # Get correct crowding matrix
+#     crowd_surv_now <- crowd_surv[[do_site]][[do_species]]
+#     tmpmerge <- merge(D, crowd_surv_now, by.x="X", by.y="xID")
+#     tokeep <- grep("V", colnames(tmpmerge))
+#     crowd_surv_now <- as.matrix(tmpmerge[,tokeep])
+#     
+#     # Run through the function
+#     tmp <- get_survival_params_yrlcomp(dataframe = D,
+#                                        crowd_mat = crowd_surv_now,
+#                                        alpha = alpha_now)
+#     
+#     # Save in temporary list
+#     surv_params[[do_species]] <- tmp[[1]] # parameters
+#     surv_summaries[[do_species]] <- tmp[[2]] # summaries
+#   } #end species loop
+#   # Save to the big list
+#   surv_params_biglist[[do_site]] <- surv_params
+#   surv_summaries_biglist[[do_site]] <- surv_summaries
+# } #end site loop
+# 
+# # Save the big parameter list
+# saveRDS(surv_params_biglist, "../results/surv_params_yrlycomp_list.RDS")
+# saveRDS(surv_summaries_biglist, "../results/surv_summaries_yrlycomp_list.RDS")

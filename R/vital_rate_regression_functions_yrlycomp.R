@@ -83,10 +83,10 @@ get_growth_params_yrlcomp <- function(dataframe, crowd_mat, alpha){
   rand_eff_summaries <- outINLA$summary.random
 #   tmp_fixed_covariance <- outINLA$misc$lincomb.derived.correlation.matrix
 #   
-#   # Fit variance
-#   x <- outINLA$summary.fitted.values$mean #fitted values from INLA
-#   y <- (D$logarea.t1-outINLA$summary.fitted.values$mean)^2 #calculates the variance (residuals^2)
-#   outVar <- nls(y~a*exp(b*x),start=list(a=1,b=0)) #model the variance as function of fitted size
+  # Fit variance
+  x <- outINLA$summary.fitted.values$mean #fitted values from INLA
+  y <- (D$logarea.t1-outINLA$summary.fitted.values$mean)^2 #calculates the variance (residuals^2)
+  outVar <- nls(y~a*exp(b*x),start=list(a=1,b=0)) #model the variance as function of fitted size
   
   # Collect parameters
   # random year and group effects
@@ -132,9 +132,9 @@ get_growth_params_yrlcomp <- function(dataframe, crowd_mat, alpha){
   params=cbind(params,tmp)
   params$alpha=NA; params$alpha[1:length(alpha)]=alpha
   colnames(params)[which(colnames(params)=="(Intercept)")] <- "Intercept"
-#   #variance 
-#   params$sigma.a=NA; params$sigma.a[1]=coef(outVar)[1] 
-#   params$sigma.b=NA; params$sigma.b[1]=coef(outVar)[2]
+  #variance 
+  params$sigma.a=NA; params$sigma.a[1]=coef(outVar)[1] 
+  params$sigma.b=NA; params$sigma.b[1]=coef(outVar)[2]
   
   return(list(params=params, rand_eff_summaries=rand_eff_summaries))
 }
