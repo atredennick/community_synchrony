@@ -784,6 +784,8 @@ vr_files <-result_files[grep(paste(vital_rates,collapse="|"),
 vital_mat_list <- list()
 for(do_vital in vital_rates[c(1,2)]){
   vr_do <- vr_files[grep(do_vital,vr_files)]
+  torms <- grep("yr", vr_do)
+  vr_do <- vr_do[-torms]
   tmp_vital <- readRDS(paste0("../results/",vr_do))
   sites <- names(tmp_vital)
   mat_list <- list()
@@ -806,6 +808,7 @@ for(do_vital in vital_rates[c(1,2)]){
 
 # Recruitment
 vr_do <- vr_files[grep("recruit",vr_files)]
+vr_do <- vr_do[which(vr_do=="recruit_parameters.RDS")]
 tmp_vital <- readRDS(paste0("../results/",vr_do))
 names_vital <- readRDS(paste0("../results/",vr_files[1]))
 sites <- names(tmp_vital)

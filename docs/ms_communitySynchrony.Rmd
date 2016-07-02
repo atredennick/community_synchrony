@@ -16,7 +16,7 @@ linkcolor: black
 output:
   pdf_document:
     fig_caption: yes
-    keep_tex: no
+    keep_tex: yes
 urlcolor: black
 ---
 
@@ -68,7 +68,7 @@ opts_chunk$set(dev='pdf')
 
 \textbf{Article Type}: Letter
 
-\textbf{Number of Words}: Abstract = 138; Main Text = 4929 (including section titles and in-line citations)
+\textbf{Number of Words}: Abstract = 136; Main Text = 4992
 
 \textbf{Number of References}: 46
 
@@ -90,12 +90,12 @@ opts_chunk$set(dev='pdf')
 
 \newpage{}
 
-Abstract
---------
-Temporal asynchrony among species \textcolot{blue{helps} diversity \textcolor{blue}{to} stabilize ecosystem functioning, but identifying the mechanisms that determine synchrony remains a challenge.
+\begin{abstract}
+Temporal asynchrony among species \textcolor{blue}{helps} diversity \textcolor{blue}{to} stabilize ecosystem functioning, but identifying the mechanisms that determine synchrony remains a challenge.
 Here, we refine and test theory showing that synchrony depends on three factors: species responses to environmental variation, interspecific \textcolor{blue}{interactions}, and demographic stochasticity. We then conduct simulation experiments with empirical population models to quantify the relative importance of these factors in five plant communities.
 \textcolor{blue}{We found} that the average synchrony of per capita growth rates, which can range from 0 (perfect asynchrony) to 1 (perfect synchrony), was higher when environmental variation was present (0.62) rather than absent (0.43).
 Removing interspecific \textcolor{blue}{interactions} and demographic stochasticity had small effects on synchrony. In these plant communities, where species interactions and demographic stochasticity have little influence, synchrony reflects the covariance in species responses to the environment.
+\end{abstract}
 
 \newpage{}
 <!-- THIS HOW TO COMMENT-OUT -->
@@ -181,7 +181,7 @@ Our prediction \textcolor{blue}{for the synchrony of per capita growth rates for
 \end{equation}
 
 \noindent{} where $\text{cov}(u_{ei},u_{ej})$ is the standardized covariance of environmental responses between species *i* and species *j*.
-Confronting our theoretical predictions with data requires estimates of species dynamics of large populations (no demographic stochasticity) in \textcolor{blue}{growing in isolation} (no interspecific interactions) to calculate the covariance of species' environmental responses.
+Confronting our theoretical predictions with data requires estimates of species dynamics of large populations (no demographic stochasticity) \textcolor{blue}{growing in isolation} (no interspecific interactions) to calculate the covariance of species' environmental responses.
 To estimate environmental responses in natural communities, we turn to our population models built using long-term demographic data.
 
 
@@ -215,7 +215,7 @@ We modeled survival probability of each genet as function of genet size, tempora
 Regression coefficients for the effect of crowding by each species can be considered a matrix of interaction coefficients whose diagonals represent intraspecific interactions and whose off-diagonals represent interspecific interactions [@Adler2010]. These interaction coefficients can take positive (facilitative) or negative (competitive) values.
 We modeled growth as the change in size of a genet from one year to the next, which depends on the same factors as the survival model.
 We fit the survival and growth regressions using INLA [@Rue2014], a statistical package for fitting generalized linear mixed effects models via approximate Bayesian inference [@Rue2009], in R [@R2013].
-\textcolor{blue}{Crowding was treated as a fixed effect without a temporal component because the 95\% credible intervals for random year effects on crowding broadly overlapped zero.}
+\textcolor{blue}{Crowding was treated as a fixed effect without a temporal component because most 95\% credible intervals for random year effects on crowding broadly overlapped zero and, in a test case, including yearly crowding effects did not change our results.}
 Spatial (quadrat groupings) variation was treated as a random effect on the intercept and temporal (interannual) variation was treated as random effects on the intercept and the effect of genet size in the previous year (Online Supporting Information).
 
 We modeled recruitment at the quadrat scale, rather than the individual scale, because the original data do not attribute new genets to specific parents [@Chu2015].
@@ -348,7 +348,7 @@ We know synchrony is affected by interspecific competition [@Loreau2008a], but h
 The interaction of facilitation and competition is clearly capable of having a large effect on species synchrony, and future theoretical efforts should aim to include a wider range of species interactions.
 
 A challenge to the generality of our results is that we were only able to model common, co-occuring species [see @Chu2015].
-\textcolor{blue}{Most communities are dominated by few common species and many rare species}, \textcolor{blue}{meaning that the low number of common species in our focal commiunities is not unusual.} 
+\textcolor{blue}{Most communities are dominated by few common species and many rare species} [@McGill2007], \textcolor{blue}{meaning that the low number of common species in our focal commiunities is not unusual.} 
 \textcolor{blue}{Rather, the generality of our results hinges upon the influence of rare species.
 Rare species could be kept at low densities by competitive suppression due to strong interspecific interactions.
 If we had been able to model rare species, we might have found a larger effect of competition on community synchrony.
@@ -396,7 +396,7 @@ Future research on the influence of community assembly on synchrony could reconc
 
 ACKNOWLEDGMENTS
 ---------------
-This work was funded by the National Science Foundation through a Postdoctoral Research Fellowship in Biology to ATT (DBI-1400370) and a CAREER award to PBA (DEB-1054040). CdM and ML were supported by the TULIP Laboratory of Excellence (ANR-10-LABX-41). We thank the original mappers of the permanent quadrats at each site and the digitizers in the Adler lab, without whom this work would not have been possible. Compute, storage, and other resources from the Division of Research Computing in the Office of Research and Graduate Studies at Utah State University are gratefully acknowledged.
+This work was funded by the National Science Foundation through a Postdoctoral Research Fellowship in Biology to ATT (DBI-1400370) and a CAREER award to PBA (DEB-1054040). CdM and ML were supported by the TULIP Laboratory of Excellence (ANR-10-LABX-41). We thank the original mappers of the permanent quadrats at each site and the digitizers in the Adler lab, without whom this work would not have been possible. Compute, storage, and other resources from the Division of Research Computing in the Office of Research and Graduate Studies at Utah State University are gratefully acknowledged. We also thank three anonymous reviewers who provided critical feedback that improved the manuscript.
 
 \setlength{\parindent}{0ex}
 \newpage{}
