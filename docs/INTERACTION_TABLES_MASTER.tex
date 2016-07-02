@@ -268,7 +268,7 @@ synchrony of population biomasses is
 \(p_i = N_i/N_T\). When all species have identical abundances and
 \(p_i = 1/S\), where \emph{S} is species richness, the both synchrony
 values equal 1/S (Loreau and {{de Mazancourt}} 2008). The prediction
-represented in Equation S20 is Equation 3 in the main text, which we
+represented in Equation S19 is Equation 3 in the main text, which we
 refer to as \(\phi_{R,\mathcal{M}_D}\).
 
 Another limiting case is where only environmental stochasticity is
@@ -284,10 +284,10 @@ synchrony of of species' biomasses is
 \noindent{} and the synchrony of species' growth rates is
 
 \begin{equation}
-\phi_R = \frac{\sum_{i,j} p_i p_j \text{cov}(u_{ei}, u_{ej})}{S^2}
+\phi_R = \frac{\sum_{i,j} \text{cov}(u_{ei}, u_{ej})}{S^2}
 \end{equation}
 
-\noindent The prediction represented in Equation S22 is Equation 4 in
+\noindent The prediction represented in Equation S21 is Equation 4 in
 the main text, which we refer to as \(\phi_{R,\mathcal{M}_E}\). If we
 know the covariance matrix of the species environmental responses, we
 can calculate the above expectations directly. Note that the
@@ -436,12 +436,48 @@ to incorporate the recruitment function in the spatially-implicit IPM.
 
 \newpage{}
 
+\subsection{Results for synchrony of percent
+cover}\label{results-for-synchrony-of-percent-cover}
+
+Synchrony of percent cover from population model simulations did not
+compare well with observed synchrony of cover or analytical predictions
+for synchrony cover (Fig. S2, S3). We did not expect synchrony of
+percent cover from simulations to compare well with observed synchrony
+of cover because our models represent equilibrium dynamics rather than a
+specific set of observed years. Also, unlike growth rates, synchrony in
+cover is highly influenced by drift and legacy effects (Loreau and {{de
+Mazancourt}} 2008).
+
+More interesting is that our simulation results did not compare well
+with analytical predictions. One issue is that some species are not
+well-regulated around their equilibrium cover, so that our linear
+approximation required for anayltical predictions is likely to fail.
+Analytical predictions for synchrony of growth rates are more
+informative than synchrony in population sizes because the linear
+approximation is more proximate.
+
+Another issue is the influence of demographic stochasticity in some
+communities, for example, in Idaho where our simulations with only
+demographic stochasticity yielded results far different from analytical
+predicitons (Fig. S2). Our analytical predictions require the
+unrealistic assumption that demographic variances among species are
+equal. However, in Idaho, \emph{A. tripartita} has much higher
+demographic stochasticity than the other species, so that variation in
+its abundance dominates. Thus, the assumption that all species have
+similar stochasticity fails. In combination, our results from analyzing
+synchrony of percent cover indicate that the best way to decipher the
+mechanisms contributing to community synchrony is to analyze growth
+rates, in agreement with the theoretical arguments of Loreau and {{de
+Mazancourt}} (2008).
+
+\newpage{}
+
 \subsection{Supporting Figures}\label{supporting-figures}
 
 \begin{figure}[!ht]
   \centering
       \includegraphics[width=6in]{./components/figureS1.png}
-  \caption{Observed (vertical dashed lines) and simulated (solid density curves) synchrony of species per capita growth rates at each site from the IBM (top panels) and the IPM (bottom panels). IPM density curves come from 100 random contiguous sections from 2,000 iteration IPM runs, where the length of each randomly selected section is equal to the numnber of observation years for each data set. IBM density curves come from 100 replicate simulations of 75 iterations each. Synchrony values come from simulations where environmental stochasticity and interspecific interactions are present. The IBM was run on a 5 by 5 meter landscape to reduce the effect of demographic stochasticity.}
+  \caption{Observed (vertical dashed lines) and simulated (solid density curves) synchrony of species per capita growth rates at each site from the IBM (top panels) and the IPM (bottom panels). IPM density curves come from 100 random contiguous sections from 2,000 iteration IPM runs, where the length of each randomly selected section is equal to the number of observation years for each data set. IBM density curves come from 100 replicate simulations of 75 iterations each. Synchrony values come from simulations where environmental stochasticity and interspecific interactions are present. The IBM was run on a 5 by 5 meter landscape to reduce the effect of demographic stochasticity.}
 \end{figure}
 
 \pagebreak{}
@@ -449,7 +485,7 @@ to incorporate the recruitment function in the spatially-implicit IPM.
 \begin{figure}[!ht]
   \centering
       \includegraphics[width=6in]{./components/formatted_figures/formatted_figureS2.png}
-  \caption{Community-wide synchrony of species percent cover from model simulation experiments. Synchrony of species' percent cover for each study area are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific competition present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific competition removed (``No Comp.''), interspecific competition and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific competition and environmental stochasticity removed (``No Comp. + No E.S.''). Abbreviations within the bars for the New Mexico site indicate whether the IBM or IPM was used for a particular simulation. Error bars represent the upper and lower 95\% quantiles from model simulations.}
+  \caption{Community-wide synchrony of species percent cover from model simulation experiments. Synchrony of species' percent cover for each study area are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific competition present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific competition removed (``No Comp.''), interspecific competition and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific competition and environmental stochasticity removed (``No Comp. + No E.S.''). Abbreviations within the bars for the New Mexico site indicate whether the IBM or IPM was used for a particular simulation. Error bars represent the 2.5\% and 97.5\% quantiles from model simulations.}
 \end{figure}
 
 \pagebreak{}
@@ -457,7 +493,35 @@ to incorporate the recruitment function in the spatially-implicit IPM.
 \begin{figure}[!ht]
   \centering
       \includegraphics[width=6in]{./components/formatted_figures/formatted_figureS3.png}
-  \caption{Synchrony of species' percent cover for each study area from IBM simulations across different landscape sizes when only demographic stochastcity is present (``D.S. Only'') and when environmental stochasticity is also present removed (``D.S. + E.S.''). The strength of demographic stochasticity decreases as landscape size increases because population sizes also increase. Error bars represent the upper and lower 95\% quantiles from model simulations.}
+  \caption{Synchrony of species' percent cover for each study area from IBM simulations across different landscape sizes when only demographic stochastcity is present (``D.S. Only'') and when environmental stochasticity is also present removed (``D.S. + E.S.''). The horizontal lines show the analytical predictions $\mathcal{M}_D$ (dashed line) and $\mathcal{M}_E$ (dotted line). The strength of demographic stochasticity decreases as landscape size increases because population sizes also increase. Error bars represent the 2.5\% and 97.5\% quantiles from model simulations.}
+\end{figure}
+
+\pagebreak{}
+
+\begin{figure}[!ht]
+  \centering
+      \includegraphics[width=6in]{./components/formatted_figures/environmental_variances_cover.png}
+  \caption{Variance of percent cover for each species (along x-axes) in each site through time from simulations with only environmental stochasticity operating (IPM with no species interactions).}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+      \includegraphics[width=6in]{./components/formatted_figures/environmental_variances_pgr.png}
+  \caption{Variance of per capita growth rates for each species (along x-axes) in each site through time from simulations with only environmental stochasticity operating (IPM with no species interactions).}
+\end{figure}
+
+\newpage{}
+
+\begin{figure}[!ht]
+  \centering
+      \includegraphics[width=6in]{./components/formatted_figures/demographic_variances_cover.png}
+  \caption{Variance of percent cover for each species (along x-axes) in each site through time from simulations with only demographic stochasticity operating (IBM simulated on 5 by 5 meter landscape).}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+      \includegraphics[width=6in]{./components/formatted_figures/demographic_variances_pgr.png}
+  \caption{Variance of per capita growth rates for each species (along x-axes) in each site through time from simulations with only demographic stochasticity operating (IBM simulated on 5 by 5 meter landscape).}
 \end{figure}
 
 \pagebreak{}
@@ -465,12 +529,43 @@ to incorporate the recruitment function in the spatially-implicit IPM.
 \begin{figure}[!ht]
   \centering
       \includegraphics[width=3in]{./components/formatted_figures/formatted_figureS4.png}
-  \caption{Community-wide synchrony of species percent cover from model simulation experiments for the Idaho community with \textit{Artemisia tripartita} removed. Synchrony of species' percent cover for each study area are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific competition present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific competition removed (``No Comp.''), interspecific competition and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific competition and environmental stochasticity removed (``No Comp. + No E.S.''). Error bars represent the upper and lower 95\% quantiles from model simulations.}
+  \caption{Community-wide synchrony of species' growth rates from model simulation experiments for the Idaho community with \textit{Artemisia tripartita} removed. Synchrony of species' growth rates are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific competition present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific competition removed (``No Comp.''), interspecific competition and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific competition and environmental stochasticity removed (``No Comp. + No E.S.''). Error bars represent the 2.5\% and 97.5\% quantiles from model simulations.}
 \end{figure}
 
 \newpage{}
 
 \subsection{Supporting Tables}\label{supporting-tables}
+
+In all tables, species codes are as follows (also see Table 1 in the
+main text):
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \emph{Bouteloua eriopoda} = BOER
+\item
+  \emph{Sporobolus flexuosus} = SPFL
+\item
+  \emph{Bouteloua rothrockii} = BORO
+\item
+  \emph{Bouteloua curtipendula} = BOCU
+\item
+  \emph{Bouteloua hirsuta} = BOHI
+\item
+  \emph{Schizachyrium scoparium} = SCSC
+\item
+  \emph{Bouteloua gracilis} = BOGR
+\item
+  \emph{Hesperostipa comata} = HECO
+\item
+  \emph{Pascopyrum smithii} = PASM
+\item
+  \emph{Poa secunda} = POSE
+\item
+  \emph{Artemisia tripartita} = ARTR
+\item
+  \emph{Pseudoroegneria spicata} = PSSP
+\end{itemize}
 
 \begin{table}[ht]
 \centering
@@ -480,17 +575,15 @@ to incorporate the recruitment function in the spatially-implicit IPM.
   \hline
 Site & Predicted $\phi_{R,\mathcal{M}_D}$ & Simulated $\phi_{R,\mathcal{M}_D}$ & Predicted $\phi_{R,\mathcal{M}_E}$ & Simulated $\phi_{R,\mathcal{M}_E}$ \\ 
   \hline
-New Mexico & 0.56 & 0.51 & 0.86 & 0.85 \\ 
+New Mexico & 0.56 & 0.51 & 0.86 & 0.86 \\ 
   Arizona & 0.51 & 0.52 & 0.82 & 0.81 \\ 
-  Kansas & 0.35 & 0.39 & 0.62 & 0.63 \\ 
-  Montana & 0.31 & 0.33 & 0.47 & 0.49 \\ 
-  Idaho & 0.29 & 0.31 & 0.43 & 0.41 \\ 
+  Kansas & 0.35 & 0.39 & 0.62 & 0.62 \\ 
+  Montana & 0.31 & 0.31 & 0.47 & 0.50 \\ 
+  Idaho & 0.29 & 0.31 & 0.43 & 0.42 \\ 
    \hline
 \end{tabular}
 }
 \end{table}
-
-\newpage{}
 
 \begin{table}[ht]
 \centering
@@ -499,16 +592,14 @@ New Mexico & 0.56 & 0.51 & 0.86 & 0.85 \\
   \hline
 simulation & 1New Mexico & 2Arizona & 3Kansas & 4Montana & 5Idaho \\ 
   \hline
-1No D.S. & 5.00 & 4.94 & 7.13 & 4.42 & 10.10 \\ 
-  2No Comp. + No D.S. & 4.25 & 2.08 & 7.61 & 4.39 & 8.10 \\ 
-  4No Comp. & 0.98 & 0.06 & 4.84 & 1.01 & 0.11 \\ 
-  5No E.S. & 40.14 & 33.20 & 47.84 & 38.52 & 9.28 \\ 
-  6No Comp. + No E.S. & 45.95 & 41.48 & 38.21 & 33.07 & 20.33 \\ 
+1No D.S. & 5.53 & 4.28 & 6.01 & 5.27 & 11.95 \\ 
+  2No Comp. + No D.S. & 5.56 & 2.06 & 7.03 & 6.21 & 9.10 \\ 
+  4No Comp. & 0.98 & 0.06 & 4.84 & 1.43 & 0.11 \\ 
+  5No E.S. & 40.14 & 33.20 & 47.84 & 39.06 & 9.28 \\ 
+  6No Comp. + No E.S. & 45.95 & 41.48 & 38.21 & 39.44 & 20.33 \\ 
    \hline
 \end{tabular}
 \end{table}
-
-\newpage{}
 
 \begin{table}[ht]
 \centering
@@ -517,37 +608,42 @@ simulation & 1New Mexico & 2Arizona & 3Kansas & 4Montana & 5Idaho \\
   \hline
 site & term & growth & recruit & surv \\ 
   \hline
-Arizona & intercept & 0.49 & -0.05 & 0.45 \\ 
-  Arizona & slope & 0.68 &  & 0.15 \\ 
-  Idaho & intercept & 0.46 & 0.38 & 0.29 \\ 
+Arizona & intercept & 0.51 & -0.05 & 0.51 \\ 
+  Arizona & slope & 0.68 &  & 0.16 \\ 
+  Idaho & intercept & 0.45 & 0.38 & 0.25 \\ 
   Idaho & slope & 0.50 &  & 0.47 \\ 
-  Kansas & intercept & 0.47 & 0.29 & 0.24 \\ 
-  Kansas & slope & 0.18 &  & 0.16 \\ 
-  Montana & intercept & 0.26 & 0.04 & 0.39 \\ 
-  Montana & slope & 0.10 &  & 0.01 \\ 
-  NewMexico & intercept & 0.54 & -0.15 & 0.64 \\ 
-  NewMexico & slope & 0.32 &  & 0.15 \\ 
+  Kansas & intercept & 0.44 & 0.29 & 0.26 \\ 
+  Kansas & slope & 0.19 &  & 0.16 \\ 
+  Montana & intercept & 0.29 & 0.07 & 0.41 \\ 
+  Montana & slope & 0.11 &  & 0.02 \\ 
+  NewMexico & intercept & 0.51 & -0.15 & 0.65 \\ 
+  NewMexico & slope & 0.37 &  & 0.20 \\ 
    \hline
 \end{tabular}
 \end{table}
-
-\newpage{}
 
 \begin{table}[ht]
 \centering
-\caption{Average interaction coefficients across vital rates for each community.} 
-\begin{tabular}{lrr}
+\caption{Average interaction coefficients for each vital rate for each community.} 
+\begin{tabular}{llrrr}
   \hline
-site & Interspecific Competition & Intraspecific Competition \\ 
+Site & Interaction Type & Growth & Recruitment & Survival \\ 
   \hline
-Arizona & -0.17 & -0.64 \\ 
-  Idaho & -0.04 & -0.71 \\ 
-  Kansas & 0.02 & -0.35 \\ 
-  Montana & 0.04 & -0.98 \\ 
-  NewMexico & -0.12 & -0.62 \\ 
+Arizona & Interspecific & -0.0111 & -0.4534 & -0.0507 \\ 
+  Arizona & Intraspecific & -0.0402 & -1.4209 & -0.4446 \\ 
+  Idaho & Interspecific & 0.0022 & -0.1091 & 0.0059 \\ 
+  Idaho & Intraspecific & -0.0469 & -1.5569 & -0.5269 \\ 
+  Kansas & Interspecific & -0.0008 & 0.0463 & -0.0041 \\ 
+  Kansas & Intraspecific & -0.0062 & -0.9945 & -0.0586 \\ 
+  Montana & Interspecific & -0.0059 & 0.0691 & 0.0342 \\ 
+  Montana & Intraspecific & -0.0801 & -2.0900 & -0.8652 \\ 
+  NewMexico & Interspecific & -0.0027 & -0.3461 & -0.0080 \\ 
+  NewMexico & Intraspecific & -0.0111 & -1.6473 & -0.2191 \\ 
    \hline
 \end{tabular}
 \end{table}
+
+
 
 \newpage{}
 
@@ -573,8 +669,8 @@ BOER & -0.0033 & -0.0171 \\
   \hline
  & BOER & BORO \\ 
   \hline
-BOER & -0.2791 & -0.0816 \\ 
-  BORO & -0.0200 & -0.6101 \\ 
+BOER & -0.2791 & -0.0814 \\ 
+  BORO & -0.0200 & -0.6102 \\ 
    \hline
 \end{tabular}
 \end{table}
@@ -586,11 +682,13 @@ BOER & -0.2791 & -0.0816 \\
   \hline
  & BOER & BORO \\ 
   \hline
-BOER & -0.5304 & -0.3063 \\ 
-  BORO & -0.5798 & -2.3237 \\ 
+BOER & -0.5184 & -0.3290 \\ 
+  BORO & -0.5779 & -2.3235 \\ 
    \hline
 \end{tabular}
 \end{table}
+
+
 
 \newpage{}
 
@@ -618,10 +716,10 @@ ARTR & -0.0300 & 0.0129 & 0.0117 & 0.0003 \\
   \hline
  & ARTR & HECO & POSE & PSSP \\ 
   \hline
-ARTR & -0.0236 & -0.0202 & 0.0314 & 0.0158 \\ 
-  HECO & -0.0005 & -1.0206 & -0.0052 & 0.0125 \\ 
-  POSE & 0.0001 & 0.0006 & -0.9091 & 0.0121 \\ 
-  PSSP & 0.0009 & -0.0013 & 0.0246 & -0.1543 \\ 
+ARTR & -0.0236 & -0.0199 & 0.0314 & 0.0158 \\ 
+  HECO & -0.0005 & -1.0206 & -0.0051 & 0.0125 \\ 
+  POSE & 0.0001 & 0.0006 & -0.9088 & 0.0121 \\ 
+  PSSP & 0.0009 & -0.0013 & 0.0248 & -0.1547 \\ 
    \hline
 \end{tabular}
 \end{table}
@@ -633,10 +731,10 @@ ARTR & -0.0236 & -0.0202 & 0.0314 & 0.0158 \\
   \hline
  & ARTR & HECO & POSE & PSSP \\ 
   \hline
-ARTR & -0.4054 & 0.2132 & 0.0120 & 0.2389 \\ 
-  HECO & -0.5674 & -1.7722 & -0.1476 & -0.3184 \\ 
-  POSE & -0.2499 & -0.0328 & -2.2873 & -0.1448 \\ 
-  PSSP & -0.2580 & -0.1687 & 0.0365 & -1.7675 \\ 
+ARTR & -0.4003 & 0.2243 & 0.0117 & 0.2360 \\ 
+  HECO & -0.5681 & -1.7594 & -0.1437 & -0.3195 \\ 
+  POSE & -0.2505 & -0.0131 & -2.2928 & -0.1420 \\ 
+  PSSP & -0.2405 & -0.1389 & 0.0347 & -1.7751 \\ 
    \hline
 \end{tabular}
 \end{table}
@@ -667,9 +765,9 @@ BOCU & -0.0017 & 0.0011 & 0.0010 \\
   \hline
  & BOCU & BOHI & SCSC \\ 
   \hline
-BOCU & -0.1087 & 0.0006 & 0.0010 \\ 
+BOCU & -0.1084 & 0.0006 & 0.0010 \\ 
   BOHI & 0.0021 & -0.0403 & -0.0153 \\ 
-  SCSC & -0.0064 & -0.0066 & -0.0270 \\ 
+  SCSC & -0.0064 & -0.0066 & -0.0271 \\ 
    \hline
 \end{tabular}
 \end{table}
@@ -681,9 +779,9 @@ BOCU & -0.1087 & 0.0006 & 0.0010 \\
   \hline
  & BOCU & BOHI & SCSC \\ 
   \hline
-BOCU & -1.1584 & -0.0242 & -0.0524 \\ 
-  BOHI & 0.3387 & -0.8620 & 0.0123 \\ 
-  SCSC & 0.0615 & -0.0308 & -0.9543 \\ 
+BOCU & -1.1544 & -0.0312 & -0.0643 \\ 
+  BOHI & 0.3410 & -0.8681 & 0.0041 \\ 
+  SCSC & 0.0619 & -0.0336 & -0.9611 \\ 
    \hline
 \end{tabular}
 \end{table}
@@ -701,10 +799,10 @@ BOCU & -1.1584 & -0.0242 & -0.0524 \\
   \hline
  & BOGR & HECO & PASM & POSE \\ 
   \hline
-BOGR & -0.0121 & -0.0002 & -0.0229 & -0.0014 \\ 
-  HECO & -0.0023 & -0.0778 & 0.0142 & 0.0061 \\ 
-  PASM & -0.0005 & -0.0039 & -0.0601 & -0.0033 \\ 
-  POSE & 0.0005 & -0.0101 & -0.0404 & -0.1431 \\ 
+BOGR & -0.0124 & -0.0032 & -0.0258 & -0.0001 \\ 
+  HECO & -0.0025 & -0.0976 & 0.0096 & 0.0079 \\ 
+  PASM & -0.0006 & -0.0041 & -0.0695 & -0.0030 \\ 
+  POSE & 0.0006 & -0.0082 & -0.0417 & -0.1410 \\ 
    \hline
 \end{tabular}
 \end{table}
@@ -716,10 +814,10 @@ BOGR & -0.0121 & -0.0002 & -0.0229 & -0.0014 \\
   \hline
  & BOGR & HECO & PASM & POSE \\ 
   \hline
-BOGR & -0.1280 & 0.0211 & 0.1243 & 0.0173 \\ 
-  HECO & -0.0043 & -0.5661 & 0.1386 & 0.0013 \\ 
-  PASM & 0.0001 & -0.0044 & -1.3046 & 0.0012 \\ 
-  POSE & 0.0010 & 0.0085 & 0.1198 & -1.2434 \\ 
+BOGR & -0.1316 & 0.0076 & 0.1096 & 0.0126 \\ 
+  HECO & -0.0028 & -0.7064 & 0.1423 & -0.0030 \\ 
+  PASM & -0.0012 & -0.0033 & -1.4026 & 0.0024 \\ 
+  POSE & 0.0014 & 0.0082 & 0.1363 & -1.2203 \\ 
    \hline
 \end{tabular}
 \end{table}
@@ -731,10 +829,10 @@ BOGR & -0.1280 & 0.0211 & 0.1243 & 0.0173 \\
   \hline
  & BOGR & HECO & PASM & POSE \\ 
   \hline
-BOGR & -0.8916 & -0.2522 & -0.1334 & 0.0610 \\ 
-  HECO & 0.0852 & -1.4191 & -0.0685 & -0.0422 \\ 
-  PASM & 0.1252 & 0.3093 & -4.1823 & 0.3032 \\ 
-  POSE & 0.1577 & 0.4906 & 0.0709 & -1.7065 \\ 
+BOGR & -0.9151 & -0.3076 & -0.0984 & 0.0495 \\ 
+  HECO & -0.0785 & -1.4192 & -0.0480 & -0.0468 \\ 
+  PASM & -0.0103 & 0.2773 & -4.3148 & 0.3470 \\ 
+  POSE & 0.1971 & 0.4854 & 0.0623 & -1.7109 \\ 
    \hline
 \end{tabular}
 \end{table}
@@ -747,7 +845,7 @@ BOGR & -0.8916 & -0.2522 & -0.1334 & 0.0610 \\
 
 \begin{table}[ht]
 \centering
-\caption{Interaction coefficients for growth regressions in New Mexico.} 
+\caption{Interaction coefficients for growth regressions in NewMexico.} 
 \begin{tabular}{rrr}
   \hline
  & BOER & SPFL \\ 
@@ -760,31 +858,29 @@ BOER & -0.0045 & -0.0013 \\
 
 \begin{table}[ht]
 \centering
-\caption{Interaction coefficients for survival regressions in New Mexico.} 
+\caption{Interaction coefficients for survival regressions in NewMexico.} 
 \begin{tabular}{rrr}
   \hline
  & BOER & SPFL \\ 
   \hline
-BOER & -0.1575 & -0.0040 \\ 
-  SPFL & -0.0120 & -0.2807 \\ 
+BOER & -0.1576 & -0.0040 \\ 
+  SPFL & -0.0120 & -0.2806 \\ 
    \hline
 \end{tabular}
 \end{table}
 
 \begin{table}[ht]
 \centering
-\caption{Interaction coefficients for recruitment regressions in New Mexico.} 
+\caption{Interaction coefficients for recruitment regressions in NewMexico.} 
 \begin{tabular}{rrr}
   \hline
  & BOER & SPFL \\ 
   \hline
-BOER & -0.7631 & -0.6198 \\ 
-  SPFL & -0.0684 & -2.5220 \\ 
+BOER & -0.7649 & -0.6230 \\ 
+  SPFL & -0.0691 & -2.5296 \\ 
    \hline
 \end{tabular}
 \end{table}
-
-
 
 \newpage{}
 
