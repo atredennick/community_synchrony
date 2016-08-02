@@ -212,6 +212,25 @@ ggplot(ibm_demo_rms, aes(x=(expansion^2), y=avg_synch, color=site))+
 ggsave("../docs/components/ibm_sims_across_landscape.png", width = 12, height = 3, units="in", dpi=75)
 
 
+##  FOR PRESENTATION
+ggplot(ibm_demo_rms, aes(x=(expansion^2), y=avg_synch, color=experiment))+
+#   geom_hline(data=theoretical_preds_and_obs, aes(yintercept=envonly_pred), color="grey15", linetype=3)+
+#   geom_hline(data=theoretical_preds_and_obs, aes(yintercept=demonly_pred), color="grey15", linetype=2)+
+  geom_line(aes(group=experiment))+
+  geom_point(size=3)+
+  geom_errorbar(aes(ymin=lo_synch, ymax=up_synch), width=1.5)+
+  facet_wrap("site", nrow=1)+
+  scale_color_manual(values=site_colors, labels=c("D.S. Only", "D.S + E.S."), name="")+
+  xlab(expression(paste("Simulated Area (", m^2,")")))+
+  ylab("Synchrony of Species' Growth Rates")+
+  scale_y_continuous(limits=c(0,1))+
+  # scale_linetype_discrete(name="",labels=c("No E.S", "All Drivers"))+
+  # guides(color=FALSE)+
+  theme_few()+
+  theme(legend.position=c(0.1,0.2),
+        legend.background = element_rect(fill = NA))+
+  theme(axis.text.x = element_text(size=16),
+        axis.text.y = element_text(size=16))
 
 
 ####
