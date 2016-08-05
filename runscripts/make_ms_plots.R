@@ -335,6 +335,33 @@ ggplot(data=plot_df)+
 
 ggsave("../docs/components/figureS2_simscover.png", width = 10, height = 4, units="in", dpi=75)
 
+##  FOR PRESENTATION
+pres_df <- subset(plot_df, simulation != "2No Comp. + No D.S." & simulation != "6No Comp. + No E.S.")
+pres_df$simulation <- as.character(pres_df$simulation)
+pres_df[which(pres_df$simulation=="3All Drivers"),"simulation"] <- "1All Drivers"
+new_cols <- c("grey45", "steelblue", "slateblue4", "purple")
+ggplot(data=pres_df)+
+  geom_bar(data=pres_df, aes(x=simulation, y=synchrony, fill=simulation, color=simulation),
+           stat="identity")+
+  geom_errorbar(data=pres_df, aes(x=simulation, y=synchrony, fill=simulation, color=simulation, 
+                                  ymin=lower_synch, ymax=upper_synch), 
+                color="white", size=1, width=0.25)+
+  geom_errorbar(data=pres_df, aes(x=simulation, y=synchrony, fill=simulation, color=simulation, 
+                                  ymin=lower_synch, ymax=upper_synch), width=0.25)+
+  geom_point(data=theoretical_preds_and_obs, aes(x=1, y=obs), size=3.5, color="white", shape=15)+
+  geom_point(data=theoretical_preds_and_obs, aes(x=1, y=obs), size=3, color=pointocols[1], shape=15)+
+  facet_wrap("site", nrow=1)+
+  scale_fill_manual(values=new_cols, labels=site_labels, name="")+
+  scale_color_manual(values=new_cols, labels=site_labels, name="")+
+  xlab("")+
+  ylab("")+
+  scale_y_continuous(limits=c(0,1))+
+  scale_x_discrete(labels=c("All Drivers", "No D.S.", "No Comp.", "No E.F."))+
+  theme_few()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size=16),
+        axis.text.y = element_text(size=16))+
+  guides(fill=FALSE,color=FALSE)
+
 
 ##  Make demographic stochasiticty plot for all landscape sizes -----
 ibm_demo_rms <- subset(ibm_synch_agg, typesynch=="Cover (%)")
