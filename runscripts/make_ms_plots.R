@@ -118,14 +118,15 @@ colnames(theoretical_preds_and_obs) <- c("site", "envonly_pred", "demonly_pred",
 theoretical_preds_and_obs$site <- site_labels_order
 
 ##  Make the main (all sims) plot -----
-pointocols <- rep("grey25",3)
+pointocols <- rep("black",3)
+exp_colors <- c("black", "grey25", "grey45", "grey65", "grey85", "white")
 ggplot(data=plot_df)+
-  geom_bar(data=plot_df, aes(x=simulation, y=synchrony, fill=site, color=site),
-           stat="identity")+
-  geom_errorbar(data=plot_df, aes(x=simulation, y=synchrony, fill=site, color=site, 
+  geom_bar(data=plot_df, aes(x=simulation, y=synchrony, fill=simulation),
+           stat="identity", color="black")+
+  geom_errorbar(data=plot_df, aes(x=simulation, y=synchrony, fill=simulation, color=site, 
                              ymin=lower_synch, ymax=upper_synch), 
                 color="white", size=1, width=0.25)+
-  geom_errorbar(data=plot_df, aes(x=simulation, y=synchrony, fill=site, color=site, 
+  geom_errorbar(data=plot_df, aes(x=simulation, y=synchrony,
                              ymin=lower_synch, ymax=upper_synch), width=0.25)+
   geom_point(data=theoretical_preds_and_obs, aes(x=3, y=obs), size=3.5, color="white", shape=15)+
   geom_point(data=theoretical_preds_and_obs, aes(x=3, y=obs), size=3, color=pointocols[1], shape=15)+
@@ -134,8 +135,8 @@ ggplot(data=plot_df)+
   geom_point(data=theoretical_preds_and_obs, aes(x=6, y=demonly_pred), size=3.5, color="white", shape=17)+
   geom_point(data=theoretical_preds_and_obs, aes(x=6, y=demonly_pred), size=3, color=pointocols[3], shape=17)+
   facet_wrap("site", nrow=1)+
-  scale_fill_manual(values=site_colors, labels=site_labels, name="")+
-  scale_color_manual(values=site_colors, labels=site_labels, name="")+
+  scale_fill_manual(values=exp_colors, labels=site_labels, name="")+
+  scale_color_manual(values=exp_colors, labels=site_labels, name="")+
   xlab("Simulation Experiment")+
   ylab("Synchrony of Species' Growth Rates")+
   scale_x_discrete(labels=sim_labels)+
@@ -191,7 +192,7 @@ ibm_demo_rms[which(ibm_demo_rms$site == "Kansas"),"site"] <- "3Kansas"
 ibm_demo_rms[which(ibm_demo_rms$site == "Montana"),"site"] <- "4Montana"
 ibm_demo_rms[which(ibm_demo_rms$site == "Idaho"),"site"] <- "5Idaho"
 
-ggplot(ibm_demo_rms, aes(x=(expansion^2), y=avg_synch, color=site))+
+ggplot(ibm_demo_rms, aes(x=(expansion^2), y=avg_synch))+
   geom_hline(data=theoretical_preds_and_obs, aes(yintercept=envonly_pred), color="grey15", linetype=3)+
   geom_hline(data=theoretical_preds_and_obs, aes(yintercept=demonly_pred), color="grey15", linetype=2)+
   geom_line(aes(group=experiment))+
