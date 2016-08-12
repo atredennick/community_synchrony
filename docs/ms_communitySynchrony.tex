@@ -86,12 +86,16 @@
 \doublespacing
 \usepackage{rotating}
 \usepackage{color, soul}
+\usepackage{times}
+\usepackage[document]{ragged2e}
 
 
 \begin{document}
 
 \maketitle
 
+
+\renewcommand\linenumberfont{\normalfont\tiny\sffamily\color{gray}}
 
 \begin{singlespace}
 
@@ -157,7 +161,7 @@ services (Loreau et al. 2001, Hooper et al. 2005, Rockstrom et al.
 species richness will decrease productivity (Tilman et al. 2001) and the
 temporal stability of productivity (Tilman et al. 2006, Hector et al.
 2010). The stabilizing effect of species richness stems from individual
-species responding in different way\} to environmental fluctuations
+species responding in different ways to environmental fluctuations
 (environmental stochasticity), or fluctuating asynchronously because of
 random chance events (demographic stochasticity) (Isbell et al. 2009,
 Hector et al. 2010, {{de Mazancourt}} et al. 2013). Species richness
@@ -265,11 +269,11 @@ growth rates, rather than abundances, because growth rates represent the
 instantaneous response of species to the environment and competition,
 and are less susceptible to the legacy effects of drift and disturbance
 (Loreau and {{de Mazancourt}} 2008). We present equivalent results for
-synchrony of species abundances in the Online Supporting Information,
-and show that they lead to the same overall conclusions as synchrony of
-per capita growth rates. Following Loreau and {{de Mazancourt}} (2008)
-and {{de Mazancourt}} et al. (2013), we define population growth,
-ignoring observation error, as
+synchrony of species abundances in the Appendix S1, and show that they
+lead to the same overall conclusions as synchrony of per capita growth
+rates. Following Loreau and {{de Mazancourt}} (2008) and {{de
+Mazancourt}} et al. (2013), we define population growth, ignoring
+observation error, as
 
 \begin{align}
 r_i(t) &= \text{ln}N_i(t+1) - \text{ln}N_i(t) \\
@@ -292,14 +296,14 @@ approximation (Lande et al. 2003, {{de Mazancourt}} et al. 2013).
 \(\sigma_{di}^2\) is the demographic variance and \(u_{di}(t)\) are
 independent normal variables with zero mean and unit variance. To derive
 analytical predictions we solved a first-order approximation of Equation
-2 ({{de Mazancourt}} et al. 2013 and Online Supporting Information). Due
-to the linear approximation approach, our analytical predictions will
-likely fail in communities where species exhibit large fluctuations due
-to limit cycles and chaos (Loreau and {{de Mazancourt}} 2008). Indeed,
-one of the advantages of focusing on growth rates rather than abundances
-is that growth rates are more likely to be well-regulated around an
-equilibrium value, if the long-term average of a species' growth rate is
-relatively small (e.g., \(r < 2\)).
+2 ({{de Mazancourt}} et al. 2013 and Appendix S1). Due to the linear
+approximation approach, our analytical predictions will likely fail in
+communities where species exhibit large fluctuations due to limit cycles
+and chaos (Loreau and {{de Mazancourt}} 2008). Indeed, one of the
+advantages of focusing on growth rates rather than abundances is that
+growth rates are more likely to be well-regulated around an equilibrium
+value, if the long-term average of a species' growth rate is relatively
+small (e.g., \(r < 2\)).
 
 \subsubsection{Predictions}\label{predictions}
 
@@ -393,19 +397,19 @@ our model simulations (see below).
 Vital rate regressions are the building blocks of our dynamic models: an
 integral projection model (IPM) and an individual-based model (IBM). We
 followed the approach of Chu and Adler (2015) to fit statistical models
-for survival, growth, and recruitment (see Online Supporting Information
-for full details). We modeled survival probability of each genet as
-function of genet size, temporal variation among years, permanent
-spatial variation among groups of quadrats, and local neighborhood
-crowding from conspecific and heterospecific genets. Regression
-coefficients for the effect of crowding by each species can be
-considered a matrix of interaction coefficients whose diagonals
-represent intraspecific interactions and whose off-diagonals represent
-interspecific interactions (Adler et al. 2010). These interaction
-coefficients can take positive (facilitative) or negative (competitive)
-values. We modeled growth as the change in size of a genet from one year
-to the next, which depends on the same factors as the survival model. We
-fit the survival and growth regressions using INLA (Rue et al. 2014), a
+for survival, growth, and recruitment (see Appendix S1 for full
+details). We modeled survival probability of each genet as function of
+genet size, temporal variation among years, permanent spatial variation
+among groups of quadrats, and local neighborhood crowding from
+conspecific and heterospecific genets. Regression coefficients for the
+effect of crowding by each species can be considered a matrix of
+interaction coefficients whose diagonals represent intraspecific
+interactions and whose off-diagonals represent interspecific
+interactions (Adler et al. 2010). These interaction coefficients can
+take positive (facilitative) or negative (competitive) values. We
+modeled growth as the change in size of a genet from one year to the
+next, which depends on the same factors as the survival model. We fit
+the survival and growth regressions using INLA (Rue et al. 2014), a
 statistical package for fitting generalized linear mixed effects models
 via approximate Bayesian inference (Rue et al. 2009), in R (R Core Team
 2013). Crowding was treated as a fixed effect without a temporal
@@ -414,8 +418,8 @@ on crowding broadly overlapped zero and, in a test case, including
 yearly crowding effects did not change our results. Spatial (quadrat
 groupings) variation was treated as a random effect on the intercept and
 temporal (interannual) variation was treated as random effects on the
-intercept and the effect of genet size in the previous year (Online
-Supporting Information).
+intercept and the effect of genet size in the previous year (Appendix
+S1).
 
 We modeled recruitment at the quadrat scale, rather than the individual
 scale, because the original data do not attribute new genets to specific
@@ -579,7 +583,7 @@ growing in isolation almost perfectly matched species synchrony in
 polyculture (Fig. 3). Results for synchrony of percent cover are
 qualitatively similar, but simulation results were more variable and
 less consistent with analytical predictions and observed synchrony
-(Online Supporting Information, Figs. S2-S3).
+(Appendix S1, Figs. S2-S3).
 
 \subsection{DISCUSSION}\label{discussion}
 
@@ -597,13 +601,13 @@ that analyses based on synchrony of species' percent cover, rather than
 growth rates, were uninformative (Figs. S2-S3) since the linear
 approximation required for analytical predictions is a stronger
 assumption for abundance than growth rates, especially given relatively
-short time-series (Online Supporting Information). Thus, our results
-provide further evidence that it is difficult to decipher mechanisms of
-species synchrony from abundance time series, as expected by theory
-(Loreau and {{de Mazancourt}} 2008). Observed synchrony of per capita
-growth rates was positively correlated with the variability of percent
-cover across our focal communities, which confirms that we are
-investigating an important process underlying ecosystem stability.
+short time-series (Appendix S1). Thus, our results provide further
+evidence that it is difficult to decipher mechanisms of species
+synchrony from abundance time series, as expected by theory (Loreau and
+{{de Mazancourt}} 2008). Observed synchrony of per capita growth rates
+was positively correlated with the variability of percent cover across
+our focal communities, which confirms that we are investigating an
+important process underlying ecosystem stability.
 
 \subsubsection{Simulations support theoretical
 predictions}\label{simulations-support-theoretical-predictions}
@@ -888,7 +892,7 @@ New Mexico & 0.86 & 0.92 & 0.51 &   2 \\
 \begin{figure}[!ht]
   \centering
       \includegraphics[width=6in]{./components/formatted_figures/formatted_figure1.png}
-  \caption{Community-wide species synchrony of per capita growth rates from model simulation experiments. Synchrony of species' growth rates for each study area are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific interactions present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific interactions removed (``No Comp.''), interspecific interactions and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific interactions and environmental stochasticity removed (``No Comp. + No E.S.''). Abbreviations within the bars for the New Mexico site indicate whether the IBM or IPM was used for a particular simulation. Error bars represent the 2.5\% and 97.5\% quantiles from model simulations. All IBM simulations shown in this figure were run on a 25 $\text{m}^2$ virtual landscape. Points show observed and predicted synchrony aligned with the model simulation that corresponds with each observation or analytical predicion.}
+  \caption{Community-wide species synchrony of per capita growth rates from model simulation experiments. Synchrony of species' growth rates for each study area are from simulation experiments with demographic stochasticity, environmental stochasticity, and interspecific interactions present (``All Drivers''), demographic stochasticity removed (``No D.S.''), environmental stochasticity removed (``No E.S.''), interspecific interactions removed (``No Comp.''), interspecific interactions and demographic stochasticity removed (``No Comp. + No D.S.''), and interspecific interactions and environmental stochasticity removed (``No Comp. + No E.S.''). Abbreviations within the bars for the New Mexico site indicate whether the IBM or IPM was used for a particular simulation. Error bars represent the 2.5\% and 97.5\% quantiles from model simulations. All IBM simulations shown in this figure were run on a 25 $\text{m}^2$ virtual landscape. Points show observed and predicted synchrony aligned with the model simulation that corresponds with each observation or analytical prediction.}
 \end{figure}
 
 \pagebreak{}

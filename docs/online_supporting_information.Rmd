@@ -8,6 +8,8 @@ header-includes:
    - \usepackage{color}
    - \usepackage{rotating}
    - \usepackage{morefloats}
+   - \usepackage{times} 
+   - \usepackage[document]{ragged2e}
 bibliography: ~/Dropbox/Bibliography/CommunitySynchrony.bib
 csl: components/ecology.csl
 
@@ -21,6 +23,9 @@ geometry: margin=1in
 linkcolor: black
 urlcolor: black
 ---
+
+\renewcommand\linenumberfont{\normalfont\tiny\sffamily\color{gray}}
+
 
 ```{r caching, include=FALSE}
 library("methods")

@@ -234,6 +234,34 @@ ggplot(ibm_demo_rms, aes(x=(expansion^2), y=avg_synch, color=experiment))+
         axis.text.y = element_text(size=16))
 
 
+##  Make monoculture v. polyculture plot ----
+polymono <- ipm_synch[,c("site", "typesynch", "experiment", "mean_synch")]
+polymono_wide <- dcast(polymono, site+typesynch~experiment, value.var = "mean_synch")
+plot_df <- subset(polymono_wide,typesynch=="pgr_synch")
+# plot_df$site <- c("2Arizona", "5Idaho", "3Kansas", "4Montana", "1New Mexico")
+
+ggplot(plot_df, aes(x=ENVNOINTER, y=ENVINTER))+
+  geom_abline(aes(intercept=0, slope=1), linetype=3)+
+  geom_point(size=5)+
+  # geom_text(aes(label=site), hjust = 0, nudge_x = -0.13)+
+  scale_y_continuous(limits=c(0,1))+
+  scale_x_continuous(limits=c(0,1))+
+  ylab("Species synchrony in competition")+
+  xlab("Species synchrony in isolation")+
+  # scale_shape_discrete(name="Temporal Variable", labels=c("Per capita growth rate", "Percent cover"))+
+  scale_color_manual(values = c("grey45", "steelblue", "slateblue4", "darkorange", "purple"),
+                     name = "",
+                     labels = c("New Mexico", "Arizona", "Kansas", "Montana", "Idaho"))+
+  theme_few()+
+  theme(axis.text.x = element_text(size=14),
+        axis.text.y = element_text(size=14),
+        axis.title=element_text(size=16))
+
+ggsave("../docs/components/poly_vs_mono_synch.png", width = 4.5, height = 4, units = "in")
+
+
+
+
 ####
 ####  SUPPLEMENTAL FIGURES 2-3
 ####
@@ -308,14 +336,15 @@ colnames(theoretical_preds_and_obs) <- c("site", "envonly_pred", "demonly_pred",
 theoretical_preds_and_obs$site <- site_labels_order
 
 ##  Make the main (all sims) plot -----
-pointocols <- rep("grey25",3)
+pointocols <- rep("black",3)
+exp_colors <- c("black", "grey25", "grey45", "grey65", "grey85", "white")
 ggplot(data=plot_df)+
-  geom_bar(data=plot_df, aes(x=simulation, y=synchrony, fill=site, color=site),
-           stat="identity")+
-  geom_errorbar(data=plot_df, aes(x=simulation, y=synchrony, fill=site, color=site, 
+  geom_bar(data=plot_df, aes(x=simulation, y=synchrony, fill=simulation),
+           stat="identity", color="black")+
+  geom_errorbar(data=plot_df, aes(x=simulation, y=synchrony, fill=simulation, color=site, 
                                   ymin=lower_synch, ymax=upper_synch), 
                 color="white", size=1, width=0.25)+
-  geom_errorbar(data=plot_df, aes(x=simulation, y=synchrony, fill=site, color=site, 
+  geom_errorbar(data=plot_df, aes(x=simulation, y=synchrony,
                                   ymin=lower_synch, ymax=upper_synch), width=0.25)+
   geom_point(data=theoretical_preds_and_obs, aes(x=3, y=obs), size=3.5, color="white", shape=15)+
   geom_point(data=theoretical_preds_and_obs, aes(x=3, y=obs), size=3, color=pointocols[1], shape=15)+
@@ -324,8 +353,8 @@ ggplot(data=plot_df)+
   geom_point(data=theoretical_preds_and_obs, aes(x=6, y=demonly_pred), size=3.5, color="white", shape=17)+
   geom_point(data=theoretical_preds_and_obs, aes(x=6, y=demonly_pred), size=3, color=pointocols[3], shape=17)+
   facet_wrap("site", nrow=1)+
-  scale_fill_manual(values=site_colors, labels=site_labels, name="")+
-  scale_color_manual(values=site_colors, labels=site_labels, name="")+
+  scale_fill_manual(values=exp_colors, labels=site_labels, name="")+
+  scale_color_manual(values=exp_colors, labels=site_labels, name="")+
   xlab("Simulation Experiment")+
   ylab("Synchrony of Species' Percent Cover")+
   scale_x_discrete(labels=sim_labels)+
@@ -373,12 +402,12 @@ ibm_demo_rms[which(ibm_demo_rms$site == "Kansas"),"site"] <- "3Kansas"
 ibm_demo_rms[which(ibm_demo_rms$site == "Montana"),"site"] <- "4Montana"
 ibm_demo_rms[which(ibm_demo_rms$site == "Idaho"),"site"] <- "5Idaho"
 
-ggplot(ibm_demo_rms, aes(x=(expansion^2), y=avg_synch, color=site))+
+ggplot(ibm_demo_rms, aes(x=(expansion^2), y=avg_synch))+
   geom_hline(data=theoretical_preds_and_obs, aes(yintercept=envonly_pred), color="grey15", linetype=3)+
   geom_hline(data=theoretical_preds_and_obs, aes(yintercept=demonly_pred), color="grey15", linetype=2)+
   geom_line(aes(group=experiment))+
   geom_point(aes(shape=experiment), size=3)+
-  geom_errorbar(aes(ymin=lo_synch, ymax=up_synch), width=2)+
+  geom_errorbar(aes(ymin=lo_synch, ymax=up_synch), width=1.5)+
   facet_wrap("site", nrow=1)+
   scale_color_manual(values=site_colors, labels=site_labels, name="")+
   xlab(expression(paste("Simulated Area (", m^2,")")))+

@@ -24,6 +24,15 @@
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 \usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
               unicode=false, % unicode breaks when used with xetex
@@ -76,6 +85,8 @@
 \usepackage{color}
 \usepackage{rotating}
 \usepackage{morefloats}
+\usepackage{times}
+\usepackage[document]{ragged2e}
 
 
 \begin{document}
@@ -83,8 +94,13 @@
 \maketitle
 
 
+\renewcommand\linenumberfont{\normalfont\tiny\sffamily\color{gray}}
+
+
+
+
 \begin{center} 
-\textbf{ONLINE SUPPORTING INFORMATION}
+\textbf{APPENDIX S1}
 \end{center}
 
 \renewcommand{\theequation}{S\arabic{equation}}
@@ -567,8 +583,6 @@ main text):
   \emph{Pseudoroegneria spicata} = PSSP
 \end{itemize}
 
-\newpage{}
-
 \begin{table}[ht]
 \centering
 \caption{Comparisons between our analytical predictions and simulation results for synchrony of species' per capita growth rates. Analytical predictions represent two limiting cases where only demographic stochasticity is operating ($\phi_{R,\mathcal{M}_D}$) and where only environmental stochasticity is operating ($\phi_{R,\mathcal{M}_E}$). Simulated synchrony values come from our empirically-based, multi-species population models when simulated under conditions that match the limiting case conditions (e.g., environmental stochasticity and competition removed for $\mathcal{M}_D$).} 
@@ -587,8 +601,6 @@ New Mexico & 0.56 & 0.51 & 0.86 & 0.86 \\
 }
 \end{table}
 
-\newpage{}
-
 \begin{table}[ht]
 \centering
 \caption{Percent differences of synchrony of per capita growth rates between each removal simulation experiment and the 'All Drivers' simulation.} 
@@ -604,8 +616,6 @@ simulation & 1New Mexico & 2Arizona & 3Kansas & 4Montana & 5Idaho \\
    \hline
 \end{tabular}
 \end{table}
-
-\newpage{}
 
 \begin{table}[ht]
 \centering
@@ -627,8 +637,6 @@ Arizona & intercept & 0.51 & -0.05 & 0.51 \\
    \hline
 \end{tabular}
 \end{table}
-
-\newpage{}
 
 \begin{table}[ht]
 \centering
