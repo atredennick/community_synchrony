@@ -130,6 +130,19 @@ We then confront our theoretical predictions with simulations from the empirical
 Second, we use the multi-species population models to perform simulation experiments that isolate the effects of environmental stochasticity, demographic stochasticity, and interspecific interactions on community-wide species synchrony.
 Given that our population models capture the essential features of community dynamics important to synchrony (density-dependence, and demographic and environmental stochasticity), and that these models successfully reproduce observed community dynamics [@Chu2015], perturbing the models can reveal the processes that determine species synchrony in our focal grassland communities.
 
+OVERVIEW OF OUR APPROACH
+------------------------
+\textcolor{blue}{This paper has two related goals.
+First, we want to refine previous theory on the drivers of species synchrony} [@Loreau2008a].
+\textcolor{blue}{We do not develop new theory, but we do derive new quantitative predictions from previous theory that can be tested with empirical data.
+With explicit predictions in hand, we can (i) test the generality of a relatively simple quantitative model and (ii) place our empirical results in a broader theoretical context.
+Second, we want to use multispecies population models to run simulation experiments that allow us to quantify the relative influence of theoretical drivers of species synchrony.
+With empirically-based simulations in hand, we can (i) determine the most important drivers of species synchrony in our focal grassland communities and (ii) compare simulation results to theoretical predictions.}
+
+\textcolor{blue}{Note that throughout this paper we refer to ``synchrony'' as a continuous variable.
+Dynamics can be more or less synchronous or asynchronous, but synchrony and asynchrony are not dichotomous states.
+Thus, our goal is to determine which processes (environmental responses, demographic stochasticity, and interspecific interactions) most affect the value of community-wide species synchrony, regardless of whether those processes make synchrony increase or decrease.}
+
 
 THEORETICAL MODEL
 -----------------
