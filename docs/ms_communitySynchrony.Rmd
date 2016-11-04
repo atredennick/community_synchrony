@@ -337,7 +337,7 @@ Observed synchrony of per capita growth rates was positively correlated with the
 ### Simulations support theoretical predictions
 Our theoretical predictions were derived from a simple model of population dynamics and required several simplifying assumptions, raising questions about their relevance to natural communities.
 For example, the species in our communities do not have equivalent environmental and demographic variances (Figs. S4-S7), as required by our predictions.
-However, the theoretical predictions closely matched results from simulations of population models fit to long-term data from natural plant communities (Table 2).
+However, the theoretical predictions closely matched results from simulations of population models fit to long-term data from natural plant communities (Table S1).
 Such strong agreement between our analytical predictions and the simulation results should inspire confidence in the ability of simple models to inform our understanding of species synchrony even in complex natural communities, and allows us to place our simulation results within the context of contemporary theory.
 
 ### Demographic stochasticity decreases synchrony \textcolor{blue}{in small populations}
