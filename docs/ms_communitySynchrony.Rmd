@@ -84,13 +84,14 @@ opts_chunk$set(dev='pdf')
 
 \begin{abstract}
 Temporal asynchrony among species helps diversity to stabilize ecosystem functioning, but identifying the mechanisms that determine synchrony remains a challenge.
-Here, we refine and test theory showing that synchrony depends on three factors: species responses to environmental variation, interspecific interactions, and demographic stochasticity. We then conduct simulation experiments with empirical population models to quantify the relative importance of these factors in five plant communities.
+Here, we refine and test theory showing that synchrony depends on three factors: species responses to environmental variation, interspecific interactions, and demographic stochasticity. We then conduct simulation experiments with empirical population models to quantify the relative importance of these factors \textcolor{blue}{on the synchrony of dominant species in five semiarid grasslands.}
 We found that the average synchrony of per capita growth rates, which can range from 0 (perfect asynchrony) to 1 (perfect synchrony), was higher when environmental variation was present (0.62) rather than absent (0.43).
-Removing interspecific interactions and demographic stochasticity had small effects on synchrony. In these plant communities, where species interactions and demographic stochasticity have little influence, synchrony reflects the covariance in species responses to the environment.
+Removing interspecific interactions and demographic stochasticity had small effects on synchrony. 
+\textcolor{blue}{For the dominant species in these plant communities}, where species interactions and demographic stochasticity have little influence, synchrony reflects the covariance in species responses to the environment.
 
 \vspace{1em}
 
-\emph{Key words: synchrony, compensatory dynamics, environmental stochasticity, demographic stochasticity, interspecific competition, stability}
+\emph{Key words: synchrony, compensatory dynamics, environmental stochasticity, demographic stochasticity, interspecific competition, stability, grassland}
 
 \end{abstract}
 
@@ -131,11 +132,13 @@ While a major step forward, Mutshinda et al.'s (2009) and Thibaut et al.'s (2012
 Furthermore, although both studies quantified the relative importance of environmental stochasticity and interspecific interactions to explain the observed variation of species synchrony, they did not use the model to quantify how much synchrony would change when each factor is removed.
 
 Here, we use multi-species population models fit to long-term demographic data from five semi-arid plant communities to test theory on the drivers of species synchrony.
-Our objectives are to (1) derive and test theoretical predictions of species synchrony and (2) determine the relative influence of environmental stochasticity, demographic stochasticity, and interspecific interactions on species synchrony in natural plant communities.
-To achieve these objectives, we first refine theory that has been used to predict the effects of species richness on ecosystem stability [@DeMazancourt2013a] and species synchrony [@Loreau2008a] to generate predictions of community-wide species synchrony under two limiting cases derived from the dynamics of individual species in monoculture.
+Our objectives are to (1) derive and test theoretical predictions of species synchrony and (2) determine the relative influence of environmental stochasticity, demographic stochasticity, and interspecific interactions on \textcolor{blue}{the synchrony of dominant species} in natural plant communities.
+\textcolor{blue}{Our focus is limited to dominant species due to data constraints, but previous work indicates that the dynamics of dominant species are most important for ecosystem functioning in grasslands} [@Smith2003; @Bai2004; @Grman2010; @Sasaki2011].
+
+To achieve our objectives, we first refine theory that has been used to predict the effects of species richness on ecosystem stability [@DeMazancourt2013a] and species synchrony [@Loreau2008a] to generate predictions of community-wide species synchrony under two limiting cases derived from the dynamics of individual species in monoculture.
 We then confront our theoretical predictions with simulations from the empirically-based population models.
 Second, we use the multi-species population models to perform simulation experiments that isolate the effects of environmental stochasticity, demographic stochasticity, and interspecific interactions on community-wide species synchrony.
-Given that our population models capture the essential features of community dynamics important to synchrony (density-dependence, and demographic and environmental stochasticity), and that these models successfully reproduce observed community dynamics [@Chu2015], perturbing the models can reveal the processes that determine species synchrony in our focal grassland communities.
+Given that our population models capture the essential features of community dynamics important to synchrony (density-dependence, and demographic and environmental stochasticity), and that these models successfully reproduce observed community dynamics [@Chu2015], perturbing the models can reveal the processes that determine synchrony \textcolor{blue}{of dominant species} in our focal grassland communities.
 
 \section{Overview of Our Approach}
 \textcolor{blue}{This paper has two related goals.
