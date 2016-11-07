@@ -377,7 +377,7 @@ Under such conditions community synchrony should approximately equal the synchro
 Two lines of evidence lead us to conclude that environmental fluctuations drive species synchrony in our focal plant communities.
 First, in our simulation experiments, removing interspecific interactions resulted in no discernible change in community-wide species synchrony of per capita growth rates (Fig. 1).
 Second, removing environmental fluctuations from simulations consistently reduced synchrony (Fig. 1).
-Our results lead us to conclude that environmental fluctuations, not species interactions, are the primary driver of community-wide species synchrony in the communities we studied.
+Our results lead us to conclude that environmental fluctuations, not species interactions, are the primary driver of community-wide species synchrony \textcolor{blue}{among the dominant species} we studied.
 Given accumulating evidence that niche differences in natural communities are large [reviewed in @Chu2015], and thus species interactions are likely to be weak, our results may be general in natural plant communities.
 
 In the Idaho community, removing environmental fluctuations did not cause a large decrease in synchrony.
@@ -390,6 +390,17 @@ Our main results for Idaho (Fig. 2), with *A. tripartita* included, demonstrate 
 At the same time, all the perennial grasses have negative effects on each other for each vital rate (Tables S8-S10).
 We know synchrony is affected by interspecific competition [@Loreau2008a], but how facilitative effects manifest themselves is unknown.
 The interaction of facilitation and competition is clearly capable of having a large effect on species synchrony, and future theoretical efforts should aim to include a wider range of species interactions.
+
+\textcolor{blue}{Environmental responses synchronized dynamics relative to a null expectation of independent species interactions (e.g., "No Comp. + No E.S." simulations in Fig. 1), but observed and simulated synchrony was still less than one in all cases (Fig. 1).
+This means that there is sufficient temporal niche differentiation among these species to create asynchronous dynamics.
+Many studies of ecosystem stability in semiarid grasslands focus on tradoffs among dominant functional types, such as grasses versus forbs} [@Sasaki2011] \textcolor{blue}{or among many grouped lifeforms} [@Bai2004].
+\textcolor{blue}{Such groupings are based on the idea that ecologically-similar species will have similar environmental responses through time, a valid assumption without evidence to the contrary.
+At first glance our results may appear to support the grouping of perennial grasses because their environmental responses were correlated.
+However, even though environmental responses among the dominant species we studied were similar, they were dissimilar enough to cause synchrony to be less than perfect (Fig. 1).
+The subtle differences among ecologically-similar dominant species does impact species synchrony and, ultimately, ecosystem stability.
+Ignoring such difference may, though not always, mask important dynamics that underpin ecosystem functioning.}
+
+
 
 <!--
 A challenge to the generality of our results is that we were only able to model common, co-occuring species [see @Chu2015].
