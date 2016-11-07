@@ -128,8 +128,13 @@ In principle, this could be done in an extremely controlled laboratory setting [
 For example, @Mutshinda2009 fit a dynamic population model to several community time series of insect and bird abundances.
 They used a statistical technique to decompose temporal variation into competition and environmental components, and found that positively correlated environmental responses among species determined community dynamics.
 @Thibaut2012 used a similar approach for reef fish and came to a similar conclusion: environmental responses determine synchrony.
-While a major step forward, Mutshinda et al.'s (2009) and Thibaut et al.'s (2012) modeling technique relied on abundance data that may or may not reliably capture competitive interactions that occur at the individual level.
-Furthermore, although both studies quantified the relative importance of environmental stochasticity and interspecific interactions to explain the observed variation of species synchrony, they did not use the model to quantify how much synchrony would change when each factor is removed.
+
+While a major step forward, Mutshinda et al.'s (2009) and Thibaut et al.'s (2012) modeling technique does have some limitations.
+\textcolor{blue}{First, although both studies quantified the relative importance of environmental stochasticity and interspecific interactions to explain the observed variation of species synchrony, they did not use the model to quantify how much synchrony would change when each factor is removed.
+Second, they relied on abundance data that may or may not reliably capture competitive interactions that occur at the individual level.
+Third, fluctuations in abundance may mask the underlying mechanisms that underpin species synchrony [@Loreau2008a] and ecosystem stability} [@Loreau2013] \textcolor{blue}{due to legacy effects and ecological drift.
+Theory indicates that a focus on the fluctuations of species' per capita growth rates better reveals the mechanisms that ultimately determine species synchrony} [@Loreau2008a].
+\textcolor{blue}{Thus, synchrony of per capita growth rates is the focus of this paper.}
 
 Here, we use multi-species population models fit to long-term demographic data from five semi-arid plant communities to test theory on the drivers of species synchrony.
 Our objectives are to (1) derive and test theoretical predictions of species synchrony and (2) determine the relative influence of environmental stochasticity, demographic stochasticity, and interspecific interactions on \textcolor{blue}{the synchrony of dominant species} in natural plant communities.
@@ -177,7 +182,7 @@ $r_{mi}$ is species *i*'s intrinsic rate of increase, $K_i$ is its carrying capa
 Environmental stochasticity is incorporated as $\sigma_{ei}u_{ei}(t)$, where $\sigma_{ei}^2$ is the \textcolor{blue}{temporal variance of environmental conditions}.
 \textcolor{blue}{Species-specific environmental resposnes are included as} $u_{ei}$, which are normal random variables with zero mean and unit variance that are independent through time but may be correlated between species.
 Demographic stochasticity arises from variations in births and deaths among individuals (e.g., same states, different fates), and is included in the model as a first-order, normal approximation [@Lande2003; @DeMazancourt2013a].
-$\sigma_{di}^2$ is the demographic variance and $u_{di}(t)$ are independent normal variables with zero mean and unit variance.
+$\sigma_{di}^2$ is the demographic variance (\textcolor{blue}{i.e., the intrinsic demographic stochasticity of species \emph{i}}) and $u_{di}(t)$ are independent normal variables with zero mean and unit variance \textcolor{blue}{that allow demographic stochasiticity to vary through time.}
 
 To derive analytical predictions we solved a first-order approximation of Equation 2 [@DeMazancourt2013a and Appendix S1].
 Due to the linear approximation approach, our analytical predictions will likely fail in communities where species exhibit large fluctuations due to limit cycles and chaos [@Loreau2008a].
@@ -237,8 +242,12 @@ We modeled survival probability of each genet as function of genet size, tempora
 Regression coefficients for the effect of crowding by each species can be considered a matrix of interaction coefficients whose diagonals represent intraspecific interactions and whose off-diagonals represent interspecific interactions [@Adler2010]. These interaction coefficients can take positive (facilitative) or negative (competitive) values.
 We modeled growth as the change in size of a genet from one year to the next, which depends on the same factors as the survival model.
 We fit the survival and growth regressions using INLA [@Rue2014], a statistical package for fitting generalized linear mixed effects models via approximate Bayesian inference [@Rue2009], in R [@R2013].
-Crowding was treated as a fixed effect without a temporal component because most 95\% credible intervals for random year effects on crowding broadly overlapped zero and, in a test case, including yearly crowding effects did not change our results.
 Spatial (quadrat groupings) variation was treated as a random effect on the intercept and temporal (interannual) variation was treated as random effects on the intercept and the effect of genet size in the previous year (Appendix S1).
+
+\textcolor{blue}{Interspecific and intraspecific crowding, which represent species interactions, can be included as fixed effects or as random effects that vary each year.
+In the latter case, important yearly crowding effects would indicate an interaction between environmental conditions and species interactions because we assume that the yearly random effects encompass environmental variability, generally.
+We tested for environment-species interactions by comparing models with and without yearly random effects on crowding.
+In the end, crowding was treated as a fixed effect without a temporal component because most 95\% credible intervals for random year effects on crowding broadly overlapped zero and, in a test case, including yearly crowding effects did not change our results.}
 
 We modeled recruitment at the quadrat scale, rather than the individual scale, because the original data do not attribute new genets to specific parents [@Chu2015].
 Our recruitment model assumes that the number of recruits produced in each year follows a negative binomial distribution with the mean dependent on the cover of the parent species, permanent spatial variation among groups, temporal variation among years, and inter- and intraspecific interactions as a function of total species' cover in the quadrat.
@@ -316,6 +325,8 @@ Simulation experiments revealed that removing environmental fluctuations has the
 Removing environmental fluctuations ("No E.S" simulations) decreased synchrony by 33% in Arizona, 48% in Kansas, 39% in Montana, and 40% in New Mexico.
 Only in Idaho did removing environmental fluctuations cause an increase in synchrony (Fig. 1), but the effect was small (9% increase; Table S2).
 Overall, species' temporal random effects in the statistical vital rate models are positively, but not perfectly, correlated (Table S3).
+\textcolor{blue}{Our approach assumes that these temporal random effects represent environmental responses, meaning that positively correlated temporal random effects indicate positively correlated environmental responses.}
+
 Species interactions are weak in these communities [Table S4 and @Chu2015], and removing interspecific interactions had little effect on synchrony (Fig. 1; "No Comp." simulations).
 Removing interspecific interactions caused, at most, a 5% change in synchrony (Fig. 1).
 Removing demographic stochasticity ("No D.S." simulations) caused synchrony to increase slightly in all communities (Fig. 1), with an average 6% increase over synchrony from IBM simulations on a 25$\text{m}^2$ area.
@@ -342,6 +353,7 @@ Our theoretical predictions were derived from a simple model of population dynam
 For example, the species in our communities do not have equivalent environmental and demographic variances (Figs. S4-S7), as required by our predictions.
 However, the theoretical predictions closely matched results from simulations of population models fit to long-term data from natural plant communities (Table S1).
 Such strong agreement between our analytical predictions and the simulation results should inspire confidence in the ability of simple models to inform our understanding of species synchrony even in complex natural communities, and allows us to place our simulation results within the context of contemporary theory.
+\textcolor{blue}{However, whether the theoretical model adequately represents more complex communities remains unknown because we had to focus on dominant species.}
 
 ### Demographic stochasticity decreases synchrony \textcolor{blue}{in small populations}
 In large populations, removing demographic stochasticity had no effect on species synchrony (Fig. 1).
@@ -424,15 +436,19 @@ When we removed environmental variation, we found that synchrony decreased in fo
 A tempting conclusion is that our study confirms that compensatory dynamics are rare in natural communities, and that ecologically-similar species will exhibit synchronous dynamics [e.g., @Houlahan2007].
 Such a conclusion misses an important subtlety.
 The perennial grasses we studied do have similar responses to the environment (Table S2), which will tend to synchronize dynamics.
-However, if community-wide species synchrony is less than 1, as it is in all our focal communities, some degree of compensatory dynamics must be present [@Loreau2008a].
+However, if community-wide synchrony \textcolor{blue}{among dominant species} is less than 1, as it is in all our focal communities, some degree of compensatory dynamics must be present [@Loreau2008a].
+\textcolor{blue}{Even ecologically-similar species, which are sometimes aggregated into to functional groups, have environmental responses that are dissimilar enough to cause asynchrony.
+Subtle differences among dominant species ultimately determine ecosystem stability and should not be ignored.}
+
+<!--
 In agreement with other studies [@Rocha2011; @Vasseur2014], we find that environmental responses are primarily responsible for the degree of synchrony among ecologically-similar species.
 This result contrasts with a recent analysis of several biodiversity-ecosystem functioning experiments showing that competition drives community synchrony [@Gross2014].
 Recently assembled communities, such as experimental plots, may exhibit strong species interactions that will weaken over time [@Kokkoris1999].
 Future research on the influence of community assembly on synchrony could reconcile inconsistent observations on the biotic and abiotic forces that jointly drive community dynamics.
-
+-->
 
 \section{Acknowledgements}
-This work was funded by the National Science Foundation through a Postdoctoral Research Fellowship in Biology to ATT (DBI-1400370) and a CAREER award to PBA (DEB-1054040). CdM and ML were supported by the TULIP Laboratory of Excellence (ANR-10-LABX-41). We thank the original mappers of the permanent quadrats at each site and the digitizers in the Adler lab, without whom this work would not have been possible. Compute, storage, and other resources from the Division of Research Computing in the Office of Research and Graduate Studies at Utah State University are gratefully acknowledged. We also thank three anonymous reviewers who provided critical feedback that improved the manuscript.
+This work was funded by the National Science Foundation through a Postdoctoral Research Fellowship in Biology to ATT (DBI-1400370) and a CAREER award to PBA (DEB-1054040). CdM and ML were supported by the TULIP Laboratory of Excellence (ANR-10-LABX-41). We thank the original mappers of the permanent quadrats at each site and the digitizers in the Adler lab, without whom this work would not have been possible. Compute, storage, and other resources from the Division of Research Computing in the Office of Research and Graduate Studies at Utah State University are gratefully acknowledged. We also thank several anonymous reviewers who provided critical feedback that improved the manuscript.
 
 \setlength{\parindent}{0ex}
 \newpage{}
