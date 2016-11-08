@@ -84,7 +84,7 @@ opts_chunk$set(dev='pdf')
 
 \begin{abstract}
 Temporal asynchrony among species helps diversity to stabilize ecosystem functioning, but identifying the mechanisms that determine synchrony remains a challenge.
-Here, we refine and test theory showing that synchrony depends on three factors: species responses to environmental variation, interspecific interactions, and demographic stochasticity. We then conduct simulation experiments with empirical population models to quantify the relative importance of these factors \textcolor{blue}{on the synchrony of dominant species in five semiarid grasslands.}
+Here, we refine and test theory showing that synchrony depends on three factors: species responses to environmental variation, interspecific interactions, and demographic stochasticity. We then conduct simulation experiments with empirical population models to quantify the relative \textcolor{blue}{influence} of these factors \textcolor{blue}{on the synchrony of dominant species in five semiarid grasslands.}
 We found that the average synchrony of per capita growth rates, which can range from 0 (perfect asynchrony) to 1 (perfect synchrony), was higher when environmental variation was present (0.62) rather than absent (0.43).
 Removing interspecific interactions and demographic stochasticity had small effects on synchrony. 
 \textcolor{blue}{For the dominant species in these plant communities}, where species interactions and demographic stochasticity have little influence, synchrony reflects the covariance in species responses to the environment.
@@ -102,13 +102,13 @@ Removing interspecific interactions and demographic stochasticity had small effe
 Ecosystems are being transformed by species extinctions [@Cardinale2012], changes in community composition [@Dornelas2014a; @Vellend2013], and anthropogenic environmental change [@Vitousek1997], impacting the provisioning and stability of ecosystem services [@Loreau2001a; @Hooper2005; @Rockstrom2009].
 Experiments have provided compelling evidence that decreases in species richness will decrease productivity [@Tilman2001] and the temporal stability of productivity [@Tilman2006; @Hector2010].
 \textcolor{blue}{The stabilizing effect of species richness arises from a combination of selection effects and complementarity} [@Loreau2001c].
-\textcolor{blue}{Selection effects occur when a dominant species has higher (lower) than average temporal variability, which generates a negative (positive) effect on ecosystem stability} [e.g., @Grman2010].
+\textcolor{blue}{Selection effects occur when a dominant species has higher than average temporal variability, which generates a negative effect on ecosystem stability} [e.g., @Grman2010].
 \textcolor{blue}{Complementarity occurs when species have unique dynamics through time, causing their abundances to fluctuate asynchronously.}
 \textcolor{blue}{All else being equal, lower synchrony of species dynamics through time results in greater ecosystem stability} [@Loreau2013].
 The link between synchrony and stability means that a mechanistic understanding of synchrony can help us predict the impacts of global change on ecosystem stability.
 
-\textcolor{blue}{Asynchronous dynamics, also known as compensatory dynamics} [@Gonzalez2009], result from individual species responding in different ways to environmental fluctuations, independent species' dynamics because of random chance events, and/or competitive interactions [@Hector2010; @Isbell2009; @DeMazancourt2013a; @Gross2014].
-Species richness affects \textcolor{blue}{the degree of synchrony in a community} because larger species pools are more likely to contain species that respond dissimilarly to environmental conditions [@Yachi1999], implying that species losses will reduce ecosystem stability.
+\textcolor{blue}{Asynchronous dynamics, also known as compensatory dynamics} [@Gonzalez2009], result from individual species responding in different ways to environmental fluctuations, random chance events, and/or competitive interactions [@Hector2010; @Isbell2009; @DeMazancourt2013a; @Gross2014].
+Species richness affects \textcolor{blue}{the degree of synchrony in a community} because larger species pools are more likely to contain species that respond dissimilarly to environmental conditions, reducing synchrony [@Yachi1999].
 \textcolor{blue}{More species rich communities may also exhibit lower synchrony, and thus higher stability, due to a greater chance of strong species interactions} [@Gross2014].
 \textcolor{blue}{Determining whether synchrony is primarily an outcome of species-specific responses to environmental conditions or interspecific competition is thus an important step toward understanding how species losses and abiotic changes will impact ecosystem stability} [@Hautier2014].
 
@@ -130,11 +130,11 @@ They used a statistical technique to decompose temporal variation into competiti
 @Thibaut2012 used a similar approach for reef fish and came to a similar conclusion: environmental responses determine synchrony.
 
 While a major step forward, Mutshinda et al.'s (2009) and Thibaut et al.'s (2012) modeling technique does have some limitations.
-\textcolor{blue}{First, although both studies quantified the relative importance of environmental stochasticity and interspecific interactions to explain the observed variation of species synchrony, they did not use the model to quantify how much synchrony would change when each factor is removed.
+\textcolor{blue}{First, although both studies quantified the relative importance of environmental stochasticity and interspecific interactions to explain the observed variation of species synchrony, they did not use the model to quantify how much synchrony would change if each factor were removed.
 Second, they relied on abundance data that may or may not reliably capture competitive interactions that occur at the individual level.
-Third, fluctuations in abundance may mask the underlying mechanisms that underpin species synchrony [@Loreau2008a] and ecosystem stability} [@Loreau2013] \textcolor{blue}{due to legacy effects and ecological drift.
-Theory indicates that a focus on the fluctuations of species' per capita growth rates better reveals the mechanisms that ultimately determine species synchrony} [@Loreau2008a].
-\textcolor{blue}{Thus, synchrony of per capita growth rates is the focus of this paper.}
+Third, fluctuations in abundance may mask the mechanisms that underpin species synchrony [@Loreau2008a] and ecosystem stability} [@Loreau2013] \textcolor{blue}{due to legacy effects and ecological drift.
+Theory indicates that a focus on the fluctuations of species' per capita growth rates better reveals the mechanisms that ultimately determine species synchrony} [@Loreau2008a],
+\textcolor{blue}{which is why we focus per capita growth rates.}
 
 Here, we use multi-species population models fit to long-term demographic data from five semi-arid plant communities to test theory on the drivers of species synchrony.
 Our objectives are to (1) derive and test theoretical predictions of species synchrony and (2) determine the relative influence of environmental stochasticity, demographic stochasticity, and interspecific interactions on \textcolor{blue}{the synchrony of dominant species} in natural plant communities.
@@ -394,7 +394,7 @@ We know synchrony is affected by interspecific competition [@Loreau2008a], but h
 The interaction of facilitation and competition is clearly capable of having a large effect on species synchrony, and future theoretical efforts should aim to include a wider range of species interactions.
 
 \textcolor{blue}{Environmental responses synchronized dynamics relative to a null expectation of independent species interactions (e.g., "No Comp. + No E.S." simulations in Fig. 1), but observed and simulated synchrony was still less than one in all cases (Fig. 1).
-This means that there is sufficient temporal niche differentiation among these species to create asynchronous dynamics.
+Asynchronous dynamics result because the responses of theses species to environmental conditions are sufficiently different.
 Many studies of ecosystem stability in semiarid grasslands focus on tradoffs among dominant functional types, such as grasses versus forbs} [@Sasaki2011] \textcolor{blue}{or among many grouped lifeforms} [@Bai2004].
 \textcolor{blue}{Such groupings are based on the idea that ecologically-similar species will have similar environmental responses through time, a valid assumption without evidence to the contrary.
 At first glance our results may appear to support the grouping of perennial grasses because their environmental responses were correlated.
