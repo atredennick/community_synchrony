@@ -14,7 +14,7 @@ header-includes:
 - \usepackage{times} 
 - \usepackage[document]{ragged2e}
 - \usepackage{titlesec}
-- \titleformat{\section}{\Large\sc\centering}{\thesection}{1em}{}
+- \titleformat{\section}{\large\sc\centering}{\thesection}{1em}{}
 layout: 12pt
 linkcolor: black
 output:
@@ -134,7 +134,7 @@ While a major step forward, Mutshinda et al.'s (2009) and Thibaut et al.'s (2012
 Second, they relied on abundance data that may or may not reliably capture competitive interactions that occur at the individual level.
 Third, fluctuations in abundance may mask the mechanisms that underpin species synchrony [@Loreau2008a] and ecosystem stability} [@Loreau2013] \textcolor{blue}{due to legacy effects and ecological drift.
 Theory indicates that a focus on the fluctuations of species' per capita growth rates better reveals the mechanisms that ultimately determine species synchrony} [@Loreau2008a],
-\textcolor{blue}{which is why we focus per capita growth rates.}
+\textcolor{blue}{which is why we focus on per capita growth rates.}
 
 Here, we use multi-species population models fit to long-term demographic data from five semi-arid plant communities to test theory on the drivers of species synchrony.
 Our objectives are to (1) derive and test theoretical predictions of species synchrony and (2) determine the relative influence of environmental stochasticity, demographic stochasticity, and interspecific interactions on \textcolor{blue}{the synchrony of dominant species} in natural plant communities.
@@ -145,6 +145,7 @@ We then confront our theoretical predictions with simulations from the empirical
 Second, we use the multi-species population models to perform simulation experiments that isolate the effects of environmental stochasticity, demographic stochasticity, and interspecific interactions on community-wide species synchrony.
 Given that our population models capture the essential features of community dynamics important to synchrony (density-dependence, and demographic and environmental stochasticity), and that these models successfully reproduce observed community dynamics [@Chu2015], perturbing the models can reveal the processes that determine synchrony \textcolor{blue}{of dominant species} in our focal grassland communities.
 
+<!--
 \section{Overview of Our Approach}
 \textcolor{blue}{This paper has two related goals.
 First, we want to refine previous theory on the drivers of species synchrony} [@Loreau2008a].
@@ -160,7 +161,7 @@ Thus, our goal is to determine which processes (environmental responses, demogra
 \textcolor{blue}{Our empirical analysis relies on modeling the dynamics of dominant species in five natural semiarid grasslands.
 Thus, our focal communities are subsets of the full community.
 While this limits our inference to the dynamics of dominant species, the value of our study lies in our ability to explicitly quantify the relative influence of different drivers on species synchrony} [e.g., @Venail2013].
-
+-->
 
 \section{Theoretical Model}
 ### The model
