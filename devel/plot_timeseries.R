@@ -4,11 +4,17 @@
 
 rm(list=ls())
 
-par(mfrow=c(1,2))
+# par(mfrow=c(1,2))
 ibms <- readRDS("../results/ibm_sims/ibm_Kansas_constnointerexpand1.RDS")
 matplot(ibms[,c(4:5)]*100, type="l")
+
+
+mycols <- c("#BACB72", "#1E4B58", "#3997B3", "#57A880")
+
 ibms <- readRDS("../results/ibm_sims/ibm_Montana_fluctnointerexpand5.RDS")
-matplot(ibms[101:200,c(4:7)]*100, type="l", lty = 1, lwd=2)
+matplot(ibms[101:200,c(4:7)]*100, type="l", lty = 1, lwd=2, col = mycols, bty="n", xaxt='n', yaxt='n', ann=FALSE)
+axis(1, labels = FALSE)
+axis(2, labels = FALSE)
 
 # caclulate observed growth rates
 # create lagged data frame to only get observed yearly transitions
@@ -28,4 +34,6 @@ name_ids2 <- which(colnames(merged_df) %in% paste(species_list, "_t0", sep=""))
 for(i in 1:transitions){
   obs_gr[i,] <- as.numeric(log(merged_df[i,name_ids1]/merged_df[i,name_ids2]))
 }
-matplot(obs_gr, type="l", lty = 1, lwd=2)
+matplot(obs_gr, type="l", lty = 1, lwd=2, col = mycols, bty="n", xaxt='n', yaxt='n', ann=FALSE)
+axis(1, labels = FALSE)
+axis(2, labels = FALSE)

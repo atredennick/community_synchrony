@@ -42,6 +42,7 @@ opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE,
 opts_chunk$set(dev='pdf')
 ```
 
+
 \begin{singlespace}
 
 \begin{center}
@@ -105,13 +106,13 @@ Experiments have provided compelling evidence that decreases in species richness
 \textcolor{blue}{Complementarity occurs when species have unique temporal dynamics, causing their abundances to fluctuate asynchronously, which leads an increase in ecosystem stability.}
 \textcolor{blue}{Understanding the mechanisms driving species' temporal dynamics, and resulting (a)synchrony, can help us predict the impacts of global change on ecosystem stability.}
 
-\textcolor{blue}{Asynchronous dynamics, also known as compensatory dynamics} [@Gonzalez2009], \textcolor{blue} occur whenever species synchrony is not perfect} and results from individual species responding in different ways to environmental fluctuations, random chance events, and/or competitive interactions [@Hector2010; @Isbell2009; @DeMazancourt2013a; @Gross2014].
+\textcolor{blue}{Asynchronous dynamics, also known as compensatory dynamics} [@Gonzalez2009], \textcolor{blue}{occur whenever species synchrony is not perfect} and results from individual species responding in different ways to environmental fluctuations, random chance events, and/or competitive interactions [@Hector2010; @Isbell2009; @DeMazancourt2013a; @Gross2014].
 Species richness affects \textcolor{blue}{the degree of synchrony in a community} because larger species pools are more likely to contain species that respond dissimilarly to environmental conditions, reducing synchrony and increasing stability [@Yachi1999].
 \textcolor{blue}{Species richness can also affect synchrony if the strength of species interactions varies systematically with richness, because competition generally increases synchrony and reduces stability} [@Loreau2013; but see @Gross2014].
 
 \textcolor{blue}{Determining whether synchrony is primarily an outcome of species-specific responses to environmental conditions or interspecific competition is thus an important step toward understanding how species losses and abiotic changes will impact ecosystem stability} [@Hautier2014].
 \textcolor{blue}{If responses to environment are important, then environmental change could alter synchrony and stability.
-If competition is important, then the direct effects of environmental change may not affect synchrony and stability, but species gains/losses will.
+If competition is important, then the direct effects of environmental change may not affect synchrony and stability, but species gains/losses will.}
 
 Whether competition or environmental responses drive compensatory dynamics \textcolor{blue}{in natural plant communities} remains controversial [reviewed in @Gonzalez2009].
 In part, controversy remains because quantifying the relative strengths of each driver on the degree of synchrony from the covariance matrix of species abundances [e.g., @Houlahan2007] is impossible.
