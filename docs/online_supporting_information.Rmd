@@ -41,8 +41,11 @@ opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE,
 opts_chunk$set(dev='pdf')
 ```
 
-\begin{center} 
-\textbf{ONLINE SUPPORTING INFORMATION}
+\begin{center}
+\textbf{\Large{Online Supporting Information: Appendix S1}} \\
+A.T. Tredennick, C. de Mazancourt, M. Loreau, \& P.B. Adler \\
+``Environmental responses, not species interactions, determine synchrony...'' \\
+\emph{Ecology}
 \end{center}
 
 
@@ -295,6 +298,7 @@ In combination, our results from analyzing synchrony of percent cover indicate t
 
 Supporting Figures
 ------------------
+
 \begin{figure}[!ht]
   \centering
       \includegraphics[width=6in]{./components/figureS1.png}

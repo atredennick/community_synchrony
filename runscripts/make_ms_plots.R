@@ -145,7 +145,7 @@ ggplot(data=plot_df)+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
   guides(fill=FALSE,color=FALSE)
 
-ggsave("../docs/components/all_sims_results.png", width = 10, height = 4, units="in", dpi=75)
+ggsave("../docs/components/all_sims_results.png", width = 10, height = 4, units="in", dpi=300)
 
 ##  FOR PRESENTATION
 pres_df <- subset(plot_df, simulation != "2No Comp. + No D.S." & simulation != "6No Comp. + No E.S.")
@@ -203,14 +203,16 @@ ggplot(ibm_demo_rms, aes(x=(expansion^2), y=avg_synch))+
   xlab(expression(paste("Simulated Area (", m^2,")")))+
   ylab("Synchrony of Species' Growth Rates")+
   scale_y_continuous(limits=c(0,1))+
-  scale_shape_discrete(name="",labels=c("D.S. Only", "D.S + E.S."))+
+  # scale_shape_discrete(name="",labels=c("No Comp. + No E.S. (D.S. Only)", "No Comp. (D.S. + E.S.)"))+
+  scale_shape_discrete(name="",labels=c("", ""))+
   # scale_linetype_discrete(name="",labels=c("No E.S", "All Drivers"))+
   guides(color=FALSE)+
   theme_few()+
-  theme(legend.position=c(0.1,0.2),
-        legend.background = element_rect(fill = NA))
+  theme(legend.position=c(0.025,0.2),
+        legend.background = element_rect(fill = NA),
+        legend.key = element_blank())
 
-ggsave("../docs/components/ibm_sims_across_landscape.png", width = 12, height = 3, units="in", dpi=75)
+ggsave("../docs/components/ibm_sims_across_landscape.png", width = 10, height = 3, units="in", dpi=300)
 
 
 ##  FOR PRESENTATION

@@ -27,6 +27,41 @@ get_comm_synchrony <- function(ts_data){
                   num_obs = length(totCover))
   ts_agg <- subset(ts_agg, num_obs>1) # ignore years where only 1 quadrat is observed
   
+  species_list <- unique(ts_agg$species)
+  num_spp <- length(species_list)
+
+  plots_cast <- dcast(ts_data, quad+year~species, value.var = "totCover")
+  plots_cast[is.na(plots_cast)] <- 0.00001
+  synch_plots <- numeric(length(unique(plots_cast$quad)))
+  growth_rate_plot_synchrony <- numeric(length(unique(plots_cast$quad)))
+  count <- 1
+  for(do_plot in unique(plots_cast$quad)){
+    tmpd <- subset(plots_cast, quad==do_plot)
+    tmpsynch <- community.sync(tmpd[,c(3:ncol(tmpd))])[[1]]
+    synch_plots[count] <- tmpsynch
+    
+    # caclulate observed growth rates
+    # create lagged data frame to only get observed yearly transitions
+    lag_df <- ts_mat <- tmpd[,2:ncol(tmpd)]
+    lag_df$lagyear <- lag_df$year+1
+    colnames(lag_df)[2:(num_spp+1)] <- paste(colnames(lag_df)[2:(num_spp+1)],"_t0", sep="") 
+    # merge the lag df with observed
+    rm_col <- which(colnames(lag_df)=="year")
+    merged_df <- merge(ts_mat, lag_df[,-rm_col], by.x = "year", by.y="lagyear")
+    transitions <- nrow(merged_df)
+    obs_gr <- matrix(nrow=transitions, ncol=num_spp)
+    name_ids1 <- which(colnames(merged_df) %in% species_list)
+    name_ids2 <- which(colnames(merged_df) %in% paste(species_list, "_t0", sep=""))
+    for(i in 1:transitions){
+      obs_gr[i,] <- as.numeric(log(merged_df[i,name_ids1]/merged_df[i,name_ids2]))
+    }
+    growth_rate_plot_synchrony[count] <- community.sync(obs_gr)[[1]]
+    
+    count <- count+1
+  }
+  avg_byplot_cover_synch <- mean(synch_plots)
+  avg_byplot_pgr_synch <- mean(growth_rate_plot_synchrony)
+  
   ## Calculate stability
   # population stability (mean/sd)
   species_list <- unique(ts_agg$species)
@@ -114,7 +149,9 @@ get_comm_synchrony <- function(ts_data){
               cover_expected_synch_ind_flucts = expected_cover_synchrony,
               abund_synchrony = synch_abundance,
               growth_rates = obs_gr,
-              percent_cover = ts_agg))
+              percent_cover = ts_agg,
+              pgr_byplot_synchrony = avg_byplot_pgr_synch,
+              abund_byplot_synchrony = avg_byplot_cover_synch))
 }
 
 
