@@ -103,30 +103,31 @@ Ecosystems are being transformed by species extinctions [@Cardinale2012], change
 Experiments have provided compelling evidence that decreases in species richness will decrease productivity [@Tilman2001] and the temporal stability of productivity [@Tilman2006; @Hector2010].
 \textcolor{blue}{The stabilizing effect of species richness arises from a combination of selection effects and complementarity} [@Loreau2001c].
 \textcolor{blue}{Selection effects occur when a dominant species has lower than average temporal variability, which generates a positive effect on ecosystem stability} [e.g., @Grman2010].
-\textcolor{blue}{Complementarity occurs when species have unique temporal dynamics, causing their abundances to fluctuate asynchronously, which leads an increase in ecosystem stability.}
-\textcolor{blue}{Understanding the mechanisms driving species' temporal dynamics, and resulting (a)synchrony, can help us predict the impacts of global change on ecosystem stability.}
+\textcolor{blue}{Complementarity occurs when species have unique temporal dynamics, causing their abundances to fluctuate asynchronously, increasing ecosystem stability.}
+\textcolor{blue}{The premise of this paper is that understanding the mechanisms driving species' temporal dynamics, and resulting (a)synchrony, is necessary to predict the impacts of global change on ecosystem stability.}
 
-\textcolor{blue}{Asynchronous dynamics, also known as compensatory dynamics} [@Gonzalez2009], \textcolor{blue}{occur whenever species synchrony is not perfect} and results from individual species responding in different ways to environmental fluctuations, random chance events, and/or competitive interactions [@Hector2010; @Isbell2009; @DeMazancourt2013a; @Gross2014].
+\textcolor{blue}{Asynchronous dynamics, also known as compensatory dynamics} [@Gonzalez2009], \textcolor{blue}{occur whenever species synchrony is not perfect} and result from individual species responding in different ways to environmental fluctuations, random chance events, and/or competitive interactions [@Hector2010; @Isbell2009; @DeMazancourt2013a; @Gross2014].
 Species richness affects \textcolor{blue}{the degree of synchrony in a community} because larger species pools are more likely to contain species that respond dissimilarly to environmental conditions, reducing synchrony and increasing stability [@Yachi1999].
 \textcolor{blue}{Species richness can also affect synchrony if the strength of species interactions varies systematically with richness, because competition generally increases synchrony and reduces stability} [@Loreau2013; but see @Gross2014].
 
-\textcolor{blue}{Determining whether synchrony is primarily an outcome of species-specific responses to environmental conditions or interspecific competition is thus an important step toward understanding how species losses and abiotic changes will impact ecosystem stability} [@Hautier2014].
+\textcolor{blue}{The effects of environmental change and species losses on ecosystem stability will depend on whether synchrony is driven by species-specific responses to environmental conditions or interspecific competition} [@Hautier2014].
 \textcolor{blue}{If responses to environment are important, then environmental change could alter synchrony and stability.
 If competition is important, then the direct effects of environmental change may not affect synchrony and stability, but species gains/losses will.}
 
-Whether competition or environmental responses drive compensatory dynamics \textcolor{blue}{in natural plant communities} remains controversial [reviewed in @Gonzalez2009].
-In part, controversy remains because quantifying the relative strengths of each driver on the degree of synchrony from the covariance matrix of species abundances [e.g., @Houlahan2007] is impossible.
-This is because an unbiased null expectation for synchrony does not exist [@Loreau2008a] and observed synchrony can arise from non-unique combinations of factors [@Ranta2008].
+\textcolor{blue}{The relative role of environmental responses and competition in driving synchrony  in natural plant communities} remains controversial [reviewed in @Gonzalez2009].
+One source of the controversy is that quantifying the relative strengths of each driver based on the covariance matrix of species abundances [e.g., @Houlahan2007] is impossible.
+This is because observed synchrony can arise from non-unique combinations of factors [@Ranta2008].
 For example, weak synchrony of population abundances could reflect positive environmental correlations (synchronizing effect) offset by strong competition (desynchronizing effect), or negative environmental correlations and weak competition.
 
-Theory can help us resolve this empirical question.} 
-Theory identifies three main determinants of species synchrony: environmental stochasticity, interspecific interactions, and demographic stochasticity [@Loreau2008a; @Gonzalez2009; @Loreau2013].
+\textcolor{blue}{Theory can help us resolve this empirical question.} 
+Recent theoretical work has identified three determinants of species synchrony: environmental stochasticity, interspecific interactions, and demographic stochasticity [@Loreau2008a; @Gonzalez2009; @Loreau2013].
 \textcolor{blue}{This theory has been developed by focusing on simple limiting cases in which only one of these three drivers operates.}
 For example, in a community composed of large populations (no demographic stochasticity) with weak interspecific interations, community-wide species synchrony should be determined by the covariance of species' responses to the environment [@Loreau2008a].
 However, this prediction relies on a relatively simple population model and \textcolor{blue}{depends on two restrictive} assumptions: (i) species' responses to the environment are similar in magnitude and (ii) all species have similar growth rates.
 Whether such theoretical predictions hold in natural communities where species differences are unlikely to be symmetrical is unkown because few studies have explicitly tested theory on the drivers of species synchrony in natural communities [@Mutshinda2009; @Thibaut2012], and they did not consider demographic stochasiticity.
 
-The best way to quantify the effects of environmental stochasticity, demographic stochasticity, and interspecific interactions is to remove them one-by-one, and in combination.
+An intuitive way to quantify the effects of environmental stochasticity, demographic stochasticity, and interspecific interactions is to remove them one-by-one, and in combination.
+\textcolor{blue}{If synchrony changes more when we remove environmental stochasticity than when we remove interspecific interactions, we would conclude that environmental fluctuations are the more important driver.}
 In principle, this could be done in an extremely controlled laboratory setting [e.g., @Venail2013], but empirically-based models of interacting populations, fit with data sets from natural communities, offer a practical alternative.
 For example, @Mutshinda2009 fit a dynamic population model to several community time series of insect and bird abundances.
 They used a statistical technique to decompose temporal variation into competition and environmental components, and found that positively correlated environmental responses among species determined community dynamics.
@@ -309,9 +310,9 @@ First, in the absence of interspecific interactions and demographic stochasticit
 Therefore, we can use results from simulation (5) to estimate the covariance of species' responses to the environment ($\text{cov}(u_{ie}, u_{je})$) and parameterize Equation 4.
 Parameterizing Equation 3 does not require simulation output because the only parameters are the species' relative abundances.
 Second, simulations (5) and (6) represent the simulated version of our limiting case theoretical predictions.
-\textcolor{blue}{This approach to testing theoretical predictions may seem circular, but recall we derived the predictions using strict assumptions about equivalent species' environmental and demographic variances.
+\textcolor{blue}{This approach to testing theoretical predictions may seem circular, but recall we derived the predictions using strict assumptions about equivalence in species' growth rates, environmental response variances, and demographic variances.
 Our empirically-based models do not make these assumptions.
-Comparisons between parameterized predictions and simulated synchrony reveal whether the assumptions we must make to derive analytical predictions are valid.}
+Comparisons between parameterized predictions and simulated synchrony reveal whether the assumptions we must make to derive analytical predictions hold in the natural community our model represents.}
 
 \subsection{Results}
 \textcolor{blue}{Observed} synchrony of species' per capita growth rates at our study sites range from 0.36 to 0.89 and synchrony of percent cover ranged from 0.15 to 0.92 (Table 2).
@@ -346,7 +347,7 @@ For context, population sizes increased from an average of 17 individuals per co
 <!--
 For all five communities, the synchrony of species' growth rates when growing in isolation almost perfectly matched species synchrony in polyculture (Fig. 3).
 -->
-Results for synchrony of percent cover are qualitatively similar, but simulation results were more variable and less consistent with analytical predictions and observed synchrony (Appendix S1, Figs. S2-S3).
+Results for synchrony of percent cover are qualitatively similar, but more variable and less consistent with analytical predictions and observed synchrony (Appendix S1, Figs. S2-S3).
 
 
 \section{Discussion}
@@ -356,7 +357,7 @@ Thus, our results provide further evidence that it is difficult to decipher mech
 Observed synchrony of per capita growth rates was positively correlated with the variability of percent cover across our focal communities, which confirms that we are investigating an important process underlying ecosystem stability.
 
 \subsection{Simulations support theoretical predictions}
-Our theoretical predictions were derived from a simple model of population dynamics and required several simplifying assumptions, raising questions about their relevance to natural communities.
+Our theoretical predictions were derived from a simple model of population dynamics and required several restrictive assumptions, raising questions about their relevance to natural communities.
 For example, the species in our communities do not have equivalent environmental and demographic variances (Figs. S4-S7), as required by our predictions.
 However, the theoretical predictions closely matched results from simulations of population models fit to long-term data from natural plant communities (Table S1).
 Strong agreement between our analytical predictions and the simulation results should inspire confidence in the ability of simple models to inform our understanding of species synchrony even in complex natural communities, and allows us to place our simulation results within the context of contemporary theory.
@@ -368,7 +369,7 @@ In small populations, demographic stochasticity partially counteracted the synch
 \textcolor{blue}{This is shown in Fig. 3, where IBM simulations with environmental forcing and demographic stochasticity have higher synchrony than simulations with only demographic stochasticity.
 The differences between simulations are smaller at lower population sizes because as the number of individuals decreases with area, the strength of demographic stochasticity increases, reducing the relative effect of environmental forcing.}
 Even in small populations \textcolor{blue}{(e.g., 1 $\text{m}^2$ lanscapes)}, however, demographic stochasticity was not strong enough to compensate the synchronizing effects of environmental fluctuations and match the analytical prediction where only demographic stochasticity is operating ($\mathcal{M}_D$ in Fig. 3).
-These results confirm the theoretical argument by @Loreau2008a that independent fluctuations among interacting species in a non-constant environment should be rare.
+These results confirm the theoretical argument of @Loreau2008a that independent fluctuations among interacting species in a non-constant environment should be rare.
 Only in the Idaho community does synchrony of per capita growth rates approach $\mathcal{M}_D$ in a non-constant environment (Fig. 3).
 This is most likely due to the strong effect of demographic stochasticity on the shrub *Artemisia tripartita* since even a 25 $\text{m}^2$ quadrat would only contain a few individuals of that species.
 
@@ -403,7 +404,7 @@ The interaction of facilitation and competition is clearly capable of having a l
 Synchrony was far from complete because of differences in species' responses to interannual environmental variation.
 Many studies of ecosystem stability in semiarid grasslands focus on trad-offs among dominant functional types} [@Bai2004; @Sasaki2011].
 \textcolor{blue}{Such groupings are based on the idea that ecologically-similar species will have similar responses to environmental fluctuations.
-At first glance our results may appear to support the grouping of perennial grasses in one functional type because their environmental responses were correlated.
+At first glance our results may appear to support the grouping of perennial grasses in one functional type because their environmental responses were positively correlated.
 However, even though environmental responses among the dominant species we studied were similar, they were dissimilar enough to cause synchrony to be less than perfect (Fig. 2).
 The subtle differences among ecologically-similar dominant species do impact species synchrony and, ultimately, ecosystem stability.
 Ignoring such differences could mask important dynamics that underpin ecosystem functioning.}
@@ -456,7 +457,7 @@ A tempting conclusion is that our study confirms that compensatory dynamics are 
 Such a conclusion misses an important subtlety.
 The perennial grasses we studied do have similar responses to the environment (Table S2), which will tend to synchronize dynamics.
 However, if community-wide synchrony \textcolor{blue}{among dominant species} is less than perfect, as it is in all our focal communities, some degree of compensatory dynamics must be present [@Loreau2008a].
-\textcolor{blue}{Even ecologically-similar species, which are sometimes aggregated into to functional groups, have environmental responses that are dissimilar enough to limit synchrony.
+\textcolor{blue}{Even ecologically-similar species, which are sometimes aggregated into functional groups, have environmental responses that are dissimilar enough to limit synchrony.
 Subtle differences among dominant species ultimately determine ecosystem stability and should not be ignored.}
 
 <!--
@@ -686,7 +687,7 @@ sink()
 \begin{figure}[!ht]
   \centering
       \includegraphics[width=6in]{./components/formatted_figures/synchrony_flowchart_bw.png}
-  \caption{Diagram of our coupled theoretical-empirical approach.}
+  \caption{Diagram of our coupled theoretical-empirical approach. We followed this workflow for each of our five focal communities.}
 \end{figure}
 
 \pagebreak{}
