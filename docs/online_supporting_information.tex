@@ -24,6 +24,15 @@
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 \usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
               unicode=false, % unicode breaks when used with xetex
@@ -486,14 +495,6 @@ Mazancourt}} (2008).
 
 \begin{figure}[!ht]
   \centering
-      \includegraphics[width=4in]{./components/synchrony_flowchart.png}
-  \caption{A workflow of our empirical analysis. Population models include an integral projection model (IPM) and an individual-based model (IBM).}
-\end{figure}
-
-\pagebreak{}
-
-\begin{figure}[!ht]
-  \centering
       \includegraphics[width=6in]{./components/figureS1.png}
   \caption{Observed (vertical dashed lines) and simulated (solid density curves) synchrony of species per capita growth rates at each site from the IBM (top panels) and the IPM (bottom panels). IPM density curves come from 100 random contiguous sections from 2,000 iteration IPM runs, where the length of each randomly selected section is equal to the number of observation years for each data set. IBM density curves come from 100 replicate simulations of 75 iterations each. Synchrony values come from simulations where environmental stochasticity and interspecific interactions are present. The IBM was run on a 5 by 5 meter landscape to reduce the effect of demographic stochasticity.}
 \end{figure}
@@ -661,6 +662,12 @@ Arizona & Interspecific & -0.0111 & -0.4534 & -0.0507 \\
 \end{tabular}
 \end{table}
 
+
+
+\newpage{}
+
+\subsubsection{Interaction Coefficients for Vital Rates in Arizona}
+
 \begin{table}[ht]
 \centering
 \caption{Interaction coefficients for growth regressions in Arizona.} 
@@ -672,7 +679,41 @@ BOER & -0.0033 & -0.0171 \\
   BORO & -0.0050 & -0.0772 \\ 
    \hline
 \end{tabular}
-\end{table}\begin{table}[ht]
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Interaction coefficients for survival regressions in Arizona.} 
+\begin{tabular}{rrr}
+  \hline
+ & BOER & BORO \\ 
+  \hline
+BOER & -0.2791 & -0.0814 \\ 
+  BORO & -0.0200 & -0.6102 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Interaction coefficients for recruitment regressions in Arizona.} 
+\begin{tabular}{rrr}
+  \hline
+ & BOER & BORO \\ 
+  \hline
+BOER & -0.5184 & -0.3290 \\ 
+  BORO & -0.5779 & -2.3235 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+
+\newpage{}
+
+\subsubsection{Interaction Coefficients for Vital Rates in Idaho}
+
+\begin{table}[ht]
 \centering
 \caption{Interaction coefficients for growth regressions in Idaho.} 
 \begin{tabular}{rrrrr}
@@ -685,54 +726,9 @@ ARTR & -0.0300 & 0.0129 & 0.0117 & 0.0003 \\
   PSSP & -0.0003 & -0.0027 & -0.0004 & -0.0448 \\ 
    \hline
 \end{tabular}
-\end{table}\begin{table}[ht]
-\centering
-\caption{Interaction coefficients for growth regressions in Kansas.} 
-\begin{tabular}{rrrr}
-  \hline
- & BOCU & BOHI & SCSC \\ 
-  \hline
-BOCU & -0.0017 & 0.0011 & 0.0010 \\ 
-  BOHI & 0.0002 & -0.0046 & -0.0078 \\ 
-  SCSC & -0.0003 & 0.0007 & -0.0124 \\ 
-   \hline
-\end{tabular}
-\end{table}\begin{table}[ht]
-\centering
-\caption{Interaction coefficients for growth regressions in Montana.} 
-\begin{tabular}{rrrrr}
-  \hline
- & BOGR & HECO & PASM & POSE \\ 
-  \hline
-BOGR & -0.0124 & -0.0032 & -0.0258 & -0.0001 \\ 
-  HECO & -0.0025 & -0.0976 & 0.0096 & 0.0079 \\ 
-  PASM & -0.0006 & -0.0041 & -0.0695 & -0.0030 \\ 
-  POSE & 0.0006 & -0.0082 & -0.0417 & -0.1410 \\ 
-   \hline
-\end{tabular}
-\end{table}\begin{table}[ht]
-\centering
-\caption{Interaction coefficients for growth regressions in NewMexico.} 
-\begin{tabular}{rrr}
-  \hline
- & BOER & SPFL \\ 
-  \hline
-BOER & -0.0045 & -0.0013 \\ 
-  SPFL & -0.0041 & -0.0176 \\ 
-   \hline
-\end{tabular}
-\end{table}\begin{table}[ht]
-\centering
-\caption{Interaction coefficients for survival regressions in Arizona.} 
-\begin{tabular}{rrr}
-  \hline
- & BOER & BORO \\ 
-  \hline
-BOER & -0.2791 & -0.0814 \\ 
-  BORO & -0.0200 & -0.6102 \\ 
-   \hline
-\end{tabular}
-\end{table}\begin{table}[ht]
+\end{table}
+
+\begin{table}[ht]
 \centering
 \caption{Interaction coefficients for survival regressions in Idaho.} 
 \begin{tabular}{rrrrr}
@@ -745,54 +741,9 @@ ARTR & -0.0236 & -0.0199 & 0.0314 & 0.0158 \\
   PSSP & 0.0009 & -0.0013 & 0.0248 & -0.1547 \\ 
    \hline
 \end{tabular}
-\end{table}\begin{table}[ht]
-\centering
-\caption{Interaction coefficients for survival regressions in Kansas.} 
-\begin{tabular}{rrrr}
-  \hline
- & BOCU & BOHI & SCSC \\ 
-  \hline
-BOCU & -0.1084 & 0.0006 & 0.0010 \\ 
-  BOHI & 0.0021 & -0.0403 & -0.0153 \\ 
-  SCSC & -0.0064 & -0.0066 & -0.0271 \\ 
-   \hline
-\end{tabular}
-\end{table}\begin{table}[ht]
-\centering
-\caption{Interaction coefficients for survival regressions in Montana.} 
-\begin{tabular}{rrrrr}
-  \hline
- & BOGR & HECO & PASM & POSE \\ 
-  \hline
-BOGR & -0.1316 & 0.0076 & 0.1096 & 0.0126 \\ 
-  HECO & -0.0028 & -0.7064 & 0.1423 & -0.0030 \\ 
-  PASM & -0.0012 & -0.0033 & -1.4026 & 0.0024 \\ 
-  POSE & 0.0014 & 0.0082 & 0.1363 & -1.2203 \\ 
-   \hline
-\end{tabular}
-\end{table}\begin{table}[ht]
-\centering
-\caption{Interaction coefficients for survival regressions in NewMexico.} 
-\begin{tabular}{rrr}
-  \hline
- & BOER & SPFL \\ 
-  \hline
-BOER & -0.1576 & -0.0040 \\ 
-  SPFL & -0.0120 & -0.2806 \\ 
-   \hline
-\end{tabular}
-\end{table}\begin{table}[ht]
-\centering
-\caption{Interaction coefficients for recruitment regressions in Arizona.} 
-\begin{tabular}{rrr}
-  \hline
- & BOER & BORO \\ 
-  \hline
-BOER & -0.5184 & -0.3290 \\ 
-  BORO & -0.5779 & -2.3235 \\ 
-   \hline
-\end{tabular}
-\end{table}\begin{table}[ht]
+\end{table}
+
+\begin{table}[ht]
 \centering
 \caption{Interaction coefficients for recruitment regressions in Idaho.} 
 \begin{tabular}{rrrrr}
@@ -805,7 +756,42 @@ ARTR & -0.4003 & 0.2243 & 0.0117 & 0.2360 \\
   PSSP & -0.2405 & -0.1389 & 0.0347 & -1.7751 \\ 
    \hline
 \end{tabular}
-\end{table}\begin{table}[ht]
+\end{table}
+
+
+\newpage{}
+
+\subsubsection{Interaction Coefficients for Vital Rates in Kansas}
+
+\begin{table}[ht]
+\centering
+\caption{Interaction coefficients for growth regressions in Kansas.} 
+\begin{tabular}{rrrr}
+  \hline
+ & BOCU & BOHI & SCSC \\ 
+  \hline
+BOCU & -0.0017 & 0.0011 & 0.0010 \\ 
+  BOHI & 0.0002 & -0.0046 & -0.0078 \\ 
+  SCSC & -0.0003 & 0.0007 & -0.0124 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Interaction coefficients for survival regressions in Kansas.} 
+\begin{tabular}{rrrr}
+  \hline
+ & BOCU & BOHI & SCSC \\ 
+  \hline
+BOCU & -0.1084 & 0.0006 & 0.0010 \\ 
+  BOHI & 0.0021 & -0.0403 & -0.0153 \\ 
+  SCSC & -0.0064 & -0.0066 & -0.0271 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
 \centering
 \caption{Interaction coefficients for recruitment regressions in Kansas.} 
 \begin{tabular}{rrrr}
@@ -817,7 +803,45 @@ BOCU & -1.1544 & -0.0312 & -0.0643 \\
   SCSC & 0.0619 & -0.0336 & -0.9611 \\ 
    \hline
 \end{tabular}
-\end{table}\begin{table}[ht]
+\end{table}
+
+
+
+\newpage{}
+
+\subsubsection{Interaction Coefficients for Vital Rates in Montana}
+
+\begin{table}[ht]
+\centering
+\caption{Interaction coefficients for growth regressions in Montana.} 
+\begin{tabular}{rrrrr}
+  \hline
+ & BOGR & HECO & PASM & POSE \\ 
+  \hline
+BOGR & -0.0124 & -0.0032 & -0.0258 & -0.0001 \\ 
+  HECO & -0.0025 & -0.0976 & 0.0096 & 0.0079 \\ 
+  PASM & -0.0006 & -0.0041 & -0.0695 & -0.0030 \\ 
+  POSE & 0.0006 & -0.0082 & -0.0417 & -0.1410 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Interaction coefficients for survival regressions in Montana.} 
+\begin{tabular}{rrrrr}
+  \hline
+ & BOGR & HECO & PASM & POSE \\ 
+  \hline
+BOGR & -0.1316 & 0.0076 & 0.1096 & 0.0126 \\ 
+  HECO & -0.0028 & -0.7064 & 0.1423 & -0.0030 \\ 
+  PASM & -0.0012 & -0.0033 & -1.4026 & 0.0024 \\ 
+  POSE & 0.0014 & 0.0082 & 0.1363 & -1.2203 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
 \centering
 \caption{Interaction coefficients for recruitment regressions in Montana.} 
 \begin{tabular}{rrrrr}
@@ -830,7 +854,41 @@ BOGR & -0.9151 & -0.3076 & -0.0984 & 0.0495 \\
   POSE & 0.1971 & 0.4854 & 0.0623 & -1.7109 \\ 
    \hline
 \end{tabular}
-\end{table}\begin{table}[ht]
+\end{table}
+
+
+
+\newpage{}
+
+\subsubsection{Interaction Coefficients for Vital Rates in New Mexico}
+
+\begin{table}[ht]
+\centering
+\caption{Interaction coefficients for growth regressions in NewMexico.} 
+\begin{tabular}{rrr}
+  \hline
+ & BOER & SPFL \\ 
+  \hline
+BOER & -0.0045 & -0.0013 \\ 
+  SPFL & -0.0041 & -0.0176 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Interaction coefficients for survival regressions in NewMexico.} 
+\begin{tabular}{rrr}
+  \hline
+ & BOER & SPFL \\ 
+  \hline
+BOER & -0.1576 & -0.0040 \\ 
+  SPFL & -0.0120 & -0.2806 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
 \centering
 \caption{Interaction coefficients for recruitment regressions in NewMexico.} 
 \begin{tabular}{rrr}

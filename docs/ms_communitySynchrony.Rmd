@@ -22,7 +22,7 @@ linkcolor: black
 output:
   pdf_document:
     fig_caption: yes
-    keep_tex: no
+    keep_tex: yes
 urlcolor: black
 ---
 <!--\definecolor{blue}{gray}{0}-->
@@ -468,7 +468,7 @@ Future research on the influence of community assembly on synchrony could reconc
 -->
 
 \section{Acknowledgements}
-This work was funded by the National Science Foundation through a Postdoctoral Research Fellowship in Biology to ATT (DBI-1400370) and a CAREER award to PBA (DEB-1054040). CdM and ML were supported by the TULIP Laboratory of Excellence (ANR-10-LABX-41). We thank the original mappers of the permanent quadrats at each site and the digitizers in the Adler lab, without whom this work would not have been possible. Compute, storage, and other resources from the Division of Research Computing in the Office of Research and Graduate Studies at Utah State University are gratefully acknowledged. We also thank several anonymous reviewers who provided critical feedback that improved the manuscript.
+This work was funded by the National Science Foundation through a Postdoctoral Research Fellowship in Biology to ATT (DBI-1400370) and a CAREER award to PBA (DEB-1054040). CdM and ML were supported by the TULIP Laboratory of Excellence (ANR-10-LABX-41). We thank the original mappers of the permanent quadrats at each site and the digitizers in the Adler lab, without whom this work would not have been possible. Compute, storage, and other resources from the Division of Research Computing in the Office of Research and Graduate Studies at Utah State University are gratefully acknowledged. We also thank Patrick Venail and several anonymous reviewers who provided critical feedback that improved the manuscript.
 
 \setlength{\parindent}{0ex}
 \newpage{}

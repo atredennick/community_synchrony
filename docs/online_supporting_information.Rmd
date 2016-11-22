@@ -298,13 +298,6 @@ In combination, our results from analyzing synchrony of percent cover indicate t
 
 Supporting Figures
 ------------------
-\begin{figure}[!ht]
-  \centering
-      \includegraphics[width=4in]{./components/synchrony_flowchart.png}
-  \caption{A workflow of our empirical analysis. Population models include an integral projection model (IPM) and an individual-based model (IBM).}
-\end{figure}
-
-\pagebreak{}
 
 \begin{figure}[!ht]
   \centering
