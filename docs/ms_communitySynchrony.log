@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  12 AUG 2016 18:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  22 NOV 2016 08:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1178,38 +1178,50 @@ Package footmisc Info: Declaring symbol style lamport*-robust on input line 924
 \RaggedRightParindent=\skip73
 \JustifyingParindent=\skip74
 )
+(/usr/local/texlive/2014/texmf-dist/tex/latex/titlesec/titlesec.sty
+Package: titlesec 2011/12/15 v2.10.0 Sectioning titles
+\ttl@box=\box45
+\beforetitleunit=\skip75
+\aftertitleunit=\skip76
+\ttl@plus=\dimen198
+\ttl@minus=\dimen199
+\ttl@toksa=\toks48
+\titlewidth=\dimen200
+\titlewidthlast=\dimen201
+\titlewidthfirst=\dimen202
+)
 (./ms_communitySynchrony.aux)
 \openout1 = `ms_communitySynchrony.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 93.
-LaTeX Font Info:    ... okay on input line 93.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 93.
-LaTeX Font Info:    ... okay on input line 93.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 93.
-LaTeX Font Info:    ... okay on input line 93.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 93.
-LaTeX Font Info:    ... okay on input line 93.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 93.
-LaTeX Font Info:    ... okay on input line 93.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 93.
-LaTeX Font Info:    ... okay on input line 93.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 93.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 93.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 97.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 97.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 93.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 93.
-LaTeX Font Info:    ... okay on input line 93.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 93.
-LaTeX Font Info:    ... okay on input line 93.
-LaTeX Font Info:    Try loading font information for T1+ptm on input line 93.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 97.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
-LaTeX Info: Redefining \microtypecontext on input line 93.
+LaTeX Info: Redefining \microtypecontext on input line 97.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
@@ -1260,16 +1272,16 @@ File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 (/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count157
-\scratchdimen=\dimen198
-\scratchbox=\box45
+\scratchdimen=\dimen203
+\scratchbox=\box46
 \nofMPsegments=\count158
 \nofMParguments=\count159
-\everyMPshowfont=\toks48
+\everyMPshowfont=\toks49
 \MPscratchCnt=\count160
-\MPscratchDim=\dimen199
+\MPscratchDim=\dimen204
 \MPnumerator=\count161
 \makeMPintoPDFobject=\count162
-\everyMPtoPDFconversion=\toks49
+\everyMPtoPDFconversion=\toks50
 ) (/usr/local/texlive/2014/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 
@@ -1285,8 +1297,8 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\AtBeginShipoutBox=\box46
-Package hyperref Info: Link coloring ON on input line 93.
+\AtBeginShipoutBox=\box47
+Package hyperref Info: Link coloring ON on input line 97.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -1296,9 +1308,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count163
 )
-LaTeX Info: Redefining \ref on input line 93.
-LaTeX Info: Redefining \pageref on input line 93.
-LaTeX Info: Redefining \nameref on input line 93.
+LaTeX Info: Redefining \ref on input line 97.
+LaTeX Info: Redefining \pageref on input line 97.
+LaTeX Info: Redefining \nameref on input line 97.
 
 (./ms_communitySynchrony.out) (./ms_communitySynchrony.out)
 \@outlinefile=\write4
@@ -1306,17 +1318,17 @@ LaTeX Info: Redefining \nameref on input line 93.
 
 
 ABD: EveryShipout initializing macros
-Package ragged2e Info: ABD: executing \RaggedRight on input line 93.
+Package ragged2e Info: ABD: executing \RaggedRight on input line 97.
  ABD: EverySelectfont initializing macros
-LaTeX Info: Redefining \selectfont on input line 93.
+LaTeX Info: Redefining \selectfont on input line 97.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 103.
-LaTeX Font Info:    Try loading font information for T1+phv on input line 104.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 110.
+LaTeX Font Info:    Try loading font information for T1+phv on input line 111.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 109.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 116.
 
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/ot1lmr.fd
@@ -1326,31 +1338,31 @@ File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 109.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 116.
 
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 109
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 116
 .
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 109
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 116
 .
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 109.
+(Font)              <12> on input line 116.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 109.
+(Font)              <8> on input line 116.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 109.
-LaTeX Font Info:    Try loading font information for U+msa on input line 109.
+(Font)              <6> on input line 116.
+LaTeX Font Info:    Try loading font information for U+msa on input line 116.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -1358,7 +1370,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/local/texlive/2014/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 109.
+LaTeX Font Info:    Try loading font information for U+msb on input line 116.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1367,292 +1379,352 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 113.
+(Font)              <10.95> on input line 120.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 121.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 128.
  [1
 
 {/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 139.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 146.
 
-Overfull \hbox (0.21129pt too wide) in paragraph at lines 155--177
+Overfull \hbox (0.21129pt too wide) in paragraph at lines 163--178
 \T1/ptm/m/n/12 (+4) mu-nity com-po-si-tion (Vel-lend et al. 2013, Dor-nelas et 
 al. 2014), and an-thro-pogenic en-vi-ron-men-tal 
  []
 
+
+Overfull \hbox (0.14706pt too wide) in paragraph at lines 163--178
+\T1/ptm/m/n/12 (+14) their abun-dances to fluc-tu-ate asyn-chronously, in-creas
+-ing ecosys-tem sta-bil-ity.[] []The premise of this 
+ []
+
 [2]
-Overfull \hbox (0.21832pt too wide) in paragraph at lines 195--211
-\T1/ptm/m/n/12 (+18) ron-men-tal re-sponses drive com-pen-satory dy-nam-ics re-
-mains con-tro-ver-sial (re-viewed in Gon-za-lez 
+Overfull \hbox (0.15106pt too wide) in paragraph at lines 198--208
+\T1/ptm/m/n/12 (+12) vari-ance ma-trix of species abun-dances (e.g., Houla-han 
+et al. 2007) is im-pos-si-ble. This is be-cause 
  []
 
 [3]
-Overfull \hbox (0.10371pt too wide) in paragraph at lines 212--232
-[]\T1/ptm/m/n/12 (+8) The best way to quan-tify the ef-fects of en-vi-ron-men-t
-al stochas-tic-ity, de-mo-graphic stochas-tic- 
+Overfull \hbox (0.1753pt too wide) in paragraph at lines 209--228
+\T1/ptm/m/n/12 (+15) should be de-ter-mined by the co-vari-ance of species' re-
+sponses to the en-vi-ron-ment (Loreau and de 
  []
 
 
-Overfull \hbox (0.13525pt too wide) in paragraph at lines 233--256
-\T1/ptm/m/n/12 (+9) in-flu-ence of en-vi-ron-men-tal stochas-tic-ity, de-mo-gra
-phic stochas-tic-ity, and in-ter-spe-cific in-ter-ac-tions 
+Overfull \hbox (0.16557pt too wide) in paragraph at lines 245--253
+[]\T1/ptm/m/n/12 (+8) There-fore, we fo-cus on per capita growth rates, which r
+ep-re-sent a species' im-me-di-ate re-sponse to 
  []
 
 [4]
-Overfull \hbox (0.19681pt too wide) in paragraph at lines 261--277
-\T1/ptm/m/n/12 (+1) con-clu-sions as syn-chrony of per capita growth rates. Fol
--low-ing Loreau and de Mazan-court (2008) 
+Overfull \hbox (0.10497pt too wide) in paragraph at lines 254--265
+\T1/ptm/m/n/12 (+19) is limited to dominant species due to data constraints, pr
+evious work indicates that the dynamics 
+ []
+
+
+Overfull \hbox (0.10002pt too wide) in paragraph at lines 254--265
+\T1/ptm/m/n/12 (+13) of dominant species determine ecosystem functioning in gra
+sslands[] (Smith and Knapp 2003, Bai 
+ []
+
+
+Overfull \hbox (0.18341pt too wide) in paragraph at lines 266--283
+\T1/ptm/m/n/12 (+14) (Loreau and de Mazan-court 2008) to gen-er-ate pre-dic-tio
+ns of community-wide species syn-chrony 
+ []
+
+
+Overfull \hbox (0.20842pt too wide) in paragraph at lines 266--283
+\T1/ptm/m/n/12 (+12) mod-els suc-cess-fully re-pro-duce ob-served com-mu-nity d
+y-nam-ics (Chu and Adler 2015), per-turb-ing 
  []
 
 [5]
-Overfull \hbox (0.10608pt too wide) in paragraph at lines 283--307
-\T1/ptm/m/n/12 (+9) ran-dom vari-ables with zero mean and unit vari-ance that a
-re in-de-pen-dent through time but may be 
+
+Package hyperref Warning: The anchor of a bookmark and its parent's must not
+(hyperref)                be the same. Added a new anchor on input line 284.
+
+
+Overfull \hbox (0.1679pt too wide) in paragraph at lines 310--328
+\T1/ptm/m/n/12 (+13) mo-graphic stochas-tic-ity arises from vari-a-tions in bir
+ths and deaths among in-di-vid-u-als (e.g., same 
  []
 
 
-Overfull \hbox (0.19934pt too wide) in paragraph at lines 283--307
-\T1/ptm/m/n/12 (+12) among in-di-vid-u-als (e.g., same states, dif-fer-ent fate
-s), and is in-cluded in the model as a first-order, 
+Overfull \hbox (0.1217pt too wide) in paragraph at lines 310--328
+\T1/ptm/m/n/12 (+20) et al. 2003, de Mazan-court et al. 2013). $\OML/lmm/m/it/1
+2 ^^[[]$ \T1/ptm/m/n/12 (+20) is the de-mo-graphic vari-ance ([]i.e., the in-tr
+in-sic de-mo- 
  []
 
-[6] [7]
-Overfull \hbox (0.22269pt too wide) in paragraph at lines 369--380
+[6]
+Overfull \hbox (0.19319pt too wide) in paragraph at lines 329--338
+\T1/ptm/m/n/12 (+3) cal pre-dic-tions will likely fail in com-mu-ni-ties where 
+species ex-hibit large fluc-tu-a-tions due to limit 
+ []
+
+[7]
+
+Package hyperref Warning: The anchor of a bookmark and its parent's must not
+(hyperref)                be the same. Added a new anchor on input line 381.
+
+[8]
+Overfull \hbox (0.22269pt too wide) in paragraph at lines 400--411
 \T1/ptm/m/n/12 (+6) cover, we cal-cu-lated com-mu-nity syn-chrony us-ing the me
 t-ric of Loreau and de Mazan-court (2008) 
  []
 
 
-Overfull \hbox (0.14368pt too wide) in paragraph at lines 397--423
+Overfull \hbox (0.22005pt too wide) in paragraph at lines 429--451
+[] []\T1/ptm/m/it/12 (+3) Fit-ting sta-tis-ti-cal mod-els.--[] \T1/ptm/m/n/12 (
++3) Vi-tal rate re-gres-sions are the build-ing blocks of our dy-namic mod-els:
+ 
+ []
+
+
+Overfull \hbox (0.14368pt too wide) in paragraph at lines 429--451
 \T1/ptm/m/n/12 (+6) proach of Chu and Adler (2015) to fit sta-tis-ti-cal mod-el
 s for sur-vival, growth, and re-cruit-ment (see 
  []
 
 
-Overfull \hbox (0.13214pt too wide) in paragraph at lines 397--423
+Overfull \hbox (0.13214pt too wide) in paragraph at lines 429--451
 \T1/ptm/m/n/12 (+13) size, tem-po-ral vari-a-tion among years, per-ma-nent spa-
 tial vari-a-tion among groups of quadrats, and 
  []
 
 
-Overfull \hbox (0.13126pt too wide) in paragraph at lines 397--423
+Overfull \hbox (0.13126pt too wide) in paragraph at lines 429--451
 \T1/ptm/m/n/12 (+12) and growth re-gres-sions us-ing INLA (Rue et al. 2014), a 
 sta-tis-ti-cal pack-age for fit-ting gen-er-al-ized 
  []
 
-
-Overfull \hbox (0.12717pt too wide) in paragraph at lines 397--423
-\T1/ptm/m/n/12 (+3) 95% cred-i-ble in-ter-vals for ran-dom year ef-fects on cro
-wd-ing broadly over-lapped zero and, in a test 
- []
-
-[8]
-Overfull \hbox (0.12799pt too wide) in paragraph at lines 439--457
-\T1/ptm/m/n/12 (+5) fea-ture of IBMs, but is eas-ily in-cluded since we fit yea
-r-specific tem-po-ral ran-dom ef-fects for each 
+[9] [10]
+Overfull \hbox (0.18088pt too wide) in paragraph at lines 490--497
+\T1/ptm/m/n/12 (+17) not in-clude de-mo-graphic stochas-tic-ity. Fol-low-ing Ch
+u and Adler (2015), we use a mean field ap- 
  []
 
 
-Overfull \hbox (0.14601pt too wide) in paragraph at lines 439--457
-\T1/ptm/m/n/12 (+2) choose a set of es-ti-mated sur-vival, growth, and re-cruit
--ment pa-ram-e-ters spe-cific to one ob-ser-va-tion 
- []
-
-[9]
-Overfull \hbox (0.18983pt too wide) in paragraph at lines 458--466
-\T1/ptm/m/n/12 (+6) spatial patterning to define the crowding index at each tim
-e step (Supporting Online Information). 
- []
-
-[10]
-Overfull \hbox (0.20062pt too wide) in paragraph at lines 492--512
-\T1/ptm/m/n/12 (+18) tic-ity re-moved; (6) IBM: In-ter-spe-cific in-ter-ac-tion
-s and en-vi-ron-men-tal stochas-tic-ity re-moved. We 
+Overfull \hbox (0.18567pt too wide) in paragraph at lines 500--521
+[] []\T1/ptm/m/it/12 (+20) Simulation experiments.--[] \T1/ptm/m/n/12 (+20) We 
+performed simulation experiments where drivers (environmental 
  []
 
 
-Overfull \hbox (0.10973pt too wide) in paragraph at lines 492--512
-\T1/ptm/m/n/12 (+2) species' per capita growth rates over 100 ran-domly se-lect
-ed con-tigu-ous 50 time-step sec-tions. We 
+Overfull \hbox (0.11504pt too wide) in paragraph at lines 500--521
+\T1/ptm/m/n/12 (+8) without interspecific competitors. To remove the effect of 
+a fluctuating environment, we removed 
+ []
+
+
+Overfull \hbox (0.18561pt too wide) in paragraph at lines 500--521
+\T1/ptm/m/n/12 (+11) include demographic stochasticity (demographic stochastici
+ty cannot be removed from the IBM). 
+ []
+
+
+Overfull \hbox (0.12862pt too wide) in paragraph at lines 500--521
+\T1/ptm/m/n/12 (+19) the IBM on areas (e.g. plots) of different size. Results f
+rom an IBM with infinite population size 
  []
 
 [11]
-Overfull \hbox (0.2008pt too wide) in paragraph at lines 528--541
-\T1/ptm/m/n/12 (+17) communities, species synchrony from IPM and IBM simulation
-s closely approximated observed 
+Overfull \hbox (0.20062pt too wide) in paragraph at lines 522--536
+\T1/ptm/m/n/12 (+18) tic-ity re-moved; (6) IBM: In-ter-spe-cific in-ter-ac-tion
+s and en-vi-ron-men-tal stochas-tic-ity re-moved. []We 
+ []
+
+[12]
+Overfull \hbox (0.1857pt too wide) in paragraph at lines 565--574
+\T1/ptm/m/n/12 (+12) 0.89 and synchrony of percent cover ranged from 0.15 to 0.
+92 (Table 2). Synchrony of per capita 
  []
 
 
-Overfull \hbox (0.12085pt too wide) in paragraph at lines 550--567
+Overfull \hbox (0.24474pt too wide) in paragraph at lines 565--574
+\T1/ptm/m/n/12 (+18) observed synchrony (Fig. S1). IBM-simulated synchrony is c
+onsistently, but only slightly, lower 
+ []
+
+[13]
+Overfull \hbox (0.19908pt too wide) in paragraph at lines 575--582
+[]\T1/ptm/m/n/12 (+9) Across the five communities, our limiting case prediction
+s closely matched synchrony from 
+ []
+
+
+Overfull \hbox (0.12085pt too wide) in paragraph at lines 583--594
 \T1/ptm/m/n/12 (+20) ico. Only in Idaho did re-mov-ing en-vi-ron-men-tal fluc-t
 u-a-tions cause an in-crease in syn-chrony (Fig. 
  []
 
-[12]
-Overfull \hbox (0.10933pt too wide) in paragraph at lines 581--587
-\T1/ptm/m/n/12 (+8) al-most per-fectly matched species syn-chrony in poly-cul-t
-ure (Fig. 3). Re-sults for syn-chrony of per- 
+
+Overfull \hbox (0.19678pt too wide) in paragraph at lines 595--603
+\T1/ptm/m/n/12 (+3) to in-crease slightly in all com-mu-ni-ties (Fig. 2), with 
+an av-er-age 6% in-crease over syn-chrony from 
  []
 
-
-Overfull \hbox (0.22424pt too wide) in paragraph at lines 590--611
+[14]
+Overfull \hbox (0.22424pt too wide) in paragraph at lines 625--646
 \T1/ptm/m/n/12 (+7) syn-chrony. We also found that anal-y-ses based on syn-chro
 ny of species' per-cent cover, rather than 
  []
 
 
-Overfull \hbox (0.12444pt too wide) in paragraph at lines 590--611
+Overfull \hbox (0.12444pt too wide) in paragraph at lines 625--646
 \T1/ptm/m/n/12 (+12) by the-ory (Loreau and de Mazan-court 2008). Ob-served syn
 -chrony of per capita growth rates was 
  []
 
-[13]
-Overfull \hbox (0.15779pt too wide) in paragraph at lines 615--628
-\T1/ptm/m/n/12 (+8) in-form our un-der-stand-ing of species syn-chrony even in 
-com-plex nat-u-ral com-mu-ni-ties, and al-lows 
+[15]
+
+Package hyperref Warning: The anchor of a bookmark and its parent's must not
+(hyperref)                be the same. Added a new anchor on input line 647.
+
+
+Overfull \hbox (0.20255pt too wide) in paragraph at lines 649--663
+\T1/ptm/m/n/12 (+13) from nat-u-ral plant com-mu-ni-ties (Ta-ble S1). Strong ag
+ree-ment be-tween our an-a-lyt-i-cal pre-dic-tions 
  []
 
-[14]
-Overfull \hbox (0.15123pt too wide) in paragraph at lines 649--664
+
+Overfull \hbox (0.21303pt too wide) in paragraph at lines 666--688
+\T1/ptm/m/n/12 (+3) (Fig. 2). In small populations, demographic stochasticity p
+artially counteracted the synchronizing 
+ []
+
+[16]
+Overfull \hbox (0.15123pt too wide) in paragraph at lines 689--704
 \T1/ptm/m/n/12 (+17) Loreau 2014, 2016), and our re-sults sug-gest that in-clud
 -ing de-mo-graphic stochas-tic-ity in the-o-ret-i- 
  []
 
-
-Overfull \hbox (0.1109pt too wide) in paragraph at lines 668--687
-\T1/ptm/m/n/12 (+1) and Adler 2015), and thus species in-ter-ac-tions are likel
-y to be weak, our re-sults may be gen-eral in 
- []
-
-[15]
-Overfull \hbox (0.23083pt too wide) in paragraph at lines 688--710
+[17]
+Overfull \hbox (0.23083pt too wide) in paragraph at lines 726--748
 \T1/ptm/m/n/12 (+10) same time, all the peren-nial grasses have neg-a-tive ef-f
 ects on each other for each vi-tal rate (Ta-bles 
  []
 
-[16]
-Overfull \hbox (0.18251pt too wide) in paragraph at lines 737--745
+[18]
+Overfull \hbox (0.18251pt too wide) in paragraph at lines 761--769
 \T1/ptm/m/n/12 (+2) interspecific interactions (Loreau and de Mazancourt 2008).
  We found that community synchrony 
  []
 
 
-Overfull \hbox (0.11134pt too wide) in paragraph at lines 746--758
+Overfull \hbox (0.11134pt too wide) in paragraph at lines 770--782
 \T1/ptm/m/n/12 (+18) but they do high-light the fact that in-ter-spe-cific com-
 pe-ti-tion must be rel-a-tively strong to in-flu-ence 
  []
 
 
-Overfull \hbox (0.17671pt too wide) in paragraph at lines 746--758
-\T1/ptm/m/n/12 (+12) mod-els (Lehman and Tilman 2000, Loreau and de Mazan-court
- 2013) both con-firm that the ef-fect 
- []
-
-[17]
-Overfull \hbox (0.17873pt too wide) in paragraph at lines 782--788
+Overfull \hbox (0.17873pt too wide) in paragraph at lines 783--789
 \T1/ptm/m/n/12 (+4) single trophic level communities. Species interactions almo
 st certainly play a strong role in multi- 
  []
 
-[18] [19] [20]
-Overfull \hbox (0.26154pt too wide) in paragraph at lines 848--851
+[19] [20]
+
+Package hyperref Warning: The anchor of a bookmark and its parent's must not
+(hyperref)                be the same. Added a new anchor on input line 826.
+
+
+Overfull \hbox (0.26154pt too wide) in paragraph at lines 840--843
 []\T1/ptm/m/n/12 (+14) Anderson, J., L. Vermeire, and P. B. Adler. 2011. Fourte
 en years of mapped, permanent quadrats 
  []
 
-
-Overfull \hbox (0.15477pt too wide) in paragraph at lines 876--879
+[21]
+Overfull \hbox (0.15477pt too wide) in paragraph at lines 872--875
 []\T1/ptm/m/n/12 (+17) Gonzalez, A., and M. Loreau. 2009. The Causes and Conseq
 uences of Compensatory Dynamics 
  []
 
-[21]
+[22]
 Overfull \hbox (0.15709pt too wide) in paragraph at lines 909--912
 []\T1/ptm/m/n/12 (+12) Hooper, D., F. Chapin III, and J. Ewel. 2005. Effects of
  biodiversity on ecosystem functioning: a 
  []
 
-[22]
-Overfull \hbox (0.1007pt too wide) in paragraph at lines 952--958
-[]\T1/ptm/m/n/12 (+15) McGill, B. J., R. S. Etienne, J. S. Gray, D. Alonso, M. 
-J. Anderson, H. K. Benecha, M. Dornelas, 
- []
-
-[23]
-Overfull \hbox (0.12411pt too wide) in paragraph at lines 980--983
-[]\T1/ptm/m/n/12 (+3) Rees, M., and S. P. Ellner. 2009. Integral projection mod
-els for populations in temporally varying 
- []
-
-[24]
-Overfull \hbox (0.1849pt too wide) in paragraph at lines 1038--1041
+[23] [24]
+Overfull \hbox (0.1849pt too wide) in paragraph at lines 1014--1017
 []\T1/ptm/m/n/12 (+6) Vasseur, D. A., and J. W. Fox. 2007. Environmental fluctu
 ations can stabilize food web dynamics 
  []
 
 [25] [26]
-LaTeX Font Info:    Try loading font information for TS1+ptm on input line 1084
+LaTeX Font Info:    Try loading font information for TS1+ptm on input line 1060
 .
  (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
 [27] [28]
-<./components/formatted_figures/formatted_figure1.png, id=217, 754.82pt x 300.1
-2125pt>
+Overfull \hbox (0.18393pt too wide) in paragraph at lines 1110--1111
+\T1/ptm/m/n/12 (+7) stochas-tic-ity re-moved (``No E.S.''), in-ter-spe-cific in
+-ter-ac-tions re-moved (``No Comp.''), in-ter-spe-cific 
+ []
+
+
+Overfull \hbox (0.15942pt too wide) in paragraph at lines 1110--1111
+\T1/ptm/m/n/12 (+18) ob-served and pre-dicted syn-chrony aligned with the model
+ sim-u-la-tion that cor-re-sponds with each 
+ []
+
+[29]
+<./components/formatted_figures/synchrony_flowchart_bw.png, id=209, 1814.78pt x
+ 1132.23pt>
+File: ./components/formatted_figures/synchrony_flowchart_bw.png Graphic file (t
+ype png)
+ <use ./components/formatted_figures/synchrony_flowchart_bw.png>
+Package pdftex.def Info: ./components/formatted_figures/synchrony_flowchart_bw.
+png used on input line 1121.
+(pdftex.def)             Requested size: 433.6177pt x 270.5314pt.
+
+[30 <./components/formatted_figures/synchrony_flowchart_bw.png>]
+<./components/formatted_figures/formatted_figure1.png, id=217, 3011.25pt x 1204
+.5pt>
 File: ./components/formatted_figures/formatted_figure1.png Graphic file (type p
 ng)
  <use ./components/formatted_figures/formatted_figure1.png>
 Package pdftex.def Info: ./components/formatted_figures/formatted_figure1.png u
-sed on input line 1135.
-(pdftex.def)             Requested size: 433.61502pt x 172.4081pt.
- [29 <./components/formatted_figures/formatted_figure1.png>]
-<./components/formatted_figures/formatted_figure2.png, id=225, 906.38625pt x 23
-3.87375pt>
+sed on input line 1129.
+(pdftex.def)             Requested size: 433.61049pt x 173.44418pt.
+ [31 <./components/formatted_figures/formatted_figure1.png>]
+<./components/formatted_figures/formatted_figure2.png, id=224, 3010.7682pt x 90
+3.375pt>
 File: ./components/formatted_figures/formatted_figure2.png Graphic file (type p
 ng)
  <use ./components/formatted_figures/formatted_figure2.png>
 Package pdftex.def Info: ./components/formatted_figures/formatted_figure2.png u
-sed on input line 1143.
-(pdftex.def)             Requested size: 433.6221pt x 111.88696pt.
- [30 <./components/formatted_figures/formatted_figure2.png>]
-<./components/formatted_figures/formatted_figure3.png, id=232, 496.85625pt x 44
-5.665pt>
-File: ./components/formatted_figures/formatted_figure3.png Graphic file (type p
-ng)
- <use ./components/formatted_figures/formatted_figure3.png>
-Package pdftex.def Info: ./components/formatted_figures/formatted_figure3.png u
-sed on input line 1151.
-(pdftex.def)             Requested size: 216.81305pt x 194.47473pt.
- [31 <./components/formatted_figures/formatted_figure3.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1155.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1155.
- (./ms_communitySynchrony.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1155.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1155.
+sed on input line 1137.
+(pdftex.def)             Requested size: 433.58705pt x 130.09692pt.
+ [32 <./components/formatted_figures/formatted_figure2.png (PNG copy)>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1145.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1145.
 
+(./ms_communitySynchrony.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1145.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1145.
 
+Package rerunfilecheck Info: File `ms_communitySynchrony.out' has not changed.
+(rerunfilecheck)             Checksum: 3074B2F5853CB5C2F4737D076055D8A8;3064.
 
-Package rerunfilecheck Warning: File `ms_communitySynchrony.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `ms_communitySynchrony.out':
-(rerunfilecheck)             Before: 1C28AC0E43C3ECE58288DDCCD094FFED;2722
-(rerunfilecheck)             After:  9AA1387A3D448E826B9D349EAE2FCB69;2722.
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1155.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1145.
  ) 
 Here is how much of TeX's memory you used:
- 23464 strings out of 493117
- 410160 string characters out of 6135433
- 484260 words of memory out of 5000000
- 26287 multiletter control sequences out of 15000+600000
- 64591 words of font info for 143 fonts, out of 8000000 for 9000
+ 23703 strings out of 493117
+ 413046 string characters out of 6135433
+ 488096 words of memory out of 5000000
+ 26523 multiletter control sequences out of 15000+600000
+ 70496 words of font info for 153 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,10n,56p,1212b,359s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,10n,56p,1211b,454s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/lo
 cal/texlive/2014/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/20
 14/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2014/texmf-d
@@ -1668,10 +1740,10 @@ c/lm/lmsy8.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/helvetic/uhv
 r8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></
 usr/local/texlive/2014/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/
 texlive/2014/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on ms_communitySynchrony.pdf (31 pages, 287255 bytes).
+Output written on ms_communitySynchrony.pdf (32 pages, 2611989 bytes).
 PDF statistics:
- 301 PDF objects out of 1000 (max. 8388607)
- 247 compressed objects within 3 object streams
- 64 named destinations out of 1000 (max. 500000)
- 26788 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 288 PDF objects out of 1000 (max. 8388607)
+ 235 compressed objects within 3 object streams
+ 47 named destinations out of 1000 (max. 500000)
+ 30900 words of extra memory for PDF output out of 35830 (max. 10000000)
 

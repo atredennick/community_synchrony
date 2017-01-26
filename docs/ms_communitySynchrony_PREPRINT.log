@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  5 JUL 2016 08:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  22 NOV 2016 06:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -9,8 +9,8 @@ LaTeX2e <2014/05/01>
 Babel <3.9k> and hyphenation patterns for 78 languages loaded.
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
-(/usr/local/texlive/2014/texmf-dist/tex/latex/base/size12.clo
-File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/base/size11.clo
+File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@section=\count80
@@ -1111,38 +1111,50 @@ Package: rotating 2009/03/28 v2.16a rotated objects in LaTeX
 \f@ncyO@olf=\skip67
 \f@ncyO@orf=\skip68
 )
+(/usr/local/texlive/2014/texmf-dist/tex/latex/titlesec/titlesec.sty
+Package: titlesec 2011/12/15 v2.10.0 Sectioning titles
+\ttl@box=\box44
+\beforetitleunit=\skip69
+\aftertitleunit=\skip70
+\ttl@plus=\dimen189
+\ttl@minus=\dimen190
+\ttl@toksa=\toks41
+\titlewidth=\dimen191
+\titlewidthlast=\dimen192
+\titlewidthfirst=\dimen193
+)
 (./ms_communitySynchrony_PREPRINT.aux)
 \openout1 = `ms_communitySynchrony_PREPRINT.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 84.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 84.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 88.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 88.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 84.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 88.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Info: Redefining \microtypecontext on input line 84.
+LaTeX Info: Redefining \microtypecontext on input line 88.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
@@ -1176,12 +1188,12 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 * \topmargin=-37.0pt
 * \headheight=12.0pt
 * \headsep=25.0pt
-* \topskip=12.0pt
+* \topskip=11.0pt
 * \footskip=30.0pt
-* \marginparwidth=44.0pt
+* \marginparwidth=59.0pt
 * \marginparsep=10.0pt
 * \columnsep=10.0pt
-* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -1191,8 +1203,8 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\AtBeginShipoutBox=\box44
-Package hyperref Info: Link coloring ON on input line 84.
+\AtBeginShipoutBox=\box45
+Package hyperref Info: Link coloring ON on input line 88.
 (/usr/local/texlive/2014/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
@@ -1201,9 +1213,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count149
 )
-LaTeX Info: Redefining \ref on input line 84.
-LaTeX Info: Redefining \pageref on input line 84.
-LaTeX Info: Redefining \nameref on input line 84.
+LaTeX Info: Redefining \ref on input line 88.
+LaTeX Info: Redefining \pageref on input line 88.
+LaTeX Info: Redefining \nameref on input line 88.
 
 (./ms_communitySynchrony_PREPRINT.out) (./ms_communitySynchrony_PREPRINT.out)
 \@outlinefile=\write4
@@ -1213,16 +1225,16 @@ LaTeX Info: Redefining \nameref on input line 84.
 (/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count150
-\scratchdimen=\dimen189
-\scratchbox=\box45
+\scratchdimen=\dimen194
+\scratchbox=\box46
 \nofMPsegments=\count151
 \nofMParguments=\count152
-\everyMPshowfont=\toks41
+\everyMPshowfont=\toks42
 \MPscratchCnt=\count153
-\MPscratchDim=\dimen190
+\MPscratchDim=\dimen195
 \MPnumerator=\count154
 \makeMPintoPDFobject=\count155
-\everyMPtoPDFconversion=\toks42
+\everyMPtoPDFconversion=\toks43
 ) ABD: EveryShipout initializing macros
 (/usr/local/texlive/2014/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
@@ -1239,35 +1251,37 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 98.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 105.
+
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 98.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 105.
+
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 98.
-
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 105
+.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 98.
-
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 105
+.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 98.
+(Font)              <10.95> on input line 105.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 98.
+(Font)              <8> on input line 105.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 98.
-LaTeX Font Info:    Try loading font information for U+msa on input line 98.
+(Font)              <6> on input line 105.
+LaTeX Font Info:    Try loading font information for U+msa on input line 105.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -1275,7 +1289,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/local/texlive/2014/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 98.
+LaTeX Font Info:    Try loading font information for U+msb on input line 105.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1283,20 +1297,16 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 (/usr/local/texlive/2014/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 98.
-
-(/usr/local/texlive/2014/texmf-dist/tex/latex/lm/ts1lmr.fd
-File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 98.
+(Font)              <10> on input line 109.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 98.
+(Font)              <7> on input line 109.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 98.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 102.
-LaTeX Font Info:    Try loading font information for T1+lmss on input line 149.
+(Font)              <5> on input line 109.
+Package microtype Info: Character `029' is missing
+(microtype)             in font `T1/lmr/m/sc/10.95'.
+(microtype)             Ignoring protrusion settings for this character.
+LaTeX Font Info:    Try loading font information for T1+lmss on input line 165.
 
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/t1lmss.fd
@@ -1309,7 +1319,7 @@ Package microtype Info: Loading generic settings for font family
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
+ Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
@@ -1318,227 +1328,284 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 ]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
+ Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
 [2]
 
+Package hyperref Warning: The anchor of a bookmark and its parent's must not
+(hyperref)                be the same. Added a new anchor on input line 257.
+
+
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
+ Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
 [3]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
+ Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
 [4]
 
+Package hyperref Warning: The anchor of a bookmark and its parent's must not
+(hyperref)                be the same. Added a new anchor on input line 354.
+
+
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
+ Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
 [5]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
+ Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
 [6]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
+ Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
 [7]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
+ Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
 [8]
 
+Package hyperref Warning: The anchor of a bookmark and its parent's must not
+(hyperref)                be the same. Added a new anchor on input line 620.
+
+
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
+ Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
 [9]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
+ Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
 [10]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
+ Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
 [11]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
+ Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
 [12]
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 810.
+
+ (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
+ Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
 [13]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
+ Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
 [14]
+<./components/formatted_figures/synchrony_flowchart_bw.png, id=160, 1814.78pt x
+ 1132.23pt>
+File: ./components/formatted_figures/synchrony_flowchart_bw.png Graphic file (t
+ype png)
+ <use ./components/formatted_figures/synchrony_flowchart_bw.png>
+Package pdftex.def Info: ./components/formatted_figures/synchrony_flowchart_bw.
+png used on input line 861.
+(pdftex.def)             Requested size: 433.62pt x 270.5314pt.
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
+ Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[15]
+[15 <./components/formatted_figures/synchrony_flowchart_bw.png>]
+<./components/formatted_figures/formatted_figure1.png, id=168, 3011.25pt x 1204
+.5pt>
+File: ./components/formatted_figures/formatted_figure1.png Graphic file (type p
+ng)
+ <use ./components/formatted_figures/formatted_figure1.png>
+Package pdftex.def Info: ./components/formatted_figures/formatted_figure1.png u
+sed on input line 869.
+(pdftex.def)             Requested size: 433.62pt x 173.44418pt.
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
+ Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[16]
+[16 <./components/formatted_figures/formatted_figure1.png>]
+<./components/formatted_figures/formatted_figure2.png, id=174, 3010.7682pt x 90
+3.375pt>
+File: ./components/formatted_figures/formatted_figure2.png Graphic file (type p
+ng)
+ <use ./components/formatted_figures/formatted_figure2.png>
+Package pdftex.def Info: ./components/formatted_figures/formatted_figure2.png u
+sed on input line 877.
+(pdftex.def)             Requested size: 433.62pt x 130.09692pt.
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
+ Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[17]
+[17 <./components/formatted_figures/formatted_figure2.png (PNG copy)>]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
+ Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
 [18]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
+ Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
 [19]
-<./components/formatted_figures/formatted_figure1.png, id=193, 751.80875pt x 29
-4.09875pt>
-File: ./components/formatted_figures/formatted_figure1.png Graphic file (type p
-ng)
- <use ./components/formatted_figures/formatted_figure1.png>
-Package pdftex.def Info: ./components/formatted_figures/formatted_figure1.png u
-sed on input line 1102.
-(pdftex.def)             Requested size: 433.62pt x 169.63051pt.
-
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
+ Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[20 <./components/formatted_figures/formatted_figure1.png>]
-<./components/formatted_figures/formatted_figure2.png, id=201, 894.34125pt x 22
-4.84pt>
-File: ./components/formatted_figures/formatted_figure2.png Graphic file (type p
-ng)
- <use ./components/formatted_figures/formatted_figure2.png>
-Package pdftex.def Info: ./components/formatted_figures/formatted_figure2.png u
-sed on input line 1110.
-(pdftex.def)             Requested size: 433.62pt x 109.01639pt.
-
+[20]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
+ Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[21 <./components/formatted_figures/formatted_figure2.png>]
-<./components/formatted_figures/formatted_figure3.png, id=208, 350.30875pt x 29
-8.11375pt>
-File: ./components/formatted_figures/formatted_figure3.png Graphic file (type p
-ng)
- <use ./components/formatted_figures/formatted_figure3.png>
-Package pdftex.def Info: ./components/formatted_figures/formatted_figure3.png u
-sed on input line 1118.
-(pdftex.def)             Requested size: 216.81pt x 184.5102pt.
+[21]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1106.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1106.
+ (./ms_communitySynchrony_PREPRINT.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1106.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1106.
 
 
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
 
-[22 <./components/formatted_figures/formatted_figure3.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1124.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1124.
+Package rerunfilecheck Warning: File `ms_communitySynchrony_PREPRINT.out' has c
+hanged.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
 
-(./ms_communitySynchrony_PREPRINT.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1124.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1124.
+Package rerunfilecheck Info: Checksums for `ms_communitySynchrony_PREPRINT.out'
+:
+(rerunfilecheck)             Before: AA750A1D840D11AE8A73851D0E2D3388;2852
+(rerunfilecheck)             After:  3B721324F62C10D366088463E7807929;2844.
 
-Package rerunfilecheck Info: File `ms_communitySynchrony_PREPRINT.out' has not 
-changed.
-(rerunfilecheck)             Checksum: 9AA1387A3D448E826B9D349EAE2FCB69;2722.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1124.
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1106.
  ) 
 Here is how much of TeX's memory you used:
- 23036 strings out of 493117
- 403990 string characters out of 6135433
- 478314 words of memory out of 5000000
- 25868 multiletter control sequences out of 15000+600000
- 91010 words of font info for 144 fonts, out of 8000000 for 9000
+ 23264 strings out of 493117
+ 406676 string characters out of 6135433
+ 482482 words of memory out of 5000000
+ 26088 multiletter control sequences out of 15000+600000
+ 83595 words of font info for 144 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,12n,56p,1248b,361s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exi
+ 62i,12n,56p,1220b,353s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{section*.22} has been referenced but does not exi
 st, replaced by a fixed one
 
-pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
+pdfTeX warning (dest): name{section*.21} has been referenced but does not exist
 , replaced by a fixed one
 
-{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/local/t
-exlive/2014/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/201
-4/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2014/texmf-dist/f
+pdfTeX warning (dest): name{section*.20} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{section*.19} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{section*.18} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{section*.17} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{section*.16} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{section*.15} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{section*.14} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{section*.13} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{section*.12} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{section*.6} has been referenced but does not exist,
+ replaced by a fixed one
+
+pdfTeX warning (dest): name{section*.5} has been referenced but does not exist,
+ replaced by a fixed one
+
+pdfTeX warning (dest): name{section*.4} has been referenced but does not exist,
+ replaced by a fixed one
+
+{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/te
+xlive/2014/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/local/texlive/2014/te
+xmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2014/texmf-dist/f
 onts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips
 /lm/lm-mathsy.enc}{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/lm/lm-mat
 hex.enc}</usr/local/texlive/2014/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></
 usr/local/texlive/2014/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/
-texlive/2014/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/20
-14/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></usr/local/texlive/2014/texmf-d
-ist/fonts/type1/public/lm/lmmi6.pfb></usr/local/texlive/2014/texmf-dist/fonts/t
-ype1/public/lm/lmmi8.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public
-/lm/lmr10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/lm/lmr12.p
-fb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/loc
-al/texlive/2014/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2
-014/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2014/texmf-
-dist/fonts/type1/public/lm/lmri12.pfb></usr/local/texlive/2014/texmf-dist/fonts
-/type1/public/lm/lmri8.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/publ
-ic/lm/lmss12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/lm/lmsy
-10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/lm/lmsy8.pfb>
-Output written on ms_communitySynchrony_PREPRINT.pdf (22 pages, 397430 bytes).
+texlive/2014/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/local/texlive/2
+014/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2014/texmf-
+dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2014/texmf-dist/fonts
+/type1/public/lm/lmmi6.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/publ
+ic/lm/lmmi8.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/lm/lmr10
+.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/l
+ocal/texlive/2014/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/local/texlive
+/2014/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2014/texm
+f-dist/fonts/type1/public/lm/lmri7.pfb></usr/local/texlive/2014/texmf-dist/font
+s/type1/public/lm/lmri9.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/pub
+lic/lm/lmss10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/lm/lms
+y10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/lm/lmsy8.pfb>
+Output written on ms_communitySynchrony_PREPRINT.pdf (21 pages, 2743512 bytes).
+
 PDF statistics:
- 293 PDF objects out of 1000 (max. 8388607)
- 244 compressed objects within 3 object streams
- 57 named destinations out of 1000 (max. 500000)
+ 273 PDF objects out of 1000 (max. 8388607)
+ 227 compressed objects within 3 object streams
+ 49 named destinations out of 1000 (max. 500000)
  22692 words of extra memory for PDF output out of 24883 (max. 10000000)
 
