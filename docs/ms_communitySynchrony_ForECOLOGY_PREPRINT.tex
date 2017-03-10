@@ -84,13 +84,14 @@
 \usepackage{todonotes}
 \usepackage{rotating}
 \usepackage{color, soul}
-\usepackage{times}
+%\usepackage{times}
 \usepackage[document]{ragged2e}
 \usepackage{titlesec}
 \titleformat{\section}{\normalsize\sc\centering}{\thesection}{1em}{}
 \titleformat{\subsection}{\normalsize\it\centering}{\thesubsection}{1em}{}
 \titleformat*{\paragraph}{\normalsize\it}
-
+ \usepackage{bm,mathrsfs}
+  \usepackage{mathptmx} 
 
 \begin{document}
 
@@ -104,7 +105,7 @@
 
 
 \begin{center}
-\large{\textbf{Environmental responses, not species interactions, determine synchrony of dominant species in semiarid grasslands}}
+\Large{Environmental responses, not species interactions, determine synchrony of dominant species in semiarid grasslands}
 
 \renewcommand*{\thefootnote}{\fnsymbol{footnote}}
 
@@ -134,7 +135,7 @@
 Here, we refine and test theory showing that synchrony depends on three factors: species responses to environmental variation, interspecific interactions, and demographic stochasticity. We then conduct simulation experiments with empirical population models to quantify the relative influence of these factors on the synchrony of dominant species in five semiarid grasslands.
 We found that the average synchrony of per capita growth rates, which can range from 0 (perfect asynchrony) to 1 (perfect synchrony), was higher when environmental variation was present (0.62) rather than absent (0.43).
 Removing interspecific interactions and demographic stochasticity had small effects on synchrony. 
-For the dominant species in these plant communities, where species interactions and demographic stochasticity have little influence, synchrony reflects the covariance in species responses to the environment.
+For the dominant species in these plant communities, where species interactions and demographic stochasticity have little influence, synchrony reflects the covariance in species' responses to the environment.
 
 \vspace{1em}
 
@@ -279,7 +280,7 @@ community with all factors operating simultaneously. However, we can
 derive analytical predictions for species synchrony under special
 limiting cases. The limiting case predictions we derive serve as
 baselines to help us interpret results from empirically-based
-simulations (described below). We focus on synchrony of per capita
+simulations (see \textsc{Empirical Analysis}). We focus on synchrony of per capita
 growth rates, rather than abundances, because growth rates represent the
 instantaneous response of species to the environment and competition,
 and are less susceptible to the legacy effects of drift and disturbance
@@ -443,7 +444,7 @@ from 0 at perfect asynchrony to 1 at perfect synchrony (Loreau and {{de
 Mazancourt}} 2008). We use the same equation to calculate observed
 synchrony of species' percent cover, which we present to relate our
 results to previous findings, even though we focus on synchrony of
-growth rates in our model simulations (see below).
+growth rates in our model simulations (see \emph{Simulation experiments}).
 
 \paragraph{Fitting statistical
 models.--}\label{fitting-statistical-models.}
@@ -468,7 +469,7 @@ statistical package for fitting generalized linear mixed effects models
 via approximate Bayesian inference (Rue et al. 2009), in R (R Core Team
 2013). Spatial (quadrat groupings) variation was treated as a random
 effect on the intercept and temporal (interannual) variation was treated
-as random effects on the intercept and the effect of genet size in the
+as random effects on both the intercept and the effect of genet size in the
 previous year (Appendix S1).
 
 Interspecific and intraspecific crowding, which represent species interactions, can be included as fixed effects or as random effects that vary each year.
@@ -692,7 +693,7 @@ approximation required for analytical predictions is a stronger
 assumption for abundance than growth rates, especially given relatively
 short time-series (Appendix S1). Thus, our results provide further
 evidence that it is difficult to decipher mechanisms of species
-synchrony from abundance time series, as expected by theory (Loreau and
+synchrony from abundance time series, as predicted by theory (Loreau and
 {{de Mazancourt}} 2008). Observed synchrony of per capita growth rates
 was positively correlated with the variability of percent cover across
 our focal communities, which confirms that we are investigating an
@@ -865,7 +866,10 @@ Subtle differences among dominant species ultimately determine ecosystem stabili
 This work was funded by the National Science Foundation through a
 Postdoctoral Research Fellowship in Biology to ATT (DBI-1400370) and a
 CAREER award to PBA (DEB-1054040). CdM and ML were supported by the
-TULIP Laboratory of Excellence (ANR-10-LABX-41). We thank the original
+TULIP Laboratory of Excellence (ANR-10-LABX-41) and by the BIOSTASES 
+Advanced Grant, funded by the European Research Council under the European 
+Union's Horizon 2020 research and innovation programme (grant agreement No 666971).
+We thank the original
 mappers of the permanent quadrats at each site and the digitizers in the
 Adler lab, without whom this work would not have been possible. Compute,
 storage, and other resources from the Division of Research Computing in
@@ -1002,15 +1006,12 @@ Mutshinda, C. M., R. B. O'Hara, and I. P. Woiwod. 2009. What drives
 community dynamics? Proceedings of the Royal Society B: Biological
 Sciences 276:2923--2929.
 
-Plummer, M. 2003. JAGS: A Program for Analysis of Bayesian Graphical
-Models Using Gibbs Sampling. Pages 20--22 \emph{in} Proceedings of the
-3rd international workshop on distributed statistical computing (dSC
-2003). march.
+Plummer, M. 2003. JAGS: a program for analysis of Bayesian graphical models using Gibbs sampling. Proceedings of the Third International Workshop on Distributed Statistical Computing, 20?22 March 2003, Vienna, Austria. http://www.r-project.org/conferences/DSC-2003/Proceedings/Plummer.pdf
 
-Plummer, M. 2014. rjags: Bayesian graphical models using MCMC.
+Plummer, M. 2014. rjags: Bayesian graphical models using MCMC. R package version 4-6. http://cran.r-project.org/package=rjags
 
 R Core Team. 2013. R: A language and environment for statistical
-computing.
+computing. https://www.r-project.org/
 
 Ranta, E., V. Kaitala, M. S. Fowler, J. Laakso, L. Ruokolainen, and R.
 O'Hara. 2008. Detecting compensatory dynamics in competitive communities
@@ -1037,7 +1038,7 @@ Approximations. Journal of the Royal Statistical Society, Series B
 Rue, H., S. Martino, F. Lindgren, D. Simpson, A. Riebler, and E.
 Teixeira. 2014. INLA: Functions which allow to perform full Bayesian
 analysis of latent Gaussian models using Integrated Nested Laplace
-Approximaxion.
+Approximaxion. R package version 0.0-1483776432. http://www.r-inla.org/home.
 
 Sasaki, T., and W. K. Lauenroth. 2011. Dominant species, rather than
 diversity, regulates temporal stability of plant communities. Oecologia
@@ -1054,7 +1055,7 @@ and stability of herbivorous fishes on coral reefs. Ecology 93:891--901.
 
 Tilman, D. 1988. Plant strategies and the dynamics and structure of
 plant communities. Plant strategies and the dynamics and structure of
-plant communities.:360 pp.
+plant communities. Princeton University Press, Princeton, New Jersey.
 
 Tilman, D., P. B. Reich, and J. M. H. Knops. 2006. Biodiversity and
 ecosystem stability in a decade-long grassland experiment. Nature
@@ -1078,7 +1079,7 @@ Venail, P. A., M. A. Alexandrou, T. H. Oakley, and B. J. Cardinale.
 2013. Shared ancestry influences community stability by altering
 competitive interactions: evidence from a laboratory microcosm
 experiment using freshwater green algae. Proceedings of the Royal
-Society of London B: Biological Sciences 280.
+Society of London B: Biological Sciences 280:20131548.
 
 Vitousek, P. M., H. a Mooney, J. Lubchenco, and J. M. Melillo. 1997.
 Human Domination of Earth' s Ecosystems. Science 277:494--499.
@@ -1087,7 +1088,7 @@ Wang, S., and M. Loreau. 2014. Ecosystem stability in space: \(\alpha\),
 \(\beta\) and \(\gamma\) variability. Ecology Letters 17:891--901.
 
 Wang, S., and M. Loreau. 2016. Biodiversity and ecosystem stability
-across scales in metacommunities. Ecology Letters.
+across scales in metacommunities. Ecology Letters 19:510--518.
 
 Yachi, S., and M. Loreau. 1999. Biodiversity and ecosystem productivity
 in a fluctuating environment: the insurance hypothesis. Proceedings of
